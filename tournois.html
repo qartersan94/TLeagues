@@ -637,12 +637,7 @@
             <div class="filter-group">
                 <label>Jeu</label>
                 <select id="gameFilter" onchange="filterTournaments()">
-                    <option value="">Tous les jeux</option>
                     <option value="lol">League of Legends</option>
-                    <option value="valorant">Valorant</option>
-                    <option value="csgo">CS:GO</option>
-                    <option value="fortnite">Fortnite</option>
-                    <option value="fifa">FIFA</option>
                 </select>
             </div>
             
@@ -704,7 +699,275 @@
                         </div>
                         <div class="info-item">
                             <span class="info-label">Participants</span>
-                            <span class="info-value">64/128</span>
+                            <span class="info-value">128/128</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Format</span>
+                            <span class="info-value">Simple Élim.</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Équipes</span>
+                            <span class="info-value">5v5</span>
+                        </div>
+                    </div>
+                    <div class="tournament-prize">
+                        <div class="prize-label">Prize Pool</div>
+                        <div class="prize-amount">30,000€</div>
+                    </div>
+                    <div class="tournament-actions">
+                        <button class="btn btn-primary" onclick="viewResults(6)">Résultats</button>
+                        <button class="btn btn-secondary" onclick="viewTournament(6)">Détails</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- List View -->
+        <div class="tournaments-list" id="tournamentsList">
+            <div class="tournament-row">
+                <div class="tournament-icon">⚔️</div>
+                <div class="tournament-details">
+                    <h3>LoL Winter Championship</h3>
+                    <div class="tournament-meta">League of Legends • 15 Jan 2026 • 64/128 participants</div>
+                </div>
+                <div><span class="tournament-status status-open">Ouvert</span></div>
+                <div style="text-align: center;">
+                    <div style="font-size: 24px; font-weight: bold; color: var(--red);">50,000€</div>
+                    <div style="font-size: 12px; color: var(--text-gray);">Prize Pool</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 16px; font-weight: bold;">Simple Élim.</div>
+                    <div style="font-size: 12px; color: var(--text-gray);">5v5</div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-primary">S'inscrire</button>
+                    <button class="btn btn-secondary">Détails</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Tournament Modal -->
+    <div id="createModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Créer un Tournoi</h2>
+                <span class="modal-close" onclick="closeCreateModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="createTournament(event)">
+                    <div class="form-group">
+                        <label>Nom du Tournoi *</label>
+                        <input type="text" required placeholder="Ex: Valorant Winter Championship">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Jeu *</label>
+                            <select required>
+                                <option value="lol" selected>League of Legends</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Format *</label>
+                            <select required>
+                                <option value="">Sélectionner un format</option>
+                                <option value="single">Simple Élimination</option>
+                                <option value="double">Double Élimination</option>
+                                <option value="roundrobin">Round Robin</option>
+                                <option value="swiss">Swiss System</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date de Début *</label>
+                            <input type="datetime-local" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Date de Fin *</label>
+                            <input type="datetime-local" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nombre Max de Participants *</label>
+                            <input type="number" required min="4" max="1024" value="64">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Prize Pool (€) *</label>
+                            <input type="number" required min="0" value="0">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Mode de Jeu *</label>
+                            <select required>
+                                <option value="">Sélectionner un mode</option>
+                                <option value="solo">Solo (1v1)</option>
+                                <option value="team" selected>Équipe (5v5)</option>
+                                <option value="custom">Personnalisé</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Région *</label>
+                            <select required>
+                                <option value="">Sélectionner une région</option>
+                                <option value="eu">Europe</option>
+                                <option value="na">Amérique du Nord</option>
+                                <option value="sa">Amérique du Sud</option>
+                                <option value="asia">Asie</option>
+                                <option value="oce">Océanie</option>
+                                <option value="global">Global</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea placeholder="Décrivez votre tournoi, règles spéciales, informations importantes..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Règlement (URL)</label>
+                        <input type="url" placeholder="https://example.com/reglement.pdf">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Frais d'Inscription (€)</label>
+                            <input type="number" min="0" value="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Niveau Minimum</label>
+                            <select>
+                                <option value="all">Tous Niveaux</option>
+                                <option value="bronze">Bronze+</option>
+                                <option value="silver">Silver+</option>
+                                <option value="gold">Gold+</option>
+                                <option value="platinum">Platinum+</option>
+                                <option value="diamond">Diamond+</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px; margin-top: 10px;">
+                        Créer le Tournoi
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Switch between grid and list view
+        function switchView(view) {
+            const gridView = document.getElementById('tournamentsGrid');
+            const listView = document.getElementById('tournamentsList');
+            const viewBtns = document.querySelectorAll('.view-btn');
+            
+            viewBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (view === 'grid') {
+                gridView.style.display = 'grid';
+                listView.classList.remove('active');
+            } else {
+                gridView.style.display = 'none';
+                listView.classList.add('active');
+            }
+        }
+
+        // Filter tournaments
+        function filterTournaments() {
+            const gameFilter = document.getElementById('gameFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            const prizeFilter = document.getElementById('prizeFilter').value;
+            const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
+            
+            const cards = document.querySelectorAll('.tournament-card');
+            
+            cards.forEach(card => {
+                const game = card.getAttribute('data-game');
+                const status = card.getAttribute('data-status');
+                const prize = parseInt(card.getAttribute('data-prize'));
+                const title = card.querySelector('.tournament-title').textContent.toLowerCase();
+                
+                let showCard = true;
+                
+                if (gameFilter && game !== gameFilter) showCard = false;
+                if (statusFilter && status !== statusFilter) showCard = false;
+                
+                if (prizeFilter) {
+                    if (prizeFilter === 'low' && prize > 5000) showCard = false;
+                    if (prizeFilter === 'medium' && (prize < 5000 || prize > 50000)) showCard = false;
+                    if (prizeFilter === 'high' && prize < 50000) showCard = false;
+                }
+                
+                if (searchFilter && !title.includes(searchFilter)) showCard = false;
+                
+                card.style.display = showCard ? 'block' : 'none';
+            });
+        }
+
+        // Reset filters
+        function resetFilters() {
+            document.getElementById('gameFilter').value = '';
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('prizeFilter').value = '';
+            document.getElementById('searchFilter').value = '';
+            filterTournaments();
+        }
+
+        // Modal functions
+        function openCreateModal() {
+            document.getElementById('createModal').classList.add('active');
+        }
+
+        function closeCreateModal() {
+            document.getElementById('createModal').classList.remove('active');
+        }
+
+        function createTournament(e) {
+            e.preventDefault();
+            alert('Tournoi créé avec succès ! (Fonctionnalité de démonstration)');
+            closeCreateModal();
+        }
+
+        function registerTournament(id) {
+            alert(`Inscription au tournoi #${id} (Fonctionnalité de démonstration)`);
+        }
+
+        function viewTournament(id) {
+            alert(`Affichage des détails du tournoi #${id} (Fonctionnalité de démonstration)`);
+        }
+
+        function watchLive(id) {
+            alert(`Redirection vers le stream du tournoi #${id} (Fonctionnalité de démonstration)`);
+        }
+
+        function viewResults(id) {
+            alert(`Affichage des résultats du tournoi #${id} (Fonctionnalité de démonstration)`);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('createModal');
+            if (event.target === modal) {
+                closeCreateModal();
+            }
+        }
+    </script>
+</body>
+</html>="info-value">64/128</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Format</span>
@@ -763,14 +1026,14 @@
                 </div>
             </div>
 
-            <div class="tournament-card" data-game="csgo" data-status="upcoming" data-prize="75000">
+            <div class="tournament-card" data-game="lol" data-status="upcoming" data-prize="75000">
                 <div class="tournament-banner">
-                    🔫
+                    🏆
                     <span class="tournament-status status-upcoming">Bientôt</span>
                 </div>
                 <div class="tournament-content">
-                    <div class="tournament-game">CS:GO</div>
-                    <h3 class="tournament-title">CS:GO Major Qualifier</h3>
+                    <div class="tournament-game">League of Legends</div>
+                    <h3 class="tournament-title">LoL Major Qualifier</h3>
                     <div class="tournament-info">
                         <div class="info-item">
                             <span class="info-label">Date</span>
@@ -800,14 +1063,14 @@
                 </div>
             </div>
 
-            <div class="tournament-card" data-game="fortnite" data-status="open" data-prize="25000">
+            <div class="tournament-card" data-game="lol" data-status="open" data-prize="25000">
                 <div class="tournament-banner">
-                    🏰
+                    🎮
                     <span class="tournament-status status-open">Ouvert</span>
                 </div>
                 <div class="tournament-content">
-                    <div class="tournament-game">Fortnite</div>
-                    <h3 class="tournament-title">Fortnite Battle Royale Cup</h3>
+                    <div class="tournament-game">League of Legends</div>
+                    <h3 class="tournament-title">LoL Clash Tournament</h3>
                     <div class="tournament-info">
                         <div class="info-item">
                             <span class="info-label">Date</span>
@@ -819,11 +1082,11 @@
                         </div>
                         <div class="info-item">
                             <span class="info-label">Format</span>
-                            <span class="info-value">Battle Royale</span>
+                            <span class="info-value">Double Élim.</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">Mode</span>
-                            <span class="info-value">Solo</span>
+                            <span class="info-label">Équipes</span>
+                            <span class="info-value">5v5</span>
                         </div>
                     </div>
                     <div class="tournament-prize">
@@ -837,14 +1100,14 @@
                 </div>
             </div>
 
-            <div class="tournament-card" data-game="fifa" data-status="open" data-prize="10000">
+            <div class="tournament-card" data-game="lol" data-status="open" data-prize="10000">
                 <div class="tournament-banner">
-                    ⚽
+                    ⭐
                     <span class="tournament-status status-open">Ouvert</span>
                 </div>
                 <div class="tournament-content">
-                    <div class="tournament-game">FIFA</div>
-                    <h3 class="tournament-title">FIFA 24 Ultimate Tournament</h3>
+                    <div class="tournament-game">League of Legends</div>
+                    <h3 class="tournament-title">LoL Rookie Challenge</h3>
                     <div class="tournament-info">
                         <div class="info-item">
                             <span class="info-label">Date</span>
@@ -859,8 +1122,8 @@
                             <span class="info-value">Simple Élim.</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">Mode</span>
-                            <span class="info-value">1v1</span>
+                            <span class="info-label">Équipes</span>
+                            <span class="info-value">5v5</span>
                         </div>
                     </div>
                     <div class="tournament-prize">
@@ -874,14 +1137,14 @@
                 </div>
             </div>
 
-            <div class="tournament-card" data-game="valorant" data-status="closed" data-prize="30000">
+            <div class="tournament-card" data-game="lol" data-status="closed" data-prize="30000">
                 <div class="tournament-banner">
-                    🏆
+                    🥇
                     <span class="tournament-status status-closed">Terminé</span>
                 </div>
                 <div class="tournament-content">
-                    <div class="tournament-game">Valorant</div>
-                    <h3 class="tournament-title">Valorant Masters Finals</h3>
+                    <div class="tournament-game">League of Legends</div>
+                    <h3 class="tournament-title">LoL Masters Finals</h3>
                     <div class="tournament-info">
                         <div class="info-item">
                             <span class="info-label">Date</span>
