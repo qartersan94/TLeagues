@@ -603,21 +603,40 @@
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">TLeagues</div>
-            <div class="user-profile">
-                <div class="user-avatar">🔥</div>
-                <div class="user-info">
-                    <div class="user-name">DarkSlayer47</div>
-                    <div class="user-rank">
-                        <span class="rank-badge">Master I</span>
-                        <span>2,847 LP</span>
-                    </div>
+  <!-- Sidebar -->
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <a href="index.html" class="logo">TLeagues</a>
+
+        <div class="user-profile">
+            <div class="user-avatar">🔥</div>
+            <div class="user-info">
+                <div class="user-name">DarkSlayer47</div>
+                <div class="user-rank">
+                    <span class="rank-badge">Master I</span>
+                    <span>2,847 LP</span>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Ici tu peux ajouter la navigation -->
+    <nav class="sidebar-nav">
+        <div class="nav-section">
+            <div class="nav-section-title">Principal</div>
+            <div class="nav-item active" onclick="switchSection('overview')">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">Vue d'Ensemble</span>
+            </div>
+            <div class="nav-item" onclick="switchSection('profile')">
+                <span class="nav-icon">👤</span>
+                <span class="nav-text">Mon Profil</span>
+            </div>
+        </div>
+        <!-- Ajoute les autres sections ici -->
+    </nav>
+</aside>
+
 
         <nav class="sidebar-nav">
             <div class="nav-section">
