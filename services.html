@@ -1,1 +1,841 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - TLeagues</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --red: #ff0000;
+            --red-dark: #cc0000;
+            --red-glow: rgba(255, 0, 0, 0.3);
+            --black: #0a0a0a;
+            --black-light: #1a1a1a;
+            --gray: #2a2a2a;
+            --white: #ffffff;
+            --text-gray: #b0b0b0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            padding-top: 80px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px var(--red-glow);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a.active,
+        .nav-links a:hover {
+            color: var(--red);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--red);
+            transition: width 0.3s;
+        }
+
+        .nav-links a.active::after,
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--gray) 100%);
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
+            top: -300px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.8; transform: translateX(-50%) scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-gray);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Services Grid */
+        .services {
+            max-width: 1400px;
+            margin: 80px auto;
+            padding: 0 40px;
+        }
+
+        .section-title {
+            font-size: 42px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: var(--black-light);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            padding: 40px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--red-dark) 0%, var(--red) 100%);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--red);
+            box-shadow: 0 20px 40px var(--red-glow);
+        }
+
+        .service-icon {
+            font-size: 64px;
+            margin-bottom: 25px;
+        }
+
+        .service-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .service-desc {
+            color: var(--text-gray);
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .service-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            color: var(--text-gray);
+        }
+
+        .service-features li:before {
+            content: '✓';
+            color: var(--red);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: var(--black-light);
+            padding: 80px 40px;
+            margin: 80px 0;
+        }
+
+        .pricing-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: var(--gray);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--red);
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px var(--red-glow);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--red);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--red);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .pricing-name {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .pricing-desc {
+            color: var(--text-gray);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .pricing-price {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--red);
+            margin-bottom: 10px;
+        }
+
+        .pricing-price span {
+            font-size: 20px;
+            color: var(--text-gray);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            color: var(--text-gray);
+        }
+
+        .pricing-features li:before {
+            content: '✓';
+            color: var(--red);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--red-dark);
+            box-shadow: 0 5px 20px var(--red-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--red);
+            border: 2px solid var(--red);
+        }
+
+        .btn-secondary:hover {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        /* FAQ Section */
+        .faq {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 0 40px;
+        }
+
+        .faq-item {
+            background: var(--black-light);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: var(--red);
+        }
+
+        .faq-question {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .faq-question:hover {
+            background: var(--gray);
+        }
+
+        .faq-icon {
+            font-size: 24px;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+            padding: 0 25px;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 25px 25px;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--black-light);
+            padding: 80px 40px;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gray);
+            border: 2px solid var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .contact-details h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-details p {
+            color: var(--text-gray);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 15px;
+            background: var(--gray);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            color: var(--white);
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--red);
+            box-shadow: 0 0 10px var(--red-glow);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .services-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">TLeagues</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="tournois.html">Tournois</a></li>
+                <li><a href="leagues.html">Ligues</a></li>
+                <li><a href="cups.html">Coupes</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Nos Services</h1>
+            <p>Découvrez notre plateforme complète dédiée aux compétitions League of Legends. De l'inscription à la victoire, nous gérons tout pour vous offrir la meilleure expérience esports.</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <h2 class="section-title">Ce que nous offrons</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🎮</div>
+                <h3 class="service-title">Organisation de Tournois</h3>
+                <p class="service-desc">Nous créons et gérons des tournois professionnels League of Legends avec des brackets équilibrés, des règles claires et un suivi en temps réel.</p>
+                <ul class="service-features">
+                    <li>Brackets automatisés et équilibrés</li>
+                    <li>Système anti-triche et monitoring</li>
+                    <li>Streaming et replay des matchs</li>
+                    <li>Support technique 24/7</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🏆</div>
+                <h3 class="service-title">Ligues Compétitives</h3>
+                <p class="service-desc">Participez à nos ligues saisonnières avec système de classement, divisions et récompenses pour les meilleurs joueurs.</p>
+                <ul class="service-features">
+                    <li>6 divisions (Bronze à Master)</li>
+                    <li>Classement ELO avancé</li>
+                    <li>Récompenses de fin de saison</li>
+                    <li>Matchmaking équitable</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">💰</div>
+                <h3 class="service-title">Prize Pools Garantis</h3>
+                <p class="service-desc">Des récompenses conséquentes pour tous nos tournois avec paiements rapides et sécurisés via nos partenaires de confiance.</p>
+                <ul class="service-features">
+                    <li>Prize pools jusqu'à 100,000€</li>
+                    <li>Paiements rapides (72h max)</li>
+                    <li>Multiples méthodes de paiement</li>
+                    <li>Transparence totale</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3 class="service-title">Statistiques Avancées</h3>
+                <p class="service-desc">Suivez vos performances avec des stats détaillées, graphiques d'évolution et analyses de gameplay.</p>
+                <ul class="service-features">
+                    <li>Dashboard personnel complet</li>
+                    <li>Historique des matchs</li>
+                    <li>Comparaison avec d'autres joueurs</li>
+                    <li>Conseils d'amélioration</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">👥</div>
+                <h3 class="service-title">Gestion d'Équipes</h3>
+                <p class="service-desc">Créez votre équipe, recrutez des joueurs, gérez votre roster et participez aux compétitions en équipe.</p>
+                <ul class="service-features">
+                    <li>Système de recrutement intégré</li>
+                    <li>Communication d'équipe</li>
+                    <li>Calendrier des matchs</li>
+                    <li>Statistiques d'équipe</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎥</div>
+                <h3 class="service-title">Streaming & VOD</h3>
+                <p class="service-desc">Tous les matchs importants sont streamés en direct avec commentateurs professionnels et VOD disponibles.</p>
+                <ul class="service-features">
+                    <li>Streaming HD en direct</li>
+                    <li>Commentateurs expérimentés</li>
+                    <li>Replays illimités</li>
+                    <li>Clips des meilleurs moments</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing">
+        <div class="section-title" style="color: var(--white);">Formules d'Inscription</div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-name">Free</div>
+                <div class="pricing-desc">Pour découvrir la plateforme</div>
+                <div class="pricing-price">0€<span>/mois</span></div>
+                <ul class="pricing-features">
+                    <li>Accès aux tournois gratuits</li>
+                    <li>Profil joueur basique</li>
+                    <li>Statistiques limitées</li>
+                    <li>Support communautaire</li>
+                </ul>
+                <button class="btn btn-secondary">S'inscrire Gratuitement</button>
+            </div>
+
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Populaire</div>
+                <div class="pricing-name">Premium</div>
+                <div class="pricing-desc">Pour les joueurs sérieux</div>
+                <div class="pricing-price">9.99€<span>/mois</span></div>
+                <ul class="pricing-features">
+                    <li>Accès illimité aux tournois</li>
+                    <li>Profil joueur avancé</li>
+                    <li>Statistiques complètes</li>
+                    <li>Support prioritaire</li>
+                    <li>Badge Premium visible</li>
+                    <li>Réductions sur les Prize Pools</li>
+                </ul>
+                <button class="btn btn-primary">Devenir Premium</button>
+            </div>
+
+            <div class="pricing-card">
+                <div class="pricing-name">Pro Team</div>
+                <div class="pricing-desc">Pour les équipes compétitives</div>
+                <div class="pricing-price">49.99€<span>/mois</span></div>
+                <ul class="pricing-features">
+                    <li>Tous les avantages Premium</li>
+                    <li>Gestion d'équipe complète</li>
+                    <li>Analyse de performance d'équipe</li>
+                    <li>Coach virtuel IA</li>
+                    <li>Tournois privés d'équipe</li>
+                    <li>Sponsoring visibility</li>
+                </ul>
+                <button class="btn btn-secondary">Contacter l'Équipe</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <h2 class="section-title">Questions Fréquentes</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Comment m'inscrire à un tournoi ?</span>
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Pour vous inscrire à un tournoi, créez d'abord un compte sur TLeagues. Ensuite, rendez-vous dans la section Tournois, sélectionnez le tournoi qui vous intéresse et cliquez sur "S'inscrire". Assurez-vous de remplir tous les critères requis (niveau, région, etc.).
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Quand sont versés les prize pools ?</span>
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Les prize pools sont versés dans un délai maximum de 72 heures après la fin du tournoi. Nous vérifions d'abord tous les résultats et l'absence de triche, puis nous procédons au paiement via la méthode de votre choix (PayPal, virement bancaire, crypto).
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Puis-je créer mon propre tournoi ?</span>
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Les tournois sont organisés exclusivement par TLeagues pour garantir la qualité, l'équité et la sécurité. Cependant, si vous représentez une organisation ou une équipe, contactez-nous pour discuter d'un partenariat potentiel.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Comment fonctionne le système de ranking ?</span>
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Notre système de ranking utilise un algorithme ELO avancé qui prend en compte vos victoires, défaites, performances individuelles et la force de vos adversaires. Vous gagnez ou perdez des points après chaque match, ce qui détermine votre division (Bronze à Master).
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Y a-t-il un système anti-triche ?</span>
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Absolument. Nous utilisons des outils de monitoring en temps réel, des analyses de replay et une équipe de modérateurs expérimentés. Toute tentative de triche est sanctionnée par un ban permanent et l'annulation des gains.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Puis-je annuler mon inscription Premium ?</span>
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Oui, vous pouvez annuler votre abonnement Premium à tout moment depuis votre profil. L'abonnement reste actif jusqu'à la fin de la période payée, sans renouvellement automatique si vous annulez.
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <h2 class="section-title" style="color: var(--white); margin-bottom: 60px;">Contactez-nous</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-details">
+                        <h3>Email</h3>
+                        <p>contact@tleagues.gg</p>
+                        <p>support@tleagues.gg</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">💬</div>
+                    <div class="contact-details">
+                        <h3>Discord</h3>
+                        <p>Rejoignez notre communauté</p>
+                        <p>discord.gg/tleagues</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">🐦</div>
+                    <div class="contact-details">
+                        <h3>Réseaux Sociaux</h3>
+                        <p>Twitter: @TLeagues</p>
+                        <p>Twitch: twitch.tv/tleagues</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">⏰</div>
+                    <div class="contact-details">
+                        <h3>Support</h3>
+                        <p>Disponible 24/7</p>
+                        <p>Réponse sous 24h</p>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form" onsubmit="submitContact(event)">
+                <div class="form-group">
+                    <label>Nom *</label>
+                    <input type="text" required placeholder="Votre nom complet">
+                </div>
+
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" required placeholder="votre@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label>Sujet *</label>
+                    <input type="text" required placeholder="Objet de votre message">
+                </div>
+
+                <div class="form-group">
+                    <label>Message *</label>
+                    <textarea required placeholder="Décrivez votre demande en détail..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Envoyer le Message</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        function toggleFaq(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        function submitContact(e) {
+            e.preventDefault();
+            alert('Message envoyé avec succès ! Nous vous répondrons dans les 24h. (Fonctionnalité de démonstration)');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
