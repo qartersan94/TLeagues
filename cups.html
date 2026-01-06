@@ -1,1 +1,958 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coupes - TLeagues</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --red: #ff0000;
+            --red-dark: #cc0000;
+            --red-glow: rgba(255, 0, 0, 0.3);
+            --black: #0a0a0a;
+            --black-light: #1a1a1a;
+            --gray: #2a2a2a;
+            --white: #ffffff;
+            --text-gray: #b0b0b0;
+            --gold: #ffd700;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            padding-top: 80px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px var(--red-glow);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a.active,
+        .nav-links a:hover {
+            color: var(--red);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--red);
+            transition: width 0.3s;
+        }
+
+        .nav-links a.active::after,
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--gray) 100%);
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '🏆';
+            position: absolute;
+            font-size: 300px;
+            opacity: 0.05;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: var(--text-gray);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Cup Selector */
+        .cup-selector {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        .selector-container {
+            background: var(--black-light);
+            padding: 30px;
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .selector-container label {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-gray);
+        }
+
+        .selector-container select {
+            flex: 1;
+            padding: 15px;
+            background: var(--gray);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            color: var(--white);
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .selector-container select:focus {
+            outline: none;
+            border-color: var(--red);
+            box-shadow: 0 0 10px var(--red-glow);
+        }
+
+        /* Cup Info Banner */
+        .cup-info {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 100%);
+            padding: 30px;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 30px;
+            box-shadow: 0 10px 40px var(--red-glow);
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .info-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Bracket Container */
+        .bracket-section {
+            max-width: 1600px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        .bracket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .bracket-title {
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .bracket-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .bracket-tab {
+            padding: 10px 20px;
+            background: var(--gray);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .bracket-tab:hover,
+        .bracket-tab.active {
+            background: var(--red);
+            border-color: var(--red);
+        }
+
+        /* Bracket Visualization */
+        .bracket-container {
+            background: var(--black-light);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            padding: 40px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .bracket {
+            display: flex;
+            gap: 80px;
+            min-width: max-content;
+            padding: 20px;
+        }
+
+        .round {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            min-width: 250px;
+            gap: 20px;
+        }
+
+        .round-header {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--red);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--red);
+        }
+
+        .match {
+            background: var(--gray);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .match:hover {
+            border-color: var(--red);
+            box-shadow: 0 5px 20px var(--red-glow);
+            transform: translateX(5px);
+        }
+
+        .match-header {
+            background: var(--black-light);
+            padding: 10px 15px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .match-live {
+            color: var(--red);
+            font-weight: bold;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.5; }
+        }
+
+        .team {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .team:last-child {
+            border-bottom: none;
+        }
+
+        .team:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .team.winner {
+            background: rgba(255, 0, 0, 0.2);
+            font-weight: bold;
+        }
+
+        .team-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .team-logo {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            border: 2px solid var(--red);
+        }
+
+        .team-name {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .team-seed {
+            font-size: 11px;
+            color: var(--text-gray);
+            margin-left: 8px;
+        }
+
+        .team-score {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--red);
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .team.winner .team-score {
+            color: var(--gold);
+        }
+
+        .tbd {
+            color: var(--text-gray);
+            font-style: italic;
+        }
+
+        /* Finals Section */
+        .finals {
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 0 40px;
+        }
+
+        .finals-match {
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--gray) 100%);
+            border: 3px solid var(--red);
+            padding: 40px;
+            box-shadow: 0 20px 60px var(--red-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .finals-match::before {
+            content: '👑';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.05;
+            top: 50%;
+            right: -50px;
+            transform: translateY(-50%);
+        }
+
+        .finals-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .finals-title {
+            font-size: 36px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .finals-prize {
+            font-size: 24px;
+            color: var(--red);
+            font-weight: bold;
+        }
+
+        .finals-teams {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .finals-team {
+            background: var(--black-light);
+            padding: 30px;
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .finals-team:hover {
+            border-color: var(--red);
+            transform: scale(1.05);
+        }
+
+        .finals-team.winner {
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .finals-team-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            border: 3px solid var(--red);
+            margin: 0 auto 20px;
+        }
+
+        .finals-team-name {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .finals-team-score {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--red);
+        }
+
+        .finals-team.winner .finals-team-score {
+            color: var(--gold);
+        }
+
+        .finals-vs {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--red);
+            text-transform: uppercase;
+        }
+
+        /* Upcoming Cups */
+        .upcoming-cups {
+            max-width: 1400px;
+            margin: 80px auto;
+            padding: 0 40px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .cups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .cup-card {
+            background: var(--black-light);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            padding: 30px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .cup-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--red-dark) 0%, var(--red) 100%);
+        }
+
+        .cup-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--red);
+            box-shadow: 0 20px 40px var(--red-glow);
+        }
+
+        .cup-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .cup-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .cup-details {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .cup-details div {
+            margin-bottom: 8px;
+        }
+
+        .cup-prize-display {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid var(--red);
+            margin-bottom: 20px;
+        }
+
+        .cup-prize-amount {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--red);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--red-dark);
+            box-shadow: 0 5px 20px var(--red-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .info-card {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .bracket {
+                gap: 40px;
+            }
+            
+            .round {
+                min-width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .info-card {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .finals-teams {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .finals-vs {
+                transform: rotate(90deg);
+            }
+            
+            .cups-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">TLeagues</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="tournois.html">Tournois</a></li>
+                <li><a href="leagues.html">Ligues</a></li>
+                <li><a href="cups.html" class="active">Coupes</a></li>
+                <li><a href="services.html">Services</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Coupes League of Legends</h1>
+        <p>Suivez les brackets en direct et découvrez les champions de nos coupes compétitives</p>
+    </div>
+
+    <!-- Cup Selector -->
+    <div class="cup-selector">
+        <div class="selector-container">
+            <label>Sélectionner une Coupe :</label>
+            <select onchange="loadCup(this.value)">
+                <option value="winter">LoL Winter Cup 2026</option>
+                <option value="champions">LoL Champions Cup</option>
+                <option value="masters">LoL Masters Cup Finals</option>
+                <option value="rookie">LoL Rookie Cup</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Cup Info -->
+    <div class="cup-info">
+        <div class="info-card">
+            <div class="info-item">
+                <div class="info-label">Date</div>
+                <div class="info-value">15 Jan 2026</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Prize Pool</div>
+                <div class="info-value">75,000€</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Équipes</div>
+                <div class="info-value">64</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Format</div>
+                <div class="info-value">Double Élim.</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Statut</div>
+                <div class="info-value">En cours</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bracket Section -->
+    <div class="bracket-section">
+        <div class="bracket-header">
+            <div class="bracket-title">Bracket Principal</div>
+            <div class="bracket-tabs">
+                <button class="bracket-tab active">Winners Bracket</button>
+                <button class="bracket-tab">Losers Bracket</button>
+                <button class="bracket-tab">Grande Finale</button>
+            </div>
+        </div>
+
+        <div class="bracket-container">
+            <div class="bracket">
+                <!-- Round of 16 -->
+                <div class="round">
+                    <div class="round-header">Huitièmes</div>
+                    
+                    <div class="match">
+                        <div class="match-header">
+                            <span>Match #1</span>
+                            <span class="match-live">● LIVE</span>
+                        </div>
+                        <div class="team winner">
+                            <div class="team-info">
+                                <div class="team-logo">🔥</div>
+                                <div>
+                                    <div class="team-name">Team Phoenix</div>
+                                    <span class="team-seed">#1 Seed</span>
+                                </div>
+                            </div>
+                            <div class="team-score">2</div>
+                        </div>
+                        <div class="team">
+                            <div class="team-info">
+                                <div class="team-logo">⚡</div>
+                                <div>
+                                    <div class="team-name">Thunder Squad</div>
+                                    <span class="team-seed">#16 Seed</span>
+                                </div>
+                            </div>
+                            <div class="team-score">0</div>
+                        </div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">
+                            <span>Match #2</span>
+                        </div>
+                        <div class="team winner">
+                            <div class="team-info">
+                                <div class="team-logo">🐉</div>
+                                <div>
+                                    <div class="team-name">Red Dragons</div>
+                                    <span class="team-seed">#8 Seed</span>
+                                </div>
+                            </div>
+                            <div class="team-score">2</div>
+                        </div>
+                        <div class="team">
+                            <div class="team-info">
+                                <div class="team-logo">🌟</div>
+                                <div>
+                                    <div class="team-name">Star Guardians</div>
+                                    <span class="team-seed">#9 Seed</span>
+                                </div>
+                            </div>
+                            <div class="team-score">1</div>
+                        </div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">
+                            <span>Match #3</span>
+                        </div>
+                        <div class="team winner">
+                            <div class="team-info">
+                                <div class="team-logo">❄️</div>
+                                <div>
+                                    <div class="team-name">Frost Wolves</div>
+                                    <span class="team-seed">#4 Seed</span>
+                                </div>
+                            </div>
+                            <div class="team-score">2</div>
+                        </div>
+                        <div class="team">
+                            <div class="team-info">
+                                <div class="team-logo">🛡️</div>
+                                <div>
+                                    <div class="team-name">Iron Legion</div>
+                                    <span class="team-seed">#13 Seed</span>
+                                </div>
+                            </div>
+                            <div class="team-score">0</div>
+                        </div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">
+                            <span>Match #4</span>
+                        </div>
+                        <div class="team winner">
+                            <div class="team-info">
+                                <div class="team-logo">⚔️</div>
+                                <div>
+                                    <div class="team-name">Dark Slayers</div>
+                                    <span class="team-seed">#5 Seed</span>
+                                </div>
+                            </div>
+                            <div class="team-score">2</div>
+                        </div>
+                        <div class="team">
+                            <div class="team-info">
+                                <div class="team-logo">🌙</div>
+                                <div>
+                                    <div class="team-name">Night Raiders</div>
+                                    <span class="team-seed">#12 Seed</span>
+                                </div>
+                            </div>
+                            <div class="team-score">1</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quarter Finals -->
+                <div class="round">
+                    <div class="round-header">Quarts</div>
+                    
+                    <div class="match">
+                        <div class="match-header">
+                            <span>Match #9</span>
+                        </div>
+                        <div class="team winner">
+                            <div class="team-info">
+                                <div class="team-logo">🔥</div>
+                                <div class="team-name">Team Phoenix</div>
+                            </div>
+                            <div class="team-score">2</div>
+                        </div>
+                        <div class="team">
+                            <div class="team-info">
+                                <div class="team-logo">🐉</div>
+                                <div class="team-name">Red Dragons</div>
+                            </div>
+                            <div class="team-score">1</div>
+                        </div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">
+                            <span>Match #10</span>
+                            <span>14 Jan - 18:00</span>
+                        </div>
+                        <div class="team">
+                            <div class="team-info">
+                                <div class="team-logo">❄️</div>
+                                <div class="team-name">Frost Wolves</div>
+                            </div>
+                            <div class="team-score">-</div>
+                        </div>
+                        <div class="team">
+                            <div class="team-info">
+                                <div class="team-logo">⚔️</div>
+                                <div class="team-name">Dark Slayers</div>
+                            </div>
+                            <div class="team-score">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semi Finals -->
+                <div class="round">
+                    <div class="round-header">Demi-Finales</div>
+                    
+                    <div class="match">
+                        <div class="match-header">
+                            <span>Match #13</span>
+                            <span>15 Jan - 20:00</span>
+                        </div>
+                        <div class="team winner">
+                            <div class="team-info">
+                                <div class="team-logo">🔥</div>
+                                <div class="team-name">Team Phoenix</div>
+                            </div>
+                            <div class="team-score">-</div>
+                        </div>
+                        <div class="team tbd">
+                            <div class="team-info">
+                                <div class="team-logo">?</div>
+                                <div class="team-name">TBD</div>
+                            </div>
+                            <div class="team-score">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Finals -->
+                <div class="round">
+                    <div class="round-header">Grande Finale</div>
+                    
+                    <div class="match">
+                        <div class="match-header">
+                            <span>FINALE</span>
+                            <span>16 Jan - 20:00</span>
+                        </div>
+                        <div class="team tbd">
+                            <div class="team-info">
+                                <div class="team-logo">?</div>
+                                <div class="team-name">Finaliste 1</div>
+                            </div>
+                            <div class="team-score">-</div>
+                        </div>
+                        <div class="team tbd">
+                            <div class="team-info">
+                                <div class="team-logo">?</div>
+                                <div class="team-name">Finaliste 2</div>
+                            </div>
+                            <div class="team-score">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Finals Showcase -->
+    <div class="finals">
+        <div class="finals-match">
+            <div class="finals-header">
+                <div class="finals-title">🏆 Grande Finale 🏆</div>
+                <div class="finals-prize">Prize Pool: 75,000€</div>
+            </div>
+            <div class="finals-teams">
+                <div class="finals-team">
+                    <div class="finals-team-logo">?</div>
+                    <div class="finals-team-name">Finaliste 1</div>
+                    <div class="finals-team-score">-</div>
+                </div>
+                <div class="finals-vs">VS</div>
+                <div class="finals-team">
+                    <div class="finals-team-logo">?</div>
+                    <div class="finals-team-name">Finaliste 2</div>
+                    <div class="finals-team-score">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Cups -->
+    <div class="upcoming-cups">
+        <h2 class="section-title">Prochaines Coupes
