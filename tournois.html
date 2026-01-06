@@ -677,7 +677,9 @@
             <button class="view-btn active" onclick="switchView('grid')">⊞</button>
             <button class="view-btn" onclick="switchView('list')">☰</button>
         </div>
-        <button class="btn btn-primary" onclick="openCreateModal()">+ Créer un Tournoi</button>
+        <div style="color: var(--text-gray); font-size: 14px; font-style: italic;">
+            Tournois organisés exclusivement par TLeagues
+        </div>
     </div>
 
     <!-- Tournaments Grid View -->
@@ -747,126 +749,7 @@
         </div>
     </div>
 
-    <!-- Create Tournament Modal -->
-    <div id="createModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Créer un Tournoi</h2>
-                <span class="modal-close" onclick="closeCreateModal()">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form onsubmit="createTournament(event)">
-                    <div class="form-group">
-                        <label>Nom du Tournoi *</label>
-                        <input type="text" required placeholder="Ex: Valorant Winter Championship">
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Jeu *</label>
-                            <select required>
-                                <option value="lol" selected>League of Legends</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Format *</label>
-                            <select required>
-                                <option value="">Sélectionner un format</option>
-                                <option value="single">Simple Élimination</option>
-                                <option value="double">Double Élimination</option>
-                                <option value="roundrobin">Round Robin</option>
-                                <option value="swiss">Swiss System</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Date de Début *</label>
-                            <input type="datetime-local" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Date de Fin *</label>
-                            <input type="datetime-local" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Nombre Max de Participants *</label>
-                            <input type="number" required min="4" max="1024" value="64">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Prize Pool (€) *</label>
-                            <input type="number" required min="0" value="0">
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Mode de Jeu *</label>
-                            <select required>
-                                <option value="">Sélectionner un mode</option>
-                                <option value="solo">Solo (1v1)</option>
-                                <option value="team" selected>Équipe (5v5)</option>
-                                <option value="custom">Personnalisé</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Région *</label>
-                            <select required>
-                                <option value="">Sélectionner une région</option>
-                                <option value="eu">Europe</option>
-                                <option value="na">Amérique du Nord</option>
-                                <option value="sa">Amérique du Sud</option>
-                                <option value="asia">Asie</option>
-                                <option value="oce">Océanie</option>
-                                <option value="global">Global</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea placeholder="Décrivez votre tournoi, règles spéciales, informations importantes..."></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Règlement (URL)</label>
-                        <input type="url" placeholder="https://example.com/reglement.pdf">
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Frais d'Inscription (€)</label>
-                            <input type="number" min="0" value="0">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Niveau Minimum</label>
-                            <select>
-                                <option value="all">Tous Niveaux</option>
-                                <option value="bronze">Bronze+</option>
-                                <option value="silver">Silver+</option>
-                                <option value="gold">Gold+</option>
-                                <option value="platinum">Platinum+</option>
-                                <option value="diamond">Diamond+</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px; margin-top: 10px;">
-                        Créer le Tournoi
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
+    <script>
     <script>
         // Switch between grid and list view
         function switchView(view) {
@@ -920,28 +803,14 @@
 
         // Reset filters
         function resetFilters() {
-            document.getElementById('gameFilter').value = '';
+            document.getElementById('gameFilter').value = 'lol';
             document.getElementById('statusFilter').value = '';
             document.getElementById('prizeFilter').value = '';
             document.getElementById('searchFilter').value = '';
             filterTournaments();
         }
 
-        // Modal functions
-        function openCreateModal() {
-            document.getElementById('createModal').classList.add('active');
-        }
-
-        function closeCreateModal() {
-            document.getElementById('createModal').classList.remove('active');
-        }
-
-        function createTournament(e) {
-            e.preventDefault();
-            alert('Tournoi créé avec succès ! (Fonctionnalité de démonstration)');
-            closeCreateModal();
-        }
-
+        // Tournament actions
         function registerTournament(id) {
             alert(`Inscription au tournoi #${id} (Fonctionnalité de démonstration)`);
         }
@@ -956,14 +825,6 @@
 
         function viewResults(id) {
             alert(`Affichage des résultats du tournoi #${id} (Fonctionnalité de démonstration)`);
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('createModal');
-            if (event.target === modal) {
-                closeCreateModal();
-            }
         }
     </script>
 </body>
