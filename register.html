@@ -363,6 +363,11 @@
         const auth = getAuth(app);
         const googleProvider = new GoogleAuthProvider();
 
+        // Set persistence to LOCAL by default
+        setPersistence(auth, browserLocalPersistence).catch((error) => {
+            console.error('Erreur de persistance:', error);
+        });
+
         const registerForm = document.getElementById('registerForm');
         const registerBtn = document.getElementById('registerBtn');
         const googleBtn = document.getElementById('googleBtn');
@@ -390,7 +395,6 @@
             googleBtn.textContent = 'Inscription avec Google...';
 
             try {
-                await setPersistence(auth, browserLocalPersistence);
                 const result = await signInWithPopup(auth, googleProvider);
                 showSuccess('✓ Inscription réussie avec Google ! Redirection...');
                 
@@ -473,7 +477,6 @@
             registerBtn.textContent = 'Création en cours...';
 
             try {
-                await setPersistence(auth, browserLocalPersistence);
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 
                 await updateProfile(userCredential.user, {
