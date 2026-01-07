@@ -21,7 +21,6 @@
             --white: #ffffff;
             --text-gray: #b0b0b0;
             --green: #00ff00;
-            --blue: #00bfff;
             --gold: #ffd700;
         }
 
@@ -33,7 +32,6 @@
             min-height: 100vh;
         }
 
-        /* Sidebar */
         .sidebar {
             width: 280px;
             background: var(--black-light);
@@ -59,6 +57,12 @@
             text-shadow: 0 0 20px var(--red-glow);
             margin-bottom: 20px;
             text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .user-profile {
@@ -169,7 +173,6 @@
             font-weight: bold;
         }
 
-        /* Main Content */
         .main-content {
             flex: 1;
             margin-left: 280px;
@@ -177,7 +180,6 @@
             flex-direction: column;
         }
 
-        /* Top Bar */
         .topbar {
             background: var(--black-light);
             border-bottom: 2px solid rgba(255, 0, 0, 0.2);
@@ -221,22 +223,12 @@
             box-shadow: 0 3px 15px var(--red-glow);
         }
 
-        /* Content */
         .content {
             flex: 1;
             padding: 40px;
             overflow-y: auto;
         }
 
-        .content-section {
-            display: none;
-        }
-
-        .content-section.active {
-            display: block;
-        }
-
-        /* Stats Cards */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -283,14 +275,7 @@
         .stat-trend {
             font-size: 12px;
             font-weight: bold;
-        }
-
-        .stat-trend.up {
             color: var(--green);
-        }
-
-        .stat-trend.down {
-            color: var(--red);
         }
 
         .stat-value {
@@ -307,7 +292,6 @@
             letter-spacing: 1px;
         }
 
-        /* Grid Layouts */
         .grid-2 {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -319,10 +303,8 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
-            margin-bottom: 30px;
         }
 
-        /* Card Container */
         .card {
             background: var(--black-light);
             border: 2px solid rgba(255, 0, 0, 0.2);
@@ -362,7 +344,6 @@
             text-decoration: underline;
         }
 
-        /* Match Card */
         .match-card {
             background: var(--gray);
             padding: 20px;
@@ -418,13 +399,6 @@
             color: var(--text-gray);
         }
 
-        .match-score {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--red);
-        }
-
-        /* Team Members List */
         .member-list {
             display: flex;
             flex-direction: column;
@@ -481,7 +455,6 @@
             background: var(--text-gray);
         }
 
-        /* Progress Bar */
         .progress-container {
             margin-bottom: 20px;
         }
@@ -509,78 +482,10 @@
             box-shadow: 0 0 10px var(--red-glow);
         }
 
-        /* Table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        thead {
-            background: var(--gray);
-        }
-
-        th {
-            padding: 15px;
-            text-align: left;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-gray);
-            font-weight: 600;
-        }
-
-        tbody tr {
-            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
-            transition: all 0.3s;
-        }
-
-        tbody tr:hover {
-            background: var(--gray);
-        }
-
-        td {
-            padding: 15px;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background: var(--red);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background: var(--red-dark);
-            box-shadow: 0 3px 15px var(--red-glow);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--red);
-            border: 2px solid var(--red);
-        }
-
-        .btn-secondary:hover {
-            background: var(--red);
-            color: var(--white);
-        }
-
-        /* Responsive */
         @media (max-width: 1024px) {
-            .stats-grid,
-            .grid-3 {
+            .stats-grid, .grid-3 {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
             .grid-2 {
                 grid-template-columns: 1fr;
             }
@@ -590,20 +495,16 @@
             .sidebar {
                 transform: translateX(-100%);
             }
-
             .main-content {
                 margin-left: 0;
             }
-
-            .stats-grid,
-            .grid-3 {
+            .stats-grid, .grid-3 {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <a href="index.html" style="text-decoration: none;">
@@ -701,13 +602,11 @@
         </nav>
     </aside>
 
-    <!-- Main Content -->
     <main class="main-content">
-        <!-- Top Bar -->
         <div class="topbar">
             <div class="topbar-left">
                 <h1>Bienvenue, DarkSlayer47 !</h1>
-                <p>Aujourd'hui : Mardi 06 Janvier 2026</p>
+                <p>Aujourd'hui : Mardi 07 Janvier 2026</p>
             </div>
             <div class="topbar-actions">
                 <button class="topbar-btn" onclick="alert('Recherche de match...')">🎮 Trouver un Match</button>
@@ -715,261 +614,229 @@
             </div>
         </div>
 
-        <!-- Content -->
         <div class="content">
-            <!-- Overview Section -->
-            <div id="overview" class="content-section active">
-                <!-- Stats Grid -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon">🏆</div>
-                            <div class="stat-trend up">↑ 12%</div>
-                        </div>
-                        <div class="stat-value">187</div>
-                        <div class="stat-label">Victoires</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-trend">↑ 12%</div>
                     </div>
-
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon">📊</div>
-                            <div class="stat-trend up">↑ 5%</div>
-                        </div>
-                        <div class="stat-value">78.2%</div>
-                        <div class="stat-label">Winrate</div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon">⚔️</div>
-                            <div class="stat-trend up">↑ 45</div>
-                        </div>
-                        <div class="stat-value">2,847</div>
-                        <div class="stat-label">League Points</div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon">🔥</div>
-                            <div class="stat-trend up">↑ 2</div>
-                        </div>
-                        <div class="stat-value">7</div>
-                        <div class="stat-label">Win Streak</div>
-                    </div>
+                    <div class="stat-value">187</div>
+                    <div class="stat-label">Victoires</div>
                 </div>
 
-                <!-- Main Grid -->
-                <div class="grid-2">
-                    <!-- Upcoming Matches -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Prochains Matchs</div>
-                            <div class="card-action" onclick="alert('Voir tous les matchs')">Voir Tout →</div>
-                        </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-trend">↑ 5%</div>
+                    </div>
+                    <div class="stat-value">78.2%</div>
+                    <div class="stat-label">Winrate</div>
+                </div>
 
-                        <div class="match-card">
-                            <div class="match-header">
-                                <span>🏆 LoL Winter Cup - Demi-finale</span>
-                                <span>Aujourd'hui - 20:00</span>
-                            </div>
-                            <div class="match-teams">
-                                <div class="match-team">
-                                    <div class="match-team-logo">🔥</div>
-                                    <div>
-                                        <div class="match-team-name">Team Phoenix</div>
-                                        <div style="font-size: 12px; color: var(--text-gray);">Vous</div>
-                                    </div>
-                                </div>
-                                <div class="match-vs">VS</div>
-                                <div class="match-team">
-                                    <div class="match-team-logo">❄️</div>
-                                    <div>
-                                        <div class="match-team-name">Frost Wolves</div>
-                                        <div style="font-size: 12px; color: var(--text-gray);">#4 Seed</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">⚔️</div>
+                        <div class="stat-trend">↑ 45</div>
+                    </div>
+                    <div class="stat-value">2,847</div>
+                    <div class="stat-label">League Points</div>
+                </div>
 
-                        <div class="match-card">
-                            <div class="match-header">
-                                <span>⚔️ Pro League S1 - J12</span>
-                                <span>07 Jan - 18:00</span>
-                            </div>
-                            <div class="match-teams">
-                                <div class="match-team">
-                                    <div class="match-team-logo">🔥</div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-trend">↑ 2</div>
+                    </div>
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">Win Streak</div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Prochains Matchs</div>
+                        <div class="card-action" onclick="alert('Voir tous les matchs')">Voir Tout →</div>
+                    </div>
+
+                    <div class="match-card">
+                        <div class="match-header">
+                            <span>🏆 LoL Winter Cup - Demi-finale</span>
+                            <span>Aujourd'hui - 20:00</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="match-team">
+                                <div class="match-team-logo">🔥</div>
+                                <div>
                                     <div class="match-team-name">Team Phoenix</div>
-                                </div>
-                                <div class="match-vs">VS</div>
-                                <div class="match-team">
-                                    <div class="match-team-logo">🐉</div>
-                                    <div class="match-team-name">Red Dragons</div>
+                                    <div style="font-size: 12px; color: var(--text-gray);">Vous</div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="match-card">
-                            <div class="match-header">
-                                <span>⚔️ Pro League S1 - J13</span>
-                                <span>09 Jan - 20:00</span>
-                            </div>
-                            <div class="match-teams">
-                                <div class="match-team">
-                                    <div class="match-team-logo">🔥</div>
-                                    <div class="match-team-name">Team Phoenix</div>
-                                </div>
-                                <div class="match-vs">VS</div>
-                                <div class="match-team">
-                                    <div class="match-team-logo">⚡</div>
-                                    <div class="match-team-name">Storm Elite</div>
+                            <div class="match-vs">VS</div>
+                            <div class="match-team">
+                                <div class="match-team-logo">❄️</div>
+                                <div>
+                                    <div class="match-team-name">Frost Wolves</div>
+                                    <div style="font-size: 12px; color: var(--text-gray);">#4 Seed</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Team Overview -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Mon Équipe</div>
-                            <div class="card-action" onclick="alert('Gérer l\'équipe')">Gérer →</div>
+                    <div class="match-card">
+                        <div class="match-header">
+                            <span>⚔️ Pro League S1 - J12</span>
+                            <span>07 Jan - 18:00</span>
                         </div>
-
-                        <div style="text-align: center; margin-bottom: 25px;">
-                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; border: 3px solid var(--red); margin: 0 auto 15px;">🔥</div>
-                            <h3 style="font-size: 24px; margin-bottom: 5px;">Team Phoenix</h3>
-                            <p style="color: var(--text-gray);">Rang #1 Master Division</p>
+                        <div class="match-teams">
+                            <div class="match-team">
+                                <div class="match-team-logo">🔥</div>
+                                <div class="match-team-name">Team Phoenix</div>
+                            </div>
+                            <div class="match-vs">VS</div>
+                            <div class="match-team">
+                                <div class="match-team-logo">🐉</div>
+                                <div class="match-team-name">Red Dragons</div>
+                            </div>
                         </div>
+                    </div>
 
-                        <div class="member-list">
-                            <div class="member-item">
-                                <div class="member-avatar">🔥</div>
-                                <div class="member-info">
-                                    <div class="member-name">DarkSlayer47</div>
-                                    <div class="member-role">ADC • Capitaine</div>
-                                </div>
-                                <div class="member-status"></div>
+                    <div class="match-card">
+                        <div class="match-header">
+                            <span>⚔️ Pro League S1 - J13</span>
+                            <span>09 Jan - 20:00</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="match-team">
+                                <div class="match-team-logo">🔥</div>
+                                <div class="match-team-name">Team Phoenix</div>
                             </div>
-
-                            <div class="member-item">
-                                <div class="member-avatar">⚡</div>
-                                <div class="member-info">
-                                    <div class="member-name">ThunderStrike</div>
-                                    <div class="member-role">Top Lane</div>
-                                </div>
-                                <div class="member-status"></div>
-                            </div>
-
-                            <div class="member-item">
-                                <div class="member-avatar">🌟</div>
-                                <div class="member-info">
-                                    <div class="member-name">StarLight99</div>
-                                    <div class="member-role">Mid Lane</div>
-                                </div>
-                                <div class="member-status offline"></div>
-                            </div>
-
-                            <div class="member-item">
-                                <div class="member-avatar">🛡️</div>
-                                <div class="member-info">
-                                    <div class="member-name">IronShield</div>
-                                    <div class="member-role">Support</div>
-                                </div>
-                                <div class="member-status"></div>
-                            </div>
-
-                            <div class="member-item">
-                                <div class="member-avatar">🌲</div>
-                                <div class="member-info">
-                                    <div class="member-name">ForestKing</div>
-                                    <div class="member-role">Jungle</div>
-                                </div>
-                                <div class="member-status"></div>
+                            <div class="match-vs">VS</div>
+                            <div class="match-team">
+                                <div class="match-team-logo">⚡</div>
+                                <div class="match-team-name">Storm Elite</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Performance Section -->
-                <div class="grid-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Objectifs de Saison</div>
-                        </div>
-                        
-                        <div class="progress-container">
-                            <div class="progress-header">
-                                <span>Tournois Gagnés (5/10)</span>
-                                <span>50%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 50%"></div>
-                            </div>
-                        </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Mon Équipe</div>
+                        <div class="card-action" onclick="alert('Gérer l\'équipe')">Gérer →</div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Derniers Résultats</div>
-                        </div>
-                        <div style="display: flex; gap: 10px; justify-content: center;">
-                            <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
-                            <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
-                            <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
-                            <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
-                            <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
-                            <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
-                            <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
-                        </div>
+                    <div style="text-align: center; margin-bottom: 25px;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; border: 3px solid var(--red); margin: 0 auto 15px;">🔥</div>
+                        <h3 style="font-size: 24px; margin-bottom: 5px;">Team Phoenix</h3>
+                        <p style="color: var(--text-gray);">Rang #1 Master Division</p>
                     </div>
 
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Récompenses</div>
+                    <div class="member-list">
+                        <div class="member-item">
+                            <div class="member-avatar">🔥</div>
+                            <div class="member-info">
+                                <div class="member-name">DarkSlayer47</div>
+                                <div class="member-role">ADC • Capitaine</div>
+                            </div>
+                            <div class="member-status"></div>
                         </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 64px; margin-bottom: 10px;">🏆</div>
-                            <div style="font-size: 24px; font-weight: bold; color: var(--gold); margin-bottom: 5px;">Champion</div>
-                            <div style="color: var(--text-gray);">LoL Masters Cup Finals</div>
+
+                        <div class="member-item">
+                            <div class="member-avatar">⚡</div>
+                            <div class="member-info">
+                                <div class="member-name">ThunderStrike</div>
+                                <div class="member-role">Top Lane</div>
+                            </div>
+                            <div class="member-status"></div>
+                        </div>
+
+                        <div class="member-item">
+                            <div class="member-avatar">🌟</div>
+                            <div class="member-info">
+                                <div class="member-name">StarLight99</div>
+                                <div class="member-role">Mid Lane</div>
+                            </div>
+                            <div class="member-status offline"></div>
+                        </div>
+
+                        <div class="member-item">
+                            <div class="member-avatar">🛡️</div>
+                            <div class="member-info">
+                                <div class="member-name">IronShield</div>
+                                <div class="member-role">Support</div>
+                            </div>
+                            <div class="member-status"></div>
+                        </div>
+
+                        <div class="member-item">
+                            <div class="member-avatar">🌲</div>
+                            <div class="member-info">
+                                <div class="member-name">ForestKing</div>
+                                <div class="member-role">Jungle</div>
+                            </div>
+                            <div class="member-status"></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
 
-    <script>
-        function switchSection(section) {
-            // Update nav items
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.target.closest('.nav-item').classList.add('active');
-            
-            // Show corresponding section (for demo)
-            console.log('Switching to:', section);
-            alert(`Navigation vers ${section} (fonctionnalité de démonstration)`);
-        }
-    </script>
-</body>
-</html>
-                                <span>Victoires (187/200)</span>
-                                <span>93.5%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 93.5%"></div>
-                            </div>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Objectifs</div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <span>Victoires (187/200)</span>
+                            <span>93.5%</span>
                         </div>
-
-                        <div class="progress-container">
-                            <div class="progress-header">
-                                <span>Winrate (78%/80%)</span>
-                                <span>97.5%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 97.5%"></div>
-                            </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 93.5%"></div>
                         </div>
+                    </div>
 
-                        <div class="progress-container">
-                            <div class="progress-header">
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <span>Winrate (78%/80%)</span>
+                            <span>97.5%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 97.5%"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <span>Tournois (5/10)</span>
+                            <span>50%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Derniers Résultats</div>
+                    </div>
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
+                        <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
+                        <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
+                        <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
+                        <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
+                        <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
+                        <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Récompenses</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 64px; margin-bottom:
