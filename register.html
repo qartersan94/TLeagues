@@ -23,737 +23,399 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--black);
             color: var(--white);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            padding: 40px 20px;
         }
 
-        .container {
-            max-width: 600px;
+        body::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
+            animation: pulse 6s infinite;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        .register-container {
+            position: relative;
+            z-index: 2;
+            background: var(--black-light);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            padding: 60px 50px;
+            border-radius: 10px;
             width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 60px var(--red-glow);
+            animation: fadeInUp 0.8s;
         }
 
-        .logo-section {
-            text-align: center;
-            margin-bottom: 40px;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .logo {
-            font-size: 48px;
+            text-align: center;
+            font-size: 42px;
             font-weight: bold;
             color: var(--red);
+            margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 4px;
             text-shadow: 0 0 30px var(--red-glow);
-            margin-bottom: 10px;
         }
 
-        .logo-subtitle {
+        .subtitle {
+            text-align: center;
             color: var(--text-gray);
+            margin-bottom: 40px;
             font-size: 16px;
         }
 
-        .form-card {
-            background: var(--black-light);
-            border: 2px solid rgba(255, 0, 0, 0.2);
-            padding: 40px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .form-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--red-dark) 0%, var(--red) 100%);
-        }
-
-        .form-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .form-title {
-            font-size: 32px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-
-        .form-subtitle {
-            color: var(--text-gray);
-            font-size: 14px;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            border-bottom: 2px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .tab {
-            flex: 1;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 1px;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -2px;
-        }
-
-        .tab:hover {
-            background: var(--gray);
-        }
-
-        .tab.active {
-            color: var(--red);
-            border-bottom-color: var(--red);
-        }
-
-        .form-section {
-            display: none;
-        }
-
-        .form-section.active {
-            display: block;
-        }
-
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .form-group label {
+        label {
             display: block;
             margin-bottom: 8px;
-            font-size: 13px;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--text-gray);
-            font-weight: 600;
         }
 
-        .required {
-            color: var(--red);
-        }
-
-        .form-group input,
-        .form-group select {
+        input {
             width: 100%;
             padding: 15px;
             background: var(--gray);
-            border: 2px solid rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.2);
             color: var(--white);
-            font-size: 14px;
-            font-family: inherit;
+            font-size: 16px;
+            border-radius: 5px;
             transition: all 0.3s;
         }
 
-        .form-group input:focus,
-        .form-group select:focus {
+        input:focus {
             outline: none;
             border-color: var(--red);
-            box-shadow: 0 0 10px var(--red-glow);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .info-box {
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid var(--red);
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-        }
-
-        .info-box-title {
-            font-weight: bold;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .info-box-text {
-            font-size: 13px;
-            color: var(--text-gray);
-            line-height: 1.6;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            margin-top: 2px;
-        }
-
-        .checkbox-group label {
-            flex: 1;
-            font-size: 13px;
-            color: var(--text-gray);
-            cursor: pointer;
-        }
-
-        .checkbox-group label a {
-            color: var(--red);
-            text-decoration: none;
-        }
-
-        .checkbox-group label a:hover {
-            text-decoration: underline;
+            box-shadow: 0 0 20px var(--red-glow);
         }
 
         .btn {
             width: 100%;
             padding: 18px;
+            background: var(--red);
+            color: var(--white);
             border: none;
-            cursor: pointer;
+            border-radius: 5px;
             font-size: 16px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
+            cursor: pointer;
             transition: all 0.3s;
             margin-top: 10px;
         }
 
-        .btn-primary {
-            background: var(--red);
-            color: var(--white);
-        }
-
-        .btn-primary:hover:not(:disabled) {
+        .btn:hover {
             background: var(--red-dark);
-            box-shadow: 0 5px 20px var(--red-glow);
             transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--red-glow);
         }
 
-        .btn-primary:disabled {
+        .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
 
-        .form-footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 2px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .form-footer p {
-            color: var(--text-gray);
-            font-size: 14px;
-        }
-
-        .form-footer a {
-            color: var(--red);
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .form-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .riot-id-helper {
-            font-size: 12px;
-            color: var(--text-gray);
-            margin-top: 5px;
-            font-style: italic;
-        }
-
-        .plan-selector {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .plan-option {
-            background: var(--gray);
-            border: 2px solid rgba(255, 0, 0, 0.2);
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-            position: relative;
-        }
-
-        .plan-option:hover {
-            border-color: var(--red);
-        }
-
-        .plan-option.selected {
+        .error-message {
             background: rgba(255, 0, 0, 0.1);
-            border-color: var(--red);
-            box-shadow: 0 0 20px var(--red-glow);
-        }
-
-        .plan-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--red);
-            color: var(--white);
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .plan-name {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .plan-price {
-            font-size: 28px;
-            font-weight: bold;
+            border: 1px solid var(--red);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
             color: var(--red);
-            margin-bottom: 8px;
-        }
-
-        .plan-price span {
             font-size: 14px;
-            color: var(--text-gray);
-        }
-
-        .plan-features {
-            font-size: 11px;
-            color: var(--text-gray);
-            line-height: 1.6;
-        }
-
-        .step-indicator {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
-        }
-
-        .step {
-            flex: 1;
-            text-align: center;
-            padding: 15px 10px;
-            background: var(--gray);
-            position: relative;
-            font-size: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .step::after {
-            content: '';
-            position: absolute;
-            right: -15px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 0;
-            height: 0;
-            border-left: 15px solid var(--gray);
-            border-top: 22px solid transparent;
-            border-bottom: 22px solid transparent;
-            z-index: 1;
-        }
-
-        .step:last-child::after {
             display: none;
         }
 
-        .step.active {
-            background: var(--red);
+        .success-message {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #00ff00;
+            font-size: 14px;
+            display: none;
         }
 
-        .step.active::after {
-            border-left-color: var(--red);
+        .password-strength {
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--text-gray);
         }
 
-        .step.completed {
-            background: rgba(255, 0, 0, 0.3);
+        .strength-bar {
+            height: 4px;
+            background: var(--gray);
+            border-radius: 2px;
+            margin-top: 5px;
+            overflow: hidden;
         }
 
-        .step.completed::after {
-            border-left-color: rgba(255, 0, 0, 0.3);
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s;
+            border-radius: 2px;
         }
 
-        @media (max-width: 768px) {
-            .form-card {
-                padding: 25px;
-            }
+        .links {
+            text-align: center;
+            margin-top: 25px;
+        }
 
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+        .links a {
+            color: var(--red);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
 
-            .plan-selector {
-                grid-template-columns: 1fr;
-            }
+        .links a:hover {
+            color: var(--red-dark);
+            text-shadow: 0 0 10px var(--red-glow);
+        }
 
-            .step {
-                font-size: 10px;
-                padding: 10px 5px;
-            }
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text-gray);
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-home a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .back-home a:hover {
+            color: var(--white);
+        }
+
+        .requirements {
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-top: 8px;
+            line-height: 1.6;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo-section">
-            <div class="logo">TLeagues</div>
-            <div class="logo-subtitle">Plateforme de Tournois League of Legends</div>
+    <div class="register-container">
+        <div class="logo">TLeagues</div>
+        <div class="subtitle">Créez votre compte joueur</div>
+
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="username">Pseudo</label>
+                <input type="text" id="username" placeholder="VotrePseudo" required minlength="3">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="votre@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" placeholder="••••••••" required minlength="6">
+                <div class="password-strength">
+                    <div class="strength-bar">
+                        <div class="strength-fill" id="strengthFill"></div>
+                    </div>
+                    <span id="strengthText"></span>
+                </div>
+                <div class="requirements">
+                    Minimum 6 caractères requis
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirmer le mot de passe</label>
+                <input type="password" id="confirmPassword" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn" id="registerBtn">Créer mon compte</button>
+        </form>
+
+        <div class="divider">───────</div>
+
+        <div class="links">
+            <p>Déjà un compte ? <a href="login.html">Se connecter</a></p>
         </div>
 
-        <div class="form-card">
-            <div class="form-header">
-                <h1 class="form-title">Créer un Compte</h1>
-                <p class="form-subtitle">Rejoignez la communauté compétitive</p>
-            </div>
-
-            <!-- Step Indicator -->
-            <div class="step-indicator">
-                <div class="step active" id="step1">Étape 1<br>Compte</div>
-                <div class="step" id="step2">Étape 2<br>Riot ID</div>
-                <div class="step" id="step3">Étape 3<br>Formule</div>
-            </div>
-
-            <form id="registerForm" onsubmit="handleSubmit(event)">
-                <!-- Step 1: Account Info -->
-                <div class="form-section active" id="section1">
-                    <div class="info-box">
-                        <div class="info-box-title">
-                            <span>ℹ️</span>
-                            <span>Informations du compte</span>
-                        </div>
-                        <div class="info-box-text">
-                            Créez votre compte TLeagues pour accéder aux tournois et ligues.
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Prénom <span class="required">*</span></label>
-                            <input type="text" id="firstName" required placeholder="John">
-                        </div>
-                        <div class="form-group">
-                            <label>Nom <span class="required">*</span></label>
-                            <input type="text" id="lastName" required placeholder="Doe">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Pseudo In-Game <span class="required">*</span></label>
-                        <input type="text" id="username" required placeholder="DarkSlayer47">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email <span class="required">*</span></label>
-                        <input type="email" id="email" required placeholder="votre@email.com">
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Mot de passe <span class="required">*</span></label>
-                            <input type="password" id="password" required placeholder="••••••••" minlength="8">
-                        </div>
-                        <div class="form-group">
-                            <label>Confirmer <span class="required">*</span></label>
-                            <input type="password" id="confirmPassword" required placeholder="••••••••">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Date de naissance <span class="required">*</span></label>
-                            <input type="date" id="birthdate" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Pays <span class="required">*</span></label>
-                            <select id="country" required>
-                                <option value="">Sélectionner</option>
-                                <option value="FR">France</option>
-                                <option value="BE">Belgique</option>
-                                <option value="CH">Suisse</option>
-                                <option value="CA">Canada</option>
-                                <option value="US">États-Unis</option>
-                                <option value="UK">Royaume-Uni</option>
-                                <option value="DE">Allemagne</option>
-                                <option value="ES">Espagne</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <button type="button" class="btn btn-primary" onclick="nextStep(1)">
-                        Suivant →
-                    </button>
-                </div>
-
-                <!-- Step 2: Riot ID -->
-                <div class="form-section" id="section2">
-                    <div class="info-box">
-                        <div class="info-box-title">
-                            <span>⚠️</span>
-                            <span>Riot ID Obligatoire</span>
-                        </div>
-                        <div class="info-box-text">
-                            Votre Riot ID est nécessaire pour vérifier votre compte League of Legends et participer aux compétitions. Format: Pseudo#TAG
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Riot ID <span class="required">*</span></label>
-                        <input type="text" id="riotId" required placeholder="DarkSlayer47#EUW1" pattern=".+#.+">
-                        <div class="riot-id-helper">
-                            💡 Trouvez votre Riot ID dans votre client League of Legends (Paramètres → Général)
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Serveur Principal <span class="required">*</span></label>
-                        <select id="server" required>
-                            <option value="">Sélectionner un serveur</option>
-                            <option value="EUW">Europe Ouest (EUW)</option>
-                            <option value="EUNE">Europe Nordic & East (EUNE)</option>
-                            <option value="NA">North America (NA)</option>
-                            <option value="BR">Brazil (BR)</option>
-                            <option value="LAN">Latin America North (LAN)</option>
-                            <option value="LAS">Latin America South (LAS)</option>
-                            <option value="OCE">Oceania (OCE)</option>
-                            <option value="KR">Korea (KR)</option>
-                            <option value="JP">Japan (JP)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Rôle Principal</label>
-                        <select id="role">
-                            <option value="">Non spécifié</option>
-                            <option value="top">Top Lane</option>
-                            <option value="jungle">Jungle</option>
-                            <option value="mid">Mid Lane</option>
-                            <option value="adc">ADC / Bot</option>
-                            <option value="support">Support</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Rang Actuel</label>
-                        <select id="rank">
-                            <option value="">Non classé</option>
-                            <option value="iron">Iron</option>
-                            <option value="bronze">Bronze</option>
-                            <option value="silver">Silver</option>
-                            <option value="gold">Gold</option>
-                            <option value="platinum">Platinum</option>
-                            <option value="diamond">Diamond</option>
-                            <option value="master">Master</option>
-                            <option value="grandmaster">Grandmaster</option>
-                            <option value="challenger">Challenger</option>
-                        </select>
-                    </div>
-
-                    <div style="display: flex; gap: 10px;">
-                        <button type="button" class="btn btn-primary" onclick="prevStep(2)" style="background: var(--gray);">
-                            ← Retour
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="nextStep(2)">
-                            Suivant →
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Step 3: Plan Selection -->
-                <div class="form-section" id="section3">
-                    <div class="info-box">
-                        <div class="info-box-title">
-                            <span>💳</span>
-                            <span>Choisissez votre formule</span>
-                        </div>
-                        <div class="info-box-text">
-                            Vous pourrez modifier ou annuler votre abonnement à tout moment depuis votre profil.
-                        </div>
-                    </div>
-
-                    <div class="plan-selector">
-                        <div class="plan-option" onclick="selectPlan('free')">
-                            <div class="plan-name">Free</div>
-                            <div class="plan-price">0€<span>/mois</span></div>
-                            <div class="plan-features">
-                                Accès limité<br>
-                                Tournois gratuits<br>
-                                Stats basiques
-                            </div>
-                        </div>
-
-                        <div class="plan-option selected" onclick="selectPlan('premium')">
-                            <div class="plan-badge">Populaire</div>
-                            <div class="plan-name">Premium</div>
-                            <div class="plan-price">10€<span>/mois</span></div>
-                            <div class="plan-features">
-                                1-2 équipes<br>
-                                Tous tournois<br>
-                                Stats complètes
-                            </div>
-                        </div>
-
-                        <div class="plan-option" onclick="selectPlan('pro')">
-                            <div class="plan-badge">Qualité/Prix</div>
-                            <div class="plan-name">Pro Structure</div>
-                            <div class="plan-price">35€<span>/mois</span></div>
-                            <div class="plan-features">
-                                Équipes illimitées<br>
-                                Gestion complète<br>
-                                Coach IA
-                            </div>
-                        </div>
-                    </div>
-
-                    <input type="hidden" id="selectedPlan" value="premium">
-
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="terms" required>
-                        <label for="terms">
-                            J'accepte les <a href="#">Conditions d'utilisation</a> et la <a href="#">Politique de confidentialité</a> de TLeagues
-                        </label>
-                    </div>
-
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="newsletter">
-                        <label for="newsletter">
-                            Je souhaite recevoir les actualités et promotions par email
-                        </label>
-                    </div>
-
-                    <div style="display: flex; gap: 10px;">
-                        <button type="button" class="btn btn-primary" onclick="prevStep(3)" style="background: var(--gray);">
-                            ← Retour
-                        </button>
-                        <button type="submit" class="btn btn-primary" id="submitBtn">
-                            Créer mon compte
-                        </button>
-                    </div>
-                </div>
-            </form>
-
-            <div class="form-footer">
-                <p>Vous avez déjà un compte ? <a href="login.html">Se connecter</a></p>
-            </div>
+        <div class="back-home">
+            <a href="index.html">← Retour à l'accueil</a>
         </div>
     </div>
 
-    <script>
-        let currentStep = 1;
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
-        function nextStep(step) {
-            // Validate current step
-            const section = document.getElementById(`section${step}`);
-            const inputs = section.querySelectorAll('input[required], select[required]');
-            let valid = true;
+        const firebaseConfig = {
+            apiKey: "AIzaSyDolPqeJUYIFTXqPzn1RHdnW9U4v3InuL4",
+            authDomain: "tleagues.firebaseapp.com",
+            projectId: "tleagues",
+            storageBucket: "tleagues.firebasestorage.app",
+            messagingSenderId: "11616635622",
+            appId: "1:11616635622:web:540a507cf7830b9b99c927",
+            measurementId: "G-7ZTVK7NP84"
+        };
 
-            inputs.forEach(input => {
-                if (!input.value || (input.type === 'password' && step === 1)) {
-                    valid = false;
-                    input.style.borderColor = 'var(--red)';
-                } else {
-                    input.style.borderColor = 'rgba(255, 0, 0, 0.2)';
-                }
-            });
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
-            // Check password match
-            if (step === 1) {
-                const password = document.getElementById('password').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
-                if (password !== confirmPassword) {
-                    alert('Les mots de passe ne correspondent pas');
-                    return;
-                }
+        const registerForm = document.getElementById('registerForm');
+        const registerBtn = document.getElementById('registerBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const passwordInput = document.getElementById('password');
+        const strengthFill = document.getElementById('strengthFill');
+        const strengthText = document.getElementById('strengthText');
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+        }
+
+        // Password strength indicator
+        passwordInput.addEventListener('input', () => {
+            const password = passwordInput.value;
+            let strength = 0;
+            
+            if (password.length >= 6) strength += 25;
+            if (password.length >= 8) strength += 25;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength += 25;
+            if (/[0-9]/.test(password)) strength += 25;
+            
+            strengthFill.style.width = strength + '%';
+            
+            if (strength <= 25) {
+                strengthFill.style.background = '#ff0000';
+                strengthText.textContent = 'Faible';
+            } else if (strength <= 50) {
+                strengthFill.style.background = '#ff9900';
+                strengthText.textContent = 'Moyen';
+            } else if (strength <= 75) {
+                strengthFill.style.background = '#ffcc00';
+                strengthText.textContent = 'Bien';
+            } else {
+                strengthFill.style.background = '#00ff00';
+                strengthText.textContent = 'Excellent';
             }
+        });
 
-            if (!valid) {
-                alert('Veuillez remplir tous les champs obligatoires');
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Validation
+            if (password !== confirmPassword) {
+                showError('✕ Les mots de passe ne correspondent pas');
                 return;
             }
 
-            // Move to next step
-            document.getElementById(`section${step}`).classList.remove('active');
-            document.getElementById(`step${step}`).classList.remove('active');
-            document.getElementById(`step${step}`).classList.add('completed');
-            
-            currentStep = step + 1;
-            document.getElementById(`section${currentStep}`).classList.add('active');
-            document.getElementById(`step${currentStep}`).classList.add('active');
-        }
+            if (password.length < 6) {
+                showError('✕ Le mot de passe doit contenir au moins 6 caractères');
+                return;
+            }
 
-        function prevStep(step) {
-            document.getElementById(`section${step}`).classList.remove('active');
-            document.getElementById(`step${step}`).classList.remove('active');
-            
-            currentStep = step - 1;
-            document.getElementById(`section${currentStep}`).classList.add('active');
-            document.getElementById(`step${currentStep}`).classList.add('active');
-            document.getElementById(`step${currentStep}`).classList.remove('completed');
-        }
+            registerBtn.disabled = true;
+            registerBtn.textContent = 'Création en cours...';
 
-        function selectPlan(plan) {
-            document.querySelectorAll('.plan-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            event.target.closest('.plan-option').classList.add('selected');
-            document.getElementById('selectedPlan').value = plan;
-        }
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                
+                // Update profile with username
+                await updateProfile(userCredential.user, {
+                    displayName: username
+                });
 
-        function handleSubmit(e) {
-            e.preventDefault();
-            
-            const formData = {
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                username: document.getElementById('username').value,
-                email: document.getElementById('email').value,
-                password: document.getElementById('password').value,
-                birthdate: document.getElementById('birthdate').value,
-                country: document.getElementById('country').value,
-                riotId: document.getElementById('riotId').value,
-                server: document.getElementById('server').value,
-                role: document.getElementById('role').value,
-                rank: document.getElementById('rank').value,
-                plan: document.getElementById('selectedPlan').value,
-                newsletter: document.getElementById('newsletter').checked
-            };
+                showSuccess('✓ Compte créé avec succès ! Redirection...');
+                
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 2000);
 
-            console.log('Form submitted:', formData);
-            alert(`Compte créé avec succès !\nPseudo: ${formData.username}\nRiot ID: ${formData.riotId}\nFormule: ${formData.plan}\n\nRedirection vers le dashboard...`);
-            
-            // Redirect to dashboard
-            setTimeout(() => {
-                window.location.href = 'dashboard.html';
-            }, 2000);
-        }
+            } catch (error) {
+                let errorMsg = 'Erreur lors de la création du compte';
+                
+                switch(error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMsg = 'Cet email est déjà utilisé';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMsg = 'Email invalide';
+                        break;
+                    case 'auth/weak-password':
+                        errorMsg = 'Mot de passe trop faible (min. 6 caractères)';
+                        break;
+                    default:
+                        errorMsg = error.message;
+                }
+                
+                showError('✕ ' + errorMsg);
+                registerBtn.disabled = false;
+                registerBtn.textContent = 'Créer mon compte';
+            }
+        });
     </script>
 </body>
 </html>
