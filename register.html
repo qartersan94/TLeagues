@@ -1,1 +1,759 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - TLeagues</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --red: #ff0000;
+            --red-dark: #cc0000;
+            --red-glow: rgba(255, 0, 0, 0.3);
+            --black: #0a0a0a;
+            --black-light: #1a1a1a;
+            --gray: #2a2a2a;
+            --white: #ffffff;
+            --text-gray: #b0b0b0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 30px var(--red-glow);
+            margin-bottom: 10px;
+        }
+
+        .logo-subtitle {
+            color: var(--text-gray);
+            font-size: 16px;
+        }
+
+        .form-card {
+            background: var(--black-light);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--red-dark) 0%, var(--red) 100%);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-title {
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .form-subtitle {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 1px;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab:hover {
+            background: var(--gray);
+        }
+
+        .tab.active {
+            color: var(--red);
+            border-bottom-color: var(--red);
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+
+        .required {
+            color: var(--red);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            background: var(--gray);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            color: var(--white);
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--red);
+            box-shadow: 0 0 10px var(--red-glow);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .info-box {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid var(--red);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .info-box-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-box-text {
+            font-size: 13px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            margin-top: 2px;
+        }
+
+        .checkbox-group label {
+            flex: 1;
+            font-size: 13px;
+            color: var(--text-gray);
+            cursor: pointer;
+        }
+
+        .checkbox-group label a {
+            color: var(--red);
+            text-decoration: none;
+        }
+
+        .checkbox-group label a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--red-dark);
+            box-shadow: 0 5px 20px var(--red-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .form-footer p {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        .form-footer a {
+            color: var(--red);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .riot-id-helper {
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .plan-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .plan-option {
+            background: var(--gray);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            position: relative;
+        }
+
+        .plan-option:hover {
+            border-color: var(--red);
+        }
+
+        .plan-option.selected {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: var(--red);
+            box-shadow: 0 0 20px var(--red-glow);
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--red);
+            color: var(--white);
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .plan-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .plan-price {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--red);
+            margin-bottom: 8px;
+        }
+
+        .plan-price span {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        .plan-features {
+            font-size: 11px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 15px 10px;
+            background: var(--gray);
+            position: relative;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid var(--gray);
+            border-top: 22px solid transparent;
+            border-bottom: 22px solid transparent;
+            z-index: 1;
+        }
+
+        .step:last-child::after {
+            display: none;
+        }
+
+        .step.active {
+            background: var(--red);
+        }
+
+        .step.active::after {
+            border-left-color: var(--red);
+        }
+
+        .step.completed {
+            background: rgba(255, 0, 0, 0.3);
+        }
+
+        .step.completed::after {
+            border-left-color: rgba(255, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .form-card {
+                padding: 25px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .plan-selector {
+                grid-template-columns: 1fr;
+            }
+
+            .step {
+                font-size: 10px;
+                padding: 10px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-section">
+            <div class="logo">TLeagues</div>
+            <div class="logo-subtitle">Plateforme de Tournois League of Legends</div>
+        </div>
+
+        <div class="form-card">
+            <div class="form-header">
+                <h1 class="form-title">Créer un Compte</h1>
+                <p class="form-subtitle">Rejoignez la communauté compétitive</p>
+            </div>
+
+            <!-- Step Indicator -->
+            <div class="step-indicator">
+                <div class="step active" id="step1">Étape 1<br>Compte</div>
+                <div class="step" id="step2">Étape 2<br>Riot ID</div>
+                <div class="step" id="step3">Étape 3<br>Formule</div>
+            </div>
+
+            <form id="registerForm" onsubmit="handleSubmit(event)">
+                <!-- Step 1: Account Info -->
+                <div class="form-section active" id="section1">
+                    <div class="info-box">
+                        <div class="info-box-title">
+                            <span>ℹ️</span>
+                            <span>Informations du compte</span>
+                        </div>
+                        <div class="info-box-text">
+                            Créez votre compte TLeagues pour accéder aux tournois et ligues.
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Prénom <span class="required">*</span></label>
+                            <input type="text" id="firstName" required placeholder="John">
+                        </div>
+                        <div class="form-group">
+                            <label>Nom <span class="required">*</span></label>
+                            <input type="text" id="lastName" required placeholder="Doe">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Pseudo In-Game <span class="required">*</span></label>
+                        <input type="text" id="username" required placeholder="DarkSlayer47">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" id="email" required placeholder="votre@email.com">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Mot de passe <span class="required">*</span></label>
+                            <input type="password" id="password" required placeholder="••••••••" minlength="8">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirmer <span class="required">*</span></label>
+                            <input type="password" id="confirmPassword" required placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date de naissance <span class="required">*</span></label>
+                            <input type="date" id="birthdate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Pays <span class="required">*</span></label>
+                            <select id="country" required>
+                                <option value="">Sélectionner</option>
+                                <option value="FR">France</option>
+                                <option value="BE">Belgique</option>
+                                <option value="CH">Suisse</option>
+                                <option value="CA">Canada</option>
+                                <option value="US">États-Unis</option>
+                                <option value="UK">Royaume-Uni</option>
+                                <option value="DE">Allemagne</option>
+                                <option value="ES">Espagne</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="nextStep(1)">
+                        Suivant →
+                    </button>
+                </div>
+
+                <!-- Step 2: Riot ID -->
+                <div class="form-section" id="section2">
+                    <div class="info-box">
+                        <div class="info-box-title">
+                            <span>⚠️</span>
+                            <span>Riot ID Obligatoire</span>
+                        </div>
+                        <div class="info-box-text">
+                            Votre Riot ID est nécessaire pour vérifier votre compte League of Legends et participer aux compétitions. Format: Pseudo#TAG
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Riot ID <span class="required">*</span></label>
+                        <input type="text" id="riotId" required placeholder="DarkSlayer47#EUW1" pattern=".+#.+">
+                        <div class="riot-id-helper">
+                            💡 Trouvez votre Riot ID dans votre client League of Legends (Paramètres → Général)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Serveur Principal <span class="required">*</span></label>
+                        <select id="server" required>
+                            <option value="">Sélectionner un serveur</option>
+                            <option value="EUW">Europe Ouest (EUW)</option>
+                            <option value="EUNE">Europe Nordic & East (EUNE)</option>
+                            <option value="NA">North America (NA)</option>
+                            <option value="BR">Brazil (BR)</option>
+                            <option value="LAN">Latin America North (LAN)</option>
+                            <option value="LAS">Latin America South (LAS)</option>
+                            <option value="OCE">Oceania (OCE)</option>
+                            <option value="KR">Korea (KR)</option>
+                            <option value="JP">Japan (JP)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rôle Principal</label>
+                        <select id="role">
+                            <option value="">Non spécifié</option>
+                            <option value="top">Top Lane</option>
+                            <option value="jungle">Jungle</option>
+                            <option value="mid">Mid Lane</option>
+                            <option value="adc">ADC / Bot</option>
+                            <option value="support">Support</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rang Actuel</label>
+                        <select id="rank">
+                            <option value="">Non classé</option>
+                            <option value="iron">Iron</option>
+                            <option value="bronze">Bronze</option>
+                            <option value="silver">Silver</option>
+                            <option value="gold">Gold</option>
+                            <option value="platinum">Platinum</option>
+                            <option value="diamond">Diamond</option>
+                            <option value="master">Master</option>
+                            <option value="grandmaster">Grandmaster</option>
+                            <option value="challenger">Challenger</option>
+                        </select>
+                    </div>
+
+                    <div style="display: flex; gap: 10px;">
+                        <button type="button" class="btn btn-primary" onclick="prevStep(2)" style="background: var(--gray);">
+                            ← Retour
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep(2)">
+                            Suivant →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Plan Selection -->
+                <div class="form-section" id="section3">
+                    <div class="info-box">
+                        <div class="info-box-title">
+                            <span>💳</span>
+                            <span>Choisissez votre formule</span>
+                        </div>
+                        <div class="info-box-text">
+                            Vous pourrez modifier ou annuler votre abonnement à tout moment depuis votre profil.
+                        </div>
+                    </div>
+
+                    <div class="plan-selector">
+                        <div class="plan-option" onclick="selectPlan('free')">
+                            <div class="plan-name">Free</div>
+                            <div class="plan-price">0€<span>/mois</span></div>
+                            <div class="plan-features">
+                                Accès limité<br>
+                                Tournois gratuits<br>
+                                Stats basiques
+                            </div>
+                        </div>
+
+                        <div class="plan-option selected" onclick="selectPlan('premium')">
+                            <div class="plan-badge">Populaire</div>
+                            <div class="plan-name">Premium</div>
+                            <div class="plan-price">10€<span>/mois</span></div>
+                            <div class="plan-features">
+                                1-2 équipes<br>
+                                Tous tournois<br>
+                                Stats complètes
+                            </div>
+                        </div>
+
+                        <div class="plan-option" onclick="selectPlan('pro')">
+                            <div class="plan-badge">Qualité/Prix</div>
+                            <div class="plan-name">Pro Structure</div>
+                            <div class="plan-price">35€<span>/mois</span></div>
+                            <div class="plan-features">
+                                Équipes illimitées<br>
+                                Gestion complète<br>
+                                Coach IA
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="selectedPlan" value="premium">
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">
+                            J'accepte les <a href="#">Conditions d'utilisation</a> et la <a href="#">Politique de confidentialité</a> de TLeagues
+                        </label>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="newsletter">
+                        <label for="newsletter">
+                            Je souhaite recevoir les actualités et promotions par email
+                        </label>
+                    </div>
+
+                    <div style="display: flex; gap: 10px;">
+                        <button type="button" class="btn btn-primary" onclick="prevStep(3)" style="background: var(--gray);">
+                            ← Retour
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            Créer mon compte
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="form-footer">
+                <p>Vous avez déjà un compte ? <a href="login.html">Se connecter</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+
+        function nextStep(step) {
+            // Validate current step
+            const section = document.getElementById(`section${step}`);
+            const inputs = section.querySelectorAll('input[required], select[required]');
+            let valid = true;
+
+            inputs.forEach(input => {
+                if (!input.value || (input.type === 'password' && step === 1)) {
+                    valid = false;
+                    input.style.borderColor = 'var(--red)';
+                } else {
+                    input.style.borderColor = 'rgba(255, 0, 0, 0.2)';
+                }
+            });
+
+            // Check password match
+            if (step === 1) {
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                if (password !== confirmPassword) {
+                    alert('Les mots de passe ne correspondent pas');
+                    return;
+                }
+            }
+
+            if (!valid) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+            }
+
+            // Move to next step
+            document.getElementById(`section${step}`).classList.remove('active');
+            document.getElementById(`step${step}`).classList.remove('active');
+            document.getElementById(`step${step}`).classList.add('completed');
+            
+            currentStep = step + 1;
+            document.getElementById(`section${currentStep}`).classList.add('active');
+            document.getElementById(`step${currentStep}`).classList.add('active');
+        }
+
+        function prevStep(step) {
+            document.getElementById(`section${step}`).classList.remove('active');
+            document.getElementById(`step${step}`).classList.remove('active');
+            
+            currentStep = step - 1;
+            document.getElementById(`section${currentStep}`).classList.add('active');
+            document.getElementById(`step${currentStep}`).classList.add('active');
+            document.getElementById(`step${currentStep}`).classList.remove('completed');
+        }
+
+        function selectPlan(plan) {
+            document.querySelectorAll('.plan-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.target.closest('.plan-option').classList.add('selected');
+            document.getElementById('selectedPlan').value = plan;
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                birthdate: document.getElementById('birthdate').value,
+                country: document.getElementById('country').value,
+                riotId: document.getElementById('riotId').value,
+                server: document.getElementById('server').value,
+                role: document.getElementById('role').value,
+                rank: document.getElementById('rank').value,
+                plan: document.getElementById('selectedPlan').value,
+                newsletter: document.getElementById('newsletter').checked
+            };
+
+            console.log('Form submitted:', formData);
+            alert(`Compte créé avec succès !\nPseudo: ${formData.username}\nRiot ID: ${formData.riotId}\nFormule: ${formData.plan}\n\nRedirection vers le dashboard...`);
+            
+            // Redirect to dashboard
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
