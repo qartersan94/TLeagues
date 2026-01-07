@@ -363,9 +363,11 @@
         const auth = getAuth(app);
         const googleProvider = new GoogleAuthProvider();
 
-        // Set persistence to LOCAL by default
-        setPersistence(auth, browserLocalPersistence).catch((error) => {
-            console.error('Erreur de persistance:', error);
+        // VERSION 3: Force la persistance LOCAL dès le départ
+        setPersistence(auth, browserLocalPersistence).then(() => {
+            console.log('✅ Persistance LOCAL activée - vous resterez connecté');
+        }).catch((error) => {
+            console.error('❌ Erreur persistance:', error);
         });
 
         const registerForm = document.getElementById('registerForm');
@@ -396,6 +398,7 @@
 
             try {
                 const result = await signInWithPopup(auth, googleProvider);
+                console.log('✅ Inscription Google réussie:', result.user.email);
                 showSuccess('✓ Inscription réussie avec Google ! Redirection...');
                 
                 setTimeout(() => {
@@ -403,6 +406,7 @@
                 }, 1500);
 
             } catch (error) {
+                console.error('❌ Erreur Google:', error);
                 let errorMsg = 'Erreur lors de l\'inscription avec Google';
                 
                 if (error.code === 'auth/popup-closed-by-user') {
@@ -483,6 +487,7 @@
                     displayName: username
                 });
 
+                console.log('✅ Inscription Email réussie:', userCredential.user.email);
                 showSuccess('✓ Compte créé avec succès ! Redirection...');
                 
                 setTimeout(() => {
@@ -490,6 +495,7 @@
                 }, 2000);
 
             } catch (error) {
+                console.error('❌ Erreur Email:', error);
                 let errorMsg = 'Erreur lors de la création du compte';
                 
                 switch(error.code) {
