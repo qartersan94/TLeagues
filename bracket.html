@@ -1,1 +1,854 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bracket - TLeagues</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --red: #ff0000;
+            --red-dark: #cc0000;
+            --red-glow: rgba(255, 0, 0, 0.3);
+            --black: #0a0a0a;
+            --black-light: #1a1a1a;
+            --gray: #2a2a2a;
+            --white: #ffffff;
+            --text-gray: #b0b0b0;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+            --bronze: #cd7f32;
+            --green: #00ff00;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px var(--red-glow);
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--red);
+        }
+
+        .btn-nav {
+            background: var(--red);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 4px;
+        }
+
+        .header {
+            margin-top: 76px;
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--gray) 100%);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+            padding: 40px;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .tournament-info h1 {
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .tournament-meta {
+            color: var(--text-gray);
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .bracket-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--red-dark);
+            box-shadow: 0 5px 20px var(--red-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--red);
+            border: 2px solid var(--red);
+        }
+
+        .btn-secondary:hover {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .admin-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid var(--red);
+            border-radius: 5px;
+        }
+
+        .admin-toggle input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .rounds-nav {
+            background: var(--black-light);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            overflow-x: auto;
+        }
+
+        .round-btn {
+            padding: 10px 25px;
+            background: transparent;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            color: var(--text-gray);
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .round-btn:hover {
+            border-color: var(--red);
+            color: var(--white);
+        }
+
+        .round-btn.active {
+            background: var(--red);
+            color: var(--white);
+            border-color: var(--red);
+            box-shadow: 0 0 20px var(--red-glow);
+        }
+
+        .bracket-container {
+            padding: 60px 40px;
+            overflow-x: auto;
+        }
+
+        .bracket {
+            display: flex;
+            gap: 80px;
+            min-width: max-content;
+            margin: 0 auto;
+            justify-content: center;
+            position: relative;
+        }
+
+        .bracket-round {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            gap: 40px;
+        }
+
+        .round-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            color: var(--red);
+        }
+
+        .round-format {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-top: -20px;
+            margin-bottom: 20px;
+        }
+
+        .match {
+            background: var(--black-light);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            width: 320px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .match:hover {
+            border-color: var(--red);
+            box-shadow: 0 10px 40px var(--red-glow);
+            transform: scale(1.05);
+        }
+
+        .match-header {
+            background: var(--gray);
+            padding: 10px 15px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-gray);
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .match-format-badge {
+            background: rgba(255, 0, 0, 0.2);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            color: var(--red);
+            border: 1px solid var(--red);
+            font-weight: bold;
+        }
+
+        .match-team {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .match-team:not(:last-child) {
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .match-team.winner {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .match-team.loser {
+            opacity: 0.5;
+        }
+
+        .team-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .team-icon {
+            font-size: 28px;
+        }
+
+        .team-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .team-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .team-score-detail {
+            font-size: 11px;
+            color: var(--text-gray);
+            margin-top: 2px;
+        }
+
+        .team-score {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--red);
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .winner-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .match-status {
+            padding: 10px;
+            text-align: center;
+            font-size: 11px;
+            background: var(--gray);
+            color: var(--text-gray);
+        }
+
+        .status-live {
+            background: rgba(255, 0, 0, 0.2);
+            color: var(--red);
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .tbd {
+            color: var(--text-gray);
+            font-style: italic;
+        }
+
+        .edit-score {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .edit-score.active {
+            display: flex;
+        }
+
+        .edit-score input {
+            width: 60px;
+            padding: 10px;
+            font-size: 24px;
+            text-align: center;
+            background: var(--gray);
+            border: 2px solid var(--red);
+            color: var(--white);
+            border-radius: 5px;
+        }
+
+        .edit-score button {
+            padding: 10px 20px;
+            background: var(--red);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .finals-container {
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .third-place {
+            opacity: 0.8;
+        }
+
+        .podium {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-end;
+            margin: 60px 0;
+        }
+
+        .podium-place {
+            text-align: center;
+            padding: 30px;
+            background: var(--black-light);
+            border: 2px solid;
+            border-radius: 10px;
+            min-width: 200px;
+            transition: all 0.3s;
+        }
+
+        .podium-place:hover {
+            transform: translateY(-10px);
+        }
+
+        .podium-first {
+            border-color: var(--gold);
+            height: 300px;
+        }
+
+        .podium-second {
+            border-color: var(--silver);
+            height: 250px;
+        }
+
+        .podium-third {
+            border-color: var(--bronze);
+            height: 220px;
+        }
+
+        .podium-medal {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .podium-team {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .podium-prize {
+            font-size: 20px;
+            color: var(--text-gray);
+        }
+
+        @media (max-width: 1200px) {
+            .bracket {
+                gap: 40px;
+            }
+
+            .match {
+                width: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .tournament-info h1 {
+                font-size: 32px;
+            }
+
+            .match {
+                width: 260px;
+            }
+
+            .podium {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .podium-place {
+                height: auto !important;
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">TLeagues</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="tournois.html">Tournois</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="bracket.html" class="btn-nav">Bracket</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="header">
+        <div class="header-content">
+            <div class="tournament-info">
+                <h1>🏆 Winter Championship 2026</h1>
+                <div class="tournament-meta">
+                    <span>📅 15 Janvier 2026</span>
+                    <span>👥 8 Équipes</span>
+                    <span>💰 50,000€ Prize Pool</span>
+                    <span>⚡ Simple Élimination</span>
+                </div>
+            </div>
+            <div class="bracket-controls">
+                <label class="admin-toggle">
+                    <input type="checkbox" id="adminMode" onchange="toggleAdminMode()">
+                    <span>Mode Admin</span>
+                </label>
+                <button class="btn btn-secondary" onclick="resetBracket()">🔄 Réinitialiser</button>
+                <button class="btn btn-primary" onclick="window.print()">🖨️ Imprimer</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="rounds-nav">
+        <button class="round-btn active" onclick="scrollToRound('round1')">Quarts (BO3)</button>
+        <button class="round-btn" onclick="scrollToRound('round2')">Demi-finales (BO3)</button>
+        <button class="round-btn" onclick="scrollToRound('round3')">Finales</button>
+        <button class="round-btn" onclick="scrollToRound('podium')">Podium</button>
+    </div>
+
+    <div class="bracket-container">
+        <div class="bracket">
+            <!-- Quarts de Finale (BO3) -->
+            <div class="bracket-round" id="round1">
+                <div class="round-title">Quarts de Finale</div>
+                <div class="round-format">Best of 3</div>
+                
+                <div class="match" data-match="q1">
+                    <div class="match-header">
+                        <span>Match 1</span>
+                        <span class="match-format-badge">BO3</span>
+                    </div>
+                    <div class="match-team winner">
+                        <div class="team-info">
+                            <span class="team-icon">🛡️</span>
+                            <div class="team-details">
+                                <span class="team-name">Phoenix Rising</span>
+                                <span class="team-score-detail">2-1 (W-L-W)</span>
+                            </div>
+                        </div>
+                        <div class="team-score">2</div>
+                        <span class="winner-badge">👑</span>
+                    </div>
+                    <div class="match-team loser">
+                        <div class="team-info">
+                            <span class="team-icon">⚔️</span>
+                            <div class="team-details">
+                                <span class="team-name">Iron Warriors</span>
+                                <span class="team-score-detail">1-2 (L-W-L)</span>
+                            </div>
+                        </div>
+                        <div class="team-score">1</div>
+                    </div>
+                    <div class="match-status">Complété</div>
+                </div>
+
+                <div class="match" data-match="q2">
+                    <div class="match-header">
+                        <span>Match 2</span>
+                        <span class="match-format-badge">BO3</span>
+                    </div>
+                    <div class="match-team winner">
+                        <div class="team-info">
+                            <span class="team-icon">🐺</span>
+                            <div class="team-details">
+                                <span class="team-name">Shadow Wolves</span>
+                                <span class="team-score-detail">2-0 (W-W)</span>
+                            </div>
+                        </div>
+                        <div class="team-score">2</div>
+                        <span class="winner-badge">👑</span>
+                    </div>
+                    <div class="match-team loser">
+                        <div class="team-info">
+                            <span class="team-icon">🔥</span>
+                            <div class="team-details">
+                                <span class="team-name">Flame Legion</span>
+                                <span class="team-score-detail">0-2 (L-L)</span>
+                            </div>
+                        </div>
+                        <div class="team-score">0</div>
+                    </div>
+                    <div class="match-status">Complété</div>
+                </div>
+
+                <div class="match" data-match="q3">
+                    <div class="match-header">
+                        <span>Match 3</span>
+                        <span class="match-format-badge">BO3</span>
+                    </div>
+                    <div class="match-team winner">
+                        <div class="team-info">
+                            <span class="team-icon">⚡</span>
+                            <div class="team-details">
+                                <span class="team-name">Thunder Strike</span>
+                                <span class="team-score-detail">2-1 (W-L-W)</span>
+                            </div>
+                        </div>
+                        <div class="team-score">2</div>
+                        <span class="winner-badge">👑</span>
+                    </div>
+                    <div class="match-team loser">
+                        <div class="team-info">
+                            <span class="team-icon">🌙</span>
+                            <div class="team-details">
+                                <span class="team-name">Lunar Eclipse</span>
+                                <span class="team-score-detail">1-2 (L-W-L)</span>
+                            </div>
+                        </div>
+                        <div class="team-score">1</div>
+                    </div>
+                    <div class="match-status">Complété</div>
+                </div>
+
+                <div class="match" data-match="q4">
+                    <div class="match-header">
+                        <span>Match 4</span>
+                        <span class="match-format-badge">BO3</span>
+                    </div>
+                    <div class="match-team winner">
+                        <div class="team-info">
+                            <span class="team-icon">👑</span>
+                            <div class="team-details">
+                                <span class="team-name">Royal Knights</span>
+                                <span class="team-score-detail">2-0 (W-W)</span>
+                            </div>
+                        </div>
+                        <div class="team-score">2</div>
+                        <span class="winner-badge">👑</span>
+                    </div>
+                    <div class="match-team loser">
+                        <div class="team-info">
+                            <span class="team-icon">🎭</span>
+                            <div class="team-details">
+                                <span class="team-name">Phantom Squad</span>
+                                <span class="team-score-detail">0-2 (L-L)</span>
+                            </div>
+                        </div>
+                        <div class="team-score">0</div>
+                    </div>
+                    <div class="match-status">Complété</div>
+                </div>
+            </div>
+
+            <!-- Demi-finales (BO3) -->
+            <div class="bracket-round" id="round2">
+                <div class="round-title">Demi-finales</div>
+                <div class="round-format">Best of 3</div>
+                
+                <div class="match" data-match="s1">
+                    <div class="match-header">
+                        <span>Demi-finale 1</span>
+                        <span class="match-format-badge">BO3</span>
+                    </div>
+                    <div class="match-team winner">
+                        <div class="team-info">
+                            <span class="team-icon">🛡️</span>
+                            <div class="team-details">
+                                <span class="team-name">Phoenix Rising</span>
+                                <span class="team-score-detail">2-1 (W-L-W)</span>
+                            </div>
+                        </div>
+                        <div class="team-score">2</div>
+                        <span class="winner-badge">👑</span>
+                    </div>
+                    <div class="match-team loser">
+                        <div class="team-info">
+                            <span class="team-icon">🐺</span>
+                            <div class="team-details">
+                                <span class="team-name">Shadow Wolves</span>
+                                <span class="team-score-detail">1-2 (L-W-L)</span>
+                            </div>
+                        </div>
+                        <div class="team-score">1</div>
+                    </div>
+                    <div class="match-status">Complété</div>
+                </div>
+
+                <div class="match" data-match="s2">
+                    <div class="match-header">
+                        <span>Demi-finale 2</span>
+                        <span class="match-format-badge">BO3</span>
+                    </div>
+                    <div class="match-team winner">
+                        <div class="team-info">
+                            <span class="team-icon">⚡</span>
+                            <div class="team-details">
+                                <span class="team-name">Thunder Strike</span>
+                                <span class="team-score-detail">2-0 (W-W)</span>
+                            </div>
+                        </div>
+                        <div class="team-score">2</div>
+                        <span class="winner-badge">👑</span>
+                    </div>
+                    <div class="match-team loser">
+                        <div class="team-info">
+                            <span class="team-icon">👑</span>
+                            <div class="team-details">
+                                <span class="team-name">Royal Knights</span>
+                                <span class="team-score-detail">0-2 (L-L)</span>
+                            </div>
+                        </div>
+                        <div class="team-score">0</div>
+                    </div>
+                    <div class="match-status">Complété</div>
+                </div>
+            </div>
+
+            <!-- Finales -->
+            <div class="bracket-round" id="round3">
+                <div class="finals-container">
+                    <!-- Petite Finale (3e place) - BO3 -->
+                    <div>
+                        <div class="round-title">Petite Finale</div>
+                        <div class="round-format">Best of 3 - 3e place</div>
+                        
+                        <div class="match third-place" data-match="third">
+                            <div class="match-header">
+                                <span>Match pour la 3e place</span>
+                                <span class="match-format-badge">BO3</span>
+                            </div>
+                            <div class="match-team winner">
+                                <div class="team-info">
+                                    <span class="team-icon">🐺</span>
+                                    <div class="team-details">
+                                        <span class="team-name">Shadow Wolves</span>
+                                        <span class="team-score-detail">2-1 (W-L-W)</span>
+                                    </div>
+                                </div>
+                                <div class="team-score">2</div>
+                                <span class="winner-badge">🥉</span>
+                            </div>
+                            <div class="match-team loser">
+                                <div class="team-info">
+                                    <span class="team-icon">👑</span>
+                                    <div class="team-details">
+                                        <span class="team-name">Royal Knights</span>
+                                        <span class="team-score-detail">1-2 (L-W-L)</span>
+                                    </div>
+                                </div>
+                                <div class="team-score">1</div>
+                            </div>
+                            <div class="match-status">Complété</div>
+                        </div>
+                    </div>
+
+                    <!-- Grande Finale - BO5 -->
+                    <div>
+                        <div class="round-title">Grande Finale</div>
+                        <div class="round-format">Best of 5</div>
+                        
+                        <div class="match" data-match="final" style="border: 2px solid var(--gold); box-shadow: 0 0 40px var(--red-glow);">
+                            <div class="match-header" style="background: linear-gradient(135deg, var(--gold) 0%, var(--red) 100%); color: var(--black);">
+                                <span>🏆 GRANDE FINALE</span>
+                                <span class="match-format-badge" style="background: var(--black); color: var(--gold);">BO5</span>
+                            </div>
+                            <div class="match-team winner">
+                                <div class="team-info">
+                                    <span class="team-icon">🛡️</span>
+                                    <div class="team-details">
+                                        <span class="team-name">Phoenix Rising</span>
+                                        <span class="team-score-detail">3-1 (W-W-L-W)</span>
+                                    </div>
+                                </div>
+                                <div class="team-score">3</div>
+                                <span class="winner-badge">🏆</span>
+                            </div>
+                            <div class="match-team loser">
+                                <div class="team-info">
+                                    <span class="team-icon">⚡</span>
+                                    <div class="team-details">
+                                        <span class="team-name">Thunder Strike</span>
+                                        <span class="team-score-detail">1-3 (L-L-W-L)</span>
+                                    </div>
+                                </div>
+                                <div class="team-score">1</div>
+                            </div>
+                            <div class="match-status" style="background: var(--gold); color: var(--black); font-weight: bold;">🏆 CHAMPION COURONNÉ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Podium -->
+    <div class="bracket-container" id="podium">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <h2 style="font-size: 48px; margin-bottom: 20px;">🏆 Podium Final</h2>
+            <p style="color: var(--text-gray); font-size: 18px;">Winter Championship 2026</p>
+        </div>
+        
+        <div class="podium">
+            <div class="podium-place podium-second">
+                <div class="podium-medal">🥈</div>
+                <div class="podium-team">⚡ Thunder Strike</div>
+                <div class="podium-
