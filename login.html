@@ -366,10 +366,6 @@
             googleBtn.textContent = 'Connexion avec Google...';
 
             try {
-                // Set persistence based on remember me
-                const persistence = rememberMe.checked ? browserLocalPersistence : browserSessionPersistence;
-                await setPersistence(auth, persistence);
-
                 const result = await signInWithPopup(auth, googleProvider);
                 showSuccess('✓ Connexion réussie avec Google ! Redirection...');
                 
@@ -400,6 +396,11 @@
             }
         });
 
+        // Set persistence to LOCAL by default (always remember user)
+        setPersistence(auth, browserLocalPersistence).catch((error) => {
+            console.error('Erreur de persistance:', error);
+        });
+
         // Email/Password Sign-In
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -411,9 +412,6 @@
             loginBtn.textContent = 'Connexion...';
 
             try {
-                // Set persistence based on remember me checkbox
-                const persistence = rememberMe.checked ? browserLocalPersistence : browserSessionPersistence;
-                await setPersistence(auth, persistence);
 
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 showSuccess('✓ Connexion réussie ! Redirection...');
