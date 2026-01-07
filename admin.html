@@ -673,7 +673,9 @@
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
-            <div class="logo">TLeagues</div>
+            <a href="index.html" style="text-decoration: none;">
+                <div class="logo">TLeagues</div>
+            </a>
             <div class="admin-badge">👑 Admin</div>
         </div>
 
@@ -1007,21 +1009,22 @@
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Type *</label>
-                            <select required>
+                            <label>Type de Compétition *</label>
+                            <select required id="competitionType" onchange="updateCompetitionForm()">
+                                <option value="tournament">Tournoi</option>
                                 <option value="league">Ligue</option>
                                 <option value="cup">Coupe</option>
-                                <option value="tournament">Tournoi</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
                             <label>Format *</label>
-                            <select required>
+                            <select required id="formatType">
                                 <option value="single">Simple Élimination</option>
                                 <option value="double">Double Élimination</option>
                                 <option value="roundrobin">Round Robin</option>
-                                <option value="league">Format Ligue</option>
+                                <option value="league">Système de Ligue</option>
+                                <option value="swiss">Swiss System</option>
                             </select>
                         </div>
                     </div>
@@ -1086,9 +1089,50 @@
 
         function submitTournament(e) {
             e.preventDefault();
-            alert('Tournoi créé avec succès ! (Fonctionnalité de démonstration)');
+            const type = document.getElementById('competitionType').value;
+            let message = '';
+            
+            switch(type) {
+                case 'tournament':
+                    message = 'Tournoi créé avec succès !';
+                    break;
+                case 'league':
+                    message = 'Ligue créée avec succès !';
+                    break;
+                case 'cup':
+                    message = 'Coupe créée avec succès !';
+                    break;
+            }
+            
+            alert(message + ' (Fonctionnalité de démonstration)');
             closeModal('createTournament');
             e.target.reset();
+        }
+
+        function updateCompetitionForm() {
+            const type = document.getElementById('competitionType').value;
+            const formatSelect = document.getElementById('formatType');
+            
+            // Adapter les formats selon le type
+            if (type === 'league') {
+                formatSelect.innerHTML = `
+                    <option value="league">Système de Ligue</option>
+                    <option value="roundrobin">Round Robin</option>
+                `;
+            } else if (type === 'cup') {
+                formatSelect.innerHTML = `
+                    <option value="single">Simple Élimination</option>
+                    <option value="double">Double Élimination</option>
+                    <option value="swiss">Swiss System</option>
+                `;
+            } else {
+                formatSelect.innerHTML = `
+                    <option value="single">Simple Élimination</option>
+                    <option value="double">Double Élimination</option>
+                    <option value="roundrobin">Round Robin</option>
+                    <option value="swiss">Swiss System</option>
+                `;
+            }
         }
 
         // Close modal on outside click
