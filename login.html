@@ -125,29 +125,6 @@
             box-shadow: 0 0 20px var(--red-glow);
         }
 
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .remember-me input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: var(--red);
-        }
-
-        .remember-me label {
-            margin: 0;
-            font-size: 14px;
-            font-weight: normal;
-            text-transform: none;
-            letter-spacing: normal;
-            cursor: pointer;
-        }
-
         .btn {
             width: 100%;
             padding: 18px;
@@ -182,7 +159,8 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            margin-top: 20px;
+            margin-top: 0;
+            margin-bottom: 20px;
         }
 
         .btn-google:hover {
@@ -306,11 +284,6 @@
                 <input type="password" id="password" placeholder="••••••••" required>
             </div>
 
-            <div class="remember-me">
-                <input type="checkbox" id="rememberMe" checked>
-                <label for="rememberMe">Rester connecté</label>
-            </div>
-
             <button type="submit" class="btn" id="loginBtn">Se connecter</button>
         </form>
 
@@ -325,7 +298,7 @@
 
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, setPersistence, browserSessionPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyDolPqeJUYIFTXqPzn1RHdnW9U4v3InuL4",
@@ -341,12 +314,18 @@
         const auth = getAuth(app);
         const googleProvider = new GoogleAuthProvider();
 
+        // VERSION 3: Force la persistance LOCAL dès le départ
+        setPersistence(auth, browserLocalPersistence).then(() => {
+            console.log('✅ Persistance LOCAL activée - vous resterez connecté');
+        }).catch((error) => {
+            console.error('❌ Erreur persistance:', error);
+        });
+
         const loginForm = document.getElementById('loginForm');
         const loginBtn = document.getElementById('loginBtn');
         const googleBtn = document.getElementById('googleBtn');
         const errorMessage = document.getElementById('errorMessage');
         const successMessage = document.getElementById('successMessage');
-        const rememberMe = document.getElementById('rememberMe');
 
         function showError(message) {
             errorMessage.textContent = message;
@@ -367,6 +346,7 @@
 
             try {
                 const result = await signInWithPopup(auth, googleProvider);
+                console.log('✅ Connexion Google réussie:', result.user.email);
                 showSuccess('✓ Connexion réussie avec Google ! Redirection...');
                 
                 setTimeout(() => {
@@ -374,6 +354,7 @@
                 }, 1500);
 
             } catch (error) {
+                console.error('❌ Erreur Google:', error);
                 let errorMsg = 'Erreur de connexion avec Google';
                 
                 if (error.code === 'auth/popup-closed-by-user') {
@@ -396,11 +377,6 @@
             }
         });
 
-        // Set persistence to LOCAL by default (always remember user)
-        setPersistence(auth, browserLocalPersistence).catch((error) => {
-            console.error('Erreur de persistance:', error);
-        });
-
         // Email/Password Sign-In
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -412,8 +388,8 @@
             loginBtn.textContent = 'Connexion...';
 
             try {
-
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                console.log('✅ Connexion Email réussie:', userCredential.user.email);
                 showSuccess('✓ Connexion réussie ! Redirection...');
                 
                 setTimeout(() => {
@@ -421,6 +397,7 @@
                 }, 1500);
 
             } catch (error) {
+                console.error('❌ Erreur Email:', error);
                 let errorMsg = 'Erreur de connexion';
                 
                 switch(error.code) {
