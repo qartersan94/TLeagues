@@ -606,7 +606,9 @@
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
-            <div class="logo">TLeagues</div>
+            <a href="index.html" style="text-decoration: none;">
+                <div class="logo">TLeagues</div>
+            </a>
             <div class="user-profile">
                 <div class="user-avatar">🔥</div>
                 <div class="user-info">
@@ -897,6 +899,60 @@
                         
                         <div class="progress-container">
                             <div class="progress-header">
+                                <span>Tournois Gagnés (5/10)</span>
+                                <span>50%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Derniers Résultats</div>
+                        </div>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
+                            <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
+                            <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
+                            <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
+                            <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
+                            <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
+                            <div style="width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">V</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Récompenses</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 64px; margin-bottom: 10px;">🏆</div>
+                            <div style="font-size: 24px; font-weight: bold; color: var(--gold); margin-bottom: 5px;">Champion</div>
+                            <div style="color: var(--text-gray);">LoL Masters Cup Finals</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function switchSection(section) {
+            // Update nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.nav-item').classList.add('active');
+            
+            // Show corresponding section (for demo)
+            console.log('Switching to:', section);
+            alert(`Navigation vers ${section} (fonctionnalité de démonstration)`);
+        }
+    </script>
+</body>
+</html>
                                 <span>Victoires (187/200)</span>
                                 <span>93.5%</span>
                             </div>
