@@ -3,836 +3,914 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - TLeagues</title>
+    <title>TLeagues - Admin Panel</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
+        :root {
+            --primary-red: #ff0000;
+            --dark-red: #cc0000;
+            --bg-dark: #000000;
+            --bg-card: #0a0a0a;
+            --border-red: rgba(255, 0, 0, 0.3);
+            --text-light: #ffffff;
+            --text-gray: #999999;
+            --danger: #f44336;
+            --success: #4CAF50;
+            --warning: #ff9800;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --red: #ff0000;
-            --red-dark: #cc0000;
-            --red-glow: rgba(255, 0, 0, 0.3);
-            --black: #0a0a0a;
-            --black-light: #1a1a1a;
-            --gray: #2a2a2a;
-            --white: #ffffff;
-            --text-gray: #b0b0b0;
-            --green: #00ff00;
-            --orange: #ff9900;
-            --blue: #0099ff;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--black);
-            color: var(--white);
-            line-height: 1.6;
-            display: flex;
+            background: var(--bg-dark);
+            color: var(--text-light);
             min-height: 100vh;
         }
 
-        /* Sidebar */
-        .sidebar {
-            width: 280px;
-            background: var(--black-light);
-            border-right: 1px solid rgba(255, 0, 0, 0.2);
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
+        /* NAVBAR */
+        .navbar {
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 2px solid var(--border-red);
+            padding: 20px 0;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
             z-index: 100;
         }
 
-        .sidebar-header {
-            padding: 30px 20px;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--red);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px var(--red-glow);
-            margin-bottom: 10px;
-        }
-
-        .admin-badge {
-            background: rgba(255, 0, 0, 0.2);
-            color: var(--red);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 1px solid var(--red);
-            display: inline-block;
-        }
-
-        .sidebar-menu {
-            padding: 20px 0;
-        }
-
-        .menu-section {
-            margin-bottom: 30px;
-        }
-
-        .menu-title {
-            padding: 10px 20px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-gray);
-            font-weight: 600;
-        }
-
-        .menu-item {
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-left: 3px solid transparent;
-            color: var(--text-gray);
-        }
-
-        .menu-item:hover {
-            background: rgba(255, 0, 0, 0.1);
-            color: var(--white);
-            border-left-color: var(--red);
-        }
-
-        .menu-item.active {
-            background: rgba(255, 0, 0, 0.2);
-            color: var(--red);
-            border-left-color: var(--red);
-        }
-
-        .menu-icon {
-            font-size: 20px;
-            width: 24px;
-            text-align: center;
-        }
-
-        .menu-text {
-            flex: 1;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .menu-badge {
-            background: var(--red);
-            color: var(--white);
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 11px;
-            font-weight: bold;
-        }
-
-        /* Main Content */
-        .main-content {
-            margin-left: 280px;
-            flex: 1;
-            padding: 40px;
-            width: calc(100% - 280px);
-        }
-
-        .top-bar {
+        .navbar-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
         }
 
-        .page-title {
-            font-size: 36px;
-            font-weight: bold;
+        .navbar-brand {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--primary-red);
+            letter-spacing: 3px;
         }
 
-        .top-actions {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s;
+        .navbar-actions {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 20px;
         }
 
-        .btn-primary {
-            background: var(--red);
-            color: var(--white);
+        .btn-danger {
+            padding: 10px 20px;
+            background: var(--danger);
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            transition: all 0.3s;
         }
 
-        .btn-primary:hover {
-            background: var(--red-dark);
-            box-shadow: 0 5px 20px var(--red-glow);
-            transform: translateY(-2px);
+        .btn-danger:hover {
+            background: #d32f2f;
+            box-shadow: 0 0 20px rgba(244, 67, 54, 0.5);
         }
 
-        .btn-secondary {
+        .btn-logout {
+            padding: 10px 20px;
             background: transparent;
-            color: var(--red);
-            border: 2px solid var(--red);
+            border: 2px solid var(--border-red);
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            transition: all 0.3s;
         }
 
-        .btn-secondary:hover {
-            background: var(--red);
-            color: var(--white);
+        .btn-logout:hover {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
         }
 
-        /* Stats Grid */
+        /* MAIN */
+        .main-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            color: var(--primary-red);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 900;
+        }
+
+        /* STATS CARDS */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
             margin-bottom: 40px;
         }
 
         .stat-card {
-            background: var(--black-light);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 30px;
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid var(--border-red);
+            padding: 25px;
             transition: all 0.3s;
         }
 
         .stat-card:hover {
-            border-color: var(--red);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px var(--red-glow);
+            border-color: var(--primary-red);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
         }
 
         .stat-icon {
-            font-size: 36px;
-            margin-bottom: 15px;
+            font-size: 24px;
+            opacity: 0.5;
         }
 
         .stat-value {
             font-size: 36px;
-            font-weight: bold;
-            color: var(--red);
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--text-gray);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-weight: 900;
+            color: var(--primary-red);
         }
 
         .stat-change {
             font-size: 12px;
-            margin-top: 10px;
-            padding: 4px 8px;
-            border-radius: 4px;
-            display: inline-block;
+            color: var(--success);
+            margin-top: 8px;
         }
 
-        .stat-change.positive {
-            background: rgba(0, 255, 0, 0.1);
-            color: var(--green);
-        }
-
-        .stat-change.negative {
-            background: rgba(255, 68, 68, 0.1);
-            color: #ff4444;
-        }
-
-        /* Content Section */
-        .content-section {
-            background: var(--black-light);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 10px;
+        /* SECTION */
+        .section {
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid var(--border-red);
             padding: 30px;
             margin-bottom: 30px;
-            display: none;
-        }
-
-        .content-section.active {
-            display: block;
         }
 
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-red);
         }
 
-        .section-title {
+        .section-header h2 {
             font-size: 24px;
-            font-weight: bold;
+            color: var(--primary-red);
             text-transform: uppercase;
             letter-spacing: 2px;
+            font-weight: 900;
         }
 
-        /* Table */
+        /* BUTTONS */
+        .btn-primary {
+            padding: 12px 24px;
+            background: var(--primary-red);
+            border: none;
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-red);
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid var(--border-red);
+            color: var(--text-light);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+        }
+
+        /* TABLE */
         .data-table {
             width: 100%;
             border-collapse: collapse;
+            background: transparent;
         }
 
         .data-table thead {
-            background: var(--gray);
-            border-bottom: 2px solid var(--red);
+            background: rgba(255, 0, 0, 0.1);
         }
 
         .data-table th {
             padding: 15px;
             text-align: left;
-            font-size: 12px;
+            color: var(--primary-red);
+            font-size: 11px;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-gray);
-            font-weight: 600;
+            letter-spacing: 1.5px;
+            border-bottom: 2px solid var(--border-red);
         }
 
         .data-table td {
-            padding: 20px 15px;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            padding: 15px;
+            border-bottom: 1px solid var(--border-red);
+            font-size: 13px;
         }
 
-        .data-table tr:hover {
+        .data-table tbody tr {
+            transition: all 0.3s;
+        }
+
+        .data-table tbody tr:hover {
             background: rgba(255, 0, 0, 0.05);
         }
 
-        .status-badge {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: bold;
+        /* BADGES */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 10px;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            display: inline-block;
         }
 
-        .status-active {
-            background: rgba(0, 255, 0, 0.2);
-            color: var(--green);
-            border: 1px solid var(--green);
-        }
+        .badge-president { background: #ffd700; color: #000; }
+        .badge-admin { background: var(--primary-red); color: white; }
+        .badge-capitaine { background: #ff6600; color: white; }
+        .badge-manager { background: #9c27b0; color: white; }
+        .badge-coach { background: #2196F3; color: white; }
+        .badge-responsable { background: #4CAF50; color: white; }
+        .badge-joueur { background: #00bcd4; color: white; }
 
-        .status-pending {
-            background: rgba(255, 153, 0, 0.2);
-            color: var(--orange);
-            border: 1px solid var(--orange);
-        }
-
-        .status-banned {
-            background: rgba(255, 68, 68, 0.2);
-            color: #ff4444;
-            border: 1px solid #ff4444;
-        }
-
-        .status-completed {
-            background: rgba(0, 153, 255, 0.2);
-            color: var(--blue);
-            border: 1px solid var(--blue);
-        }
-
-        .action-buttons {
+        /* ACTION BUTTONS */
+        .action-btns {
             display: flex;
             gap: 8px;
         }
 
-        .btn-small {
+        .action-btn {
             padding: 6px 12px;
+            border: 2px solid;
             font-size: 10px;
-            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: transparent;
         }
 
-        /* Form */
+        .btn-edit {
+            color: var(--success);
+            border-color: var(--success);
+        }
+
+        .btn-edit:hover {
+            background: var(--success);
+            color: #000;
+        }
+
+        .btn-delete {
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .btn-delete:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* FORM */
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
+            color: var(--text-light);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-red);
+            color: var(--text-light);
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            background: rgba(255, 0, 0, 0.05);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(10, 10, 10, 0.98);
+            border: 2px solid var(--border-red);
+            padding: 35px;
+            max-width: 550px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.4);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-red);
+        }
+
+        .modal-header h3 {
+            font-size: 22px;
+            color: var(--primary-red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 900;
+        }
+
+        .modal-close {
+            width: 35px;
+            height: 35px;
+            background: transparent;
+            border: 2px solid var(--border-red);
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+        }
+
+        /* ALERTS */
+        .alert {
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 2px solid;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
+        }
+
+        .alert-danger {
+            background: rgba(244, 67, 54, 0.1);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .alert-warning {
+            background: rgba(255, 152, 0, 0.1);
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+
+        .alert-success {
+            background: rgba(76, 175, 80, 0.1);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        /* TABS */
+        .tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 30px;
+            border: 2px solid var(--border-red);
+        }
+
+        .tab {
+            padding: 12px 25px;
+            background: transparent;
+            border: none;
+            border-right: 2px solid var(--border-red);
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 12px;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .tab:last-child {
+            border-right: none;
+        }
+
+        .tab:hover {
+            background: rgba(255, 0, 0, 0.1);
+            color: var(--text-light);
+        }
+
+        .tab.active {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* SEARCH */
+        .search-bar {
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
             width: 100%;
-            padding: 15px;
-            background: var(--gray);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            color: var(--white);
-            font-size: 16px;
-            border-radius: 5px;
-            transition: all 0.3s;
-            font-family: inherit;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-red);
+            color: var(--text-light);
+            font-size: 13px;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        .search-bar input:focus {
             outline: none;
-            border-color: var(--red);
-            box-shadow: 0 0 20px var(--red-glow);
+            border-color: var(--primary-red);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
         }
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        /* Activity Log */
-        .activity-log {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .activity-item {
-            background: var(--gray);
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 3px solid var(--red);
-            display: flex;
-            gap: 15px;
-        }
-
-        .activity-icon {
-            font-size: 24px;
-            flex-shrink: 0;
-        }
-
-        .activity-content {
-            flex: 1;
-        }
-
-        .activity-text {
-            margin-bottom: 5px;
-        }
-
-        .activity-time {
-            font-size: 11px;
-            color: var(--text-gray);
-        }
-
-        /* Charts placeholder */
-        .chart-placeholder {
-            background: var(--gray);
-            border: 2px dashed rgba(255, 0, 0, 0.3);
-            border-radius: 8px;
-            padding: 60px;
-            text-align: center;
-            color: var(--text-gray);
-        }
-
-        @media (max-width: 1024px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .sidebar {
-                width: 0;
-                transform: translateX(-100%);
-            }
-
-            .main-content {
-                margin-left: 0;
-                width: 100%;
-            }
-
             .stats-grid {
                 grid-template-columns: 1fr;
             }
 
-            .top-bar {
+            .page-header {
                 flex-direction: column;
                 gap: 20px;
                 align-items: flex-start;
+            }
+
+            .data-table {
+                font-size: 11px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">TLeagues</div>
-            <span class="admin-badge">👑 ADMIN</span>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">🛡️ ADMIN PANEL</div>
+            <div class="navbar-actions">
+                <button class="btn-danger" onclick="resetAllData()">🔄 Réinitialiser</button>
+                <button class="btn-logout" onclick="logout()">Déconnexion</button>
+            </div>
         </div>
+    </nav>
 
-        <nav class="sidebar-menu">
-            <div class="menu-section">
-                <div class="menu-title">Principal</div>
-                <div class="menu-item active" onclick="showSection('overview')">
-                    <span class="menu-icon">📊</span>
-                    <span class="menu-text">Vue d'ensemble</span>
-                </div>
-                <div class="menu-item" onclick="showSection('tournaments')">
-                    <span class="menu-icon">🏆</span>
-                    <span class="menu-text">Tournois</span>
-                    <span class="menu-badge">12</span>
-                </div>
-                <div class="menu-item" onclick="showSection('users')">
-                    <span class="menu-icon">👥</span>
-                    <span class="menu-text">Utilisateurs</span>
-                    <span class="menu-badge">1.2K</span>
-                </div>
-                <div class="menu-item" onclick="showSection('teams')">
-                    <span class="menu-icon">🛡️</span>
-                    <span class="menu-text">Équipes</span>
-                    <span class="menu-badge">248</span>
-                </div>
-            </div>
-
-            <div class="menu-section">
-                <div class="menu-title">Modération</div>
-                <div class="menu-item" onclick="showSection('reports')">
-                    <span class="menu-icon">⚠️</span>
-                    <span class="menu-text">Rapports</span>
-                    <span class="menu-badge" style="background: var(--orange);">8</span>
-                </div>
-                <div class="menu-item" onclick="showSection('disputes')">
-                    <span class="menu-icon">⚖️</span>
-                    <span class="menu-text">Litiges</span>
-                    <span class="menu-badge">3</span>
-                </div>
-                <div class="menu-item" onclick="showSection('verification')">
-                    <span class="menu-icon">✓</span>
-                    <span class="menu-text">Vérifications</span>
-                    <span class="menu-badge" style="background: var(--green);">12</span>
-                </div>
-            </div>
-
-            <div class="menu-section">
-                <div class="menu-title">Système</div>
-                <div class="menu-item" onclick="showSection('analytics')">
-                    <span class="menu-icon">📈</span>
-                    <span class="menu-text">Analytiques</span>
-                </div>
-                <div class="menu-item" onclick="showSection('logs')">
-                    <span class="menu-icon">📋</span>
-                    <span class="menu-text">Logs</span>
-                </div>
-                <div class="menu-item" onclick="showSection('settings')">
-                    <span class="menu-icon">⚙️</span>
-                    <span class="menu-text">Paramètres</span>
-                </div>
-            </div>
-
-            <div class="menu-section">
-                <div class="menu-item" onclick="window.location.href='index.html'">
-                    <span class="menu-icon">🏠</span>
-                    <span class="menu-text">Retour au site</span>
-                </div>
-                <div class="menu-item" onclick="alert('Déconnexion - Fonctionnalité à venir!')">
-                    <span class="menu-icon">🚪</span>
-                    <span class="menu-text">Déconnexion</span>
-                </div>
-            </div>
-        </nav>
-    </aside>
-
-    <!-- Main Content -->
+    <!-- MAIN -->
     <main class="main-content">
-        <!-- Overview Section -->
-        <div id="overview" class="content-section active">
-            <div class="top-bar">
-                <h1 class="page-title">📊 Vue d'ensemble</h1>
-                <div class="top-actions">
-                    <button class="btn btn-secondary">📅 Dernières 30 jours</button>
-                    <button class="btn btn-primary">📥 Export Rapport</button>
-                </div>
+        <!-- HEADER -->
+        <div class="page-header">
+            <h1>Administration</h1>
+            <div style="color: var(--text-gray); font-size: 14px;">
+                Dernière connexion: <strong id="lastLogin">Aujourd'hui</strong>
             </div>
+        </div>
 
-            <!-- Stats -->
-            <div class="stats-grid">
-                <div class="stat-card">
+        <!-- STATS OVERVIEW -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-label">Utilisateurs</div>
                     <div class="stat-icon">👥</div>
-                    <div class="stat-value">1,247</div>
-                    <div class="stat-label">Utilisateurs Actifs</div>
-                    <div class="stat-change positive">↑ +12% ce mois</div>
                 </div>
-
-                <div class="stat-card">
+                <div class="stat-value" id="totalUsers">0</div>
+                <div class="stat-change">+0 cette semaine</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-label">Équipes</div>
+                    <div class="stat-icon">⚔️</div>
+                </div>
+                <div class="stat-value" id="totalTeams">0</div>
+                <div class="stat-change">+0 cette semaine</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-label">Tournois</div>
                     <div class="stat-icon">🏆</div>
-                    <div class="stat-value">42</div>
-                    <div class="stat-label">Tournois en Cours</div>
-                    <div class="stat-change positive">↑ +8 nouveaux</div>
                 </div>
-
-                <div class="stat-card">
+                <div class="stat-value" id="totalTournaments">0</div>
+                <div class="stat-change">Actifs maintenant</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-label">Revenue Total</div>
                     <div class="stat-icon">💰</div>
-                    <div class="stat-value">125K€</div>
-                    <div class="stat-label">Prize Pool Total</div>
-                    <div class="stat-change positive">↑ +25% ce mois</div>
                 </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon">⚠️</div>
-                    <div class="stat-value">8</div>
-                    <div class="stat-label">Rapports Ouverts</div>
-                    <div class="stat-change negative">↑ +2 aujourd'hui</div>
-                </div>
+                <div class="stat-value" id="totalRevenue">0€</div>
+                <div class="stat-change">Ce mois</div>
             </div>
+        </div>
 
-            <!-- Activity Log -->
-            <div class="content-section active">
+        <!-- TABS -->
+        <div class="tabs">
+            <div class="tab active" data-tab="users">Utilisateurs</div>
+            <div class="tab" data-tab="teams">Équipes</div>
+            <div class="tab" data-tab="tournaments">Tournois</div>
+            <div class="tab" data-tab="settings">Paramètres</div>
+        </div>
+
+        <!-- TAB: UTILISATEURS -->
+        <div class="tab-content active" id="users">
+            <div class="section">
                 <div class="section-header">
-                    <h2 class="section-title">📋 Activité Récente</h2>
+                    <h2>Gestion des Utilisateurs</h2>
+                    <button class="btn-primary" onclick="showCreateUserModal()">➕ Nouvel Utilisateur</button>
                 </div>
-                <div class="activity-log">
-                    <div class="activity-item">
-                        <div class="activity-icon">🏆</div>
-                        <div class="activity-content">
-                            <div class="activity-text"><strong>Nouveau tournoi créé</strong>: Winter Championship 2026</div>
-                            <div class="activity-time">Il y a 5 minutes</div>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon">👥</div>
-                        <div class="activity-content">
-                            <div class="activity-text"><strong>12 nouveaux utilisateurs</strong> inscrits aujourd'hui</div>
-                            <div class="activity-time">Il y a 15 minutes</div>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon">⚠️</div>
-                        <div class="activity-content">
-                            <div class="activity-text"><strong>Rapport signalé</strong>: Comportement toxique en tournoi</div>
-                            <div class="activity-time">Il y a 1 heure</div>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon">✓</div>
-                        <div class="activity-content">
-                            <div class="activity-text"><strong>Équipe vérifiée</strong>: Phoenix Rising</div>
-                            <div class="activity-time">Il y a 2 heures</div>
-                        </div>
-                    </div>
+
+                <div class="search-bar">
+                    <input type="text" id="userSearch" placeholder="🔍 Rechercher un utilisateur..." oninput="filterUsers()">
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Rôle</th>
+                            <th>Équipe</th>
+                            <th>Argent</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB: ÉQUIPES -->
+        <div class="tab-content" id="teams">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Gestion des Équipes</h2>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tag</th>
+                            <th>Nom</th>
+                            <th>Capitaine</th>
+                            <th>Joueurs</th>
+                            <th>Victoires</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="teamsTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB: TOURNOIS -->
+        <div class="tab-content" id="tournaments">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Gestion des Tournois</h2>
+                    <button class="btn-primary">➕ Nouveau Tournoi</button>
+                </div>
+
+                <div class="alert alert-warning">
+                    ⚠️ Fonctionnalité en développement
                 </div>
             </div>
         </div>
 
-        <!-- Tournaments Section -->
-        <div id="tournaments" class="content-section">
-            <div class="top-bar">
-                <h1 class="page-title">🏆 Gestion des Tournois</h1>
-                <div class="top-actions">
-                    <button class="btn btn-primary" onclick="alert('Création de tournoi - Fonctionnalité à venir!')">
-                        ➕ Créer un Tournoi
-                    </button>
+        <!-- TAB: PARAMÈTRES -->
+        <div class="tab-content" id="settings">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Paramètres Système</h2>
+                </div>
+
+                <div class="alert alert-danger">
+                    🔥 <strong>Zone Dangereuse</strong> - Ces actions sont irréversibles
+                </div>
+
+                <div class="form-group">
+                    <label>Réinitialisation des Données</label>
+                    <p style="color: var(--text-gray); font-size: 12px; margin: 10px 0;">
+                        Supprime TOUTES les données (utilisateurs, équipes, statistiques). Seul le compte admin sera conservé.
+                    </p>
+                    <button class="btn-danger" onclick="resetAllData()">🔄 Réinitialiser Tout</button>
+                </div>
+
+                <div class="form-group" style="margin-top: 40px;">
+                    <label>Export des Données</label>
+                    <p style="color: var(--text-gray); font-size: 12px; margin: 10px 0;">
+                        Télécharger une sauvegarde complète de la base de données
+                    </p>
+                    <button class="btn-secondary" onclick="exportData()">💾 Exporter JSON</button>
                 </div>
             </div>
-
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Nom du Tournoi</th>
-                        <th>Date</th>
-                        <th>Participants</th>
-                        <th>Prize Pool</th>
-                        <th>Statut</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Winter Championship 2026</strong></td>
-                        <td>15 Jan 2026</td>
-                        <td>64/128</td>
-                        <td>50,000€</td>
-                        <td><span class="status-badge status-active">En Cours</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn btn-secondary btn-small">✏️ Modifier</button>
-                                <button class="btn btn-primary btn-small" onclick="window.location.href='bracket.html'">📊 Bracket</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>TLeagues Pro League S1</strong></td>
-                        <td>20 Jan 2026</td>
-                        <td>0/64</td>
-                        <td>100,000€</td>
-                        <td><span class="status-badge status-pending">À venir</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn btn-secondary btn-small">✏️ Modifier</button>
-                                <button class="btn btn-primary btn-small">📊 Bracket</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>Rookie Tournament</strong></td>
-                        <td>10 Jan 2026</td>
-                        <td>256/256</td>
-                        <td>10,000€</td>
-                        <td><span class="status-badge status-completed">Terminé</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn btn-secondary btn-small">👁️ Voir</button>
-                                <button class="btn btn-primary btn-small">📊 Stats</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
+    </main>
 
-        <!-- Users Section -->
-        <div id="users" class="content-section">
-            <div class="top-bar">
-                <h1 class="page-title">👥 Gestion des Utilisateurs</h1>
-                <div class="top-actions">
-                    <input type="search" placeholder="Rechercher un utilisateur..." style="padding: 12px 20px; background: var(--gray); border: 1px solid rgba(255, 0, 0, 0.2); color: var(--white); border-radius: 5px; width: 300px;">
+    <!-- MODALS -->
+    <div id="createUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Créer Utilisateur</h3>
+                <button class="modal-close" onclick="closeModal('createUserModal')">×</button>
+            </div>
+            <form id="createUserForm">
+                <div class="form-group">
+                    <label>Nom d'utilisateur</label>
+                    <input type="text" id="newUsername" required>
                 </div>
-            </div>
-
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Utilisateur</th>
-                        <th>Email</th>
-                        <th>Rang LoL</th>
-                        <th>Inscription</th>
-                        <th>Statut</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>ProGamer94</strong></td>
-                        <td>progamer@email.com</td>
-                        <td>🏆 Diamond II</td>
-                        <td>01 Jan 2026</td>
-                        <td><span class="status-badge status-active">Actif</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn btn-secondary btn-small">👁️ Profil</button>
-                                <button class="btn btn-primary btn-small" style="background: #ff4444;">🚫 Ban</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>ShadowNinja</strong></td>
-                        <td>shadow@email.com</td>
-                        <td>🏆 Diamond I</td>
-                        <td>28 Déc 2025</td>
-                        <td><span class="status-badge status-active">Actif</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn btn-secondary btn-small">👁️ Profil</button>
-                                <button class="btn btn-primary btn-small" style="background: #ff4444;">🚫 Ban</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>ToxicPlayer</strong></td>
-                        <td>toxic@email.com</td>
-                        <td>🏆 Gold III</td>
-                        <td>15 Déc 2025</td>
-                        <td><span class="status-badge status-banned">Banni</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn btn-secondary btn-small">👁️ Profil</button>
-                                <button class="btn btn-primary btn-small" style="background: var(--green);">✓ Débanner</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="newEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe</label>
+                    <input type="password" id="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>Rôle</label>
+                    <select id="newRole">
+                        <option value="joueur">Joueur</option>
+                        <option value="capitaine">Capitaine</option>
+                        <option value="coach">Coach</option>
+                        <option value="manager">Manager</option>
+                        <option value="responsable">Responsable</option>
+                        <option value="president">Président</option>
+                        <option value="admin">Administrateur</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Créer</button>
+            </form>
         </div>
+    </div>
 
-        <!-- Teams Section -->
-        <div id="teams" class="content-section">
-            <div class="top-bar">
-                <h1 class="page-title">🛡️ Gestion des Équipes</h1>
-            </div>
+    <script>
+        // Data
+        let appData = JSON.parse(localStorage.getItem('tleagues_data')) || {
+            users: [{
+                id: 1,
+                username: 'admin',
+                email: 'admin@tleagues.com',
+                password: 'admin123',
+                role: 'admin',
+                teamId: null,
+                profile: {
+                    logo: null,
+                    bio: 'Administrateur système',
+                    stats: { money: 0, wins: 0, losses: 0, kills: 0, deaths: 0 }
+                }
+            }],
+            teams: []
+        };
 
-            <table class="data-table">
-                <thead>
+        // Init
+        function init() {
+            updateStats();
+            updateTables();
+            setupEventListeners();
+        }
+
+        function updateStats() {
+            document.getElementById('totalUsers').textContent = appData.users.length;
+            document.getElementById('totalTeams').textContent = appData.teams.length;
+            document.getElementById('totalTournaments').textContent = '0';
+            
+            const totalMoney = appData.users.reduce((sum, u) => sum + (u.profile?.stats?.money || 0), 0);
+            document.getElementById('totalRevenue').textContent = totalMoney + '€';
+        }
+
+        function updateTables() {
+            updateUsersTable();
+            updateTeamsTable();
+        }
+
+        function updateUsersTable() {
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = appData.users.map(user => {
+                const team = user.teamId ? appData.teams.find(t => t.id === user.teamId) : null;
+                return `
                     <tr>
-                        <th>Équipe</th>
-                        <th>Capitaine</th>
-                        <th>Membres</th>
-                        <th>Victoires</th>
-                        <th>Statut</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>🛡️ Phoenix Rising</strong></td>
-                        <td>ProGamer94</td>
-                        <td>5/5</td>
-                        <td>24-11 (68%)</td>
-                        <td><span class="status-badge status-active">Vérifiée</span></td>
+                        <td>${user.id}</td>
+                        <td>${user.username}</td>
+                        <td>${user.email}</td>
+                        <td><span class="badge badge-${user.role}">${user.role}</span></td>
+                        <td>${team ? team.tag : '—'}</td>
+                        <td>${user.profile?.stats?.money || 0}€</td>
                         <td>
-                            <div class="action-buttons">
-                                <button class="btn btn-secondary btn-small">👁️ Voir</button>
-                                <button class="btn btn-primary btn-small">✏️ Modifier</button>
+                            <div class="action-btns">
+                                <button class="action-btn btn-edit" onclick="editUser(${user.id})">✏️</button>
+                                <button class="action-btn btn-delete" onclick="deleteUser(${user.id})">🗑️</button>
                             </div>
                         </td>
                     </tr>
+                `;
+            }).join('');
+        }
+
+        function updateTeamsTable() {
+            const tbody = document.getElementById('teamsTableBody');
+            tbody.innerHTML = appData.teams.map(team => {
+                const captain = appData.users.find(u => u.id === team.captainId);
+                return `
                     <tr>
-                        <td><strong>🐺 Shadow Wolves</strong></td>
-                        <td>ShadowNinja</td>
-                        <td>5/5</td>
-                        <td>18-14 (56%)</td>
-                        <td><span class="status-badge status-pending">En attente</span></td>
+                        <td>${team.id}</td>
+                        <td><strong>${team.tag}</strong></td>
+                        <td>${team.name}</td>
+                        <td>${captain ? captain.username : 'N/A'}</td>
+                        <td>${team.players?.length || 0}</td>
+                        <td>${team.stats?.wins || 0}</td>
                         <td>
-                            <div class="action-buttons">
-                                <button class="btn btn-secondary btn-small">👁️ Voir</button>
-                                <button class="btn btn-primary btn-small" style="background: var(--green);">✓ Vérifier</button>
+                            <div class="action-btns">
+                                <button class="action-btn btn-edit" onclick="editTeam(${team.id})">✏️</button>
+                                <button class="action-btn btn-delete" onclick="deleteTeam(${team.id})">🗑️</button>
                             </div>
                         </td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
+                `;
+            }).join('');
+        }
 
-        <!-- Reports Section -->
-        <div id="reports" class="content-section">
-            <div class="top-bar">
-                <h1 class="page-title">⚠️ Rapports et Modération</h1>
-            </div>
+        function filterUsers() {
+            const search = document.getElementById('userSearch').value.toLowerCase();
+            const rows = document.querySelectorAll('#usersTableBody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(search) ? '' : 'none';
+            });
+        }
 
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Signalé par</th>
-                        <th>Concernant</th>
-                        <th>Raison</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody
+        function setupEventListeners() {
+            // Tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
+            });
+
+            // Create User Form
+            document.getElementById('createUserForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                createUser();
+            });
+
+            // Modal close on outside click
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    e.target.classList.remove('active');
+                }
+            });
+        }
+
+        function showCreateUserModal() {
+            document.getElementById('createUserModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function createUser() {
+            const newUser = {
+                id: Date.now(),
+                username: document.getElementById('newUsername').value,
+                email: document.getElementById('newEmail').value,
+                password: document.getElementById('newPassword').value,
+                role: document.getElementById('newRole').value,
+                teamId: null,
+                profile: {
+                    logo: null,
+                    bio: '',
+                    stats: { money: 0, wins: 0, losses: 0, kills: 0, deaths: 0 }
+                }
+            };
+
+            appData.users.push(newUser);
+            saveData();
+            updateTables();
+            updateStats();
+            closeModal('createUserModal');
+            document.getElementById('createUserForm').reset();
+            alert('✅ Utilisateur créé!');
+        }
+
+        function deleteUser(userId) {
+            if (userId === 1) {
+                alert('❌ Impossible de supprimer l\'admin principal');
+                return;
+            }
+            if (!confirm('⚠️ Supprimer cet utilisateur?')) return;
+
+            appData.users = appData.users.filter(u => u.id !== userId);
+            appData.teams.forEach(team => {
+                if (team.players) {
+                    team.players = team.players.filter(id => id !== userId);
+                }
+            });
+            saveData();
+            updateT
