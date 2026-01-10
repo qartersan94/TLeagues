@@ -3,216 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - TLeagues</title>
+    <title>TLeagues - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
+        :root {
+            --primary-red: #ff0000;
+            --dark-red: #cc0000;
+            --bg-dark: #000000;
+            --bg-card: #0a0a0a;
+            --border-red: rgba(255, 0, 0, 0.3);
+            --text-light: #ffffff;
+            --text-gray: #999999;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --red: #ff0000;
-            --red-dark: #cc0000;
-            --red-glow: rgba(255, 0, 0, 0.3);
-            --black: #0a0a0a;
-            --black-light: #1a1a1a;
-            --gray: #2a2a2a;
-            --white: #ffffff;
-            --text-gray: #b0b0b0;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--black);
-            color: var(--white);
-            line-height: 1.6;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
         }
 
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
+        /* LOGIN PAGE */
+        .login-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #000000;
+        }
+
+        .login-container {
             background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+            border: 2px solid var(--border-red);
+            padding: 60px 50px;
+            width: 100%;
+            max-width: 460px;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.2);
         }
 
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
+        .login-logo {
+            text-align: center;
+            margin-bottom: 40px;
         }
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--red);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px var(--red-glow);
-            cursor: pointer;
+        .login-logo h1 {
+            font-size: 48px;
+            color: var(--primary-red);
+            font-weight: 900;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-            text-transform: uppercase;
+        .login-logo p {
+            color: var(--text-gray);
             font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-light);
+            font-size: 12px;
+            text-transform: uppercase;
             letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-red);
+            color: var(--text-light);
+            font-size: 14px;
             transition: all 0.3s;
         }
 
-        .nav-links a:hover {
-            color: var(--red);
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            background: rgba(255, 0, 0, 0.05);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
         }
 
-        .nav-right {
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-red);
+            border: none;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-red);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .login-footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .login-footer a {
+            color: var(--primary-red);
+            text-decoration: none;
+        }
+
+        /* DASHBOARD */
+        .dashboard-wrapper {
+            display: none;
+        }
+
+        .dashboard-wrapper.active {
+            display: block;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 2px solid var(--border-red);
+            padding: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--primary-red);
+            letter-spacing: 4px;
+        }
+
+        .navbar-user {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 20px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 20px;
+            overflow: hidden;
+            border: 2px solid var(--primary-red);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .user-info {
             display: flex;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-            padding: 8px 15px;
-            border-radius: 25px;
-            transition: all 0.3s;
-        }
-
-        .user-info:hover {
-            background: rgba(255, 0, 0, 0.1);
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--red);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 18px;
-            box-shadow: 0 0 15px var(--red-glow);
-        }
-
-        .user-details {
-            display: flex;
             flex-direction: column;
+            gap: 5px;
         }
 
         .user-name {
-            color: var(--white);
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .user-email {
-            color: var(--text-gray);
-            font-size: 12px;
-        }
-
-        .btn-logout {
-            background: transparent;
-            border: 2px solid var(--red);
-            color: var(--red);
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
+            font-weight: 700;
+            font-size: 16px;
             text-transform: uppercase;
-            font-size: 12px;
             letter-spacing: 1px;
         }
 
+        .user-role {
+            font-size: 11px;
+            padding: 4px 12px;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .role-president { background: #ffd700; color: #000; }
+        .role-admin { background: var(--primary-red); color: white; }
+        .role-capitaine { background: #ff6600; color: white; }
+        .role-manager { background: #9c27b0; color: white; }
+        .role-coach { background: #2196F3; color: white; }
+        .role-responsable { background: #4CAF50; color: white; }
+        .role-joueur { background: #00bcd4; color: white; }
+
+        .btn-logout {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid var(--border-red);
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
         .btn-logout:hover {
-            background: var(--red);
-            color: var(--white);
-            box-shadow: 0 5px 20px var(--red-glow);
-            transform: translateY(-2px);
+            background: var(--primary-red);
+            border-color: var(--primary-red);
         }
 
-        .container {
+        /* MAIN CONTENT */
+        .main-content {
             max-width: 1400px;
-            margin: 100px auto 50px;
-            padding: 0 40px;
+            margin: 0 auto;
+            padding: 40px 30px;
         }
 
-        .welcome-section {
-            background: linear-gradient(135deg, var(--black-light) 0%, var(--gray) 100%);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            padding: 50px;
-            border-radius: 10px;
+        /* TABS */
+        .tabs-container {
+            display: flex;
+            gap: 0;
             margin-bottom: 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            border: 2px solid var(--border-red);
+            flex-wrap: wrap;
         }
 
-        .welcome-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .welcome-section h1 {
-            font-size: 48px;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, var(--white) 0%, var(--red) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-            z-index: 1;
-        }
-
-        .welcome-section p {
+        .tab {
+            padding: 15px 30px;
+            background: transparent;
+            border: none;
+            border-right: 2px solid var(--border-red);
             color: var(--text-gray);
-            font-size: 18px;
-            position: relative;
-            z-index: 1;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .dashboard-grid {
+        .tab:last-child {
+            border-right: none;
+        }
+
+        .tab:hover {
+            background: rgba(255, 0, 0, 0.1);
+            color: var(--text-light);
+        }
+
+        .tab.active {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* STATS GRID */
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             margin-bottom: 40px;
         }
 
         .stat-card {
-            background: var(--black-light);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            padding: 40px 30px;
-            border-radius: 10px;
-            text-align: center;
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid var(--border-red);
+            padding: 30px;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
@@ -222,367 +313,1082 @@
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .stat-card:hover::before {
-            left: 100%;
+            height: 4px;
+            background: var(--primary-red);
+            transform: scaleX(0);
+            transition: transform 0.3s;
         }
 
         .stat-card:hover {
-            border-color: var(--red);
+            border-color: var(--primary-red);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.3);
             transform: translateY(-5px);
-            box-shadow: 0 10px 40px var(--red-glow);
         }
 
-        .stat-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .stat-number {
-            font-size: 36px;
-            font-weight: bold;
-            color: var(--red);
-            margin-bottom: 10px;
+        .stat-card:hover::before {
+            transform: scaleX(1);
         }
 
         .stat-label {
             color: var(--text-gray);
-            text-transform: uppercase;
-            letter-spacing: 2px;
             font-size: 12px;
-        }
-
-        .section-title {
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 30px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .stat-value {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--primary-red);
+        }
+
+        .stat-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        /* PROFILE SECTION */
+        .profile-section {
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid var(--border-red);
+            padding: 40px;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .profile-avatar-container {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .profile-avatar {
+            width: 100%;
+            height: 100%;
+            background: var(--primary-red);
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: center;
+            font-size: 72px;
+            font-weight: 900;
+            overflow: hidden;
+            border: 4px solid var(--primary-red);
         }
 
-        .section-title::after {
-            content: '';
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(90deg, var(--red), transparent);
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .tournaments-list {
-            display: grid;
-            gap: 20px;
-        }
-
-        .tournament-item {
-            background: var(--black-light);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            padding: 30px;
-            border-radius: 10px;
+        .upload-overlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: var(--primary-red);
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: center;
+            cursor: pointer;
             transition: all 0.3s;
-        }
-
-        .tournament-item:hover {
-            border-color: var(--red);
-            box-shadow: 0 5px 20px var(--red-glow);
-            transform: translateX(5px);
-        }
-
-        .tournament-info h3 {
             font-size: 24px;
-            margin-bottom: 10px;
-            color: var(--white);
         }
 
-        .tournament-info p {
-            color: var(--text-gray);
+        .upload-overlay:hover {
+            background: var(--dark-red);
+            transform: scale(1.1);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        /* TABLE */
+        .data-table {
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid var(--border-red);
+            overflow-x: auto;
+        }
+
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background: rgba(255, 0, 0, 0.1);
+            padding: 18px;
+            text-align: left;
+            color: var(--primary-red);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--border-red);
+        }
+
+        .data-table td {
+            padding: 18px;
+            border-bottom: 1px solid var(--border-red);
             font-size: 14px;
         }
 
-        .btn {
-            padding: 12px 30px;
-            background: var(--red);
-            color: var(--white);
-            border: none;
-            border-radius: 5px;
+        .data-table tr:hover {
+            background: rgba(255, 0, 0, 0.05);
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            margin: 0 5px;
+            border: 2px solid;
+            font-size: 11px;
+            font-weight: 700;
             cursor: pointer;
-            font-weight: bold;
+            transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
+            background: transparent;
         }
 
-        .btn:hover {
-            background: var(--red-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px var(--red-glow);
+        .btn-edit {
+            color: #00ff00;
+            border-color: #00ff00;
         }
 
-        .loading {
+        .btn-edit:hover {
+            background: #00ff00;
+            color: black;
+        }
+
+        .btn-delete {
+            color: var(--primary-red);
+            border-color: var(--primary-red);
+        }
+
+        .btn-delete:hover {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--black);
-            display: flex;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            gap: 20px;
-            z-index: 9999;
+            padding: 20px;
         }
 
-        .spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255, 0, 0, 0.1);
-            border-top-color: var(--red);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        .modal.active {
+            display: flex;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .modal-content {
+            background: rgba(10, 10, 10, 0.98);
+            border: 2px solid var(--border-red);
+            padding: 40px;
+            max-width: 550px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 0 60px rgba(255, 0, 0, 0.4);
         }
 
-        .loading-text {
-            color: var(--text-gray);
-            font-size: 18px;
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-red);
         }
 
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 40px;
+        .modal-header h3 {
+            font-size: 24px;
+            color: var(--primary-red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 900;
         }
 
-        .action-card {
-            background: var(--black-light);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 2px solid var(--border-red);
+            color: var(--text-light);
             cursor: pointer;
+            font-size: 24px;
             transition: all 0.3s;
         }
 
-        .action-card:hover {
-            border-color: var(--red);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px var(--red-glow);
+        .modal-close:hover {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
         }
 
-        .action-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
+        /* ROSTER */
+        .roster-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        .action-title {
+        .roster-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px solid var(--border-red);
+            transition: all 0.3s;
+        }
+
+        .roster-item:hover {
+            background: rgba(255, 0, 0, 0.05);
+            border-color: var(--primary-red);
+        }
+
+        .roster-player {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .roster-player-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
             font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 8px;
+        }
+
+        /* ALERTS */
+        .alert {
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 2px solid;
+            font-weight: 600;
+        }
+
+        .alert-warning {
+            background: rgba(255, 152, 0, 0.1);
+            border-color: #ff9800;
+            color: #ff9800;
+        }
+
+        .alert-danger {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: var(--primary-red);
+            color: var(--primary-red);
+        }
+
+        .alert-info {
+            background: rgba(33, 150, 243, 0.1);
+            border-color: #2196F3;
+            color: #2196F3;
+        }
+
+        /* BUTTONS */
+        .btn-secondary {
+            padding: 14px 28px;
+            background: transparent;
+            border: 2px solid var(--border-red);
+            color: var(--text-light);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .action-desc {
+        .btn-secondary:hover {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+        }
+
+        .btn-danger {
+            padding: 14px 28px;
+            background: var(--primary-red);
+            border: 2px solid var(--primary-red);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-danger:hover {
+            background: var(--dark-red);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 80px 30px;
+        }
+
+        .empty-state-icon {
+            font-size: 72px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state-title {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .empty-state-text {
             color: var(--text-gray);
+            margin-bottom: 30px;
             font-size: 14px;
         }
 
-        @media (max-width: 1024px) {
-            .dashboard-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .quick-actions {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        /* ROLE PERMISSIONS */
+        .role-access {
+            display: none;
         }
 
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
+        h2, h3 {
+            color: var(--primary-red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 900;
+        }
 
-            .dashboard-grid,
-            .quick-actions {
-                grid-template-columns: 1fr;
-            }
-            
-            .tournament-item {
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .navbar-content {
                 flex-direction: column;
-                text-align: center;
                 gap: 20px;
             }
 
-            .user-details {
-                display: none;
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab {
+                flex: 1 1 45%;
+                border-right: none;
+                border-bottom: 2px solid var(--border-red);
+            }
+
+            .login-container {
+                padding: 40px 30px;
             }
         }
     </style>
 </head>
 <body>
-    <div id="loadingScreen" class="loading">
-        <div class="spinner"></div>
-        <div class="loading-text">Chargement de votre dashboard...</div>
-    </div>
-
-    <div id="mainContent" style="display: none;">
-        <nav>
-            <div class="nav-container">
-                <div class="logo" onclick="window.location.href='index.html'">TLeagues</div>
-                <ul class="nav-links">
-                    <li><a href="tournois.html">Tournois</a></li>
-                    <li><a href="leagues.html">Ligues</a></li>
-                    <li><a href="cups.html">Coupes</a></li>
-                </ul>
-                <div class="nav-right">
-                    <div class="user-info">
-                        <div class="user-avatar" id="userAvatar">?</div>
-                        <div class="user-details">
-                            <span class="user-name" id="userName">Chargement...</span>
-                            <span class="user-email" id="userEmail">...</span>
-                        </div>
-                    </div>
-                    <button class="btn-logout" id="logoutBtn">Déconnexion</button>
-                </div>
+    <!-- PAGE DE CONNEXION -->
+    <div id="loginPage" class="login-wrapper">
+        <div class="login-container">
+            <div class="login-logo">
+                <h1>TLEAGUES</h1>
+                <p>Dashboard</p>
             </div>
-        </nav>
-
-        <div class="container">
-            <div class="welcome-section">
-                <h1>Bienvenue, <span id="welcomeName">Joueur</span> ! 🎮</h1>
-                <p>Gérez vos tournois, suivez vos performances et dominez la compétition</p>
-            </div>
-
-            <div class="dashboard-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">🏆</div>
-                    <div class="stat-number" id="tournamentsPlayed">0</div>
-                    <div class="stat-label">Tournois Joués</div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email / Nom d'utilisateur</label>
+                    <input type="text" id="username" required>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon">⭐</div>
-                    <div class="stat-number" id="victories">0</div>
-                    <div class="stat-label">Victoires</div>
+                <div class="form-group">
+                    <label>Mot de passe</label>
+                    <input type="password" id="password" required>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon">💰</div>
-                    <div class="stat-number" id="totalEarnings">0€</div>
-                    <div class="stat-label">Gains Totaux</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">📊</div>
-                    <div class="stat-number" id="winRate">0%</div>
-                    <div class="stat-label">Taux de Victoire</div>
-                </div>
-            </div>
-
-            <h2 class="section-title">Actions Rapides</h2>
-            <div class="quick-actions">
-                <div class="action-card" onclick="window.location.href='tournois.html'">
-                    <div class="action-icon">🎯</div>
-                    <div class="action-title">Rejoindre un Tournoi</div>
-                    <div class="action-desc">Participez aux compétitions en cours</div>
-                </div>
-                <div class="action-card" onclick="alert('Fonctionnalité à venir !')">
-                    <div class="action-icon">👥</div>
-                    <div class="action-title">Mon Équipe</div>
-                    <div class="action-desc">Gérez votre roster et vos coéquipiers</div>
-                </div>
-                <div class="action-card" onclick="alert('Fonctionnalité à venir !')">
-                    <div class="action-icon">📈</div>
-                    <div class="action-title">Mes Stats</div>
-                    <div class="action-desc">Analysez vos performances détaillées</div>
-                </div>
-            </div>
-
-            <h2 class="section-title">Mes Tournois Actifs</h2>
-            <div class="tournaments-list">
-                <div class="tournament-item">
-                    <div class="tournament-info">
-                        <h3>Aucun tournoi actif</h3>
-                        <p>Inscrivez-vous à un tournoi pour commencer votre aventure compétitive !</p>
-                    </div>
-                    <a href="tournois.html" class="btn">Voir les Tournois</a>
-                </div>
+                <button type="submit" class="btn-primary">Se connecter</button>
+            </form>
+            <div class="login-footer">
+                <p style="margin-top: 20px;">
+                    <a href="register.html">Créer un compte</a> | 
+                    <a href="index.html">← Retour à l'accueil</a>
+                </p>
             </div>
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    <!-- DASHBOARD -->
+    <div id="dashboardPage" class="dashboard-wrapper">
+        <!-- NAVBAR -->
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="navbar-brand">TLEAGUES</div>
+                <div class="navbar-user">
+                    <div class="user-avatar" id="navAvatar"></div>
+                    <div class="user-info">
+                        <div class="user-name" id="navUsername"></div>
+                        <span class="user-role" id="navRole"></span>
+                    </div>
+                    <button class="btn-logout" onclick="logout()">Déconnexion</button>
+                </div>
+            </div>
+        </nav>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDolPqeJUYIFTXqPzn1RHdnW9U4v3InuL4",
-            authDomain: "tleagues.firebaseapp.com",
-            projectId: "tleagues",
-            storageBucket: "tleagues.firebasestorage.app",
-            messagingSenderId: "11616635622",
-            appId: "1:11616635622:web:540a507cf7830b9b99c927",
-            measurementId: "G-7ZTVK7NP84"
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- TABS -->
+            <div class="tabs-container" id="mainTabs">
+                <div class="tab active" data-tab="overview">📊 Vue d'ensemble</div>
+                <div class="tab" data-tab="profile">👤 Profil</div>
+                <div class="tab role-access" data-tab="team" data-roles="capitaine,manager,coach,president">⚔️ Équipe</div>
+                <div class="tab role-access" data-tab="management" data-roles="president,manager,responsable">💼 Gestion</div>
+                <div class="tab role-access" data-tab="coaching" data-roles="coach">🎓 Coaching</div>
+                <div class="tab role-access" data-tab="admin" data-roles="admin,president">🛡️ Administration</div>
+            </div>
+
+            <!-- TAB: VUE D'ENSEMBLE -->
+            <div class="tab-content active" id="overview">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-label">Solde</div>
+                        <div class="stat-value" id="statMoney">0€</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-label">Victoires</div>
+                        <div class="stat-value" id="statWins">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💀</div>
+                        <div class="stat-label">Défaites</div>
+                        <div class="stat-value" id="statLosses">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-label">K/D Ratio</div>
+                        <div class="stat-value" id="statKD">0.0</div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 style="margin-bottom: 20px;">Actions Rapides</h3>
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <button class="btn-secondary" onclick="window.location.href='tournois.html'">Voir les Tournois</button>
+                            <button class="btn-secondary role-access" data-roles="capitaine,manager" onclick="switchTab('team')" style="display: none;">Gérer l'Équipe</button>
+                            <button class="btn-secondary" onclick="switchTab('profile')">Modifier le Profil</button>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <h3 style="margin-bottom: 20px;">Rôle & Permissions</h3>
+                        <p id="roleDescription" style="color: var(--text-gray);">Chargement...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: PROFIL -->
+            <div class="tab-content" id="profile">
+                <div class="profile-section">
+                    <div class="profile-header">
+                        <div class="profile-avatar-container">
+                            <div class="profile-avatar" id="profileAvatar"></div>
+                            <label for="uploadLogo" class="upload-overlay">📷</label>
+                            <input type="file" id="uploadLogo" accept="image/*">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nom d'utilisateur</label>
+                        <input type="text" id="profileUsername" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="profileEmail" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rôle</label>
+                        <input type="text" id="profileRole" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Biographie</label>
+                        <textarea id="profileBio" rows="4" placeholder="Parlez-nous de vous..."></textarea>
+                    </div>
+
+                    <button class="btn-primary" onclick="saveProfile()">Sauvegarder</button>
+                </div>
+            </div>
+
+            <!-- TAB: ÉQUIPE -->
+            <div class="tab-content" id="team">
+                <div id="noTeam" class="profile-section">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">⚔️</div>
+                        <div class="empty-state-title">Aucune Équipe</div>
+                        <div class="empty-state-text">Vous n'appartenez à aucune équipe</div>
+                        <button class="btn-primary role-access" data-roles="capitaine,president" onclick="showCreateTeamModal()" style="display: none; max-width: 350px; margin: 0 auto;">Créer une Équipe</button>
+                    </div>
+                </div>
+
+                <div id="hasTeam" class="profile-section" style="display: none;">
+                    <h2 id="teamName" style="margin-bottom: 30px;"></h2>
+                    
+                    <div class="form-group">
+                        <label>Tag de l'équipe</label>
+                        <input type="text" id="teamTag" disabled>
+                    </div>
+
+                    <h3 style="margin: 40px 0 20px;">Roster</h3>
+                    <div class="roster-list" id="rosterList"></div>
+
+                    <button class="btn-primary role-access" data-roles="capitaine,manager" onclick="showAddPlayerModal()" style="margin-top: 30px; display: none;">Ajouter un Joueur</button>
+                </div>
+            </div>
+
+            <!-- TAB: GESTION -->
+            <div class="tab-content" id="management">
+                <div class="profile-section">
+                    <h2 style="margin-bottom: 30px;">Gestion de l'Organisation</h2>
+                    
+                    <div class="alert alert-info">
+                        ℹ️ <strong>Espace de Gestion</strong> - Gestion administrative et financière
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3 style="margin-bottom: 15px;">Budget Équipe</h3>
+                            <div class="stat-value">0€</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3 style="margin-bottom: 15px;">Joueurs Actifs</h3>
+                            <div class="stat-value" id="activePlayersCount">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: COACHING -->
+            <div class="tab-content" id="coaching">
+                <div class="profile-section">
+                    <h2 style="margin-bottom: 30px;">Espace Coach</h2>
+                    
+                    <div class="alert alert-info">
+                        🎓 <strong>Outils de Coaching</strong> - Analyse et stratégies d'équipe
+                    </div>
+
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🎓</div>
+                        <div class="empty-state-title">Outils de Coaching</div>
+                        <div class="empty-state-text">Fonctionnalités d'analyse en développement</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: ADMIN -->
+            <div class="tab-content" id="admin">
+                <div class="alert alert-warning">
+                    ⚠️ <strong>Zone Administrateur</strong> - Actions sensibles
+                </div>
+
+                <div class="profile-section" style="margin-bottom: 30px;">
+                    <h3 style="margin-bottom: 30px;">Gestion des Utilisateurs</h3>
+                    <button class="btn-primary" onclick="showCreateUserModal()" style="margin-bottom: 30px; max-width: 350px;">Créer un Utilisateur</button>
+                    
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Email</th>
+                                    <th>Rôle</th>
+                                    <th>Argent</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3 style="margin-bottom: 20px;">Réinitialisation Globale</h3>
+                    <div class="alert alert-danger">
+                        🔥 <strong>Attention!</strong> Suppression de toutes les données (irréversible)
+                    </div>
+                    <button class="btn-danger" onclick="resetAllData()">Réinitialiser Toutes les Données</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODALS -->
+    <div id="createUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Créer Utilisateur</h3>
+                <button class="modal-close" onclick="closeModal('createUserModal')">×</button>
+            </div>
+            <form id="createUserForm">
+                <div class="form-group">
+                    <label>Nom d'utilisateur</label>
+                    <input type="text" id="newUsername" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="newEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe</label>
+                    <input type="password" id="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>Rôle</label>
+                    <select id="newRole">
+                        <option value="joueur">Joueur</option>
+                        <option value="capitaine">Capitaine</option>
+                        <option value="coach">Coach</option>
+                        <option value="manager">Manager</option>
+                        <option value="responsable">Responsable</option>
+                        <option value="president">Président</option>
+                        <option value="admin">Administrateur</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Créer</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="createTeamModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Créer Équipe</h3>
+                <button class="modal-close" onclick="closeModal('createTeamModal')">×</button>
+            </div>
+            <form id="createTeamForm">
+                <div class="form-group">
+                    <label>Nom de l'équipe</label>
+                    <input type="text" id="teamNameInput" placeholder="Ex: Team Phoenix" required>
+                </div>
+                <div class="form-group">
+                    <label>Tag (3-5 caractères)</label>
+                    <input type="text" id="teamTagInput" placeholder="Ex: PHX" maxlength="5" required>
+                </div>
+                <button type="submit" class="btn-primary">Créer</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addPlayerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Ajouter Joueur</h3>
+                <button class="modal-close" onclick="closeModal('addPlayerModal')">×</button>
+            </div>
+            <form id="addPlayerForm">
+                <div class="form-group">
+                    <label>Sélectionner un joueur</label>
+                    <select id="selectPlayer" required>
+                        <option value="">-- Choisir --</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Ajouter</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ==================== CONFIGURATION ====================
+        const ROLE_DESCRIPTIONS = {
+            president: "Accès complet à toutes les fonctionnalités de la plateforme. Gestion globale de l'organisation.",
+            admin: "Administration système complète. Gestion des utilisateurs et réinitialisation des données.",
+            manager: "Gestion de l'équipe, budget et opérations. Accès aux outils de management.",
+            capitaine: "Chef d'équipe. Création et gestion du roster, stratégies de jeu.",
+            coach: "Encadrement technique. Analyse des performances et développement des joueurs.",
+            responsable: "Gestion administrative. Support et coordination des activités.",
+            joueur: "Membre de l'équipe. Accès aux statistiques personnelles et profil."
         };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+        const INITIAL_DATA = {
+            users: [
+                {
+                    id: 1,
+                    username: 'admin',
+                    email: 'admin@tleagues.com',
+                    password: 'admin123',
+                    role: 'admin',
+                    teamId: null,
+                    profile: {
+                        logo: null,
+                        bio: 'Administrateur TLeagues',
+                        stats: { money: 0, wins: 0, losses: 0, kills: 0, deaths: 0 }
+                    }
+                }
+            ],
+            teams: []
+        };
 
-        const loadingScreen = document.getElementById('loadingScreen');
-        const mainContent = document.getElementById('mainContent');
-        const logoutBtn = document.getElementById('logoutBtn');
+        let appData = JSON.parse(localStorage.getItem('tleagues_data')) || INITIAL_DATA;
+        let currentUser = null;
 
-        onAuthStateChanged(auth, (user) => {
+        function saveData() {
+            localStorage.setItem('tleagues_data', JSON.stringify(appData));
+        }
+
+        function updateUserInData() {
+            appData.users = appData.users.map(u => u.id === currentUser.id ? currentUser : u);
+            saveData();
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        function hasAccess(roles) {
+            if (!roles || !currentUser) return true;
+            const allowedRoles = roles.split(',');
+            return allowedRoles.includes(currentUser.role);
+        }
+
+        function updateRoleAccess() {
+            document.querySelectorAll('.role-access').forEach(el => {
+                const roles = el.dataset.roles;
+                if (hasAccess(roles)) {
+                    el.style.display = el.tagName === 'BUTTON' ? 'block' : 
+                                       el.classList.contains('tab') ? 'block' : 'flex';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+        }
+
+        // LOGIN
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const user = appData.users.find(u => 
+                (u.username === username || u.email === username) && u.password === password
+            );
+            
             if (user) {
-                const displayName = user.displayName || user.email.split('@')[0];
-                const email = user.email;
-                const initials = displayName.charAt(0).toUpperCase();
-                
-                document.getElementById('userName').textContent = displayName;
-                document.getElementById('welcomeName').textContent = displayName;
-                document.getElementById('userEmail').textContent = email;
-                document.getElementById('userAvatar').textContent = initials;
-                
-                loadingScreen.style.display = 'none';
-                mainContent.style.display = 'block';
-
-                console.log('Utilisateur connecté:', {
-                    uid: user.uid,
-                    email: user.email,
-                    displayName: user.displayName,
-                    emailVerified: user.emailVerified
-                });
+                currentUser = user;
+                showDashboard();
             } else {
-                console.log('Aucun utilisateur connecté, redirection vers login...');
-                window.location.href = 'login.html';
+                alert('❌ Identifiants incorrects');
             }
         });
 
-        logoutBtn.addEventListener('click', async () => {
-            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
-                try {
-                    await signOut(auth);
-                    console.log('Déconnexion réussie');
-                    window.location.href = 'index.html';
-                } catch (error) {
-                    console.error('Erreur lors de la déconnexion:', error);
-                    alert('Erreur lors de la déconnexion: ' + error.message);
+        function showDashboard() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('dashboardPage').classList.add('active');
+
+            document.getElementById('navUsername').textContent = currentUser.username;
+            document.getElementById('navRole').textContent = currentUser.role.toUpperCase();
+            document.getElementById('navRole').className = `user-role role-${currentUser.role}`;
+
+            if (currentUser.profile.logo) {
+                document.getElementById('navAvatar').innerHTML = `<img src="${currentUser.profile.logo}">`;
+            } else {
+                document.getElementById('navAvatar').textContent = currentUser.username[0].toUpperCase();
+            }
+
+            updateRoleAccess();
+            updateDashboard();
+        }
+
+        function updateDashboard() {
+            const stats = currentUser.profile.stats;
+
+            document.getElementById('statMoney').textContent = stats.money + '€';
+            document.getElementById('statWins').textContent = stats.wins;
+            document.getElementById('statLosses').textContent = stats.losses;
+            
+            const kd = stats.deaths > 0 ? (stats.kills / stats.deaths).toFixed(2) : stats.kills;
+            document.getElementById('statKD').textContent = kd;
+
+            document.getElementById('profileUsername').value = currentUser.username;
+            document.getElementById('profileEmail').value = currentUser.email;
+            document.getElementById('profileRole').value = currentUser.role;
+            document.getElementById('profileBio').value = currentUser.profile.bio || '';
+
+            const roleDesc = ROLE_DESCRIPTIONS[currentUser.role] || 'Utilisateur de la plateforme';
+            document.getElementById('roleDescription').textContent = roleDesc;
+
+            if (currentUser.profile.logo) {
+                document.getElementById('profileAvatar').innerHTML = `<img src="${currentUser.profile.logo}">`;
+            } else {
+                document.getElementById('profileAvatar').textContent = currentUser.username[0].toUpperCase();
+            }
+
+            updateTeamSection();
+
+            if (hasAccess('admin,president')) {
+                updateUsersTable();
+            }
+
+            // Update active players count
+            const teamPlayers = appData.users.filter(u => u.teamId !== null);
+            const activePlayersEl = document.getElementById('activePlayersCount');
+            if (activePlayersEl) {
+                activePlayersEl.textContent = teamPlayers.length;
+            }
+        }
+
+        document.getElementById('uploadLogo').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    currentUser.profile.logo = event.target.result;
+                    updateUserInData();
+                    updateDashboard();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function saveProfile() {
+            currentUser.profile.bio = document.getElementById('profileBio').value;
+            updateUserInData();
+            alert('✅ Profil sauvegardé!');
+        }
+
+        function updateTeamSection() {
+            if (currentUser.teamId) {
+                const team = appData.teams.find(t => t.id === currentUser.teamId);
+                if (team) {
+                    document.getElementById('noTeam').style.display = 'none';
+                    document.getElementById('hasTeam').style.display = 'block';
+                    document.getElementById('teamName').textContent = `${team.tag} ${team.name}`;
+                    document.getElementById('teamTag').value = team.tag;
+
+                    const rosterHTML = team.players.map(playerId => {
+                        const player = appData.users.find(u => u.id === playerId);
+                        const canManage = hasAccess('capitaine,manager');
+                        return `
+                            <div class="roster-item">
+                                <div class="roster-player">
+                                    <div class="roster-player-avatar">${player.username[0].toUpperCase()}</div>
+                                    <div>
+                                        <div style="font-weight: 700;">${player.username}</div>
+                                        <div style="font-size: 12px; color: var(--text-gray);">${player.role}</div>
+                                    </div>
+                                </div>
+                                ${canManage && player.id !== currentUser.id ? `<button class="action-btn btn-delete" onclick="removePlayer(${playerId})">Retirer</button>` : ''}
+                            </div>
+                        `;
+                    }).join('');
+                    document.getElementById('rosterList').innerHTML = rosterHTML;
                 }
+            } else {
+                document.getElementById('noTeam').style.display = 'block';
+                document.getElementById('hasTeam').style.display = 'none';
+            }
+        }
+
+        function showCreateTeamModal() {
+            showModal('createTeamModal');
+        }
+
+        document.getElementById('createTeamForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('teamNameInput').value;
+            const tag = document.getElementById('teamTagInput').value.toUpperCase();
+
+            const newTeam = {
+                id: Date.now(),
+                name,
+                tag,
+                captainId: currentUser.id,
+                players: [currentUser.id],
+                stats: { money: 0, wins: 0, losses: 0 }
+            };
+
+            appData.teams.push(newTeam);
+            currentUser.teamId = newTeam.id;
+            updateUserInData();
+            
+            closeModal('createTeamModal');
+            updateTeamSection();
+            document.getElementById('createTeamForm').reset();
+            alert('✅ Équipe créée!');
+        });
+
+        function showAddPlayerModal() {
+            const select = document.getElementById('selectPlayer');
+            const availablePlayers = appData.users.filter(u => !u.teamId && u.id !== currentUser.id);
+            
+            select.innerHTML = '<option value="">-- Choisir --</option>';
+            availablePlayers.forEach(player => {
+                select.innerHTML += `<option value="${player.id}">${player.username} (${player.role})</option>`;
+            });
+
+            showModal('addPlayerModal');
+        }
+
+        document.getElementById('addPlayerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const playerId = parseInt(document.getElementById('selectPlayer').value);
+            const team = appData.teams.find(t => t.id === currentUser.teamId);
+            
+            if (team && playerId) {
+                team.players.push(playerId);
+                const player = appData.users.find(u => u.id === playerId);
+                player.teamId = team.id;
+                saveData();
+                
+                closeModal('addPlayerModal');
+                updateTeamSection();
+                alert('✅ Joueur ajouté!');
+            }
+        });
+
+        function removePlayer(playerId) {
+            if (confirm('Retirer ce joueur?')) {
+                const team = appData.teams.find(t => t.id === currentUser.teamId);
+                team.players = team.players.filter(id => id !== playerId);
+                
+                const player = appData.users.find(u => u.id === playerId);
+                player.teamId = null;
+                
+                saveData();
+                updateTeamSection();
+                alert('✅ Joueur retiré');
+            }
+        }
+
+        function showCreateUserModal() {
+            showModal('createUserModal');
+        }
+
+        document.getElementById('createUserForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const newUser = {
+                id: Date.now(),
+                username: document.getElementById('newUsername').value,
+                email: document.getElementById('newEmail').value,
+                password: document.getElementById('newPassword').value,
+                role: document.getElementById('newRole').value,
+                teamId: null,
+                profile: {
+                    logo: null,
+                    bio: '',
+                    stats: { money: 0, wins: 0, losses: 0, kills: 0, deaths: 0 }
+                }
+            };
+
+            appData.users.push(newUser);
+            saveData();
+            updateUsersTable();
+            closeModal('createUserModal');
+            document.getElementById('createUserForm').reset();
+            alert('✅ Utilisateur créé!');
+        });
+
+        function updateUsersTable() {
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = appData.users.map(user => `
+                <tr>
+                    <td>${user.id}</td>
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td><span class="user-role role-${user.role}">${user.role}</span></td>
+                    <td>${user.profile.stats.money}€</td>
+                    <td>
+                        <button class="action-btn btn-edit" onclick="editUser(${user.id})">✏️</button>
+                        <button class="action-btn btn-delete" onclick="deleteUser(${user.id})">🗑️</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function deleteUser(userId) {
+            if (userId === 1) {
+                alert('❌ Impossible de supprimer l\'admin principal');
+                return;
+            }
+            if (confirm('⚠️ Supprimer cet utilisateur?')) {
+                appData.users = appData.users.filter(u => u.id !== userId);
+                appData.teams.forEach(team => {
+                    team.players = team.players.filter(id => id !== userId);
+                });
+                saveData();
+                updateUsersTable();
+                alert('✅ Utilisateur supprimé');
+            }
+        }
+
+        function editUser(userId) {
+            alert('🚧 Fonctionnalité en développement');
+        }
+
+        function resetAllData() {
+            if (confirm('⚠️ ATTENTION! Cette action va SUPPRIMER TOUTES LES DONNÉES. Continuer?')) {
+                if (confirm('🔥 ÊTES-VOUS ABSOLUMENT CERTAIN? Cette action est IRRÉVERSIBLE!')) {
+                    appData = JSON.parse(JSON.stringify(INITIAL_DATA));
+                    saveData();
+                    alert('✅ Toutes les données ont été réinitialisées!');
+                    logout();
+                }
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('dashboardPage').classList.remove('active');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        document.querySelector('.tabs-container').addEventListener('click', (e) => {
+            if (e.target.classList.contains('tab')) {
+                switchTab(e.target.dataset.tab);
+            }
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
             }
         });
     </script>
