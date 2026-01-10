@@ -894,6 +894,88 @@
             saveData();
             updateTables();
             updateStats();
+            alert('✅ Utilisateur supprimé');
+        }
+
+        function editUser(userId) {
+            alert('🚧 Fonctionnalité en développement');
+        }
+
+        function deleteTeam(teamId) {
+            if (!confirm('⚠️ Supprimer cette équipe?')) return;
+
+            const team = appData.teams.find(t => t.id === teamId);
+            if (team && team.players) {
+                team.players.forEach(playerId => {
+                    const player = appData.users.find(u => u.id === playerId);
+                    if (player) player.teamId = null;
+                });
+            }
+
+            appData.teams = appData.teams.filter(t => t.id !== teamId);
+            saveData();
+            updateTables();
+            updateStats();
+            alert('✅ Équipe supprimée');
+        }
+
+        function editTeam(teamId) {
+            alert('🚧 Fonctionnalité en développement');
+        }
+
+        function resetAllData() {
+            if (!confirm('⚠️ ATTENTION! Cette action va SUPPRIMER TOUTES LES DONNÉES. Continuer?')) return;
+            if (!confirm('🔥 ÊTES-VOUS ABSOLUMENT CERTAIN? Cette action est IRRÉVERSIBLE!')) return;
+
+            appData = {
+                users: [{
+                    id: 1,
+                    username: 'admin',
+                    email: 'admin@tleagues.com',
+                    password: 'admin123',
+                    role: 'admin',
+                    teamId: null,
+                    profile: {
+                        logo: null,
+                        bio: 'Administrateur système',
+                        stats: { money: 0, wins: 0, losses: 0, kills: 0, deaths: 0 }
+                    }
+                }],
+                teams: []
+            };
+            saveData();
+            updateTables();
+            updateStats();
+            alert('✅ Toutes les données ont été réinitialisées!');
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(appData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `tleagues_backup_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+            alert('✅ Données exportées!');
+        }
+
+        function saveData() {
+            localStorage.setItem('tleagues_data', JSON.stringify(appData));
+        }
+
+        function logout() {
+            sessionStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+
+        // Init
+        init();
+    </script>
+</body>
+</html>ables();
+            updateStats();
             closeModal('createUserModal');
             document.getElementById('createUserForm').reset();
             alert('✅ Utilisateur créé!');
