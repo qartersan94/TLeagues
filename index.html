@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TLeagues - Plateforme de tournois esports League of Legends. Rejoignez des milliers de joueurs compétitifs.">
     <title>TLeagues - Plateforme de Tournois League of Legends</title>
     <style>
         * {
@@ -12,39 +11,22 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --red: #ff0000;
-            --red-dark: #cc0000;
-            --red-glow: rgba(255, 0, 0, 0.3);
-            --black: #0a0a0a;
-            --black-light: #1a1a1a;
-            --gray: #2a2a2a;
-            --white: #ffffff;
-            --text-gray: #b0b0b0;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--black);
-            color: var(--white);
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d0d0d;
+            color: #ffffff;
             overflow-x: hidden;
         }
 
         /* Navigation */
         nav {
-            position: fixed;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.15);
+            padding: 1.2rem 5%;
+            position: sticky;
             top: 0;
-            width: 100%;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-            transition: all 0.3s;
-        }
-
-        nav.scrolled {
-            box-shadow: 0 5px 30px rgba(255, 0, 0, 0.2);
         }
 
         .nav-container {
@@ -53,789 +35,385 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
         }
 
         .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--red);
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ff0000;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px var(--red-glow);
-            transition: all 0.3s;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-            text-shadow: 0 0 30px var(--red-glow);
         }
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 3rem;
             list-style: none;
             align-items: center;
         }
 
         .nav-links a {
-            color: var(--white);
+            color: #999;
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
             text-transform: uppercase;
-            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #ff0000;
+        }
+
+        .btn-connexion {
+            background: #ff0000;
+            color: #fff;
+            padding: 0.75rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
             letter-spacing: 1px;
             transition: all 0.3s;
-            position: relative;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--red);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--red);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .btn-nav {
-            background: var(--red);
-            color: var(--white);
-            padding: 10px 24px;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .btn-nav:hover {
-            background: var(--red-dark);
-            box-shadow: 0 5px 20px var(--red-glow);
+        .btn-connexion:hover {
+            background: #cc0000;
             transform: translateY(-2px);
-        }
-
-        .btn-nav::after {
-            display: none;
         }
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--black) 0%, var(--black-light) 100%);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
-            animation: pulse 6s infinite;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.2); }
-        }
-
-        .hero-content {
+            padding: 8rem 5%;
             text-align: center;
-            z-index: 2;
-            max-width: 900px;
-            padding: 0 40px;
-            animation: fadeInUp 1s;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            background: linear-gradient(180deg, rgba(255, 0, 0, 0.05) 0%, transparent 100%);
         }
 
         .hero h1 {
-            font-size: 72px;
-            font-weight: bold;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            letter-spacing: 6px;
-            background: linear-gradient(90deg, var(--white) 0%, var(--red) 100%);
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ff0000 0%, #fff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .hero p {
-            font-size: 22px;
-            color: var(--text-gray);
-            margin-bottom: 40px;
-            animation: fadeInUp 1s 0.2s backwards;
+            font-size: 1.3rem;
+            color: #999;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
         }
 
-        .cta-buttons {
+        .hero-buttons {
             display: flex;
-            gap: 20px;
+            gap: 1.5rem;
             justify-content: center;
-            animation: fadeInUp 1s 0.4s backwards;
+            flex-wrap: wrap;
         }
 
-        .btn {
-            padding: 18px 40px;
-            font-size: 16px;
-            font-weight: bold;
+        .btn-primary, .btn-secondary {
+            padding: 1.2rem 2.5rem;
+            border-radius: 6px;
+            font-weight: 700;
             text-transform: uppercase;
-            border: none;
-            cursor: pointer;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
             transition: all 0.3s;
             text-decoration: none;
             display: inline-block;
-            letter-spacing: 2px;
-            border-radius: 4px;
         }
 
         .btn-primary {
-            background: var(--red);
-            color: var(--white);
-            box-shadow: 0 5px 30px var(--red-glow);
+            background: #ff0000;
+            color: #fff;
+            border: none;
         }
 
         .btn-primary:hover {
-            background: var(--red-dark);
+            background: #cc0000;
             transform: translateY(-3px);
-            box-shadow: 0 10px 40px var(--red-glow);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--white);
-            border: 2px solid var(--red);
+            color: #ff0000;
+            border: 2px solid #ff0000;
         }
 
         .btn-secondary:hover {
-            background: var(--red);
+            background: rgba(255, 0, 0, 0.1);
             transform: translateY(-3px);
         }
 
-        /* Stats Section */
-        .stats {
-            padding: 100px 40px;
-            background: var(--black-light);
-            position: relative;
+        /* Dashboard Access Section */
+        .dashboard-access {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 5%;
         }
 
-        .stats::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--red), transparent);
-        }
-
-        .stats-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-        }
-
-        .stat-card {
+        .section-header {
             text-align: center;
-            padding: 50px 30px;
-            background: var(--gray);
-            border: 1px solid rgba(255, 0, 0, 0.1);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--red);
-            box-shadow: 0 10px 40px var(--red-glow);
-        }
-
-        .stat-card:hover::before {
-            opacity: 1;
-        }
-
-        .stat-number {
-            font-size: 64px;
-            font-weight: bold;
-            color: var(--red);
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .stat-label {
-            font-size: 16px;
-            color: var(--text-gray);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Section Title */
-        .section {
-            padding: 100px 40px;
+            margin-bottom: 3rem;
         }
 
         .section-title {
-            text-align: center;
-            font-size: 48px;
-            font-weight: bold;
-            margin-bottom: 60px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: var(--red);
-            box-shadow: 0 0 20px var(--red-glow);
-        }
-
-        /* Tournaments Grid */
-        .tournaments-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .tournament-card {
-            background: var(--black-light);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            overflow: hidden;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .tournament-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--red);
-            box-shadow: 0 20px 60px var(--red-glow);
-        }
-
-        .tournament-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, var(--gray) 0%, var(--black-light) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 72px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tournament-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .tournament-card:hover .tournament-image::before {
-            left: 100%;
-        }
-
-        .tournament-info {
-            padding: 25px;
-        }
-
-        .tournament-title {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .tournament-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            color: var(--text-gray);
-            font-size: 14px;
-        }
-
-        .tournament-prize {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--red);
-            margin-bottom: 15px;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 6px 14px;
-            background: rgba(255, 0, 0, 0.2);
-            color: var(--red);
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 1px solid var(--red);
-        }
-
-        /* Features Grid */
-        .features-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .feature-card {
-            padding: 50px 40px;
-            background: var(--black-light);
-            border: 1px solid rgba(255, 0, 0, 0.1);
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .feature-card:hover {
-            border-color: var(--red);
-            transform: translateY(-10px);
-            box-shadow: 0 10px 40px var(--red-glow);
-        }
-
-        .feature-icon {
-            font-size: 64px;
-            margin-bottom: 25px;
-        }
-
-        .feature-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 15px;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
-        .feature-text {
-            color: var(--text-gray);
-            line-height: 1.8;
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
         }
 
-        /* Dashboards Grid - NOUVEAU */
-        .dashboards-grid {
-            max-width: 1400px;
-            margin: 0 auto;
+        .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
         }
 
         .dashboard-card {
-            padding: 50px 40px;
-            background: var(--black-light);
+            background: #111;
             border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 3rem 2rem;
             text-align: center;
             transition: all 0.3s;
             cursor: pointer;
         }
 
         .dashboard-card:hover {
-            border-color: var(--red);
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 50px var(--red-glow);
+            border-color: #ff0000;
+            transform: translateY(-10px);
+            background: rgba(255, 0, 0, 0.05);
         }
 
         .dashboard-icon {
-            font-size: 72px;
-            margin-bottom: 25px;
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
         }
 
         .dashboard-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .dashboard-text {
-            color: var(--text-gray);
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .role-badge {
-            display: inline-block;
-            padding: 8px 18px;
-            background: rgba(255, 0, 0, 0.2);
-            color: var(--red);
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border: 1px solid var(--red);
         }
 
-        .role-badge.captain {
-            background: rgba(255, 102, 0, 0.2);
-            color: #ff6600;
-            border-color: #ff6600;
+        .dashboard-description {
+            color: #999;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
         }
 
-        .role-badge.player {
-            background: rgba(0, 188, 212, 0.2);
-            color: #00bcd4;
-            border-color: #00bcd4;
-        }
-
-        /* Admin Button - NOUVEAU */
-        .admin-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: var(--red);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 5px 30px var(--red-glow);
+        .dashboard-btn {
+            background: #ff0000;
+            color: #fff;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.3s;
-            z-index: 999;
-            opacity: 0.15;
-            text-decoration: none;
+            width: 100%;
         }
 
-        .admin-btn:hover {
-            opacity: 1;
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 8px 40px var(--red-glow);
+        .dashboard-btn:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: rgba(255, 0, 0, 0.03);
+            padding: 5rem 5%;
+            margin: 5rem 0;
+            border-top: 1px solid rgba(255, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ff0000;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
         }
 
         /* Footer */
         footer {
-            background: var(--black);
-            padding: 80px 40px 30px;
+            background: #000;
+            padding: 3rem 5%;
             border-top: 1px solid rgba(255, 0, 0, 0.2);
         }
 
         .footer-content {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
         }
 
         .footer-section h3 {
-            color: var(--red);
-            margin-bottom: 25px;
-            font-size: 20px;
+            color: #ff0000;
+            font-weight: 900;
+            margin-bottom: 1rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .footer-section p {
-            color: var(--text-gray);
-            line-height: 1.8;
-            margin-bottom: 20px;
+            font-size: 1rem;
         }
 
         .footer-section a {
-            color: var(--text-gray);
-            text-decoration: none;
             display: block;
-            margin-bottom: 12px;
+            color: #666;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
             transition: color 0.3s;
         }
 
         .footer-section a:hover {
-            color: var(--red);
+            color: #ff0000;
         }
 
         .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
             border-top: 1px solid rgba(255, 0, 0, 0.1);
-            color: var(--text-gray);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: var(--red);
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
-            .tournaments-grid,
-            .features-grid,
-            .dashboards-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .stats-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
             .nav-links {
                 display: none;
             }
 
-            .mobile-menu-btn {
-                display: block;
-            }
-            
             .hero h1 {
-                font-size: 42px;
+                font-size: 2.5rem;
             }
 
             .hero p {
-                font-size: 18px;
+                font-size: 1.1rem;
             }
-            
-            .tournaments-grid,
-            .features-grid,
-            .dashboards-grid,
-            .stats-container {
+
+            .dashboard-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .cta-buttons {
-                flex-direction: column;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav id="navbar">
+    <nav>
         <div class="nav-container">
-            <div class="logo">TLeagues</div>
+            <div class="logo">TLEAGUES</div>
             <ul class="nav-links">
-                <li><a href="index.html">Accueil</a></li>
+                <li><a href="index.html" class="active">Accueil</a></li>
                 <li><a href="tournois.html">Tournois</a></li>
                 <li><a href="leagues.html">Ligues</a></li>
                 <li><a href="cups.html">Coupes</a></li>
                 <li><a href="services.html">Services</a></li>
-                <li><a href="login.html" class="btn-nav">Connexion</a></li>
             </ul>
-            <div class="mobile-menu-btn">☰</div>
+            <a href="login.html" class="btn-connexion">Connexion</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Dominez la Compétition</h1>
-            <p>La plateforme ultime pour les tournois League of Legends. Rejoignez des milliers de joueurs compétitifs et prouvez votre valeur.</p>
-            <div class="cta-buttons">
-                <a href="register.html" class="btn btn-primary">Créer un Compte</a>
-                <a href="tournois.html" class="btn btn-secondary">Voir les Tournois</a>
-            </div>
+        <h1>DOMINEZ LA COMPÉTITION</h1>
+        <p>La plateforme ultime pour les tournois League of Legends. Rejoignez des milliers de joueurs compétitifs et prouvez votre valeur.</p>
+        <div class="hero-buttons">
+            <a href="register.html" class="btn-primary">Créer un compte</a>
+            <a href="tournois.html" class="btn-secondary">Voir les tournois</a>
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="stats">
-        <div class="stats-container">
-            <div class="stat-card">
-                <div class="stat-number">1,250+</div>
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value">1,250+</div>
                 <div class="stat-label">Tournois Organisés</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">50K+</div>
+            <div class="stat-item">
+                <div class="stat-value">50K+</div>
                 <div class="stat-label">Joueurs Actifs</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">2.5M€</div>
+            <div class="stat-item">
+                <div class="stat-value">2.5M€</div>
                 <div class="stat-label">Prize Pool Total</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">24/7</div>
+            <div class="stat-item">
+                <div class="stat-value">24/7</div>
                 <div class="stat-label">Support Actif</div>
             </div>
         </div>
     </section>
 
-    <!-- Tournaments Section -->
-    <section class="section">
-        <h2 class="section-title">Tournois à Venir</h2>
-        <div class="tournaments-grid">
-            <div class="tournament-card">
-                <div class="tournament-image">⚔️</div>
-                <div class="tournament-info">
-                    <div class="tournament-title">Winter Championship 2026</div>
-                    <div class="tournament-meta">
-                        <span>📅 15 Janvier 2026</span>
-                        <span>👥 128 Équipes</span>
-                    </div>
-                    <div class="tournament-prize">50,000€</div>
-                    <span class="badge">Inscription Ouverte</span>
-                </div>
-            </div>
-            
-            <div class="tournament-card">
-                <div class="tournament-image">🏆</div>
-                <div class="tournament-info">
-                    <div class="tournament-title">TLeagues Pro League S1</div>
-                    <div class="tournament-meta">
-                        <span>📅 20 Janvier 2026</span>
-                        <span>👥 64 Équipes</span>
-                    </div>
-                    <div class="tournament-prize">100,000€</div>
-                    <span class="badge">Bientôt</span>
-                </div>
-            </div>
-            
-            <div class="tournament-card">
-                <div class="tournament-image">🎮</div>
-                <div class="tournament-info">
-                    <div class="tournament-title">Rookie Tournament</div>
-                    <div class="tournament-meta">
-                        <span>📅 10 Janvier 2026</span>
-                        <span>👥 256 Joueurs</span>
-                    </div>
-                    <div class="tournament-prize">10,000€</div>
-                    <span class="badge">Places Limitées</span>
-                </div>
-            </div>
+    <!-- Dashboard Access Section -->
+    <section class="dashboard-access">
+        <div class="section-header">
+            <h2 class="section-title">ACCÉDEZ À VOTRE DASHBOARD</h2>
+            <p class="section-subtitle">Connectez-vous pour accéder à votre espace personnalisé</p>
         </div>
-    </section>
 
-    <!-- Features Section -->
-    <section class="section" style="background: var(--black-light);">
-        <h2 class="section-title">Pourquoi TLeagues ?</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <div class="feature-title">Brackets en Direct</div>
-                <div class="feature-text">Suivez l'évolution des tournois en temps réel avec nos brackets interactifs et mises à jour instantanées.</div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🎯</div>
-                <div class="feature-title">Matchmaking Équitable</div>
-                <div class="feature-text">Système de classement avancé garantissant des matchs équilibrés et compétitifs pour tous les niveaux.</div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">💰</div>
-                <div class="feature-title">Prize Pools Garantis</div>
-                <div class="feature-text">Des récompenses conséquentes et des paiements rapides pour les meilleurs compétiteurs.</div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <div class="feature-title">Statistiques Détaillées</div>
-                <div class="feature-text">Analysez vos performances avec des stats complètes et améliorez votre gameplay.</div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🛡️</div>
-                <div class="feature-title">Anti-Triche</div>
-                <div class="feature-text">Environnement sécurisé avec système anti-triche actif pour garantir un jeu équitable.</div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🌐</div>
-                <div class="feature-title">Communauté Active</div>
-                <div class="feature-text">Rejoignez une communauté passionnée de joueurs compétitifs du monde entier.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Dashboards Section - NOUVEAU -->
-    <section class="section">
-        <h2 class="section-title">Accédez à votre Dashboard</h2>
-        <div class="dashboards-grid">
-            <div class="dashboard-card" onclick="window.location.href='admin.panel.html'">
-                <div class="dashboard-icon">🛡️</div>
-                <div class="dashboard-title">Admin Panel</div>
-                <div class="dashboard-text">Gestion complète de la plateforme et statistiques globales</div>
-                <span class="role-badge">Admin</span>
-            </div>
-            
-            <div class="dashboard-card" onclick="window.location.href='dashboard-capitaine.html'">
+        <div class="dashboard-grid">
+            <!-- Dashboard Capitaine -->
+            <div class="dashboard-card" onclick="window.location.href='login.html'">
                 <div class="dashboard-icon">👑</div>
-                <div class="dashboard-title">Dashboard Capitaine</div>
-                <div class="dashboard-text">Créez votre équipe, gérez le roster et inscrivez-vous aux tournois</div>
-                <span class="role-badge captain">Capitaine</span>
+                <h3 class="dashboard-title">Dashboard Capitaine</h3>
+                <p class="dashboard-description">Créez votre équipe, gérez le roster et inscrivez-vous aux tournois</p>
+                <button class="dashboard-btn">Capitaine</button>
             </div>
-            
-            <div class="dashboard-card" onclick="window.location.href='dashboard-joueur-solo.html'">
+
+            <!-- Dashboard Joueur -->
+            <div class="dashboard-card" onclick="window.location.href='login.html'">
                 <div class="dashboard-icon">⚔️</div>
-                <div class="dashboard-title">Dashboard Joueur</div>
-                <div class="dashboard-text">Suivez vos stats, rejoignez une équipe et participez aux compétitions</div>
-                <span class="role-badge player">Joueur</span>
+                <h3 class="dashboard-title">Dashboard Joueur</h3>
+                <p class="dashboard-description">Suivez vos stats, rejoignez une équipe et participez aux compétitions</p>
+                <button class="dashboard-btn">Joueur</button>
             </div>
         </div>
     </section>
@@ -845,9 +423,8 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>TLeagues</h3>
-                <p>La plateforme de référence pour les tournois esports League of Legends. Organisez, participez et dominez.</p>
+                <p style="color: #666; font-size: 0.9rem;">La plateforme de référence pour les tournois esports League of Legends.</p>
             </div>
-            
             <div class="footer-section">
                 <h3>Navigation</h3>
                 <a href="tournois.html">Tournois</a>
@@ -855,23 +432,13 @@
                 <a href="cups.html">Coupes</a>
                 <a href="services.html">Services</a>
             </div>
-            
-            <div class="footer-section">
-                <h3>Dashboards</h3>
-                <a href="dashboard.html">Dashboard Général</a>
-                <a href="dashboard-capitaine.html">Dashboard Capitaine</a>
-                <a href="dashboard-joueur-solo.html">Dashboard Joueur</a>
-                <a href="admin.panel.html">Admin Panel</a>
-            </div>
-            
             <div class="footer-section">
                 <h3>Support</h3>
                 <a href="services.html#faq">FAQ</a>
                 <a href="services.html#contact">Contact</a>
-                <a href="register.html">Créer un Compte</a>
+                <a href="register.html">Créer un compte</a>
                 <a href="login.html">Connexion</a>
             </div>
-            
             <div class="footer-section">
                 <h3>Suivez-nous</h3>
                 <a href="https://discord.gg/WjQuuPvAVA" target="_blank">Discord</a>
@@ -880,26 +447,28 @@
                 <a href="#">YouTube</a>
             </div>
         </div>
-        
         <div class="footer-bottom">
-            <p>&copy; 2026 TLeagues. Tous droits réservés. Made with 🔥 for esports.</p>
+            © 2026 TLeagues. Tous droits réservés. Made with 🔥 for esports.
         </div>
     </footer>
 
-    <!-- Admin Button -->
-    <a href="admin.panel.html" class="admin-btn" title="Admin Panel">🛡️</a>
-
     <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('
+        // Détecter si l'utilisateur est connecté et admin
+        // Cette partie sera gérée par le backend
+        // Pour l'instant, le panel admin n'est accessible que par URL directe
+        
+        // Si admin, on peut ajouter un bouton discret
+        const isAdmin = false; // À remplacer par vérification réelle
+        
+        if (isAdmin) {
+            // Ajouter un accès discret au panel admin (raccourci clavier par exemple)
+            document.addEventListener('keydown', function(e) {
+                // Ctrl + Shift + A pour accéder au panel admin
+                if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+                    window.location.href = 'admin-panel.html';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
