@@ -1,1 +1,820 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outils - TLeagues</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d0d0d;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.15);
+            padding: 1.2rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ff0000;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #999;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff0000;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #ff0000;
+        }
+
+        .btn-connexion {
+            background: #ff0000;
+            color: #fff;
+            padding: 0.75rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .btn-connexion:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(180deg, rgba(255, 0, 0, 0.05) 0%, transparent 100%);
+            padding: 5rem 5%;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ff0000 0%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Tabs */
+        .tabs-container {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 5%;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 0;
+            margin-bottom: 3rem;
+            background: #111;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 0.3rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: #666;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            flex: 1;
+        }
+
+        .tab-btn:hover {
+            color: #fff;
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .tab-btn.active {
+            color: #fff;
+            background: #ff0000;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* TLineup - Mode Roster */
+        .lineup-container {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 2rem;
+        }
+
+        .roster-view {
+            background: #111;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 2.5rem;
+        }
+
+        .roster-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .roster-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .roster-slot {
+            background: #0d0d0d;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .roster-slot:hover {
+            border-color: #ff0000;
+            background: rgba(255, 0, 0, 0.05);
+        }
+
+        .roster-slot.filled {
+            border-color: #ff0000;
+            background: rgba(255, 0, 0, 0.08);
+        }
+
+        .role-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 0, 0, 0.2);
+            border: 2px solid #ff0000;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .role-info {
+            flex: 1;
+        }
+
+        .role-name {
+            font-size: 0.85rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .player-name {
+            font-size: 1.1rem;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .roster-slot:not(.filled) .player-name {
+            color: #444;
+            font-style: italic;
+        }
+
+        .players-list {
+            background: #111;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .players-list h3 {
+            margin-bottom: 1.5rem;
+            color: #ff0000;
+            font-size: 1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .player-card {
+            background: #0d0d0d;
+            padding: 1.2rem;
+            margin-bottom: 0.8rem;
+            border-radius: 8px;
+            cursor: move;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .player-card:hover {
+            border-color: #ff0000;
+            transform: translateX(5px);
+            background: rgba(255, 0, 0, 0.05);
+        }
+
+        .player-card strong {
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .player-card small {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .player-card.dragging {
+            opacity: 0.3;
+        }
+
+        /* TLCompo Section */
+        .compo-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .compo-card {
+            background: #111;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .compo-card:hover {
+            border-color: #ff0000;
+            transform: translateY(-5px);
+        }
+
+        .compo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .compo-header h3 {
+            font-size: 1.2rem;
+            color: #fff;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .compo-type {
+            background: #ff0000;
+            color: #fff;
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .compo-champions {
+            display: flex;
+            gap: 0.6rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .champion-icon {
+            width: 55px;
+            height: 55px;
+            background: #0d0d0d;
+            border: 2px solid #ff0000;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 900;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        .champion-icon:hover {
+            transform: scale(1.1);
+            background: rgba(255, 0, 0, 0.2);
+        }
+
+        .strategy-notes {
+            background: #0d0d0d;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-top: 1.2rem;
+            font-size: 0.85rem;
+            color: #999;
+            border-left: 3px solid #ff0000;
+        }
+
+        .strategy-notes strong {
+            color: #ff0000;
+            font-weight: 700;
+        }
+
+        /* Planning */
+        .planning-container {
+            background: #111;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 2.5rem;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-header h2 {
+            font-size: 1.8rem;
+            color: #fff;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1rem;
+        }
+
+        .calendar-day {
+            background: #0d0d0d;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            min-height: 120px;
+            transition: all 0.3s;
+        }
+
+        .calendar-day:hover {
+            background: rgba(255, 0, 0, 0.05);
+            border-color: #ff0000;
+        }
+
+        .day-number {
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            color: #ff0000;
+            font-size: 1.1rem;
+        }
+
+        .match-event {
+            background: rgba(255, 0, 0, 0.15);
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .match-event:hover {
+            background: rgba(255, 0, 0, 0.3);
+            border-color: #ff0000;
+        }
+
+        .stream-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #00ff00;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Boutons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: #ff0000;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ff0000;
+            border: 1px solid #ff0000;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .lineup-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .compo-container {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">TLEAGUES</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="tournois.html">Tournois</a></li>
+                <li><a href="leagues.html">Ligues</a></li>
+                <li><a href="cups.html">Coupes</a></li>
+                <li><a href="outils.html" class="active">Outils</a></li>
+                <li><a href="services.html">Services</a></li>
+            </ul>
+            <a href="login.html" class="btn-connexion">Connexion</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>OUTILS & GESTION</h1>
+        <p>Gérez vos compositions, stratégies et plannings de matches</p>
+    </section>
+
+    <!-- Tabs -->
+    <div class="tabs-container">
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="tlineup">TLineup</button>
+            <button class="tab-btn" data-tab="tlcompo">TLCompo'</button>
+            <button class="tab-btn" data-tab="planning">Planning</button>
+        </div>
+
+        <!-- Tab 1: TLineup - Mode Roster -->
+        <div class="tab-content active" id="tlineup">
+            <div class="lineup-container">
+                <div class="roster-view">
+                    <h2 class="roster-title">ROSTER TEAM</h2>
+                    <div class="roster-grid">
+                        <div class="roster-slot" data-role="top">
+                            <div class="role-icon">🔝</div>
+                            <div class="role-info">
+                                <div class="role-name">Top Lane</div>
+                                <div class="player-name">Glissez un joueur ici</div>
+                            </div>
+                        </div>
+                        <div class="roster-slot" data-role="jungle">
+                            <div class="role-icon">🌲</div>
+                            <div class="role-info">
+                                <div class="role-name">Jungle</div>
+                                <div class="player-name">Glissez un joueur ici</div>
+                            </div>
+                        </div>
+                        <div class="roster-slot" data-role="mid">
+                            <div class="role-icon">⚡</div>
+                            <div class="role-info">
+                                <div class="role-name">Mid Lane</div>
+                                <div class="player-name">Glissez un joueur ici</div>
+                            </div>
+                        </div>
+                        <div class="roster-slot" data-role="adc">
+                            <div class="role-icon">🎯</div>
+                            <div class="role-info">
+                                <div class="role-name">ADC</div>
+                                <div class="player-name">Glissez un joueur ici</div>
+                            </div>
+                        </div>
+                        <div class="roster-slot" data-role="support">
+                            <div class="role-icon">🛡️</div>
+                            <div class="role-info">
+                                <div class="role-name">Support</div>
+                                <div class="player-name">Glissez un joueur ici</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="players-list">
+                    <h3>JOUEURS DISPONIBLES</h3>
+                    <div id="playersList">
+                        <div class="player-card" draggable="true" data-player="Player1">
+                            <strong>Player1</strong><br>
+                            <small>Top/Jungle</small>
+                        </div>
+                        <div class="player-card" draggable="true" data-player="Player2">
+                            <strong>Player2</strong><br>
+                            <small>Mid</small>
+                        </div>
+                        <div class="player-card" draggable="true" data-player="Player3">
+                            <strong>Player3</strong><br>
+                            <small>ADC</small>
+                        </div>
+                        <div class="player-card" draggable="true" data-player="Player4">
+                            <strong>Player4</strong><br>
+                            <small>Support</small>
+                        </div>
+                        <div class="player-card" draggable="true" data-player="Player5">
+                            <strong>Player5</strong><br>
+                            <small>Jungle/Top</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-primary" onclick="saveLineup()">💾 Sauvegarder</button>
+                <button class="btn-secondary" onclick="clearLineup()">🔄 Réinitialiser</button>
+            </div>
+        </div>
+
+        <!-- Tab 2: TLCompo' -->
+        <div class="tab-content" id="tlcompo">
+            <div class="compo-container">
+                <div class="compo-card">
+                    <div class="compo-header">
+                        <h3>Engage Comp</h3>
+                        <span class="compo-type">Agressif</span>
+                    </div>
+                    <div class="compo-champions">
+                        <div class="champion-icon">MAL</div>
+                        <div class="champion-icon">LEE</div>
+                        <div class="champion-icon">ORI</div>
+                        <div class="champion-icon">KAI</div>
+                        <div class="champion-icon">LEO</div>
+                    </div>
+                    <div class="strategy-notes">
+                        <strong>Stratégie:</strong> Initier avec Malphite/Leona, combo Orianna. Forcer les teamfights autour des objectifs.
+                    </div>
+                </div>
+
+                <div class="compo-card">
+                    <div class="compo-header">
+                        <h3>Poke Comp</h3>
+                        <span class="compo-type">Défensif</span>
+                    </div>
+                    <div class="compo-champions">
+                        <div class="champion-icon">JAY</div>
+                        <div class="champion-icon">NIL</div>
+                        <div class="champion-icon">ZOE</div>
+                        <div class="champion-icon">EZR</div>
+                        <div class="champion-icon">ZYR</div>
+                    </div>
+                    <div class="strategy-notes">
+                        <strong>Stratégie:</strong> Maintenir distance, poke avant objectifs. Éviter les fights prolongés.
+                    </div>
+                </div>
+
+                <div class="compo-card">
+                    <div class="compo-header">
+                        <h3>Split Push</h3>
+                        <span class="compo-type">Stratégique</span>
+                    </div>
+                    <div class="compo-champions">
+                        <div class="champion-icon">FIO</div>
+                        <div class="champion-icon">KHA</div>
+                        <div class="champion-icon">TF</div>
+                        <div class="champion-icon">SIV</div>
+                        <div class="champion-icon">THA</div>
+                    </div>
+                    <div class="strategy-notes">
+                        <strong>Stratégie:</strong> Pression side avec Fiora. TF rotation. Défense 4v5, punir rotations.
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-primary" onclick="createNewCompo()">➕ Nouvelle Compo</button>
+                <button class="btn-secondary" onclick="exportCompos()">📤 Exporter</button>
+            </div>
+        </div>
+
+        <!-- Tab 3: Planning -->
+        <div class="tab-content" id="planning">
+            <div class="planning-container">
+                <div class="calendar-header">
+                    <button class="btn-secondary" onclick="previousMonth()">◀ Précédent</button>
+                    <h2>JANVIER 2026</h2>
+                    <button class="btn-secondary" onclick="nextMonth()">Suivant ▶</button>
+                </div>
+
+                <div class="calendar-grid">
+                    <div class="calendar-day">
+                        <div class="day-number">11</div>
+                        <div class="match-event">
+                            <span class="stream-indicator"></span>
+                            18:00 - Team A vs B
+                        </div>
+                    </div>
+                    <div class="calendar-day"><div class="day-number">12</div></div>
+                    <div class="calendar-day">
+                        <div class="day-number">13</div>
+                        <div class="match-event">20:00 - Demi-finale</div>
+                    </div>
+                    <div class="calendar-day"><div class="day-number">14</div></div>
+                    <div class="calendar-day">
+                        <div class="day-number">15</div>
+                        <div class="match-event">
+                            <span class="stream-indicator"></span>
+                            19:00 - Finals
+                        </div>
+                    </div>
+                    <div class="calendar-day"><div class="day-number">16</div></div>
+                    <div class="calendar-day"><div class="day-number">17</div></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="addMatch()">➕ Ajouter Match</button>
+                    <button class="btn-secondary" onclick="viewStream()">📺 Streams</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tabs
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Drag & Drop
+        let draggedPlayer = null;
+
+        document.querySelectorAll('.player-card').forEach(card => {
+            card.addEventListener('dragstart', (e) => {
+                draggedPlayer = e.target;
+                e.target.classList.add('dragging');
+            });
+            card.addEventListener('dragend', (e) => {
+                e.target.classList.remove('dragging');
+            });
+        });
+
+        document.querySelectorAll('.roster-slot').forEach(slot => {
+            slot.addEventListener('dragover', (e) => e.preventDefault());
+            slot.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (draggedPlayer) {
+                    const playerName = draggedPlayer.dataset.player;
+                    slot.classList.add('filled');
+                    slot.querySelector('.player-name').textContent = playerName;
+                }
+            });
+        });
+
+        function saveLineup() { alert('✅ Roster sauvegardé !'); }
+        function clearLineup() {
+            document.querySelectorAll('.roster-slot').forEach(slot => {
+                slot.classList.remove('filled');
+                slot.querySelector('.player-name').textContent = 'Glissez un joueur ici';
+            });
+        }
+        function createNewCompo() { alert('➕ Nouvelle composition...'); }
+        function exportCompos() { alert('📤 Export...'); }
+        function previousMonth() { alert('◀ Mois précédent'); }
+        function nextMonth() { alert('▶ Mois suivant'); }
+        function addMatch() { alert('➕ Ajout match...'); }
+        function viewStream() { window.location.href = 'streaming.html'; }
+    </script>
+</body>
+</html>
