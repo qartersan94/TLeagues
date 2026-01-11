@@ -3,22 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TLeagues - Admin Panel</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Admin Panel - TLeagues</title>
     <style>
-        :root {
-            --primary-red: #ff0000;
-            --dark-red: #cc0000;
-            --bg-dark: #000000;
-            --bg-card: #0a0a0a;
-            --border-red: rgba(255, 0, 0, 0.3);
-            --text-light: #ffffff;
-            --text-gray: #999999;
-            --danger: #f44336;
-            --success: #4CAF50;
-            --warning: #ff9800;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -26,224 +12,268 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-light);
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d0d0d;
+            color: #ffffff;
+            overflow-x: hidden;
         }
 
-        /* NAVBAR */
-        .navbar {
-            background: rgba(10, 10, 10, 0.95);
-            border-bottom: 2px solid var(--border-red);
-            padding: 20px 0;
-            backdrop-filter: blur(10px);
+        /* Navigation Admin */
+        nav {
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.15);
+            padding: 1.2rem 5%;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        .navbar-content {
+        .nav-container {
             max-width: 1600px;
             margin: 0 auto;
-            padding: 0 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .navbar-brand {
-            font-size: 28px;
+        .logo {
+            font-size: 1.8rem;
             font-weight: 900;
-            color: var(--primary-red);
-            letter-spacing: 3px;
+            color: #ff0000;
+            letter-spacing: 4px;
+            text-transform: uppercase;
         }
 
-        .navbar-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .btn-danger {
-            padding: 10px 20px;
-            background: var(--danger);
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 12px;
+        .admin-badge {
+            background: #ff0000;
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-weight: 700;
-            transition: all 0.3s;
         }
 
-        .btn-danger:hover {
-            background: #d32f2f;
-            box-shadow: 0 0 20px rgba(244, 67, 54, 0.5);
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
         }
 
         .btn-logout {
-            padding: 10px 20px;
             background: transparent;
-            border: 2px solid var(--border-red);
-            color: var(--text-light);
-            cursor: pointer;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: #ff0000;
+            padding: 0.6rem 1.5rem;
+            border: 1px solid #ff0000;
+            border-radius: 4px;
+            text-decoration: none;
             font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
             transition: all 0.3s;
+            cursor: pointer;
         }
 
         .btn-logout:hover {
-            background: var(--primary-red);
-            border-color: var(--primary-red);
+            background: rgba(255, 0, 0, 0.1);
         }
 
-        /* MAIN */
-        .main-content {
+        /* Sidebar */
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
             max-width: 1600px;
             margin: 0 auto;
-            padding: 40px 30px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            background: #111;
+            border-right: 1px solid rgba(255, 0, 0, 0.15);
+            padding: 2rem 0;
+        }
+
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-title {
+            color: #666;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 0 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: #999;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+        }
+
+        .sidebar-item:hover,
+        .sidebar-item.active {
+            background: rgba(255, 0, 0, 0.1);
+            border-left-color: #ff0000;
+            color: #fff;
+        }
+
+        .sidebar-item span {
+            font-size: 1.2rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2.5rem 3rem;
+            overflow-y: auto;
         }
 
         .page-header {
-            margin-bottom: 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-bottom: 3rem;
         }
 
         .page-header h1 {
-            font-size: 42px;
-            color: var(--primary-red);
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            font-size: 2.5rem;
             font-weight: 900;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        /* STATS CARDS */
+        .page-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Stats Cards */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
         }
 
         .stat-card {
-            background: rgba(10, 10, 10, 0.95);
-            border: 2px solid var(--border-red);
-            padding: 25px;
+            background: #111;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 1.8rem;
             transition: all 0.3s;
         }
 
         .stat-card:hover {
-            border-color: var(--primary-red);
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
-            transform: translateY(-3px);
+            border-color: #ff0000;
+            transform: translateY(-5px);
         }
 
         .stat-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .stat-label {
-            color: var(--text-gray);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 700;
+            margin-bottom: 1rem;
         }
 
         .stat-icon {
-            font-size: 24px;
-            opacity: 0.5;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 0, 0, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
         }
 
         .stat-value {
-            font-size: 36px;
+            color: #fff;
+            font-size: 2rem;
             font-weight: 900;
-            color: var(--primary-red);
         }
 
         .stat-change {
-            font-size: 12px;
-            color: var(--success);
-            margin-top: 8px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
         }
 
-        /* SECTION */
-        .section {
-            background: rgba(10, 10, 10, 0.95);
-            border: 2px solid var(--border-red);
-            padding: 30px;
-            margin-bottom: 30px;
+        .stat-change.positive {
+            color: #00ff00;
+        }
+
+        .stat-change.negative {
+            color: #ff0000;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: #111;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
         }
 
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--border-red);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
         }
 
-        .section-header h2 {
-            font-size: 24px;
-            color: var(--primary-red);
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .section-title {
+            font-size: 1.3rem;
             font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* BUTTONS */
-        .btn-primary {
-            padding: 12px 24px;
-            background: var(--primary-red);
+        .btn-action {
+            background: #ff0000;
+            color: #fff;
+            padding: 0.7rem 1.5rem;
             border: none;
-            color: white;
-            font-size: 13px;
+            border-radius: 6px;
             font-weight: 700;
             text-transform: uppercase;
+            font-size: 0.8rem;
             letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.3s;
         }
 
-        .btn-primary:hover {
-            background: var(--dark-red);
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+        .btn-action:hover {
+            background: #cc0000;
             transform: translateY(-2px);
         }
 
-        .btn-secondary {
-            padding: 10px 20px;
-            background: transparent;
-            border: 2px solid var(--border-red);
-            color: var(--text-light);
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary-red);
-            border-color: var(--primary-red);
-        }
-
-        /* TABLE */
+        /* Table */
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            background: transparent;
         }
 
         .data-table thead {
@@ -251,748 +281,410 @@
         }
 
         .data-table th {
-            padding: 15px;
+            padding: 1rem;
             text-align: left;
-            color: var(--primary-red);
-            font-size: 11px;
+            color: #ff0000;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            border-bottom: 2px solid var(--border-red);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
         }
 
         .data-table td {
-            padding: 15px;
-            border-bottom: 1px solid var(--border-red);
-            font-size: 13px;
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            color: #ccc;
         }
 
-        .data-table tbody tr {
-            transition: all 0.3s;
-        }
-
-        .data-table tbody tr:hover {
+        .data-table tr:hover {
             background: rgba(255, 0, 0, 0.05);
         }
 
-        /* BADGES */
-        .badge {
+        .status-badge {
             display: inline-block;
-            padding: 4px 12px;
-            font-size: 10px;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .badge-president { background: #ffd700; color: #000; }
-        .badge-admin { background: var(--primary-red); color: white; }
-        .badge-capitaine { background: #ff6600; color: white; }
-        .badge-manager { background: #9c27b0; color: white; }
-        .badge-coach { background: #2196F3; color: white; }
-        .badge-responsable { background: #4CAF50; color: white; }
-        .badge-joueur { background: #00bcd4; color: white; }
-
-        /* ACTION BUTTONS */
-        .action-btns {
-            display: flex;
-            gap: 8px;
-        }
-
-        .action-btn {
-            padding: 6px 12px;
-            border: 2px solid;
-            font-size: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            background: transparent;
         }
 
-        .btn-edit {
-            color: var(--success);
-            border-color: var(--success);
+        .status-badge.active {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            border: 1px solid #00ff00;
         }
 
-        .btn-edit:hover {
-            background: var(--success);
-            color: #000;
+        .status-badge.pending {
+            background: rgba(255, 165, 0, 0.2);
+            color: #ffa500;
+            border: 1px solid #ffa500;
         }
 
-        .btn-delete {
-            color: var(--danger);
-            border-color: var(--danger);
+        .status-badge.inactive {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff0000;
+            border: 1px solid #ff0000;
         }
 
-        .btn-delete:hover {
-            background: var(--danger);
-            color: white;
-        }
-
-        /* FORM */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-light);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 700;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-red);
-            color: var(--text-light);
-            font-size: 13px;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-red);
-            background: rgba(255, 0, 0, 0.05);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
-        }
-
-        /* MODAL */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal.active {
+        .action-buttons {
             display: flex;
+            gap: 0.5rem;
         }
 
-        .modal-content {
-            background: rgba(10, 10, 10, 0.98);
-            border: 2px solid var(--border-red);
-            padding: 35px;
-            max-width: 550px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 0 50px rgba(255, 0, 0, 0.4);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--border-red);
-        }
-
-        .modal-header h3 {
-            font-size: 22px;
-            color: var(--primary-red);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 900;
-        }
-
-        .modal-close {
-            width: 35px;
-            height: 35px;
-            background: transparent;
-            border: 2px solid var(--border-red);
-            color: var(--text-light);
-            cursor: pointer;
-            font-size: 20px;
-            transition: all 0.3s;
-        }
-
-        .modal-close:hover {
-            background: var(--primary-red);
-            border-color: var(--primary-red);
-        }
-
-        /* ALERTS */
-        .alert {
-            padding: 15px 20px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border: 2px solid;
-            font-weight: 600;
-            font-size: 13px;
-        }
-
-        .alert-danger {
-            background: rgba(244, 67, 54, 0.1);
-            border-color: var(--danger);
-            color: var(--danger);
-        }
-
-        .alert-warning {
-            background: rgba(255, 152, 0, 0.1);
-            border-color: var(--warning);
-            color: var(--warning);
-        }
-
-        .alert-success {
-            background: rgba(76, 175, 80, 0.1);
-            border-color: var(--success);
-            color: var(--success);
-        }
-
-        /* TABS */
-        .tabs {
-            display: flex;
-            gap: 0;
-            margin-bottom: 30px;
-            border: 2px solid var(--border-red);
-        }
-
-        .tab {
-            padding: 12px 25px;
-            background: transparent;
-            border: none;
-            border-right: 2px solid var(--border-red);
-            color: var(--text-gray);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .tab:last-child {
-            border-right: none;
-        }
-
-        .tab:hover {
+        .btn-icon {
             background: rgba(255, 0, 0, 0.1);
-            color: var(--text-light);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #ff0000;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
         }
 
-        .tab.active {
-            background: var(--primary-red);
-            color: white;
+        .btn-icon:hover {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: #ff0000;
         }
 
-        .tab-content {
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .quick-action-btn {
+            background: #111;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .quick-action-btn:hover {
+            border-color: #ff0000;
+            background: rgba(255, 0, 0, 0.05);
+        }
+
+        .quick-action-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-action-label {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        /* Page States */
+        .page-content {
             display: none;
         }
 
-        .tab-content.active {
+        .page-content.active {
             display: block;
+            animation: fadeIn 0.4s;
         }
 
-        /* SEARCH */
-        .search-bar {
-            margin-bottom: 20px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .search-bar input {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-red);
-            color: var(--text-light);
-            font-size: 13px;
-        }
-
-        .search-bar input:focus {
-            outline: none;
-            border-color: var(--primary-red);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .stats-grid {
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .admin-layout {
                 grid-template-columns: 1fr;
             }
 
-            .page-header {
-                flex-direction: column;
-                gap: 20px;
-                align-items: flex-start;
-            }
-
-            .data-table {
-                font-size: 11px;
-            }
-
-            .data-table th,
-            .data-table td {
-                padding: 10px;
+            .sidebar {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <!-- NAVBAR -->
-    <nav class="navbar">
-        <div class="navbar-content">
-            <div class="navbar-brand">🛡️ ADMIN PANEL</div>
-            <div class="navbar-actions">
-                <button class="btn-danger" onclick="resetAllData()">🔄 Réinitialiser</button>
-                <button class="btn-logout" onclick="logout()">Déconnexion</button>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div>
+                <span class="logo">TLEAGUES</span>
+                <span class="admin-badge">⚡ Admin</span>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-logout" onclick="logout()">🚪 Déconnexion</button>
             </div>
         </div>
     </nav>
 
-    <!-- MAIN -->
-    <main class="main-content">
-        <!-- HEADER -->
-        <div class="page-header">
-            <h1>Administration</h1>
-            <div style="color: var(--text-gray); font-size: 14px;">
-                Dernière connexion: <strong id="lastLogin">Aujourd'hui</strong>
+    <!-- Admin Layout -->
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Dashboard</div>
+                <a class="sidebar-item active" data-page="overview">
+                    <span>📊</span> Vue d'ensemble
+                </a>
             </div>
-        </div>
 
-        <!-- STATS OVERVIEW -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-label">Utilisateurs</div>
-                    <div class="stat-icon">👥</div>
-                </div>
-                <div class="stat-value" id="totalUsers">0</div>
-                <div class="stat-change">+0 cette semaine</div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">Gestion</div>
+                <a class="sidebar-item" data-page="tournaments">
+                    <span>🏆</span> Tournois
+                </a>
+                <a class="sidebar-item" data-page="teams">
+                    <span>👥</span> Équipes
+                </a>
+                <a class="sidebar-item" data-page="players">
+                    <span>🎮</span> Joueurs
+                </a>
+                <a class="sidebar-item" data-page="matches">
+                    <span>⚔️</span> Matches
+                </a>
             </div>
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-label">Équipes</div>
-                    <div class="stat-icon">⚔️</div>
-                </div>
-                <div class="stat-value" id="totalTeams">0</div>
-                <div class="stat-change">+0 cette semaine</div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Modération</div>
+                <a class="sidebar-item" data-page="reports">
+                    <span>⚠️</span> Signalements
+                </a>
+                <a class="sidebar-item" data-page="sanctions">
+                    <span>🚫</span> Sanctions
+                </a>
             </div>
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-label">Tournois</div>
-                    <div class="stat-icon">🏆</div>
-                </div>
-                <div class="stat-value" id="totalTournaments">0</div>
-                <div class="stat-change">Actifs maintenant</div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Paramètres</div>
+                <a class="sidebar-item" data-page="config">
+                    <span>⚙️</span> Configuration
+                </a>
+                <a class="sidebar-item" data-page="logs">
+                    <span>📝</span> Logs système
+                </a>
             </div>
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-label">Revenue Total</div>
-                    <div class="stat-icon">💰</div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page: Vue d'ensemble -->
+            <div class="page-content active" id="overview">
+                <div class="page-header">
+                    <h1>📊 Vue d'ensemble</h1>
+                    <p>Tableau de bord administrateur TLeagues</p>
                 </div>
-                <div class="stat-value" id="totalRevenue">0€</div>
-                <div class="stat-change">Ce mois</div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">🏆</div>
+                        </div>
+                        <div class="stat-label">Tournois actifs</div>
+                        <div class="stat-value">24</div>
+                        <div class="stat-change positive">↗ +3 ce mois</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">👥</div>
+                        </div>
+                        <div class="stat-label">Équipes inscrites</div>
+                        <div class="stat-value">156</div>
+                        <div class="stat-change positive">↗ +12 cette semaine</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">🎮</div>
+                        </div>
+                        <div class="stat-label">Joueurs actifs</div>
+                        <div class="stat-value">2,847</div>
+                        <div class="stat-change positive">↗ +234 ce mois</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">💰</div>
+                        </div>
+                        <div class="stat-label">Prize pool total</div>
+                        <div class="stat-value">125K€</div>
+                        <div class="stat-change positive">↗ +25K ce trimestre</div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <div class="section-title">Actions rapides</div>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="quick-action-btn" onclick="createTournament()">
+                            <div class="quick-action-icon">➕</div>
+                            <div class="quick-action-label">Créer tournoi</div>
+                        </button>
+                        <button class="quick-action-btn" onclick="validateTeam()">
+                            <div class="quick-action-icon">✅</div>
+                            <div class="quick-action-label">Valider équipe</div>
+                        </button>
+                        <button class="quick-action-btn" onclick="sendAnnouncement()">
+                            <div class="quick-action-icon">📢</div>
+                            <div class="quick-action-label">Annonce</div>
+                        </button>
+                        <button class="quick-action-btn" onclick="viewReports()">
+                            <div class="quick-action-icon">⚠️</div>
+                            <div class="quick-action-label">Signalements</div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <div class="section-title">Activité récente</div>
+                        <button class="btn-action" onclick="refreshActivity()">🔄 Actualiser</button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Statut</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>🏆 Tournoi</td>
+                                <td>Winter Championship 2026 - Inscription ouverte</td>
+                                <td><span class="status-badge active">Actif</span></td>
+                                <td>11 Jan 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon" onclick="editItem()">✏️</button>
+                                        <button class="btn-icon" onclick="deleteItem()">🗑️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>👥 Équipe</td>
+                                <td>Team Alpha - Demande de validation</td>
+                                <td><span class="status-badge pending">En attente</span></td>
+                                <td>10 Jan 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon" onclick="approveTeam()">✅</button>
+                                        <button class="btn-icon" onclick="rejectTeam()">❌</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>⚔️ Match</td>
+                                <td>Team A vs Team B - Résultat en attente</td>
+                                <td><span class="status-badge pending">En attente</span></td>
+                                <td>10 Jan 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon" onclick="validateResult()">✅</button>
+                                        <button class="btn-icon" onclick="viewDetails()">👁️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>⚠️ Report</td>
+                                <td>Signalement de tricherie - Player123</td>
+                                <td><span class="status-badge pending">En attente</span></td>
+                                <td>9 Jan 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon" onclick="investigateReport()">🔍</button>
+                                        <button class="btn-icon" onclick="closeReport()">❌</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
 
-        <!-- TABS -->
-        <div class="tabs">
-            <div class="tab active" data-tab="users">Utilisateurs</div>
-            <div class="tab" data-tab="teams">Équipes</div>
-            <div class="tab" data-tab="tournaments">Tournois</div>
-            <div class="tab" data-tab="settings">Paramètres</div>
-        </div>
-
-        <!-- TAB: UTILISATEURS -->
-        <div class="tab-content active" id="users">
-            <div class="section">
-                <div class="section-header">
-                    <h2>Gestion des Utilisateurs</h2>
-                    <button class="btn-primary" onclick="showCreateUserModal()">➕ Nouvel Utilisateur</button>
+            <!-- Autres pages (à implémenter) -->
+            <div class="page-content" id="tournaments">
+                <div class="page-header">
+                    <h1>🏆 Gestion des tournois</h1>
+                    <p>Créer et gérer les tournois</p>
                 </div>
-
-                <div class="search-bar">
-                    <input type="text" id="userSearch" placeholder="🔍 Rechercher un utilisateur..." oninput="filterUsers()">
-                </div>
-
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Email</th>
-                            <th>Rôle</th>
-                            <th>Équipe</th>
-                            <th>Argent</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="usersTableBody"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- TAB: ÉQUIPES -->
-        <div class="tab-content" id="teams">
-            <div class="section">
-                <div class="section-header">
-                    <h2>Gestion des Équipes</h2>
-                </div>
-
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tag</th>
-                            <th>Nom</th>
-                            <th>Capitaine</th>
-                            <th>Joueurs</th>
-                            <th>Victoires</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="teamsTableBody"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- TAB: TOURNOIS -->
-        <div class="tab-content" id="tournaments">
-            <div class="section">
-                <div class="section-header">
-                    <h2>Gestion des Tournois</h2>
-                    <button class="btn-primary">➕ Nouveau Tournoi</button>
-                </div>
-
-                <div class="alert alert-warning">
-                    ⚠️ Fonctionnalité en développement
+                <div class="content-section">
+                    <p style="color: #666;">Section en développement...</p>
                 </div>
             </div>
-        </div>
 
-        <!-- TAB: PARAMÈTRES -->
-        <div class="tab-content" id="settings">
-            <div class="section">
-                <div class="section-header">
-                    <h2>Paramètres Système</h2>
+            <div class="page-content" id="teams">
+                <div class="page-header">
+                    <h1>👥 Gestion des équipes</h1>
+                    <p>Valider et modérer les équipes</p>
                 </div>
-
-                <div class="alert alert-danger">
-                    🔥 <strong>Zone Dangereuse</strong> - Ces actions sont irréversibles
-                </div>
-
-                <div class="form-group">
-                    <label>Réinitialisation des Données</label>
-                    <p style="color: var(--text-gray); font-size: 12px; margin: 10px 0;">
-                        Supprime TOUTES les données (utilisateurs, équipes, statistiques). Seul le compte admin sera conservé.
-                    </p>
-                    <button class="btn-danger" onclick="resetAllData()">🔄 Réinitialiser Tout</button>
-                </div>
-
-                <div class="form-group" style="margin-top: 40px;">
-                    <label>Export des Données</label>
-                    <p style="color: var(--text-gray); font-size: 12px; margin: 10px 0;">
-                        Télécharger une sauvegarde complète de la base de données
-                    </p>
-                    <button class="btn-secondary" onclick="exportData()">💾 Exporter JSON</button>
+                <div class="content-section">
+                    <p style="color: #666;">Section en développement...</p>
                 </div>
             </div>
-        </div>
-    </main>
-
-    <!-- MODALS -->
-    <div id="createUserModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Créer Utilisateur</h3>
-                <button class="modal-close" onclick="closeModal('createUserModal')">×</button>
-            </div>
-            <form id="createUserForm">
-                <div class="form-group">
-                    <label>Nom d'utilisateur</label>
-                    <input type="text" id="newUsername" required>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="newEmail" required>
-                </div>
-                <div class="form-group">
-                    <label>Mot de passe</label>
-                    <input type="password" id="newPassword" required>
-                </div>
-                <div class="form-group">
-                    <label>Rôle</label>
-                    <select id="newRole">
-                        <option value="joueur">Joueur</option>
-                        <option value="capitaine">Capitaine</option>
-                        <option value="coach">Coach</option>
-                        <option value="manager">Manager</option>
-                        <option value="responsable">Responsable</option>
-                        <option value="president">Président</option>
-                        <option value="admin">Administrateur</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-primary" style="width: 100%;">Créer</button>
-            </form>
-        </div>
+        </main>
     </div>
 
     <script>
-        // Data
-        let appData = JSON.parse(localStorage.getItem('tleagues_data')) || {
-            users: [{
-                id: 1,
-                username: 'admin',
-                email: 'admin@tleagues.com',
-                password: 'admin123',
-                role: 'admin',
-                teamId: null,
-                profile: {
-                    logo: null,
-                    bio: 'Administrateur système',
-                    stats: { money: 0, wins: 0, losses: 0, kills: 0, deaths: 0 }
-                }
-            }],
-            teams: []
-        };
-
-        // Init
-        function init() {
-            updateStats();
-            updateTables();
-            setupEventListeners();
-        }
-
-        function updateStats() {
-            document.getElementById('totalUsers').textContent = appData.users.length;
-            document.getElementById('totalTeams').textContent = appData.teams.length;
-            document.getElementById('totalTournaments').textContent = '0';
-            
-            const totalMoney = appData.users.reduce((sum, u) => sum + (u.profile?.stats?.money || 0), 0);
-            document.getElementById('totalRevenue').textContent = totalMoney + '€';
-        }
-
-        function updateTables() {
-            updateUsersTable();
-            updateTeamsTable();
-        }
-
-        function updateUsersTable() {
-            const tbody = document.getElementById('usersTableBody');
-            tbody.innerHTML = appData.users.map(user => {
-                const team = user.teamId ? appData.teams.find(t => t.id === user.teamId) : null;
-                return `
-                    <tr>
-                        <td>${user.id}</td>
-                        <td>${user.username}</td>
-                        <td>${user.email}</td>
-                        <td><span class="badge badge-${user.role}">${user.role}</span></td>
-                        <td>${team ? team.tag : '—'}</td>
-                        <td>${user.profile?.stats?.money || 0}€</td>
-                        <td>
-                            <div class="action-btns">
-                                <button class="action-btn btn-edit" onclick="editUser(${user.id})">✏️</button>
-                                <button class="action-btn btn-delete" onclick="deleteUser(${user.id})">🗑️</button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        function updateTeamsTable() {
-            const tbody = document.getElementById('teamsTableBody');
-            tbody.innerHTML = appData.teams.map(team => {
-                const captain = appData.users.find(u => u.id === team.captainId);
-                return `
-                    <tr>
-                        <td>${team.id}</td>
-                        <td><strong>${team.tag}</strong></td>
-                        <td>${team.name}</td>
-                        <td>${captain ? captain.username : 'N/A'}</td>
-                        <td>${team.players?.length || 0}</td>
-                        <td>${team.stats?.wins || 0}</td>
-                        <td>
-                            <div class="action-btns">
-                                <button class="action-btn btn-edit" onclick="editTeam(${team.id})">✏️</button>
-                                <button class="action-btn btn-delete" onclick="deleteTeam(${team.id})">🗑️</button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        function filterUsers() {
-            const search = document.getElementById('userSearch').value.toLowerCase();
-            const rows = document.querySelectorAll('#usersTableBody tr');
-            rows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(search) ? '' : 'none';
-            });
-        }
-
-        function setupEventListeners() {
-            // Tabs
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    tab.classList.add('active');
-                    document.getElementById(tab.dataset.tab).classList.add('active');
-                });
-            });
-
-            // Create User Form
-            document.getElementById('createUserForm').addEventListener('submit', (e) => {
+        // Navigation sidebar
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            item.addEventListener('click', function(e) {
                 e.preventDefault();
-                createUser();
+                const pageId = this.dataset.page;
+                
+                // Update active states
+                document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+                document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+                
+                this.classList.add('active');
+                document.getElementById(pageId).classList.add('active');
             });
+        });
 
-            // Modal close on outside click
-            window.addEventListener('click', (e) => {
-                if (e.target.classList.contains('modal')) {
-                    e.target.classList.remove('active');
-                }
-            });
-        }
-
-        function showCreateUserModal() {
-            document.getElementById('createUserModal').classList.add('active');
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-
-        function createUser() {
-            const newUser = {
-                id: Date.now(),
-                username: document.getElementById('newUsername').value,
-                email: document.getElementById('newEmail').value,
-                password: document.getElementById('newPassword').value,
-                role: document.getElementById('newRole').value,
-                teamId: null,
-                profile: {
-                    logo: null,
-                    bio: '',
-                    stats: { money: 0, wins: 0, losses: 0, kills: 0, deaths: 0 }
-                }
-            };
-
-            appData.users.push(newUser);
-            saveData();
-            updateTables();
-            updateStats();
-            alert('✅ Utilisateur supprimé');
-        }
-
-        function editUser(userId) {
-            alert('🚧 Fonctionnalité en développement');
-        }
-
-        function deleteTeam(teamId) {
-            if (!confirm('⚠️ Supprimer cette équipe?')) return;
-
-            const team = appData.teams.find(t => t.id === teamId);
-            if (team && team.players) {
-                team.players.forEach(playerId => {
-                    const player = appData.users.find(u => u.id === playerId);
-                    if (player) player.teamId = null;
-                });
-            }
-
-            appData.teams = appData.teams.filter(t => t.id !== teamId);
-            saveData();
-            updateTables();
-            updateStats();
-            alert('✅ Équipe supprimée');
-        }
-
-        function editTeam(teamId) {
-            alert('🚧 Fonctionnalité en développement');
-        }
-
-        function resetAllData() {
-            if (!confirm('⚠️ ATTENTION! Cette action va SUPPRIMER TOUTES LES DONNÉES. Continuer?')) return;
-            if (!confirm('🔥 ÊTES-VOUS ABSOLUMENT CERTAIN? Cette action est IRRÉVERSIBLE!')) return;
-
-            appData = {
-                users: [{
-                    id: 1,
-                    username: 'admin',
-                    email: 'admin@tleagues.com',
-                    password: 'admin123',
-                    role: 'admin',
-                    teamId: null,
-                    profile: {
-                        logo: null,
-                        bio: 'Administrateur système',
-                        stats: { money: 0, wins: 0, losses: 0, kills: 0, deaths: 0 }
-                    }
-                }],
-                teams: []
-            };
-            saveData();
-            updateTables();
-            updateStats();
-            alert('✅ Toutes les données ont été réinitialisées!');
-        }
-
-        function exportData() {
-            const dataStr = JSON.stringify(appData, null, 2);
-            const dataBlob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `tleagues_backup_${new Date().toISOString().split('T')[0]}.json`;
-            link.click();
-            URL.revokeObjectURL(url);
-            alert('✅ Données exportées!');
-        }
-
-        function saveData() {
-            localStorage.setItem('tleagues_data', JSON.stringify(appData));
-        }
-
+        // Functions
         function logout() {
-            sessionStorage.removeItem('currentUser');
-            window.location.href = 'login.html';
+            if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
+                window.location.href = 'login.html';
+            }
         }
 
-        // Init
-        init();
+        function createTournament() { alert('🏆 Création de tournoi...'); }
+        function validateTeam() { alert('✅ Validation d\'équipe...'); }
+        function sendAnnouncement() { alert('📢 Envoi d\'annonce...'); }
+        function viewReports() { alert('⚠️ Affichage des signalements...'); }
+        function refreshActivity() { alert('🔄 Actualisation...'); }
+        function editItem() { alert('✏️ Modification...'); }
+        function deleteItem() { 
+            if (confirm('Confirmer la suppression ?')) {
+                alert('🗑️ Suppression...'); 
+            }
+        }
+        function approveTeam() { alert('✅ Équipe approuvée !'); }
+        function rejectTeam() { 
+            if (confirm('Rejeter cette équipe ?')) {
+                alert('❌ Équipe rejetée'); 
+            }
+        }
+        function validateResult() { alert('✅ Résultat validé'); }
+        function viewDetails() { alert('👁️ Détails...'); }
+        function investigateReport() { alert('🔍 Investigation...'); }
+        function closeReport() { alert('❌ Signalement fermé'); }
     </script>
 </body>
-</html>ables();
-            updateStats();
-            closeModal('createUserModal');
-            document.getElementById('createUserForm').reset();
-            alert('✅ Utilisateur créé!');
-        }
-
-        function deleteUser(userId) {
-            if (userId === 1) {
-                alert('❌ Impossible de supprimer l\'admin principal');
-                return;
-            }
-            if (!confirm('⚠️ Supprimer cet utilisateur?')) return;
-
-            appData.users = appData.users.filter(u => u.id !== userId);
-            appData.teams.forEach(team => {
-                if (team.players) {
-                    team.players = team.players.filter(id => id !== userId);
-                }
-            });
-            saveData();
-            updateT
+</html>
