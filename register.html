@@ -3,19 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TLeagues - Créer un Compte</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Inscription - TLeagues</title>
     <style>
-        :root {
-            --primary-red: #ff0000;
-            --dark-red: #cc0000;
-            --bg-dark: #000000;
-            --bg-card: #0a0a0a;
-            --border-red: rgba(255, 0, 0, 0.3);
-            --text-light: #ffffff;
-            --text-gray: #999999;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -23,9 +12,9 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-light);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000000;
+            color: #ffffff;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -34,42 +23,46 @@
         }
 
         .register-container {
-            background: rgba(10, 10, 10, 0.95);
-            border: 2px solid var(--border-red);
-            padding: 40px;
+            background: #0d0d0d;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 3rem 2.5rem;
             width: 100%;
-            max-width: 480px;
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.2);
+            max-width: 500px;
+            box-shadow: 0 8px 32px rgba(255, 0, 0, 0.1);
         }
 
         .logo {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 2.5rem;
         }
 
         .logo h1 {
-            font-size: 42px;
-            color: var(--primary-red);
+            font-size: 2.8rem;
+            color: #ff0000;
             font-weight: 900;
-            letter-spacing: 4px;
-            margin-bottom: 8px;
+            letter-spacing: 5px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
         }
 
         .logo p {
-            color: var(--text-gray);
-            font-size: 13px;
+            color: #666;
+            font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            font-weight: 600;
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 1rem;
         }
 
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 1.3rem;
         }
 
         .form-group.full-width {
@@ -78,47 +71,53 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 6px;
-            color: var(--text-light);
-            font-size: 11px;
+            margin-bottom: 0.5rem;
+            color: #ff0000;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             font-weight: 700;
         }
 
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 12px 14px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-red);
-            color: var(--text-light);
-            font-size: 13px;
+            padding: 0.9rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #fff;
+            font-size: 0.9rem;
             transition: all 0.3s;
+            border-radius: 6px;
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: var(--primary-red);
+            border-color: #ff0000;
             background: rgba(255, 0, 0, 0.05);
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
         }
 
         .form-group input::placeholder {
-            color: var(--text-gray);
-            opacity: 0.5;
+            color: #555;
+        }
+
+        .form-group select option {
+            background: #0d0d0d;
+            color: #fff;
         }
 
         .password-strength {
-            margin-top: 6px;
-            font-size: 11px;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
         }
 
         .strength-bar {
-            height: 4px;
+            height: 3px;
             background: rgba(255, 255, 255, 0.1);
-            margin-top: 4px;
+            margin-top: 0.4rem;
+            border-radius: 2px;
             overflow: hidden;
         }
 
@@ -135,8 +134,8 @@
         .checkbox-group {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            margin: 20px 0;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
         }
 
         .checkbox-group input[type="checkbox"] {
@@ -144,20 +143,20 @@
             height: 18px;
             margin-top: 2px;
             cursor: pointer;
-            accent-color: var(--primary-red);
+            accent-color: #ff0000;
         }
 
         .checkbox-group label {
-            font-size: 12px;
-            color: var(--text-gray);
-            line-height: 1.4;
+            font-size: 0.85rem;
+            color: #999;
+            line-height: 1.5;
             text-transform: none;
             letter-spacing: 0;
             font-weight: 400;
         }
 
         .checkbox-group label a {
-            color: var(--primary-red);
+            color: #ff0000;
             text-decoration: none;
             font-weight: 600;
         }
@@ -168,22 +167,24 @@
 
         .btn-primary {
             width: 100%;
-            padding: 14px;
-            background: var(--primary-red);
+            padding: 1rem;
+            background: #ff0000;
             border: none;
-            color: white;
-            font-size: 13px;
+            color: #fff;
+            font-size: 0.9rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
             cursor: pointer;
             transition: all 0.3s;
+            border-radius: 6px;
+            margin-top: 0.5rem;
         }
 
         .btn-primary:hover:not(:disabled) {
-            background: var(--dark-red);
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+            background: #cc0000;
             transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.4);
         }
 
         .btn-primary:disabled {
@@ -194,8 +195,8 @@
         .divider {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin: 25px 0;
+            gap: 1rem;
+            margin: 2rem 0;
         }
 
         .divider::before,
@@ -203,12 +204,12 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: var(--border-red);
+            background: rgba(255, 0, 0, 0.2);
         }
 
         .divider span {
-            color: var(--text-gray);
-            font-size: 12px;
+            color: #666;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -216,38 +217,40 @@
         .social-login {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 1rem;
         }
 
         .social-btn {
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-red);
-            color: var(--text-light);
-            font-size: 12px;
+            padding: 0.9rem;
+            background: rgba(255, 0, 0, 0.05);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #fff;
+            font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 0.6rem;
+            border-radius: 6px;
         }
 
         .social-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--primary-red);
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff0000;
+            transform: translateY(-2px);
         }
 
         .footer-text {
             text-align: center;
-            margin-top: 25px;
-            font-size: 12px;
-            color: var(--text-gray);
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: #666;
         }
 
         .footer-text a {
-            color: var(--primary-red);
+            color: #ff0000;
             text-decoration: none;
             font-weight: 600;
         }
@@ -259,27 +262,31 @@
         .error-message {
             background: rgba(244, 67, 54, 0.1);
             border: 1px solid #f44336;
+            border-left: 3px solid #f44336;
             color: #f44336;
-            padding: 10px 12px;
-            margin-bottom: 15px;
-            font-size: 12px;
+            padding: 0.8rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
             display: none;
+            border-radius: 6px;
         }
 
         .success-message {
             background: rgba(76, 175, 80, 0.1);
             border: 1px solid #4CAF50;
+            border-left: 3px solid #4CAF50;
             color: #4CAF50;
-            padding: 10px 12px;
-            margin-bottom: 15px;
-            font-size: 12px;
+            padding: 0.8rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
             display: none;
+            border-radius: 6px;
         }
 
-        /* RESPONSIVE */
+        /* Responsive */
         @media (max-width: 768px) {
             .register-container {
-                padding: 30px 25px;
+                padding: 2rem 1.5rem;
             }
 
             .form-row {
@@ -287,7 +294,7 @@
             }
 
             .logo h1 {
-                font-size: 36px;
+                font-size: 2.2rem;
             }
 
             .social-login {
@@ -336,7 +343,7 @@
                         <div class="strength-bar">
                             <div id="strengthFill" class="strength-fill"></div>
                         </div>
-                        <span id="strengthText" style="color: var(--text-gray);"></span>
+                        <span id="strengthText" style="color: #666;"></span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -348,7 +355,7 @@
             <div class="form-group full-width">
                 <label>Rôle</label>
                 <select id="role" required>
-                    <option value="">-- Choisir --</option>
+                    <option value="">-- Choisir un rôle --</option>
                     <option value="joueur">🎮 Joueur</option>
                     <option value="capitaine">👑 Capitaine d'équipe</option>
                     <option value="coach">🎓 Coach</option>
@@ -379,7 +386,7 @@
 
         <div class="social-login">
             <button class="social-btn" onclick="loginWithGoogle()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="18" height="18" viewBox="0 0 24 24">
                     <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                     <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                     <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
@@ -388,8 +395,8 @@
                 Google
             </button>
             <button class="social-btn" onclick="loginWithDiscord()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z" fill="#5865F2"/>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#5865F2">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
                 </svg>
                 Discord
             </button>
@@ -399,7 +406,7 @@
             Vous avez déjà un compte ? <a href="login.html">Se connecter</a>
         </div>
 
-        <div class="footer-text" style="margin-top: 15px;">
+        <div class="footer-text" style="margin-top: 1rem;">
             <a href="index.html">← Retour à l'accueil</a>
         </div>
     </div>
@@ -408,7 +415,9 @@
         // Load existing data
         let appData = JSON.parse(localStorage.getItem('tleagues_data')) || {
             users: [],
-            teams: []
+            teams: [],
+            tournaments: [],
+            mercato: { enabled: false, players: [] }
         };
 
         // Password strength checker
@@ -511,14 +520,21 @@
                 lastName,
                 username,
                 email,
-                password, // En production, il faudrait hasher le mot de passe
+                password, // En production, hasher le mot de passe
                 role,
                 teamId: null,
                 createdAt: new Date().toISOString(),
                 profile: {
                     logo: null,
                     bio: '',
-                    stats: { money: 0, wins: 0, losses: 0, kills: 0, deaths: 0 }
+                    stats: { 
+                        matches: 0, 
+                        wins: 0, 
+                        losses: 0, 
+                        kills: 0, 
+                        deaths: 0,
+                        assists: 0 
+                    }
                 }
             };
 
@@ -539,6 +555,8 @@
                     window.location.href = 'dashboard-capitaine.html';
                 } else if (role === 'joueur') {
                     window.location.href = 'dashboard-joueur-solo.html';
+                } else if (role === 'coach' || role === 'manager') {
+                    window.location.href = 'dashboard-staff.html';
                 } else {
                     window.location.href = 'dashboard.html';
                 }
