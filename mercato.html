@@ -1,1 +1,835 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercato - TLeagues</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: #0a0a0a;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            padding: 1rem 3%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ff0000;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #ff0000;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-back {
+            background: transparent;
+            color: #ff0000;
+            padding: 0.6rem 1.5rem;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff0000;
+        }
+
+        /* Main Container */
+        .mercato-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2.5rem 3%;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .mercato-status {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.5rem;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #00ff00;
+        }
+
+        .mercato-status.closed {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff0000;
+            color: #ff0000;
+        }
+
+        /* Search & Filters */
+        .search-section {
+            background: #0a0a0a;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .search-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .search-group label {
+            color: #666;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .search-input,
+        .search-select {
+            background: #000000;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            color: #fff;
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .search-input:focus,
+        .search-select:focus {
+            outline: none;
+            border-color: #ff0000;
+        }
+
+        .search-select option {
+            background: #0a0a0a;
+        }
+
+        .btn-search {
+            background: #ff0000;
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-search:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-box {
+            background: #0a0a0a;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #ff0000;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Players Grid */
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .player-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 1.8rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .player-card:hover {
+            border-color: rgba(255, 0, 0, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.15);
+        }
+
+        .player-header {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .player-avatar {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 0, 0, 0.2);
+            border: 3px solid #ff0000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .player-main-info h3 {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+
+        .player-role {
+            font-size: 0.8rem;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .player-rank {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 0.2rem;
+        }
+
+        .player-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .player-status.available {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+        }
+
+        .player-status.negotiation {
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid #ffa500;
+            color: #ffa500;
+        }
+
+        .player-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item-value {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #ff0000;
+        }
+
+        .stat-item-label {
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+        }
+
+
+
+        .player-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .btn-offer,
+        .btn-details {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-offer {
+            background: #ff0000;
+            color: #fff;
+        }
+
+        .btn-offer:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+        }
+
+        .btn-details {
+            background: transparent;
+            color: #666;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .btn-details:hover {
+            background: rgba(255, 0, 0, 0.05);
+            border-color: #ff0000;
+            color: #ff0000;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #0a0a0a;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .modal-subtitle {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .modal-body {
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            color: #ff0000;
+            font-weight: 700;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: #000000;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            color: #fff;
+            padding: 0.9rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ff0000;
+        }
+
+        .form-info {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-modal {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .btn-confirm {
+            background: #ff0000;
+            color: #fff;
+        }
+
+        .btn-confirm:hover {
+            background: #cc0000;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            color: #666;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .btn-cancel:hover {
+            background: rgba(255, 0, 0, 0.05);
+            border-color: #ff0000;
+            color: #ff0000;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 5rem 2rem;
+            color: #666;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state-text {
+            font-size: 1.1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .search-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .players-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">TLEAGUES</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="tournois.html">Tournois</a></li>
+                <li><a href="mercato.html" class="active">Mercato</a></li>
+            </ul>
+            <div class="user-menu">
+                <a href="dashboard-staff.html" class="btn-back">← Retour Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="mercato-container">
+        <!-- Header -->
+        <div class="page-header">
+            <h1>🔄 MERCATO</h1>
+            <p>Système de recrutement et transferts League of Legends</p>
+            <div class="mercato-status" id="mercatoStatus">
+                ✅ MERCATO OUVERT
+            </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-box">
+                <div class="stat-value" id="totalPlayers">247</div>
+                <div class="stat-label">Joueurs disponibles</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="activeOffers">12</div>
+                <div class="stat-label">Offres en cours</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">5/5</div>
+                <div class="stat-label">Roster actuel</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Offres acceptées</div>
+            </div>
+        </div>
+
+        <!-- Search & Filters -->
+        <div class="search-section">
+            <div class="search-grid">
+                <div class="search-group">
+                    <label>Rechercher</label>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Nom du joueur, pseudo...">
+                </div>
+                <div class="search-group">
+                    <label>Rôle</label>
+                    <select class="search-select" id="roleFilter">
+                        <option value="">Tous les rôles</option>
+                        <option value="top">🔝 Top Lane</option>
+                        <option value="jungle">🌲 Jungle</option>
+                        <option value="mid">⚡ Mid Lane</option>
+                        <option value="adc">🎯 ADC</option>
+                        <option value="support">🛡️ Support</option>
+                    </select>
+                </div>
+                <div class="search-group">
+                    <label>Rang</label>
+                    <select class="search-select" id="rankFilter">
+                        <option value="">Tous les rangs</option>
+                        <option value="challenger">Challenger</option>
+                        <option value="grandmaster">Grandmaster</option>
+                        <option value="master">Master</option>
+                        <option value="diamond">Diamant</option>
+                        <option value="platinum">Platine</option>
+                    </select>
+                </div>
+                <div class="search-group">
+                    <label>Statut</label>
+                    <select class="search-select" id="statusFilter">
+                        <option value="">Tous</option>
+                        <option value="available">Disponible</option>
+                        <option value="negotiation">En négociation</option>
+                    </select>
+                </div>
+                <div class="search-group">
+                    <label>&nbsp;</label>
+                    <button class="btn-search" onclick="searchPlayers()">🔍 Rechercher</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Players Grid -->
+        <div class="players-grid" id="playersGrid">
+            <!-- Player 1 -->
+            <div class="player-card" data-role="top" data-rank="master" data-status="available">
+                <div class="player-status available">Disponible</div>
+                <div class="player-header">
+                    <div class="player-avatar">TS</div>
+                    <div class="player-main-info">
+                        <h3>TopSmasher</h3>
+                        <div class="player-role">🔝 Top Lane</div>
+                        <div class="player-rank">Master 450 LP</div>
+                    </div>
+                </div>
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <div class="stat-item-value">7.8</div>
+                        <div class="stat-item-label">KDA</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-value">62%</div>
+                        <div class="stat-item-label">Winrate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-value">234</div>
+                        <div class="stat-item-label">Games</div>
+                    </div>
+                </div>
+
+                <div class="player-actions">
+                    <button class="btn-offer" onclick="makeOffer('TopSmasher', '8500')">💰 Faire offre</button>
+                    <button class="btn-details" onclick="viewDetails('TopSmasher')">👁️ Détails</button>
+                </div>
+            </div>
+
+            <!-- Player 2 -->
+            <div class="player-card" data-role="jungle" data-rank="grandmaster" data-status="available">
+                <div class="player-status available">Disponible</div>
+                <div class="player-header">
+                    <div class="player-avatar">JK</div>
+                    <div class="player-main-info">
+                        <h3>JungleKing</h3>
+                        <div class="player-role">🌲 Jungle</div>
+                        <div class="player-rank">Grandmaster 680 LP</div>
+                    </div>
+                </div>
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <div class="stat-item-value">9.2</div>
+                        <div class="stat-item-label">KDA</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-value">68%</div>
+                        <div class="stat-item-label">Winrate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-value">312</div>
+                        <div class="stat-item-label">Games</div>
+                    </div>
+                </div>
+                <div class="player-price">
+                    <div class="price-label">Prix estimé</div>
+                    <div class="price-value">12,000€</div>
+                </div>
+                <div class="player-actions">
+                    <button class="btn-offer" onclick="makeOffer('JungleKing', '12000')">💰 Faire offre</button>
+                    <button class="btn-details" onclick="viewDetails('JungleKing')">👁️ Détails</button>
+                </div>
+            </div>
+
+            <!-- Player 3 -->
+            <div class="player-card" data-role="mid" data-rank="challenger" data-status="negotiation">
+                <div class="player-status negotiation">En négociation</div>
+                <div class="player-header">
+                    <div class="player-avatar">ML</div>
+                    <div class="player-main-info">
+                        <h3>MidLegend</h3>
+                        <div class="player-role">⚡ Mid Lane</div>
+                        <div class="player-rank">Challenger 1200 LP</div>
+                    </div>
+                </div>
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <div class="stat-item-value">11.5</div>
+                        <div class="stat-item-label">KDA</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-value">74%</div>
+                        <div class="stat-item-label">Winrate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-value">445</div>
+                        <div class="stat-item-label">Games</div>
+                    </div>
+                </div>
+                <div class="player-price">
+                    <div class="price-label">Prix estimé</div>
+                    <div class="price-value">25,000€</div>
+                </div>
+                <div class="player-actions">
+                    <button class="btn-offer" onclick="makeOffer('MidLegend', '25000')">💰 Faire offre</button>
+                    <button class="btn-details" onclick="viewDetails('MidLegend')">👁️ Détails</button>
+                </div>
+            </div>
+
+            <!-- Player 4 -->
+            <div class="player-card" data-role="adc" data-rank="master" data-status="available">
+                <div class="player-status available">Disponible</div>
+                <div class="player-header">
+                    <div class="player-avatar">AP</div>
+                    <div class="player-main-info">
+                        <h3>AdcPro</h3>
+                        <div class="player-role">🎯 ADC</div>
+                        <div class="player-rank">Master 520 LP</div>
+                    </div>
+                </div>
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <div class="stat-item-value">8.9</div>
+                        <div class="stat-item-label">KDA</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-value">65%</div>
+                        <div class="stat-item-label">Winrate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-value">289</div>
+                        <div class="stat-item-label">Games</div>
+                    </div>
+                </div>
+                <div class="player-price">
+                    <div class="price-label">Prix estimé</div>
+                    <div class="price-value">9,500€</div>
+                </div>
+                <div class="player-actions">
+                    <button class="btn-offer" onclick="makeOffer('AdcPro', '9500')">💰 Faire offre</button>
+                    <button class="btn-details" onclick="viewDetails('AdcPro')">👁️ Détails</button>
+                </div>
+            </div>
+
+            <!-- Player 5 -->
+            <div class="player-card" data-role="support" data-rank="diamond" data-status="available">
+                <div class="player-status available">Disponible</div>
+                <div class="player-header">
+                    <div class="player-avatar">SG</div>
+                    <div class="player-main-info">
+                        <h3>SuppGod</h3>
+                        <div class="player-role">🛡️ Support</div>
+                        <div class="player-rank">Diamant I 85 LP</div>
+                    </div>
+                </div>
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <div class="stat-item-value">6.5</div>
+                        <div class="stat-item-label">KDA</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-value">58%</div>
+                        <div class="stat-item-label">Winrate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-value">198</div>
+                        <div class="stat-item-label">Games</div>
+                    </div>
+                </div>
+                <div class="player-price">
+                    <div class="price-label">Prix estimé</div>
+                    <div class="price-value">5,500€</div>
+                </div>
+                <div class="player-actions">
+                    <button class="btn-offer" onclick="makeOffer('SuppGod', '5500')">💰 Faire offre</button>
+                    <button class="btn-details" onclick="viewDetails('SuppGod')">👁️ Détails</button>
+                </div>
+            </div>
+
+            <!-- Player 6 -->
+            <div class="player-card" data-role="top" data-rank="challenger" data-status="available">
+                <div class="player-status available">Disponible</div>
+                <div class="player-header">
+                    <div class="player-avatar">TT</div>
+                    <div class="player-main-info">
+                        <h3>TopTitan</h3>
+                        <div class="player-role">🔝 Top Lane</div>
+                        <div class="player-rank">Challenger 980 LP</div>
+                    </div>
+                </div>
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <div class="stat-item-value">10.3</div>
+                        <div class="stat-item-label">KDA</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-
