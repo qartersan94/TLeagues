@@ -13,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0d0d0d;
+            background: #000000;
             color: #ffffff;
             overflow-x: hidden;
         }
@@ -22,7 +22,7 @@
         nav {
             background: rgba(0, 0, 0, 0.98);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 0, 0, 0.15);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
             padding: 1.2rem 5%;
             position: sticky;
             top: 0;
@@ -43,17 +43,18 @@
             color: #ff0000;
             letter-spacing: 4px;
             text-transform: uppercase;
+            cursor: pointer;
         }
 
         .nav-links {
             display: flex;
-            gap: 3rem;
+            gap: 2.5rem;
             list-style: none;
             align-items: center;
         }
 
         .nav-links a {
-            color: #999;
+            color: #666;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
@@ -71,7 +72,7 @@
             background: #ff0000;
             color: #fff;
             padding: 0.75rem 2rem;
-            border-radius: 4px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 700;
             text-transform: uppercase;
@@ -83,24 +84,48 @@
         .btn-connexion:hover {
             background: #cc0000;
             transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.4);
         }
 
         /* Hero Section */
         .hero {
-            padding: 8rem 5%;
+            padding: 10rem 5% 8rem;
             text-align: center;
             background: linear-gradient(180deg, rgba(255, 0, 0, 0.05) 0%, transparent 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 0, 0.15) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 900;
             margin-bottom: 1.5rem;
             background: linear-gradient(135deg, #ff0000 0%, #fff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
+            line-height: 1.2;
         }
 
         .hero p {
@@ -119,11 +144,11 @@
         }
 
         .btn-primary, .btn-secondary {
-            padding: 1.2rem 2.5rem;
+            padding: 1.2rem 3rem;
             border-radius: 6px;
             font-weight: 700;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             letter-spacing: 1px;
             transition: all 0.3s;
             text-decoration: none;
@@ -139,6 +164,7 @@
         .btn-primary:hover {
             background: #cc0000;
             transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(255, 0, 0, 0.4);
         }
 
         .btn-secondary {
@@ -152,105 +178,16 @@
             transform: translateY(-3px);
         }
 
-        /* Dashboard Access Section */
-        .dashboard-access {
-            max-width: 1200px;
-            margin: 5rem auto;
-            padding: 0 5%;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: #666;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .dashboard-card {
-            background: #111;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 12px;
-            padding: 3rem 2rem;
-            text-align: center;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .dashboard-card:hover {
-            border-color: #ff0000;
-            transform: translateY(-10px);
-            background: rgba(255, 0, 0, 0.05);
-        }
-
-        .dashboard-icon {
-            font-size: 5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .dashboard-title {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .dashboard-description {
-            color: #999;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
-
-        .dashboard-btn {
-            background: #ff0000;
-            color: #fff;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 6px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-        }
-
-        .dashboard-btn:hover {
-            background: #cc0000;
-            transform: translateY(-2px);
-        }
-
         /* Stats Section */
         .stats-section {
-            background: rgba(255, 0, 0, 0.03);
+            background: #0a0a0a;
             padding: 5rem 5%;
-            margin: 5rem 0;
             border-top: 1px solid rgba(255, 0, 0, 0.1);
             border-bottom: 1px solid rgba(255, 0, 0, 0.1);
         }
 
         .stats-grid {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -259,6 +196,21 @@
 
         .stat-item {
             text-align: center;
+            padding: 2rem;
+            background: rgba(255, 0, 0, 0.03);
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .stat-item:hover {
+            border-color: rgba(255, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
         }
 
         .stat-value {
@@ -273,37 +225,262 @@
             font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 8rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: #ff0000;
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feature-description {
+            color: #999;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Tournament Preview */
+        .tournaments-preview {
+            padding: 8rem 5%;
+            background: #0a0a0a;
+        }
+
+        .tournaments-grid {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .tournament-card {
+            background: #000;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .tournament-card:hover {
+            border-color: #ff0000;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .tournament-header {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.2) 0%, rgba(255, 0, 0, 0.05) 100%);
+            padding: 2rem;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .tournament-badge {
+            background: #ff0000;
+            color: #fff;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .tournament-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .tournament-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .tournament-body {
+            padding: 2rem;
+        }
+
+        .tournament-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ff0000;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: uppercase;
+            margin-top: 0.3rem;
+        }
+
+        .tournament-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-tournament {
+            flex: 1;
+            padding: 0.9rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-register {
+            background: #ff0000;
+            color: #fff;
+        }
+
+        .btn-register:hover {
+            background: #cc0000;
+        }
+
+        .btn-view {
+            background: transparent;
+            color: #ff0000;
+            border: 1px solid #ff0000;
+        }
+
+        .btn-view:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 5%;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1) 0%, transparent 100%);
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: #999;
+            margin-bottom: 3rem;
         }
 
         /* Footer */
         footer {
-            background: #000;
-            padding: 3rem 5%;
-            border-top: 1px solid rgba(255, 0, 0, 0.2);
+            background: #0a0a0a;
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(255, 0, 0, 0.1);
         }
 
         .footer-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
 
         .footer-section h3 {
             color: #ff0000;
             font-weight: 900;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             text-transform: uppercase;
             font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-section p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.9rem;
         }
 
         .footer-section a {
             display: block;
             color: #666;
             text-decoration: none;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.7rem;
             transition: color 0.3s;
+            font-size: 0.9rem;
         }
 
         .footer-section a:hover {
@@ -311,13 +488,39 @@
         }
 
         .footer-bottom {
-            max-width: 1200px;
-            margin: 2rem auto 0;
+            max-width: 1400px;
+            margin: 0 auto;
             padding-top: 2rem;
             border-top: 1px solid rgba(255, 0, 0, 0.1);
             text-align: center;
             color: #666;
             font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: #ff0000;
+            border-color: #ff0000;
+            transform: translateY(-3px);
         }
 
         /* Responsive */
@@ -334,12 +537,24 @@
                 font-size: 1.1rem;
             }
 
-            .dashboard-grid {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
                 grid-template-columns: 1fr;
             }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .tournaments-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-section h2 {
+                font-size: 2.5rem;
             }
         }
     </style>
@@ -354,6 +569,7 @@
                 <li><a href="tournois.html">Tournois</a></li>
                 <li><a href="leagues.html">Ligues</a></li>
                 <li><a href="cups.html">Coupes</a></li>
+                <li><a href="mercato.html">Mercato</a></li>
                 <li><a href="services.html">Services</a></li>
             </ul>
             <a href="login.html" class="btn-connexion">Connexion</a>
@@ -362,11 +578,13 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>DOMINEZ LA COMPÉTITION</h1>
-        <p>La plateforme ultime pour les tournois League of Legends. Rejoignez des milliers de joueurs compétitifs et prouvez votre valeur.</p>
-        <div class="hero-buttons">
-            <a href="register.html" class="btn-primary">Créer un compte</a>
-            <a href="tournois.html" class="btn-secondary">Voir les tournois</a>
+        <div class="hero-content">
+            <h1>DOMINEZ LA COMPÉTITION</h1>
+            <p>La plateforme ultime pour les tournois League of Legends. Rejoignez des milliers de joueurs compétitifs et prouvez votre valeur.</p>
+            <div class="hero-buttons">
+                <a href="register.html" class="btn-primary">Créer un compte</a>
+                <a href="tournois.html" class="btn-secondary">Voir les tournois</a>
+            </div>
         </div>
     </section>
 
@@ -374,46 +592,179 @@
     <section class="stats-section">
         <div class="stats-grid">
             <div class="stat-item">
+                <div class="stat-icon">🏆</div>
                 <div class="stat-value">1,250+</div>
                 <div class="stat-label">Tournois Organisés</div>
             </div>
             <div class="stat-item">
+                <div class="stat-icon">👥</div>
                 <div class="stat-value">50K+</div>
                 <div class="stat-label">Joueurs Actifs</div>
             </div>
             <div class="stat-item">
+                <div class="stat-icon">💰</div>
                 <div class="stat-value">2.5M€</div>
                 <div class="stat-label">Prize Pool Total</div>
             </div>
             <div class="stat-item">
+                <div class="stat-icon">🎮</div>
                 <div class="stat-value">24/7</div>
                 <div class="stat-label">Support Actif</div>
             </div>
         </div>
     </section>
 
-    <!-- Dashboard Access Section -->
-    <section class="dashboard-access">
+    <!-- Features Section -->
+    <section class="features-section">
         <div class="section-header">
-            <h2 class="section-title">ACCÉDEZ À VOTRE DASHBOARD</h2>
-            <p class="section-subtitle">Connectez-vous pour accéder à votre espace personnalisé</p>
+            <h2 class="section-title">Fonctionnalités</h2>
+            <p class="section-subtitle">Tout ce dont vous avez besoin pour exceller</p>
         </div>
 
-        <div class="dashboard-grid">
-            <!-- Dashboard Capitaine -->
-            <div class="dashboard-card" onclick="window.location.href='login.html'">
-                <div class="dashboard-icon">👑</div>
-                <h3 class="dashboard-title">Dashboard Capitaine</h3>
-                <p class="dashboard-description">Créez votre équipe, gérez le roster et inscrivez-vous aux tournois</p>
-                <button class="dashboard-btn">Capitaine</button>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚔️</div>
+                <h3 class="feature-title">Tournois Compétitifs</h3>
+                <p class="feature-description">Participez à des tournois quotidiens avec des prize pools garantis et des brackets professionnels.</p>
             </div>
 
-            <!-- Dashboard Joueur -->
-            <div class="dashboard-card" onclick="window.location.href='login.html'">
-                <div class="dashboard-icon">⚔️</div>
-                <h3 class="dashboard-title">Dashboard Joueur</h3>
-                <p class="dashboard-description">Suivez vos stats, rejoignez une équipe et participez aux compétitions</p>
-                <button class="dashboard-btn">Joueur</button>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Statistiques Détaillées</h3>
+                <p class="feature-description">Suivez vos performances avec des analyses complètes et améliorez votre gameplay.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3 class="feature-title">Gestion d'Équipe</h3>
+                <p class="feature-description">Créez votre roster, gérez les joueurs et coordonnez vos stratégies avec des outils dédiés.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3 class="feature-title">Mercato</h3>
+                <p class="feature-description">Recrutez les meilleurs talents League of Legends pour renforcer votre équipe.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📺</div>
+                <h3 class="feature-title">Streaming Intégré</h3>
+                <p class="feature-description">Diffusez vos matchs avec un HUD personnalisé TLeagues directement sur la plateforme.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3 class="feature-title">Anti-Triche</h3>
+                <p class="feature-description">Environnement sécurisé avec système anti-triche actif pour garantir un jeu équitable.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tournaments Preview -->
+    <section class="tournaments-preview">
+        <div class="section-header">
+            <h2 class="section-title">Tournois à Venir</h2>
+            <p class="section-subtitle">Inscrivez-vous dès maintenant</p>
+        </div>
+
+        <div class="tournaments-grid">
+            <!-- Tournament 1 -->
+            <div class="tournament-card">
+                <div class="tournament-header">
+                    <span class="tournament-badge">🔥 Inscription Ouverte</span>
+                    <h3 class="tournament-title">Winter Championship 2026</h3>
+                    <p class="tournament-date">📅 15 Janvier 2026 - 18:00</p>
+                </div>
+                <div class="tournament-body">
+                    <div class="tournament-info">
+                        <div class="info-item">
+                            <div class="info-value">128</div>
+                            <div class="info-label">Équipes</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">50K€</div>
+                            <div class="info-label">Prize Pool</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">BO3</div>
+                            <div class="info-label">Format</div>
+                        </div>
+                    </div>
+                    <div class="tournament-actions">
+                        <a href="register.html" class="btn-tournament btn-register">S'inscrire</a>
+                        <a href="bracket.html" class="btn-tournament btn-view">Voir Bracket</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tournament 2 -->
+            <div class="tournament-card">
+                <div class="tournament-header">
+                    <span class="tournament-badge">🎮 Bientôt</span>
+                    <h3 class="tournament-title">TLeagues Pro League S1</h3>
+                    <p class="tournament-date">📅 20 Janvier 2026 - 20:00</p>
+                </div>
+                <div class="tournament-body">
+                    <div class="tournament-info">
+                        <div class="info-item">
+                            <div class="info-value">64</div>
+                            <div class="info-label">Équipes</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">100K€</div>
+                            <div class="info-label">Prize Pool</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">BO5</div>
+                            <div class="info-label">Format</div>
+                        </div>
+                    </div>
+                    <div class="tournament-actions">
+                        <a href="register.html" class="btn-tournament btn-register">S'inscrire</a>
+                        <a href="tournois.html" class="btn-tournament btn-view">Plus d'infos</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tournament 3 -->
+            <div class="tournament-card">
+                <div class="tournament-header">
+                    <span class="tournament-badge">⭐ Places Limitées</span>
+                    <h3 class="tournament-title">Rookie Tournament</h3>
+                    <p class="tournament-date">📅 10 Janvier 2026 - 19:00</p>
+                </div>
+                <div class="tournament-body">
+                    <div class="tournament-info">
+                        <div class="info-item">
+                            <div class="info-value">256</div>
+                            <div class="info-label">Joueurs</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">10K€</div>
+                            <div class="info-label">Prize Pool</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">BO1</div>
+                            <div class="info-label">Format</div>
+                        </div>
+                    </div>
+                    <div class="tournament-actions">
+                        <a href="register.html" class="btn-tournament btn-register">S'inscrire</a>
+                        <a href="tournois.html" class="btn-tournament btn-view">Plus d'infos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>PRÊT À COMMENCER ?</h2>
+            <p>Rejoignez la communauté TLeagues dès aujourd'hui et participez aux meilleurs tournois League of Legends</p>
+            <div class="hero-buttons">
+                <a href="register.html" class="btn-primary">Créer un compte gratuitement</a>
+                <a href="tournois.html" class="btn-secondary">Explorer les tournois</a>
             </div>
         </div>
     </section>
@@ -423,52 +774,44 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>TLeagues</h3>
-                <p style="color: #666; font-size: 0.9rem;">La plateforme de référence pour les tournois esports League of Legends.</p>
+                <p>La plateforme de référence pour les tournois esports League of Legends. Organisez, participez et dominez.</p>
+                <div class="social-links">
+                    <a href="https://discord.gg/WjQuuPvAVA" class="social-link" target="_blank">💬</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📺</a>
+                    <a href="#" class="social-link">▶️</a>
+                </div>
             </div>
+
             <div class="footer-section">
                 <h3>Navigation</h3>
                 <a href="tournois.html">Tournois</a>
                 <a href="leagues.html">Ligues</a>
                 <a href="cups.html">Coupes</a>
+                <a href="mercato.html">Mercato</a>
                 <a href="services.html">Services</a>
             </div>
+
+            <div class="footer-section">
+                <h3>Compte</h3>
+                <a href="register.html">Créer un compte</a>
+                <a href="login.html">Connexion</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="forgot-password.html">Mot de passe oublié</a>
+            </div>
+
             <div class="footer-section">
                 <h3>Support</h3>
                 <a href="services.html#faq">FAQ</a>
                 <a href="services.html#contact">Contact</a>
-                <a href="register.html">Créer un compte</a>
-                <a href="login.html">Connexion</a>
-            </div>
-            <div class="footer-section">
-                <h3>Suivez-nous</h3>
-                <a href="https://discord.gg/WjQuuPvAVA" target="_blank">Discord</a>
-                <a href="#">Twitter</a>
-                <a href="#">Twitch</a>
-                <a href="#">YouTube</a>
+                <a href="services.html#rules">Règlement</a>
+                <a href="services.html#privacy">Confidentialité</a>
             </div>
         </div>
+
         <div class="footer-bottom">
             © 2026 TLeagues. Tous droits réservés. Made with 🔥 for esports.
         </div>
     </footer>
-
-    <script>
-        // Détecter si l'utilisateur est connecté et admin
-        // Cette partie sera gérée par le backend
-        // Pour l'instant, le panel admin n'est accessible que par URL directe
-        
-        // Si admin, on peut ajouter un bouton discret
-        const isAdmin = false; // À remplacer par vérification réelle
-        
-        if (isAdmin) {
-            // Ajouter un accès discret au panel admin (raccourci clavier par exemple)
-            document.addEventListener('keydown', function(e) {
-                // Ctrl + Shift + A pour accéder au panel admin
-                if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-                    window.location.href = 'admin-panel.html';
-                }
-            });
-        }
-    </script>
 </body>
 </html>
