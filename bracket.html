@@ -15,19 +15,18 @@
             --red: #ff0000;
             --red-dark: #cc0000;
             --red-glow: rgba(255, 0, 0, 0.3);
-            --black: #0a0a0a;
-            --black-light: #1a1a1a;
-            --gray: #2a2a2a;
+            --black: #000000;
+            --black-light: #0a0a0a;
+            --gray: #1a1a1a;
             --white: #ffffff;
-            --text-gray: #b0b0b0;
+            --text-gray: #666;
             --gold: #ffd700;
             --silver: #c0c0c0;
             --bronze: #cd7f32;
-            --green: #00ff00;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--black);
             color: var(--white);
             line-height: 1.6;
@@ -38,103 +37,99 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10, 10, 10, 0.95);
+            background: rgba(10, 10, 10, 0.98);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
+            padding: 1.2rem 3%;
         }
 
         .logo {
-            font-size: 28px;
-            font-weight: bold;
+            font-size: 1.8rem;
+            font-weight: 900;
             color: var(--red);
             text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px var(--red-glow);
+            letter-spacing: 4px;
             cursor: pointer;
         }
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 2.5rem;
             list-style: none;
             align-items: center;
         }
 
         .nav-links a {
-            color: var(--white);
+            color: var(--text-gray);
             text-decoration: none;
             font-weight: 600;
             text-transform: uppercase;
-            font-size: 14px;
+            font-size: 0.9rem;
             letter-spacing: 1px;
             transition: all 0.3s;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--red);
-        }
-
-        .btn-nav {
-            background: var(--red);
-            color: var(--white);
-            padding: 10px 24px;
-            border-radius: 4px;
         }
 
         .header {
             margin-top: 76px;
-            background: linear-gradient(135deg, var(--black-light) 0%, var(--gray) 100%);
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-            padding: 40px;
+            background: var(--black-light);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            padding: 2.5rem 3%;
         }
 
         .header-content {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 1.5rem;
         }
 
         .tournament-info h1 {
-            font-size: 42px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .tournament-meta {
             color: var(--text-gray);
             display: flex;
-            gap: 20px;
-            font-size: 14px;
+            gap: 1.5rem;
+            font-size: 0.9rem;
             flex-wrap: wrap;
         }
 
         .bracket-controls {
             display: flex;
-            gap: 15px;
+            gap: 1rem;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .btn {
-            padding: 12px 24px;
+            padding: 0.8rem 1.5rem;
             border: none;
-            border-radius: 5px;
-            font-weight: bold;
+            border-radius: 6px;
+            font-weight: 700;
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 0.8rem;
             letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.3s;
@@ -147,57 +142,60 @@
 
         .btn-primary:hover {
             background: var(--red-dark);
-            box-shadow: 0 5px 20px var(--red-glow);
             transform: translateY(-2px);
         }
 
         .btn-secondary {
             background: transparent;
             color: var(--red);
-            border: 2px solid var(--red);
+            border: 1px solid var(--red);
         }
 
         .btn-secondary:hover {
-            background: var(--red);
-            color: var(--white);
+            background: rgba(255, 0, 0, 0.1);
         }
 
         .admin-toggle {
-            display: flex;
+            display: none; /* Caché par défaut */
             align-items: center;
-            gap: 10px;
-            padding: 10px 20px;
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid var(--red);
-            border-radius: 5px;
+            gap: 0.8rem;
+            padding: 0.7rem 1.2rem;
+            background: rgba(255, 0, 0, 0.05);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 6px;
+        }
+
+        .admin-toggle.visible {
+            display: flex;
         }
 
         .admin-toggle input {
             width: 18px;
             height: 18px;
             cursor: pointer;
+            accent-color: var(--red);
         }
 
         .rounds-nav {
             background: var(--black-light);
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            padding: 1.2rem 3%;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 1.5rem;
             overflow-x: auto;
         }
 
         .round-btn {
-            padding: 10px 25px;
+            padding: 0.8rem 1.8rem;
             background: transparent;
-            border: 2px solid rgba(255, 0, 0, 0.3);
+            border: 1px solid rgba(255, 0, 0, 0.2);
             color: var(--text-gray);
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 0.8rem;
             letter-spacing: 1px;
             transition: all 0.3s;
             white-space: nowrap;
@@ -212,46 +210,44 @@
             background: var(--red);
             color: var(--white);
             border-color: var(--red);
-            box-shadow: 0 0 20px var(--red-glow);
         }
 
         .bracket-container {
-            padding: 60px 40px;
+            padding: 4rem 3%;
             overflow-x: auto;
         }
 
         .bracket {
             display: flex;
-            gap: 80px;
+            gap: 5rem;
             min-width: max-content;
             margin: 0 auto;
             justify-content: center;
-            position: relative;
         }
 
         .bracket-round {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-            gap: 40px;
+            gap: 3rem;
         }
 
         .round-title {
             text-align: center;
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 1.1rem;
+            font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 30px;
+            margin-bottom: 2rem;
             color: var(--red);
         }
 
         .round-format {
             text-align: center;
-            font-size: 12px;
+            font-size: 0.75rem;
             color: var(--text-gray);
-            margin-top: -20px;
-            margin-bottom: 20px;
+            margin-top: -1.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .match {
@@ -267,14 +263,14 @@
 
         .match:hover {
             border-color: var(--red);
-            box-shadow: 0 10px 40px var(--red-glow);
-            transform: scale(1.05);
+            box-shadow: 0 8px 30px var(--red-glow);
+            transform: scale(1.02);
         }
 
         .match-header {
             background: var(--gray);
-            padding: 10px 15px;
-            font-size: 11px;
+            padding: 0.8rem 1rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--text-gray);
@@ -287,16 +283,16 @@
 
         .match-format-badge {
             background: rgba(255, 0, 0, 0.2);
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 10px;
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
             color: var(--red);
             border: 1px solid var(--red);
-            font-weight: bold;
+            font-weight: 700;
         }
 
         .match-team {
-            padding: 20px;
+            padding: 1.5rem 1.2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -319,12 +315,12 @@
         .team-info {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 1rem;
             flex: 1;
         }
 
         .team-icon {
-            font-size: 28px;
+            font-size: 1.8rem;
         }
 
         .team-details {
@@ -333,19 +329,19 @@
         }
 
         .team-name {
-            font-weight: bold;
-            font-size: 16px;
+            font-weight: 700;
+            font-size: 1rem;
         }
 
         .team-score-detail {
-            font-size: 11px;
+            font-size: 0.75rem;
             color: var(--text-gray);
-            margin-top: 2px;
+            margin-top: 0.2rem;
         }
 
         .team-score {
-            font-size: 32px;
-            font-weight: bold;
+            font-size: 2rem;
+            font-weight: 900;
             color: var(--red);
             min-width: 40px;
             text-align: center;
@@ -353,9 +349,9 @@
 
         .winner-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 20px;
+            top: 0.8rem;
+            right: 0.8rem;
+            font-size: 1.3rem;
             animation: bounce 1s ease-in-out infinite;
         }
 
@@ -365,17 +361,18 @@
         }
 
         .match-status {
-            padding: 10px;
+            padding: 0.7rem;
             text-align: center;
-            font-size: 11px;
+            font-size: 0.75rem;
             background: var(--gray);
             color: var(--text-gray);
+            font-weight: 600;
         }
 
         .status-live {
-            background: rgba(255, 0, 0, 0.2);
-            color: var(--red);
-            font-weight: bold;
+            background: rgba(0, 255, 0, 0.1);
+            color: #00ff00;
+            font-weight: 700;
             animation: pulse 2s infinite;
         }
 
@@ -384,75 +381,27 @@
             50% { opacity: 0.6; }
         }
 
-        .tbd {
-            color: var(--text-gray);
-            font-style: italic;
-        }
-
-        .edit-score {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            z-index: 10;
-        }
-
-        .edit-score.active {
-            display: flex;
-        }
-
-        .edit-score input {
-            width: 60px;
-            padding: 10px;
-            font-size: 24px;
-            text-align: center;
-            background: var(--gray);
-            border: 2px solid var(--red);
-            color: var(--white);
-            border-radius: 5px;
-        }
-
-        .edit-score button {
-            padding: 10px 20px;
-            background: var(--red);
-            color: var(--white);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
         .finals-container {
             display: flex;
             flex-direction: column;
-            gap: 100px;
+            gap: 6rem;
             align-items: center;
-        }
-
-        .third-place {
-            opacity: 0.8;
         }
 
         .podium {
             display: flex;
-            gap: 20px;
+            gap: 2rem;
             justify-content: center;
             align-items: flex-end;
-            margin: 60px 0;
+            margin: 4rem 0;
         }
 
         .podium-place {
             text-align: center;
-            padding: 30px;
+            padding: 2rem;
             background: var(--black-light);
             border: 2px solid;
-            border-radius: 10px;
+            border-radius: 12px;
             min-width: 200px;
             transition: all 0.3s;
         }
@@ -477,58 +426,120 @@
         }
 
         .podium-medal {
-            font-size: 64px;
-            margin-bottom: 20px;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
         }
 
         .podium-team {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 0.8rem;
         }
 
         .podium-prize {
-            font-size: 20px;
+            font-size: 1.2rem;
             color: var(--text-gray);
         }
 
-        @media (max-width: 1200px) {
+        /* Edit Mode */
+        .edit-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .edit-overlay.active {
+            display: flex;
+        }
+
+        .edit-content {
+            background: var(--black-light);
+            border: 2px solid var(--red);
+            border-radius: 12px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .edit-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .edit-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-inputs {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1.5rem;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .score-team {
+            text-align: center;
+        }
+
+        .score-team-name {
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .score-input {
+            width: 100%;
+            background: var(--gray);
+            border: 2px solid var(--red);
+            color: var(--white);
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 2rem;
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .score-input:focus {
+            outline: none;
+            box-shadow: 0 0 20px var(--red-glow);
+        }
+
+        .edit-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .edit-actions button {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
             .bracket {
-                gap: 40px;
+                gap: 3rem;
             }
 
             .match {
                 width: 280px;
             }
-        }
 
-        @media (max-width: 768px) {
             .nav-links {
                 display: none;
-            }
-
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .tournament-info h1 {
-                font-size: 32px;
-            }
-
-            .match {
-                width: 260px;
-            }
-
-            .podium {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .podium-place {
-                height: auto !important;
-                width: 100%;
-                max-width: 300px;
             }
         }
     </style>
@@ -536,12 +547,11 @@
 <body>
     <nav>
         <div class="nav-container">
-            <div class="logo" onclick="window.location.href='index.html'">TLeagues</div>
+            <div class="logo" onclick="window.location.href='index.html'">TLEAGUES</div>
             <ul class="nav-links">
                 <li><a href="index.html">Accueil</a></li>
-                <li><a href="tournois.html">Tournois</a></li>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="bracket.html" class="btn-nav">Bracket</a></li>
+                <li><a href="tournois.html" class="active">Tournois</a></li>
+                <li><a href="dashboard-staff.html">Dashboard</a></li>
             </ul>
         </div>
     </nav>
@@ -549,7 +559,7 @@
     <div class="header">
         <div class="header-content">
             <div class="tournament-info">
-                <h1>🏆 Winter Championship 2026</h1>
+                <h1>🏆 WINTER CHAMPIONSHIP 2026</h1>
                 <div class="tournament-meta">
                     <span>📅 15 Janvier 2026</span>
                     <span>👥 8 Équipes</span>
@@ -558,9 +568,9 @@
                 </div>
             </div>
             <div class="bracket-controls">
-                <label class="admin-toggle">
+                <label class="admin-toggle" id="adminToggle">
                     <input type="checkbox" id="adminMode" onchange="toggleAdminMode()">
-                    <span>Mode Admin</span>
+                    <span>Mode Édition</span>
                 </label>
                 <button class="btn btn-secondary" onclick="resetBracket()">🔄 Réinitialiser</button>
                 <button class="btn btn-primary" onclick="window.print()">🖨️ Imprimer</button>
@@ -577,12 +587,12 @@
 
     <div class="bracket-container">
         <div class="bracket">
-            <!-- Quarts de Finale (BO3) -->
+            <!-- Quarts de Finale -->
             <div class="bracket-round" id="round1">
                 <div class="round-title">Quarts de Finale</div>
                 <div class="round-format">Best of 3</div>
                 
-                <div class="match" data-match="q1">
+                <div class="match" data-match="q1" onclick="editMatch('q1')">
                     <div class="match-header">
                         <span>Match 1</span>
                         <span class="match-format-badge">BO3</span>
@@ -611,7 +621,7 @@
                     <div class="match-status">Complété</div>
                 </div>
 
-                <div class="match" data-match="q2">
+                <div class="match" data-match="q2" onclick="editMatch('q2')">
                     <div class="match-header">
                         <span>Match 2</span>
                         <span class="match-format-badge">BO3</span>
@@ -640,7 +650,7 @@
                     <div class="match-status">Complété</div>
                 </div>
 
-                <div class="match" data-match="q3">
+                <div class="match" data-match="q3" onclick="editMatch('q3')">
                     <div class="match-header">
                         <span>Match 3</span>
                         <span class="match-format-badge">BO3</span>
@@ -669,7 +679,7 @@
                     <div class="match-status">Complété</div>
                 </div>
 
-                <div class="match" data-match="q4">
+                <div class="match" data-match="q4" onclick="editMatch('q4')">
                     <div class="match-header">
                         <span>Match 4</span>
                         <span class="match-format-badge">BO3</span>
@@ -699,12 +709,12 @@
                 </div>
             </div>
 
-            <!-- Demi-finales (BO3) -->
+            <!-- Demi-finales -->
             <div class="bracket-round" id="round2">
                 <div class="round-title">Demi-finales</div>
                 <div class="round-format">Best of 3</div>
                 
-                <div class="match" data-match="s1">
+                <div class="match" data-match="s1" onclick="editMatch('s1')">
                     <div class="match-header">
                         <span>Demi-finale 1</span>
                         <span class="match-format-badge">BO3</span>
@@ -733,7 +743,7 @@
                     <div class="match-status">Complété</div>
                 </div>
 
-                <div class="match" data-match="s2">
+                <div class="match" data-match="s2" onclick="editMatch('s2')">
                     <div class="match-header">
                         <span>Demi-finale 2</span>
                         <span class="match-format-badge">BO3</span>
@@ -766,12 +776,12 @@
             <!-- Finales -->
             <div class="bracket-round" id="round3">
                 <div class="finals-container">
-                    <!-- Petite Finale (3e place) - BO3 -->
+                    <!-- Petite Finale -->
                     <div>
                         <div class="round-title">Petite Finale</div>
                         <div class="round-format">Best of 3 - 3e place</div>
                         
-                        <div class="match third-place" data-match="third">
+                        <div class="match" data-match="third" onclick="editMatch('third')">
                             <div class="match-header">
                                 <span>Match pour la 3e place</span>
                                 <span class="match-format-badge">BO3</span>
@@ -801,12 +811,12 @@
                         </div>
                     </div>
 
-                    <!-- Grande Finale - BO5 -->
+                    <!-- Grande Finale -->
                     <div>
                         <div class="round-title">Grande Finale</div>
                         <div class="round-format">Best of 5</div>
                         
-                        <div class="match" data-match="final" style="border: 2px solid var(--gold); box-shadow: 0 0 40px var(--red-glow);">
+                        <div class="match" data-match="final" onclick="editMatch('final')" style="border: 2px solid var(--gold);">
                             <div class="match-header" style="background: linear-gradient(135deg, var(--gold) 0%, var(--red) 100%); color: var(--black);">
                                 <span>🏆 GRANDE FINALE</span>
                                 <span class="match-format-badge" style="background: var(--black); color: var(--gold);">BO5</span>
@@ -832,7 +842,7 @@
                                 </div>
                                 <div class="team-score">1</div>
                             </div>
-                            <div class="match-status" style="background: var(--gold); color: var(--black); font-weight: bold;">🏆 CHAMPION COURONNÉ</div>
+                            <div class="match-status" style="background: var(--gold); color: var(--black); font-weight: 700;">🏆 CHAMPION COURONNÉ</div>
                         </div>
                     </div>
                 </div>
@@ -842,13 +852,6 @@
 
     <!-- Podium -->
     <div class="bracket-container" id="podium">
-        <div style="text-align: center; margin-bottom: 40px;">
-            <h2 style="font-size: 48px; margin-bottom: 20px;">🏆 Podium Final</h2>
-            <p style="color: var(--text-gray); font-size: 18px;">Winter Championship 2026</p>
-        </div>
-        
-        <div class="podium">
-            <div class="podium-place podium-second">
-                <div class="podium-medal">🥈</div>
-                <div class="podium-team">⚡ Thunder Strike</div>
-                <div class="podium-
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="font-size: 3rem; margin-bottom: 1rem; font-weight: 900;">🏆 PODIUM FINAL</h2>
+            <p style="color: var(--text-gray); font-size
