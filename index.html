@@ -10,14 +10,12 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #000000;
             color: #ffffff;
             overflow-x: hidden;
         }
-
         /* Navigation */
         nav {
             background: rgba(0, 0, 0, 0.98);
@@ -28,15 +26,14 @@
             top: 0;
             z-index: 1000;
         }
-
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 2rem;
         }
-
         .logo {
             font-size: 1.8rem;
             font-weight: 900;
@@ -44,15 +41,19 @@
             letter-spacing: 4px;
             text-transform: uppercase;
             cursor: pointer;
+            white-space: nowrap;
         }
-
+        /* Navigation avec dropdowns */
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 2rem;
             list-style: none;
             align-items: center;
+            flex-wrap: wrap;
         }
-
+        .nav-links li {
+            position: relative;
+        }
         .nav-links a {
             color: #666;
             text-decoration: none;
@@ -61,13 +62,64 @@
             transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
+            padding: 0.5rem 0;
+            display: block;
         }
-
         .nav-links a:hover,
         .nav-links a.active {
             color: #ff0000;
         }
-
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-toggle {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .dropdown-toggle::after {
+            content: '▼';
+            font-size: 0.7rem;
+            transition: transform 0.3s;
+        }
+        .dropdown:hover .dropdown-toggle::after {
+            transform: rotate(180deg);
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 8px;
+            min-width: 220px;
+            padding: 0.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-menu a {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+        .dropdown-menu a:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
         .btn-connexion {
             background: #ff0000;
             color: #fff;
@@ -79,14 +131,40 @@
             font-size: 0.85rem;
             letter-spacing: 1px;
             transition: all 0.3s;
+            white-space: nowrap;
         }
-
         .btn-connexion:hover {
             background: #cc0000;
             transform: translateY(-2px);
             box-shadow: 0 4px 20px rgba(255, 0, 0, 0.4);
         }
-
+        .btn-inscription {
+            background: transparent !important;
+            border: 2px solid #ff0000;
+        }
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #ff0000;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
         /* Hero Section */
         .hero {
             padding: 10rem 5% 8rem;
@@ -95,7 +173,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .hero::before {
             content: '';
             position: absolute;
@@ -108,14 +185,12 @@
                 radial-gradient(circle at 80% 80%, rgba(255, 0, 0, 0.15) 0%, transparent 50%);
             z-index: 0;
         }
-
         .hero-content {
             position: relative;
             z-index: 1;
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .hero h1 {
             font-size: 4.5rem;
             font-weight: 900;
@@ -127,7 +202,6 @@
             text-transform: uppercase;
             line-height: 1.2;
         }
-
         .hero p {
             font-size: 1.3rem;
             color: #999;
@@ -135,14 +209,12 @@
             margin: 0 auto 3rem;
             line-height: 1.6;
         }
-
         .hero-buttons {
             display: flex;
             gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
         }
-
         .btn-primary, .btn-secondary {
             padding: 1.2rem 3rem;
             border-radius: 6px;
@@ -154,30 +226,25 @@
             text-decoration: none;
             display: inline-block;
         }
-
         .btn-primary {
             background: #ff0000;
             color: #fff;
             border: none;
         }
-
         .btn-primary:hover {
             background: #cc0000;
             transform: translateY(-3px);
             box-shadow: 0 6px 25px rgba(255, 0, 0, 0.4);
         }
-
         .btn-secondary {
             background: transparent;
             color: #ff0000;
             border: 2px solid #ff0000;
         }
-
         .btn-secondary:hover {
             background: rgba(255, 0, 0, 0.1);
             transform: translateY(-3px);
         }
-
         /* Stats Section */
         .stats-section {
             background: #0a0a0a;
@@ -185,7 +252,6 @@
             border-top: 1px solid rgba(255, 0, 0, 0.1);
             border-bottom: 1px solid rgba(255, 0, 0, 0.1);
         }
-
         .stats-grid {
             max-width: 1400px;
             margin: 0 auto;
@@ -193,7 +259,6 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 3rem;
         }
-
         .stat-item {
             text-align: center;
             padding: 2rem;
@@ -202,24 +267,20 @@
             border-radius: 8px;
             transition: all 0.3s;
         }
-
         .stat-item:hover {
             border-color: rgba(255, 0, 0, 0.3);
             transform: translateY(-5px);
         }
-
         .stat-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
         }
-
         .stat-value {
             font-size: 3.5rem;
             font-weight: 900;
             color: #ff0000;
             margin-bottom: 0.5rem;
         }
-
         .stat-label {
             color: #666;
             font-size: 1rem;
@@ -227,19 +288,16 @@
             letter-spacing: 1.5px;
             font-weight: 600;
         }
-
         /* Features Section */
         .features-section {
             padding: 8rem 5%;
             max-width: 1400px;
             margin: 0 auto;
         }
-
         .section-header {
             text-align: center;
             margin-bottom: 5rem;
         }
-
         .section-title {
             font-size: 3rem;
             font-weight: 900;
@@ -247,18 +305,15 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-
         .section-subtitle {
             font-size: 1.2rem;
             color: #666;
         }
-
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 3rem;
         }
-
         .feature-card {
             background: #0a0a0a;
             border: 1px solid rgba(255, 0, 0, 0.2);
@@ -267,18 +322,15 @@
             text-align: center;
             transition: all 0.3s;
         }
-
         .feature-card:hover {
             border-color: #ff0000;
             transform: translateY(-10px);
             box-shadow: 0 8px 30px rgba(255, 0, 0, 0.2);
         }
-
         .feature-icon {
             font-size: 4rem;
             margin-bottom: 1.5rem;
         }
-
         .feature-title {
             font-size: 1.5rem;
             font-weight: 900;
@@ -287,19 +339,16 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
         .feature-description {
             color: #999;
             font-size: 0.95rem;
             line-height: 1.6;
         }
-
         /* Tournament Preview */
         .tournaments-preview {
             padding: 8rem 5%;
             background: #0a0a0a;
         }
-
         .tournaments-grid {
             max-width: 1400px;
             margin: 3rem auto 0;
@@ -307,7 +356,6 @@
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
         }
-
         .tournament-card {
             background: #000;
             border: 1px solid rgba(255, 0, 0, 0.2);
@@ -315,19 +363,16 @@
             overflow: hidden;
             transition: all 0.3s;
         }
-
         .tournament-card:hover {
             border-color: #ff0000;
             transform: translateY(-5px);
             box-shadow: 0 8px 30px rgba(255, 0, 0, 0.2);
         }
-
         .tournament-header {
             background: linear-gradient(135deg, rgba(255, 0, 0, 0.2) 0%, rgba(255, 0, 0, 0.05) 100%);
             padding: 2rem;
             border-bottom: 1px solid rgba(255, 0, 0, 0.2);
         }
-
         .tournament-badge {
             background: #ff0000;
             color: #fff;
@@ -339,51 +384,42 @@
             display: inline-block;
             margin-bottom: 1rem;
         }
-
         .tournament-title {
             font-size: 1.5rem;
             font-weight: 900;
             margin-bottom: 0.5rem;
         }
-
         .tournament-date {
             color: #666;
             font-size: 0.9rem;
         }
-
         .tournament-body {
             padding: 2rem;
         }
-
         .tournament-info {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
             margin-bottom: 1.5rem;
         }
-
         .info-item {
             text-align: center;
         }
-
         .info-value {
             font-size: 1.5rem;
             font-weight: 900;
             color: #ff0000;
         }
-
         .info-label {
             font-size: 0.75rem;
             color: #666;
             text-transform: uppercase;
             margin-top: 0.3rem;
         }
-
         .tournament-actions {
             display: flex;
             gap: 1rem;
         }
-
         .btn-tournament {
             flex: 1;
             padding: 0.9rem;
@@ -397,38 +433,31 @@
             text-decoration: none;
             text-align: center;
         }
-
         .btn-register {
             background: #ff0000;
             color: #fff;
         }
-
         .btn-register:hover {
             background: #cc0000;
         }
-
         .btn-view {
             background: transparent;
             color: #ff0000;
             border: 1px solid #ff0000;
         }
-
         .btn-view:hover {
             background: rgba(255, 0, 0, 0.1);
         }
-
         /* CTA Section */
         .cta-section {
             padding: 8rem 5%;
             text-align: center;
             background: linear-gradient(135deg, rgba(255, 0, 0, 0.1) 0%, transparent 100%);
         }
-
         .cta-content {
             max-width: 800px;
             margin: 0 auto;
         }
-
         .cta-section h2 {
             font-size: 3.5rem;
             font-weight: 900;
@@ -436,20 +465,17 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-
         .cta-section p {
             font-size: 1.2rem;
             color: #999;
             margin-bottom: 3rem;
         }
-
         /* Footer */
         footer {
             background: #0a0a0a;
             padding: 4rem 5% 2rem;
             border-top: 1px solid rgba(255, 0, 0, 0.1);
         }
-
         .footer-content {
             max-width: 1400px;
             margin: 0 auto;
@@ -458,7 +484,6 @@
             gap: 3rem;
             margin-bottom: 3rem;
         }
-
         .footer-section h3 {
             color: #ff0000;
             font-weight: 900;
@@ -467,13 +492,12 @@
             font-size: 1rem;
             letter-spacing: 1px;
         }
-
         .footer-section p {
             color: #666;
             line-height: 1.6;
             font-size: 0.9rem;
+            margin-bottom: 1.5rem;
         }
-
         .footer-section a {
             display: block;
             color: #666;
@@ -482,11 +506,42 @@
             transition: color 0.3s;
             font-size: 0.9rem;
         }
-
         .footer-section a:hover {
             color: #ff0000;
         }
-
+        /* Icônes sociales FIXES */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+        .social-link span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        .social-link:hover {
+            background: #ff0000;
+            border-color: #ff0000;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+        }
         .footer-bottom {
             max-width: 1400px;
             margin: 0 auto;
@@ -496,63 +551,81 @@
             color: #666;
             font-size: 0.9rem;
         }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            text-decoration: none;
-            font-size: 1.2rem;
-        }
-
-        .social-link:hover {
-            background: #ff0000;
-            border-color: #ff0000;
-            transform: translateY(-3px);
-        }
-
-        /* Responsive */
+        /* Responsive mobile */
         @media (max-width: 968px) {
-            .nav-links {
-                display: none;
+            .menu-toggle {
+                display: flex;
             }
-
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 0;
+                border-top: 1px solid rgba(255, 0, 0, 0.1);
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+                max-height: calc(100vh - 80px);
+                overflow-y: auto;
+            }
+            .nav-links.active {
+                transform: translateX(0);
+            }
+            .nav-links li {
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            }
+            .nav-links a {
+                padding: 1rem 0;
+                font-size: 1rem;
+            }
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                background: rgba(255, 0, 0, 0.05);
+                border: none;
+                margin-top: 0.5rem;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s;
+            }
+            .dropdown.active .dropdown-menu {
+                max-height: 500px;
+            }
+            .nav-actions {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 1rem 5%;
+                background: rgba(0, 0, 0, 0.98);
+                border-top: 1px solid rgba(255, 0, 0, 0.1);
+                justify-content: center;
+            }
             .hero h1 {
                 font-size: 2.5rem;
             }
-
             .hero p {
                 font-size: 1.1rem;
             }
-
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-
             .features-grid {
                 grid-template-columns: 1fr;
             }
-
             .tournaments-grid {
                 grid-template-columns: 1fr;
             }
-
             .section-title {
                 font-size: 2rem;
             }
-
             .cta-section h2 {
                 font-size: 2.5rem;
             }
@@ -560,23 +633,60 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <div class="logo">TLEAGUES</div>
-            <ul class="nav-links">
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html" class="active">Accueil</a></li>
-                <li><a href="tournois.html">Tournois</a></li>
-                <li><a href="leagues.html">Ligues</a></li>
-                <li><a href="cups.html">Coupes</a></li>
-                <li><a href="mercato.html">Mercato</a></li>
-                <li><a href="services.html">Services</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Compétitions</a>
+                    <div class="dropdown-menu">
+                        <a href="tournois.html">🏆 Tournois</a>
+                        <a href="leagues.html">🎖️ Ligues</a>
+                        <a href="cups.html">🏅 Coupes</a>
+                        <a href="bracket.html">📊 Brackets</a>
+                        <a href="match-detail.html">⚔️ Match</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Équipes</a>
+                    <div class="dropdown-menu">
+                        <a href="equipe.html">👥 Mon Équipe</a>
+                        <a href="team-manager.html">⚙️ Gestion</a>
+                        <a href="mercato.html">🔄 Mercato</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Dashboard</a>
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html">📈 Dashboard</a>
+                        <a href="dashboard-capitaine.html">👑 Capitaine</a>
+                        <a href="dashboard-joueur-solo.html">⚔️ Joueur</a>
+                        <a href="dashboard-staff.html">🎯 Staff</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Plus</a>
+                    <div class="dropdown-menu">
+                        <a href="profil.html">👤 Profil</a>
+                        <a href="streaming.html">📺 Streaming</a>
+                        <a href="outils.html">🔧 Outils</a>
+                        <a href="services.html">📋 Services</a>
+                    </div>
+                </li>
             </ul>
-            <a href="login.html" class="btn-connexion">Connexion</a>
+            <div class="nav-actions">
+                <a href="register.html" class="btn-connexion btn-inscription">Inscription</a>
+                <a href="login.html" class="btn-connexion">Connexion</a>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <h1>DOMINEZ LA COMPÉTITION</h1>
@@ -588,7 +698,6 @@
         </div>
     </section>
 
-    <!-- Stats Section -->
     <section class="stats-section">
         <div class="stats-grid">
             <div class="stat-item">
@@ -614,44 +723,37 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section class="features-section">
         <div class="section-header">
             <h2 class="section-title">Fonctionnalités</h2>
             <p class="section-subtitle">Tout ce dont vous avez besoin pour exceller</p>
         </div>
-
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">⚔️</div>
                 <h3 class="feature-title">Tournois Compétitifs</h3>
                 <p class="feature-description">Participez à des tournois quotidiens avec des prize pools garantis et des brackets professionnels.</p>
             </div>
-
             <div class="feature-card">
                 <div class="feature-icon">📊</div>
                 <h3 class="feature-title">Statistiques Détaillées</h3>
                 <p class="feature-description">Suivez vos performances avec des analyses complètes et améliorez votre gameplay.</p>
             </div>
-
             <div class="feature-card">
                 <div class="feature-icon">👥</div>
                 <h3 class="feature-title">Gestion d'Équipe</h3>
                 <p class="feature-description">Créez votre roster, gérez les joueurs et coordonnez vos stratégies avec des outils dédiés.</p>
             </div>
-
             <div class="feature-card">
                 <div class="feature-icon">🔄</div>
                 <h3 class="feature-title">Mercato</h3>
                 <p class="feature-description">Recrutez les meilleurs talents League of Legends pour renforcer votre équipe.</p>
             </div>
-
             <div class="feature-card">
                 <div class="feature-icon">📺</div>
                 <h3 class="feature-title">Streaming Intégré</h3>
                 <p class="feature-description">Diffusez vos matchs avec un HUD personnalisé TLeagues directement sur la plateforme.</p>
             </div>
-
             <div class="feature-card">
                 <div class="feature-icon">🛡️</div>
                 <h3 class="feature-title">Anti-Triche</h3>
@@ -660,15 +762,12 @@
         </div>
     </section>
 
-    <!-- Tournaments Preview -->
     <section class="tournaments-preview">
         <div class="section-header">
             <h2 class="section-title">Tournois à Venir</h2>
             <p class="section-subtitle">Inscrivez-vous dès maintenant</p>
         </div>
-
         <div class="tournaments-grid">
-            <!-- Tournament 1 -->
             <div class="tournament-card">
                 <div class="tournament-header">
                     <span class="tournament-badge">🔥 Inscription Ouverte</span>
@@ -696,122 +795,8 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Tournament 2 -->
             <div class="tournament-card">
                 <div class="tournament-header">
                     <span class="tournament-badge">🎮 Bientôt</span>
                     <h3 class="tournament-title">TLeagues Pro League S1</h3>
-                    <p class="tournament-date">📅 20 Janvier 2026 - 20:00</p>
-                </div>
-                <div class="tournament-body">
-                    <div class="tournament-info">
-                        <div class="info-item">
-                            <div class="info-value">64</div>
-                            <div class="info-label">Équipes</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-value">100K€</div>
-                            <div class="info-label">Prize Pool</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-value">BO5</div>
-                            <div class="info-label">Format</div>
-                        </div>
-                    </div>
-                    <div class="tournament-actions">
-                        <a href="register.html" class="btn-tournament btn-register">S'inscrire</a>
-                        <a href="tournois.html" class="btn-tournament btn-view">Plus d'infos</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tournament 3 -->
-            <div class="tournament-card">
-                <div class="tournament-header">
-                    <span class="tournament-badge">⭐ Places Limitées</span>
-                    <h3 class="tournament-title">Rookie Tournament</h3>
-                    <p class="tournament-date">📅 10 Janvier 2026 - 19:00</p>
-                </div>
-                <div class="tournament-body">
-                    <div class="tournament-info">
-                        <div class="info-item">
-                            <div class="info-value">256</div>
-                            <div class="info-label">Joueurs</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-value">10K€</div>
-                            <div class="info-label">Prize Pool</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-value">BO1</div>
-                            <div class="info-label">Format</div>
-                        </div>
-                    </div>
-                    <div class="tournament-actions">
-                        <a href="register.html" class="btn-tournament btn-register">S'inscrire</a>
-                        <a href="tournois.html" class="btn-tournament btn-view">Plus d'infos</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="cta-content">
-            <h2>PRÊT À COMMENCER ?</h2>
-            <p>Rejoignez la communauté TLeagues dès aujourd'hui et participez aux meilleurs tournois League of Legends</p>
-            <div class="hero-buttons">
-                <a href="register.html" class="btn-primary">Créer un compte gratuitement</a>
-                <a href="tournois.html" class="btn-secondary">Explorer les tournois</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>TLeagues</h3>
-                <p>La plateforme de référence pour les tournois esports League of Legends. Organisez, participez et dominez.</p>
-                <div class="social-links">
-                    <a href="https://discord.gg/WjQuuPvAVA" class="social-link" target="_blank">💬</a>
-                    <a href="#" class="social-link">🐦</a>
-                    <a href="#" class="social-link">📺</a>
-                    <a href="#" class="social-link">▶️</a>
-                </div>
-            </div>
-
-            <div class="footer-section">
-                <h3>Navigation</h3>
-                <a href="tournois.html">Tournois</a>
-                <a href="leagues.html">Ligues</a>
-                <a href="cups.html">Coupes</a>
-                <a href="mercato.html">Mercato</a>
-                <a href="services.html">Services</a>
-            </div>
-
-            <div class="footer-section">
-                <h3>Compte</h3>
-                <a href="register.html">Créer un compte</a>
-                <a href="login.html">Connexion</a>
-                <a href="dashboard.html">Dashboard</a>
-                <a href="forgot-password.html">Mot de passe oublié</a>
-            </div>
-
-            <div class="footer-section">
-                <h3>Support</h3>
-                <a href="services.html#faq">FAQ</a>
-                <a href="services.html#contact">Contact</a>
-                <a href="services.html#rules">Règlement</a>
-                <a href="services.html#privacy">Confidentialité</a>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            © 2026 TLeagues. Tous droits réservés. Made with 🔥 for esports.
-        </div>
-    </footer>
-</body>
-</html>
+                    <p class="tournament-date">
