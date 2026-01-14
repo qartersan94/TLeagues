@@ -3,627 +3,500 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ligues - TLeagues</title>
+    <title>Ligues Compétitives - TLeagues</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        :root {
-            --red: #ff0000;
-            --red-dark: #cc0000;
-            --red-glow: rgba(255, 0, 0, 0.3);
-            --black: #0a0a0a;
-            --black-light: #1a1a1a;
-            --gray: #2a2a2a;
-            --white: #ffffff;
-            --text-gray: #b0b0b0;
-            --gold: #ffd700;
-            --silver: #c0c0c0;
-            --bronze: #cd7f32;
-        }
-
         body {
-            font-family: 'Arial', sans-serif;
-            background: var(--black);
-            color: var(--white);
-            padding-top: 80px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
         }
-
-        /* Navigation */
+        /* Navigation - NOUVEAU THÈME */
         nav {
-            position: fixed;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            padding: 1.2rem 5%;
+            position: sticky;
             top: 0;
-            width: 100%;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
         }
-
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
+            gap: 2rem;
         }
-
         .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--red);
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ff0000;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px var(--red-glow);
-            text-decoration: none;
+            cursor: pointer;
+            white-space: nowrap;
         }
-
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 2rem;
             list-style: none;
+            align-items: center;
+            flex-wrap: wrap;
         }
-
+        .nav-links li {
+            position: relative;
+        }
         .nav-links a {
-            color: var(--white);
+            color: #666;
             text-decoration: none;
             font-weight: 600;
-            text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 1px;
+            font-size: 0.9rem;
             transition: all 0.3s;
-            position: relative;
-        }
-
-        .nav-links a.active,
-        .nav-links a:hover {
-            color: var(--red);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--red);
-            transition: width 0.3s;
-        }
-
-        .nav-links a.active::after,
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Header Section */
-        .page-header {
-            background: linear-gradient(135deg, var(--black-light) 0%, var(--gray) 100%);
-            padding: 60px 40px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .page-header::before {
-            content: '';
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
-            top: -300px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .page-header h1 {
-            font-size: 48px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .page-header p {
-            font-size: 18px;
-            color: var(--text-gray);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Season Info Banner */
-        .season-banner {
-            max-width: 1400px;
-            margin: 40px auto;
-            padding: 0 40px;
-        }
-
-        .season-card {
-            background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 100%);
-            padding: 30px;
-            border-radius: 8px;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 30px;
-            box-shadow: 0 10px 40px var(--red-glow);
-        }
-
-        .season-info {
-            text-align: center;
-        }
-
-        .season-label {
-            font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 10px;
-            opacity: 0.8;
+            padding: 0.5rem 0;
+            display: block;
         }
-
-        .season-value {
-            font-size: 28px;
-            font-weight: bold;
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #ff0000;
         }
-
-        /* Division Tabs */
-        .division-tabs {
-            max-width: 1400px;
-            margin: 40px auto 0;
-            padding: 0 40px;
+        .dropdown {
+            position: relative;
         }
-
-        .tabs-container {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 2px;
-        }
-
-        .tab {
-            padding: 15px 30px;
-            background: var(--black-light);
-            border: 2px solid rgba(255, 0, 0, 0.2);
+        .dropdown-toggle {
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .dropdown-toggle::after {
+            content: '▼';
+            font-size: 0.7rem;
+            transition: transform 0.3s;
+        }
+        .dropdown:hover .dropdown-toggle::after {
+            transform: rotate(180deg);
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 8px;
+            min-width: 220px;
+            padding: 0.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-menu a {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+        .dropdown-menu a:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .btn-connexion {
+            background: #ff0000;
+            color: #fff;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
             transition: all 0.3s;
             white-space: nowrap;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 14px;
-            position: relative;
         }
-
-        .tab:hover {
-            border-color: var(--red);
-            background: var(--gray);
+        .btn-connexion:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.4);
         }
-
-        .tab.active {
-            background: var(--red);
-            border-color: var(--red);
-            box-shadow: 0 5px 20px var(--red-glow);
+        .btn-inscription {
+            background: transparent !important;
+            border: 2px solid #ff0000;
         }
-
-        .tab-icon {
-            font-size: 20px;
-            margin-right: 8px;
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
         }
-
-        /* Leaderboard */
-        .leaderboard {
-            max-width: 1400px;
-            margin: 40px auto;
-            padding: 0 40px;
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #ff0000;
+            border-radius: 3px;
+            transition: all 0.3s;
         }
-
-        .leaderboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+        /* Hero Section */
+        .hero-leagues {
+            padding: 8rem 5% 4rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(255, 0, 0, 0.05) 0%, transparent 100%);
         }
-
-        .leaderboard-title {
-            font-size: 32px;
-            font-weight: bold;
+        .hero-leagues h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ff0000 0%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-
-        .leaderboard-filters {
-            display: flex;
-            gap: 15px;
+        .hero-leagues p {
+            font-size: 1.2rem;
+            color: #999;
+            max-width: 800px;
+            margin: 0 auto;
         }
-
-        .filter-btn {
-            padding: 10px 20px;
-            background: var(--gray);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            color: var(--white);
+        /* Season Info */
+        .season-info {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            padding: 2rem 5%;
+            margin: 3rem 5%;
+            border-radius: 12px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .season-stat {
+            text-align: center;
+        }
+        .season-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+        .season-value {
+            font-size: 2rem;
+            font-weight: 900;
+        }
+        /* Division Tabs */
+        .divisions-section {
+            padding: 3rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .division-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .division-tab {
+            background: rgba(255, 0, 0, 0.05);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .division-tab:hover {
+            border-color: #ff0000;
+            background: rgba(255, 0, 0, 0.1);
+        }
+        .division-tab.active {
+            background: #ff0000;
+            border-color: #ff0000;
+        }
+        /* Leaderboard Filters */
+        .leaderboard-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .filter-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #666;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
             font-weight: 600;
             text-transform: uppercase;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-
         .filter-btn:hover,
         .filter-btn.active {
-            background: var(--red);
-            border-color: var(--red);
+            background: #ff0000;
+            border-color: #ff0000;
+            color: #fff;
         }
-
-        .leaderboard-table {
-            background: var(--black-light);
+        /* Leaderboard Table */
+        .leaderboard {
+            background: #0a0a0a;
             border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 12px;
             overflow: hidden;
         }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        thead {
-            background: var(--gray);
-        }
-
-        th {
-            padding: 20px;
-            text-align: left;
-            font-size: 12px;
+        .leaderboard-header {
+            background: rgba(255, 0, 0, 0.1);
+            padding: 1.5rem 2rem;
+            display: grid;
+            grid-template-columns: 60px 1fr 150px 100px 100px 100px 120px 100px;
+            gap: 1rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-gray);
-            font-weight: 600;
+            font-size: 0.85rem;
+            color: #999;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
         }
-
-        th:first-child {
-            text-align: center;
-            width: 80px;
-        }
-
-        tbody tr {
+        .leaderboard-row {
+            padding: 1.5rem 2rem;
+            display: grid;
+            grid-template-columns: 60px 1fr 150px 100px 100px 100px 120px 100px;
+            gap: 1rem;
+            align-items: center;
             border-bottom: 1px solid rgba(255, 0, 0, 0.1);
             transition: all 0.3s;
         }
-
-        tbody tr:hover {
-            background: var(--gray);
-            box-shadow: inset 0 0 20px var(--red-glow);
+        .leaderboard-row:hover {
+            background: rgba(255, 0, 0, 0.05);
         }
-
-        td {
-            padding: 20px;
-        }
-
         .rank {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 900;
         }
-
-        .rank-1 { color: var(--gold); }
-        .rank-2 { color: var(--silver); }
-        .rank-3 { color: var(--bronze); }
-
+        .rank-icon {
+            font-size: 1.5rem;
+        }
         .player-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 1rem;
         }
-
         .player-avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 100%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .player-details {
+            display: flex;
+            flex-direction: column;
+        }
+        .player-name {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .player-team {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        .division-badge {
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+        }
+        .master { background: linear-gradient(135deg, #00d4ff, #0099cc); color: #000; }
+        .diamond { background: linear-gradient(135deg, #b9f2ff, #00b8d4); color: #000; }
+        .platinum { background: linear-gradient(135deg, #7dd3c0, #009688); color: #000; }
+        .gold { background: linear-gradient(135deg, #ffd700, #ffb300); color: #000; }
+        .silver { background: linear-gradient(135deg, #c0c0c0, #888); color: #000; }
+        .bronze { background: linear-gradient(135deg, #cd7f32, #8b4513); color: #fff; }
+        .stat-value {
+            font-weight: 700;
+            text-align: center;
+        }
+        .stat-positive {
+            color: #00ff00;
+        }
+        .stat-negative {
+            color: #ff0000;
+        }
+        .winrate {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .winrate-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 0, 0, 0.2);
+            border-radius: 2px;
+            margin-top: 0.3rem;
+            overflow: hidden;
+        }
+        .winrate-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #00ff00);
+            transition: width 0.3s;
+        }
+        .streak {
+            text-align: center;
+            font-weight: 700;
+        }
+        /* Footer - NOUVEAU THÈME */
+        footer {
+            background: #0a0a0a;
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(255, 0, 0, 0.1);
+            margin-top: 5rem;
+        }
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        .footer-section h3 {
+            color: #ff0000;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+        .footer-section p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        .footer-section a {
+            display: block;
+            color: #666;
+            text-decoration: none;
+            margin-bottom: 0.7rem;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+        .footer-section a:hover {
+            color: #ff0000;
+        }
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid rgba(255, 0, 0, 0.3);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            border: 2px solid var(--red);
-        }
-
-        .player-details {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .player-name {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .player-team {
-            font-size: 13px;
-            color: var(--text-gray);
-        }
-
-        .stat-value {
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .stat-change {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: bold;
-            margin-left: 8px;
-        }
-
-        .stat-up {
-            background: rgba(0, 255, 0, 0.2);
-            color: #00ff00;
-        }
-
-        .stat-down {
-            background: rgba(255, 0, 0, 0.2);
-            color: var(--red);
-        }
-
-        .winrate {
-            text-align: center;
-        }
-
-        .winrate-bar {
-            width: 80px;
-            height: 8px;
-            background: var(--gray);
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 8px auto 0;
-        }
-
-        .winrate-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--red-dark) 0%, var(--red) 100%);
-            border-radius: 4px;
-            box-shadow: 0 0 10px var(--red-glow);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .badge-master {
-            background: rgba(138, 43, 226, 0.2);
-            color: #8a2be2;
-            border: 1px solid #8a2be2;
-        }
-
-        .badge-diamond {
-            background: rgba(0, 191, 255, 0.2);
-            color: #00bfff;
-            border: 1px solid #00bfff;
-        }
-
-        .badge-platinum {
-            background: rgba(0, 255, 127, 0.2);
-            color: #00ff7f;
-            border: 1px solid #00ff7f;
-        }
-
-        .badge-gold {
-            background: rgba(255, 215, 0, 0.2);
-            color: var(--gold);
-            border: 1px solid var(--gold);
-        }
-
-        /* Division Cards Grid */
-        .divisions-grid {
-            max-width: 1400px;
-            margin: 40px auto;
-            padding: 0 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .division-card {
-            background: var(--black-light);
-            border: 2px solid rgba(255, 0, 0, 0.2);
-            padding: 30px;
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
+            text-decoration: none;
+            font-size: 1.4rem;
+            line-height: 1;
         }
-
-        .division-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--red-dark) 0%, var(--red) 100%);
-        }
-
-        .division-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--red);
-            box-shadow: 0 20px 40px var(--red-glow);
-        }
-
-        .division-header {
+        .social-link span {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .division-name {
-            font-size: 24px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .division-icon {
-            font-size: 40px;
-        }
-
-        .division-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .division-stat {
-            text-align: center;
-            padding: 15px;
-            background: var(--gray);
-            border-radius: 4px;
-        }
-
-        .division-stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--red);
-            margin-bottom: 5px;
-        }
-
-        .division-stat-label {
-            font-size: 12px;
-            color: var(--text-gray);
-            text-transform: uppercase;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s;
+            justify-content: center;
             width: 100%;
+            height: 100%;
         }
-
-        .btn-primary {
-            background: var(--red);
-            color: var(--white);
+        .social-link:hover {
+            background: #ff0000;
+            border-color: #ff0000;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
         }
-
-        .btn-primary:hover {
-            background: var(--red-dark);
-            box-shadow: 0 5px 20px var(--red-glow);
-            transform: translateY(-2px);
-        }
-
-        /* Rewards Section */
-        .rewards {
+        .footer-bottom {
             max-width: 1400px;
-            margin: 60px auto;
-            padding: 0 40px;
-        }
-
-        .section-title {
-            font-size: 36px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 40px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 0, 0, 0.1);
             text-align: center;
+            color: #666;
+            font-size: 0.9rem;
         }
-
-        .rewards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .reward-card {
-            background: var(--black-light);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .reward-card:hover {
-            border-color: var(--red);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px var(--red-glow);
-        }
-
-        .reward-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-        }
-
-        .reward-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .reward-desc {
-            color: var(--text-gray);
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
         /* Responsive */
-        @media (max-width: 1024px) {
-            .season-card {
-                grid-template-columns: 1fr 1fr;
+        @media (max-width: 968px) {
+            .menu-toggle {
+                display: flex;
             }
-            
-            table {
-                font-size: 14px;
-            }
-            
-            .player-avatar {
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-            }
-        }
-
-        @media (max-width: 768px) {
             .nav-links {
-                display: none;
-            }
-            
-            .season-card {
-                grid-template-columns: 1fr;
-            }
-            
-            .leaderboard-header {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.98);
+                backdrop-filter: blur(20px);
                 flex-direction: column;
-                gap: 20px;
+                padding: 2rem;
+                gap: 0;
+                border-top: 1px solid rgba(255, 0, 0, 0.1);
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+                max-height: calc(100vh - 80px);
+                overflow-y: auto;
             }
-            
-            .leaderboard-filters {
-                width: 100%;
-                justify-content: center;
+            .nav-links.active {
+                transform: translateX(0);
             }
-            
-            table {
-                display: block;
-                overflow-x: auto;
+            .hero-leagues h1 {
+                font-size: 2rem;
             }
-            
-            .divisions-grid {
+            .season-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .leaderboard-header,
+            .leaderboard-row {
                 grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            .leaderboard-header {
+                display: none;
             }
         }
     </style>
@@ -632,308 +505,278 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="index.html" class="logo">TLeagues</a>
-            <ul class="nav-links">
+            <div class="logo">TLEAGUES</div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Accueil</a></li>
-                <li><a href="tournois.html">Tournois</a></li>
-                <li><a href="leagues.html" class="active">Ligues</a></li>
-                <li><a href="cups.html">Coupes</a></li>
-                <li><a href="services.html">Services</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle active">Compétitions</a>
+                    <div class="dropdown-menu">
+                        <a href="tournois.html">🏆 Tournois</a>
+                        <a href="leagues.html" class="active">🎖️ Ligues</a>
+                        <a href="cups.html">🏅 Coupes</a>
+                        <a href="bracket.html">📊 Brackets</a>
+                        <a href="match-detail.html">⚔️ Match</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Équipes</a>
+                    <div class="dropdown-menu">
+                        <a href="equipe.html">👥 Mon Équipe</a>
+                        <a href="team-manager.html">⚙️ Gestion</a>
+                        <a href="mercato.html">🔄 Mercato</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Dashboard</a>
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html">📈 Dashboard</a>
+                        <a href="dashboard-capitaine.html">👑 Capitaine</a>
+                        <a href="dashboard-joueur-solo.html">⚔️ Joueur</a>
+                        <a href="dashboard-staff.html">🎯 Staff</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Plus</a>
+                    <div class="dropdown-menu">
+                        <a href="profil.html">👤 Profil</a>
+                        <a href="streaming.html">📺 Streaming</a>
+                        <a href="outils.html">🔧 Outils</a>
+                        <a href="services.html">📋 Services</a>
+                    </div>
+                </li>
             </ul>
+            <div class="nav-actions">
+                <a href="register.html" class="btn-connexion btn-inscription">Inscription</a>
+                <a href="login.html" class="btn-connexion">Connexion</a>
+            </div>
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <div class="page-header">
+    <!-- Hero -->
+    <section class="hero-leagues">
         <h1>Ligues Compétitives</h1>
         <p>Affrontez les meilleurs joueurs dans nos ligues classées par divisions</p>
-    </div>
+    </section>
 
-    <!-- Season Banner -->
-    <div class="season-banner">
-        <div class="season-card">
-            <div class="season-info">
-                <div class="season-label">Saison Actuelle</div>
-                <div class="season-value">Saison 4</div>
-            </div>
-            <div class="season-info">
-                <div class="season-label">Fin de Saison</div>
-                <div class="season-value">28 Fév 2026</div>
-            </div>
-            <div class="season-info">
-                <div class="season-label">Joueurs Actifs</div>
-                <div class="season-value">12,450</div>
-            </div>
-            <div class="season-info">
-                <div class="season-label">Prize Pool Total</div>
-                <div class="season-value">250,000€</div>
-            </div>
+    <!-- Season Info -->
+    <div class="season-info">
+        <div class="season-stat">
+            <div class="season-label">Saison Actuelle</div>
+            <div class="season-value">Saison 4</div>
+        </div>
+        <div class="season-stat">
+            <div class="season-label">Fin de Saison</div>
+            <div class="season-value">28 Fév 2026</div>
+        </div>
+        <div class="season-stat">
+            <div class="season-label">Joueurs Actifs</div>
+            <div class="season-value">12,450</div>
+        </div>
+        <div class="season-stat">
+            <div class="season-label">Prize Pool Total</div>
+            <div class="season-value">250,000€</div>
         </div>
     </div>
 
-    <!-- Division Tabs -->
-    <div class="division-tabs">
-        <div class="tabs-container">
-            <div class="tab active" onclick="switchDivision('master')">
-                <span class="tab-icon">💎</span> Master
-            </div>
-            <div class="tab" onclick="switchDivision('diamond')">
-                <span class="tab-icon">💠</span> Diamond
-            </div>
-            <div class="tab" onclick="switchDivision('platinum')">
-                <span class="tab-icon">🔷</span> Platinum
-            </div>
-            <div class="tab" onclick="switchDivision('gold')">
-                <span class="tab-icon">🥇</span> Gold
-            </div>
-            <div class="tab" onclick="switchDivision('silver')">
-                <span class="tab-icon">🥈</span> Silver
-            </div>
-            <div class="tab" onclick="switchDivision('bronze')">
-                <span class="tab-icon">🥉</span> Bronze
-            </div>
-        </div>
-    </div>
-
-    <!-- Leaderboard -->
-    <div class="leaderboard">
-        <div class="leaderboard-header">
-            <div class="leaderboard-title">Classement Master</div>
-            <div class="leaderboard-filters">
-                <button class="filter-btn active">Global</button>
-                <button class="filter-btn">Europe</button>
-                <button class="filter-btn">Équipe</button>
-                <button class="filter-btn">Solo</button>
-            </div>
+    <!-- Divisions & Leaderboard -->
+    <section class="divisions-section">
+        <div class="division-tabs">
+            <button class="division-tab active">💎 MASTER</button>
+            <button class="division-tab">💠 DIAMOND</button>
+            <button class="division-tab">🔷 PLATINUM</button>
+            <button class="division-tab">🥇 GOLD</button>
+            <button class="division-tab">🥈 SILVER</button>
+            <button class="division-tab">🥉 BRONZE</button>
         </div>
 
-        <div class="leaderboard-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Rang</th>
-                        <th>Joueur</th>
-                        <th>Équipe</th>
-                        <th>Points</th>
-                        <th>Victoires</th>
-                        <th>Défaites</th>
-                        <th>Ratio V/D</th>
-                        <th>Série</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="rank rank-1">🥇</td>
-                        <td>
-                            <div class="player-info">
-                                <div class="player-avatar">⚔️</div>
-                                <div class="player-details">
-                                    <div class="player-name">DarkSlayer47</div>
-                                    <div class="player-team">Team Phoenix</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-master">Master I</span></td>
-                        <td>
-                            <div class="stat-value">
-                                2,847
-                                <span class="stat-change stat-up">+45</span>
-                            </div>
-                        </td>
-                        <td class="stat-value">187</td>
-                        <td class="stat-value">52</td>
-                        <td>
-                            <div class="winrate">
-                                <div class="stat-value">78.2%</div>
-                                <div class="winrate-bar">
-                                    <div class="winrate-fill" style="width: 78.2%"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="stat-value" style="color: #00ff00;">7W</td>
-                    </tr>
+        <div class="leaderboard-filters">
+            <button class="filter-btn active">GLOBAL</button>
+            <button class="filter-btn">EUROPE</button>
+            <button class="filter-btn">ÉQUIPE</button>
+            <button class="filter-btn">SOLO</button>
+        </div>
 
-                    <tr>
-                        <td class="rank rank-2">🥈</td>
-                        <td>
-                            <div class="player-info">
-                                <div class="player-avatar">🔥</div>
-                                <div class="player-details">
-                                    <div class="player-name">BlazeMaster</div>
-                                    <div class="player-team">Red Dragons</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-master">Master I</span></td>
-                        <td>
-                            <div class="stat-value">
-                                2,791
-                                <span class="stat-change stat-up">+32</span>
-                            </div>
-                        </td>
-                        <td class="stat-value">174</td>
-                        <td class="stat-value">48</td>
-                        <td>
-                            <div class="winrate">
-                                <div class="stat-value">78.4%</div>
-                                <div class="winrate-bar">
-                                    <div class="winrate-fill" style="width: 78.4%"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="stat-value" style="color: #00ff00;">5W</td>
-                    </tr>
+        <div class="leaderboard">
+            <div class="leaderboard-header">
+                <div>RANG</div>
+                <div>JOUEUR</div>
+                <div>ÉQUIPE</div>
+                <div>POINTS</div>
+                <div>VICTOIRES</div>
+                <div>DÉFAITES</div>
+                <div>RATIO V/D</div>
+                <div>SÉRIE</div>
+            </div>
 
-                    <tr>
-                        <td class="rank rank-3">🥉</td>
-                        <td>
-                            <div class="player-info">
-                                <div class="player-avatar">⚡</div>
-                                <div class="player-details">
-                                    <div class="player-name">ThunderGod</div>
-                                    <div class="player-team">Storm Elite</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-master">Master II</span></td>
-                        <td>
-                            <div class="stat-value">
-                                2,654
-                                <span class="stat-change stat-down">-12</span>
-                            </div>
-                        </td>
-                        <td class="stat-value">165</td>
-                        <td class="stat-value">51</td>
-                        <td>
-                            <div class="winrate">
-                                <div class="stat-value">76.4%</div>
-                                <div class="winrate-bar">
-                                    <div class="winrate-fill" style="width: 76.4%"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="stat-value" style="color: var(--red);">2L</td>
-                    </tr>
+            <div class="leaderboard-row">
+                <div class="rank">
+                    <span class="rank-icon">🥇</span>
+                    <span>1</span>
+                </div>
+                <div class="player-info">
+                    <div class="player-avatar">🔥</div>
+                    <div class="player-details">
+                        <div class="player-name">DarkSlayer47</div>
+                        <div class="player-team">Team Phoenix</div>
+                    </div>
+                </div>
+                <div class="division-badge master">MASTER I</div>
+                <div class="stat-value stat-positive">2,847 <span style="font-size:0.8rem">+48</span></div>
+                <div class="stat-value">187</div>
+                <div class="stat-value">52</div>
+                <div class="winrate">
+                    <span>78.2%</span>
+                    <div class="winrate-bar">
+                        <div class="winrate-fill" style="width: 78.2%"></div>
+                    </div>
+                </div>
+                <div class="streak stat-positive">7W</div>
+            </div>
 
-                    <tr>
-                        <td class="rank">4</td>
-                        <td>
-                            <div class="player-info">
-                                <div class="player-avatar">🛡️</div>
-                                <div class="player-details">
-                                    <div class="player-name">IronShield</div>
-                                    <div class="player-team">Guardians</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-master">Master II</span></td>
-                        <td>
-                            <div class="stat-value">
-                                2,589
-                                <span class="stat-change stat-up">+28</span>
-                            </div>
-                        </td>
-                        <td class="stat-value">158</td>
-                        <td class="stat-value">54</td>
-                        <td>
-                            <div class="winrate">
-                                <div class="stat-value">74.5%</div>
-                                <div class="winrate-bar">
-                                    <div class="winrate-fill" style="width: 74.5%"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="stat-value" style="color: #00ff00;">4W</td>
-                    </tr>
+            <div class="leaderboard-row">
+                <div class="rank">
+                    <span class="rank-icon">🥈</span>
+                    <span>2</span>
+                </div>
+                <div class="player-info">
+                    <div class="player-avatar">🔥</div>
+                    <div class="player-details">
+                        <div class="player-name">BlazeMaster</div>
+                        <div class="player-team">Red Dragons</div>
+                    </div>
+                </div>
+                <div class="division-badge master">MASTER I</div>
+                <div class="stat-value stat-positive">2,791 <span style="font-size:0.8rem">+32</span></div>
+                <div class="stat-value">174</div>
+                <div class="stat-value">48</div>
+                <div class="winrate">
+                    <span>78.4%</span>
+                    <div class="winrate-bar">
+                        <div class="winrate-fill" style="width: 78.4%"></div>
+                    </div>
+                </div>
+                <div class="streak stat-positive">5W</div>
+            </div>
 
-                    <tr>
-                        <td class="rank">5</td>
-                        <td>
-                            <div class="player-info">
-                                <div class="player-avatar">🌟</div>
-                                <div class="player-details">
-                                    <div class="player-name">StarLight99</div>
-                                    <div class="player-team">Celestial</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-diamond">Diamond I</span></td>
-                        <td>
-                            <div class="stat-value">
-                                2,512
-                                <span class="stat-change stat-up">+67</span>
-                            </div>
-                        </td>
-                        <td class="stat-value">142</td>
-                        <td class="stat-value">47</td>
-                        <td>
-                            <div class="winrate">
-                                <div class="stat-value">75.1%</div>
-                                <div class="winrate-bar">
-                                    <div class="winrate-fill" style="width: 75.1%"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="stat-value" style="color: #00ff00;">9W</td>
-                    </tr>
+            <div class="leaderboard-row">
+                <div class="rank">
+                    <span class="rank-icon">🥉</span>
+                    <span>3</span>
+                </div>
+                <div class="player-info">
+                    <div class="player-avatar">⚡</div>
+                    <div class="player-details">
+                        <div class="player-name">ThunderGod</div>
+                        <div class="player-team">Storm Elite</div>
+                    </div>
+                </div>
+                <div class="division-badge master">MASTER II</div>
+                <div class="stat-value stat-negative">2,654 <span style="font-size:0.8rem">-12</span></div>
+                <div class="stat-value">165</div>
+                <div class="stat-value">51</div>
+                <div class="winrate">
+                    <span>76.4%</span>
+                    <div class="winrate-bar">
+                        <div class="winrate-fill" style="width: 76.4%"></div>
+                    </div>
+                </div>
+                <div class="streak stat-negative">2L</div>
+            </div>
 
-                    <tr>
-                        <td class="rank">6</td>
-                        <td>
-                            <div class="player-info">
-                                <div class="player-avatar">🐉</div>
-                                <div class="player-details">
-                                    <div class="player-name">DragonKing</div>
-                                    <div class="player-team">Red Dragons</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-diamond">Diamond I</span></td>
-                        <td>
-                            <div class="stat-value">
-                                2,478
-                                <span class="stat-change stat-up">+15</span>
-                            </div>
-                        </td>
-                        <td class="stat-value">138</td>
-                        <td class="stat-value">49</td>
-                        <td>
-                            <div class="winrate">
-                                <div class="stat-value">73.8%</div>
-                                <div class="winrate-bar">
-                                    <div class="winrate-fill" style="width: 73.8%"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="stat-value" style="color: #00ff00;">3W</td>
-                    </tr>
+            <div class="leaderboard-row">
+                <div class="rank"><span>4</span></div>
+                <div class="player-info">
+                    <div class="player-avatar">❄️</div>
+                    <div class="player-details">
+                        <div class="player-name">FrostQueen</div>
+                        <div class="player-team">Ice Warriors</div>
+                    </div>
+                </div>
+                <div class="division-badge master">MASTER II</div>
+                <div class="stat-value stat-positive">2,543 <span style="font-size:0.8rem">+25</span></div>
+                <div class="stat-value">158</div>
+                <div class="stat-value">47</div>
+                <div class="winrate">
+                    <span>77.1%</span>
+                    <div class="winrate-bar">
+                        <div class="winrate-fill" style="width: 77.1%"></div>
+                    </div>
+                </div>
+                <div class="streak stat-positive">4W</div>
+            </div>
 
-                    <tr>
-                        <td class="rank">7</td>
-                        <td>
-                            <div class="player-info">
-                                <div class="player-avatar">❄️</div>
-                                <div class="player-details">
-                                    <div class="player-name">FrostBite</div>
-                                    <div class="player-team">Winter Wolves</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-diamond">Diamond I</span></td>
-                        <td>
-                            <div class="stat-value">
-                                2,445
-                                <span class="stat-change stat-down">-8</span>
-                            </div>
-                        </td>
-                        <td class="stat-value">135</td>
-                        <td class="stat-value">52</td>
-                        <td>
-                            <div class="winrate">
-                                <div class="stat-value">72.2%</div>
-                                <div class="winrate-bar">
-                                    <div class="winrate-fill" style="width: 72.2%"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="stat-
+            <div class="leaderboard-row">
+                <div class="rank"><span>5</span></div>
+                <div class="player-info">
+                    <div class="player-avatar">🌟</div>
+                    <div class="player-details">
+                        <div class="player-name">StarPlayer99</div>
+                        <div class="player-team">Galaxy Gaming</div>
+                    </div>
+                </div>
+                <div class="division-badge master">MASTER III</div>
+                <div class="stat-value">2,489</div>
+                <div class="stat-value">152</div>
+                <div class="stat-value">49</div>
+                <div class="winrate">
+                    <span>75.6%</span>
+                    <div class="winrate-bar">
+                        <div class="winrate-fill" style="width: 75.6%"></div>
+                    </div>
+                </div>
+                <div class="streak stat-positive">3W</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>TLeagues</h3>
+                <p>La plateforme de référence pour les tournois esports League of Legends. Organisez, participez et dominez.</p>
+                <div class="social-links">
+                    <a href="https://discord.gg/WjQuuPvAVA" class="social-link" target="_blank" title="Discord">
+                        <span>💬</span>
+                    </a>
+                    <a href="#" class="social-link" title="Twitter">
+                        <span>🐦</span>
+                    </a>
+                    <a href="#" class="social-link" title="Twitch">
+                        <span>📺</span>
+                    </a>
+                    <a href="#" class="social-link" title="YouTube">
+                        <span>▶️</span>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <a href="tournois.html">Tournois</a>
+                <a href="leagues.html">Ligues</a>
+                <a href="cups.html">Coupes</a>
+                <a href="mercato.html">Mercato</a>
+                <a href="services.html">Services</a>
+            </div>
+            <div class="footer-section">
+                <h3>Compte</h3>
+                <a href="register.html">Créer un compte</a>
+                <a href="login.html">Connexion</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="forgot-password.html">Mot de passe oublié</a>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <a href="services.html#faq">FAQ</a>
+                <a href="services.html#contact">Contact</a>
+                <a href="services.html#rules">Règlement</a>
+                <a href="services.html#privacy">Confidentialité</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 TLeagues. Tous droits réservés.
