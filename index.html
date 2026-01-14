@@ -5,15 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TLeagues - Plateforme de Tournois League of Legends</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #000000;
-            color: #ffffff;
+            background: #000;
+            color: #fff;
             overflow-x: hidden;
         }
         /* Navigation */
@@ -41,18 +37,12 @@
             letter-spacing: 4px;
             text-transform: uppercase;
             cursor: pointer;
-            white-space: nowrap;
         }
-        /* Navigation avec dropdowns */
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
             align-items: center;
-            flex-wrap: wrap;
-        }
-        .nav-links li {
-            position: relative;
         }
         .nav-links a {
             color: #666;
@@ -62,16 +52,9 @@
             transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
-            padding: 0.5rem 0;
-            display: block;
         }
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #ff0000;
-        }
-        .dropdown {
-            position: relative;
-        }
+        .nav-links a:hover, .nav-links a.active { color: #ff0000; }
+        .dropdown { position: relative; }
         .dropdown-toggle {
             cursor: pointer;
             display: flex;
@@ -83,9 +66,7 @@
             font-size: 0.7rem;
             transition: transform 0.3s;
         }
-        .dropdown:hover .dropdown-toggle::after {
-            transform: rotate(180deg);
-        }
+        .dropdown:hover .dropdown-toggle::after { transform: rotate(180deg); }
         .dropdown-menu {
             position: absolute;
             top: 100%;
@@ -110,16 +91,10 @@
         .dropdown-menu a {
             padding: 0.75rem 1.5rem;
             font-size: 0.85rem;
-            white-space: nowrap;
+            display: block;
         }
-        .dropdown-menu a:hover {
-            background: rgba(255, 0, 0, 0.1);
-        }
-        .nav-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
+        .dropdown-menu a:hover { background: rgba(255, 0, 0, 0.1); }
+        .nav-actions { display: flex; gap: 1rem; }
         .btn-connexion {
             background: #ff0000;
             color: #fff;
@@ -129,9 +104,7 @@
             font-weight: 700;
             text-transform: uppercase;
             font-size: 0.85rem;
-            letter-spacing: 1px;
             transition: all 0.3s;
-            white-space: nowrap;
         }
         .btn-connexion:hover {
             background: #cc0000;
@@ -147,7 +120,6 @@
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
-            padding: 0.5rem;
         }
         .menu-toggle span {
             width: 25px;
@@ -156,16 +128,7 @@
             border-radius: 3px;
             transition: all 0.3s;
         }
-        .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
-        }
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-        /* Hero Section */
+        /* Hero */
         .hero {
             padding: 10rem 5% 8rem;
             text-align: center;
@@ -229,7 +192,6 @@
         .btn-primary {
             background: #ff0000;
             color: #fff;
-            border: none;
         }
         .btn-primary:hover {
             background: #cc0000;
@@ -245,7 +207,7 @@
             background: rgba(255, 0, 0, 0.1);
             transform: translateY(-3px);
         }
-        /* Stats Section */
+        /* Stats */
         .stats-section {
             background: #0a0a0a;
             padding: 5rem 5%;
@@ -288,7 +250,7 @@
             letter-spacing: 1.5px;
             font-weight: 600;
         }
-        /* Features Section */
+        /* Features */
         .features-section {
             padding: 8rem 5%;
             max-width: 1400px;
@@ -334,17 +296,14 @@
         .feature-title {
             font-size: 1.5rem;
             font-weight: 900;
-            color: #fff;
             margin-bottom: 1rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
         .feature-description {
             color: #999;
-            font-size: 0.95rem;
             line-height: 1.6;
         }
-        /* Tournament Preview */
+        /* Tournaments Preview */
         .tournaments-preview {
             padding: 8rem 5%;
             background: #0a0a0a;
@@ -437,18 +396,14 @@
             background: #ff0000;
             color: #fff;
         }
-        .btn-register:hover {
-            background: #cc0000;
-        }
+        .btn-register:hover { background: #cc0000; }
         .btn-view {
             background: transparent;
             color: #ff0000;
             border: 1px solid #ff0000;
         }
-        .btn-view:hover {
-            background: rgba(255, 0, 0, 0.1);
-        }
-        /* CTA Section */
+        .btn-view:hover { background: rgba(255, 0, 0, 0.1); }
+        /* CTA */
         .cta-section {
             padding: 8rem 5%;
             text-align: center;
@@ -463,7 +418,6 @@
             font-weight: 900;
             margin-bottom: 1.5rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
         .cta-section p {
             font-size: 1.2rem;
@@ -490,7 +444,6 @@
             margin-bottom: 1.5rem;
             text-transform: uppercase;
             font-size: 1rem;
-            letter-spacing: 1px;
         }
         .footer-section p {
             color: #666;
@@ -504,12 +457,8 @@
             text-decoration: none;
             margin-bottom: 0.7rem;
             transition: color 0.3s;
-            font-size: 0.9rem;
         }
-        .footer-section a:hover {
-            color: #ff0000;
-        }
-        /* Icônes sociales FIXES */
+        .footer-section a:hover { color: #ff0000; }
         .social-links {
             display: flex;
             gap: 1rem;
@@ -551,84 +500,23 @@
             color: #666;
             font-size: 0.9rem;
         }
-        /* Responsive mobile */
+        /* Responsive */
         @media (max-width: 968px) {
-            .menu-toggle {
-                display: flex;
-            }
+            .menu-toggle { display: flex; }
             .nav-links {
                 position: fixed;
                 top: 80px;
                 left: 0;
                 right: 0;
                 background: rgba(0, 0, 0, 0.98);
-                backdrop-filter: blur(20px);
                 flex-direction: column;
                 padding: 2rem;
-                gap: 0;
-                border-top: 1px solid rgba(255, 0, 0, 0.1);
                 transform: translateX(-100%);
                 transition: transform 0.3s;
-                max-height: calc(100vh - 80px);
-                overflow-y: auto;
             }
-            .nav-links.active {
-                transform: translateX(0);
-            }
-            .nav-links li {
-                width: 100%;
-                border-bottom: 1px solid rgba(255, 0, 0, 0.1);
-            }
-            .nav-links a {
-                padding: 1rem 0;
-                font-size: 1rem;
-            }
-            .dropdown-menu {
-                position: static;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                background: rgba(255, 0, 0, 0.05);
-                border: none;
-                margin-top: 0.5rem;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s;
-            }
-            .dropdown.active .dropdown-menu {
-                max-height: 500px;
-            }
-            .nav-actions {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                padding: 1rem 5%;
-                background: rgba(0, 0, 0, 0.98);
-                border-top: 1px solid rgba(255, 0, 0, 0.1);
-                justify-content: center;
-            }
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            .hero p {
-                font-size: 1.1rem;
-            }
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            .tournaments-grid {
-                grid-template-columns: 1fr;
-            }
-            .section-title {
-                font-size: 2rem;
-            }
-            .cta-section h2 {
-                font-size: 2.5rem;
-            }
+            .nav-links.active { transform: translateX(0); }
+            .hero h1 { font-size: 2.5rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -795,8 +683,72 @@
                     </div>
                 </div>
             </div>
+
             <div class="tournament-card">
                 <div class="tournament-header">
                     <span class="tournament-badge">🎮 Bientôt</span>
                     <h3 class="tournament-title">TLeagues Pro League S1</h3>
-                    <p class="tournament-date">
+                    <p class="tournament-date">📅 20 Janvier 2026 - 20:00</p>
+                </div>
+                <div class="tournament-body">
+                    <div class="tournament-info">
+                        <div class="info-item">
+                            <div class="info-value">64</div>
+                            <div class="info-label">Équipes</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">100K€</div>
+                            <div class="info-label">Prize Pool</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">BO5</div>
+                            <div class="info-label">Format</div>
+                        </div>
+                    </div>
+                    <div class="tournament-actions">
+                        <a href="register.html" class="btn-tournament btn-register">S'inscrire</a>
+                        <a href="tournois.html" class="btn-tournament btn-view">Plus d'infos</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tournament-card">
+                <div class="tournament-header">
+                    <span class="tournament-badge">⭐ Places Limitées</span>
+                    <h3 class="tournament-title">Rookie Tournament</h3>
+                    <p class="tournament-date">📅 10 Janvier 2026 - 19:00</p>
+                </div>
+                <div class="tournament-body">
+                    <div class="tournament-info">
+                        <div class="info-item">
+                            <div class="info-value">256</div>
+                            <div class="info-label">Joueurs</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">10K€</div>
+                            <div class="info-label">Prize Pool</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">BO1</div>
+                            <div class="info-label">Format</div>
+                        </div>
+                    </div>
+                    <div class="tournament-actions">
+                        <a href="register.html" class="btn-tournament btn-register">S'inscrire</a>
+                        <a href="tournois.html" class="btn-tournament btn-view">Plus d'infos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>PRÊT À COMMENCER ?</h2>
+            <p>Rejoignez la communauté TLeagues dès aujourd'hui et participez aux meilleurs tournois League of Legends</p>
+            <div class="hero-buttons">
+                <a href="register.html" class="btn-primary">Créer un compte gratuitement</a>
+                <a href="tournois.html" class="btn-secondary">Explorer les tournois</a>
+            </div>
+        </div>
+    </section>
