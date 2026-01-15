@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil - TLeagues</title>
+    <title>Mon Profil - TLeagues</title>
     <style>
         * {
             margin: 0;
@@ -11,134 +11,172 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --red: #ff0000;
-            --red-dark: #cc0000;
-            --red-glow: rgba(255, 0, 0, 0.3);
-            --black: #0a0a0a;
-            --black-light: #1a1a1a;
-            --gray: #2a2a2a;
-            --white: #ffffff;
-            --text-gray: #b0b0b0;
-            --gold: #ffd700;
-            --silver: #c0c0c0;
-            --bronze: #cd7f32;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--black);
-            color: var(--white);
-            line-height: 1.6;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #000000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Navigation */
+        /* Header */
+        header {
+            background: #000000;
+            padding: 1.5rem 3rem;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .nav-container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
         }
 
         .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--red);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px var(--red-glow);
-            cursor: pointer;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ff0000;
+            text-decoration: none;
+            letter-spacing: 2px;
         }
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 2.5rem;
             list-style: none;
             align-items: center;
         }
 
         .nav-links a {
-            color: var(--white);
+            color: #999;
             text-decoration: none;
-            font-weight: 600;
+            transition: color 0.3s;
+            font-weight: 500;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 1px;
-            transition: all 0.3s;
+            letter-spacing: 0.5px;
         }
 
         .nav-links a:hover {
-            color: var(--red);
+            color: #fff;
         }
 
-        .btn-nav {
-            background: var(--red);
-            color: var(--white);
-            padding: 10px 24px;
-            border-radius: 4px;
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+        }
+
+        /* Main Layout */
+        .dashboard-container {
+            display: flex;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: rgba(10, 0, 0, 0.3);
+            border-right: 1px solid rgba(255, 0, 0, 0.1);
+            padding: 2rem 0;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: #999;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255, 0, 0, 0.1);
+            color: #fff;
+            border-left: 3px solid #ff0000;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
         }
 
         /* Profile Header */
         .profile-header {
-            margin-top: 76px;
-            background: linear-gradient(135deg, var(--black-light) 0%, var(--gray) 100%);
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-            padding: 60px 40px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .profile-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .profile-header-content {
-            max-width: 1400px;
-            margin: 0 auto;
+            background: rgba(20, 0, 0, 0.4);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
             display: flex;
             align-items: center;
-            gap: 40px;
-            position: relative;
-            z-index: 1;
+            gap: 2rem;
         }
 
-        .profile-avatar {
-            width: 180px;
-            height: 180px;
+        .profile-avatar-large {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background: var(--red);
+            background: linear-gradient(135deg, #ff0000, #cc0000);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 72px;
+            font-size: 3rem;
             font-weight: bold;
-            border: 4px solid var(--red);
-            box-shadow: 0 0 40px var(--red-glow);
-            flex-shrink: 0;
+            border: 3px solid rgba(255, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .edit-avatar-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 35px;
+            height: 35px;
+            background: #ff0000;
+            border-radius: 50%;
+            border: 2px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .edit-avatar-btn:hover {
+            transform: scale(1.1);
+            background: #ff3333;
         }
 
         .profile-info {
@@ -146,638 +184,502 @@
         }
 
         .profile-name {
-            font-size: 48px;
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-username {
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .profile-stat {
+            text-align: center;
+        }
+
+        .profile-stat-value {
+            font-size: 1.5rem;
             font-weight: bold;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            color: #ff0000;
         }
 
-        .verified-badge {
-            font-size: 24px;
-        }
-
-        .profile-meta {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 20px;
-            color: var(--text-gray);
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .rank-badge {
-            display: inline-block;
-            padding: 8px 20px;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--bronze) 100%);
-            color: var(--black);
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 16px;
+        .profile-stat-label {
+            font-size: 0.85rem;
+            color: #888;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        .profile-actions {
+        /* Tabs */
+        .tabs {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
         }
 
-        .btn {
-            padding: 12px 30px;
+        .tab {
+            padding: 1rem 1.5rem;
+            background: transparent;
             border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 1px;
+            color: #888;
             cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-bottom: 2px solid transparent;
             transition: all 0.3s;
         }
 
-        .btn-primary {
-            background: var(--red);
-            color: var(--white);
+        .tab.active {
+            color: #ff0000;
+            border-bottom-color: #ff0000;
         }
 
-        .btn-primary:hover {
-            background: var(--red-dark);
-            box-shadow: 0 5px 20px var(--red-glow);
-            transform: translateY(-2px);
+        .tab:hover {
+            color: #fff;
         }
 
-        .btn-secondary {
-            background: transparent;
-            color: var(--red);
-            border: 2px solid var(--red);
+        /* Tab Content */
+        .tab-content {
+            display: none;
         }
 
-        .btn-secondary:hover {
-            background: var(--red);
-            color: var(--white);
+        .tab-content.active {
+            display: block;
         }
 
-        /* Main Content */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 60px 40px;
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-
+        /* Section */
         .section {
-            background: var(--black-light);
+            background: rgba(20, 0, 0, 0.4);
             border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .section-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
         }
 
-        /* Stats Grid */
-        .stats-grid {
+        /* Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
         }
 
-        .stat-card {
-            background: var(--gray);
-            padding: 25px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid rgba(255, 0, 0, 0.1);
+        label {
+            display: block;
+            margin-bottom: 0.6rem;
+            color: #aaa;
+            font-weight: 400;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            background: rgba(30, 0, 0, 0.5);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 4px;
+            color: #fff;
+            font-size: 0.95rem;
             transition: all 0.3s;
         }
 
-        .stat-card:hover {
-            border-color: var(--red);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px var(--red-glow);
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #ff0000;
+            background: rgba(40, 0, 0, 0.6);
         }
 
-        .stat-number {
-            font-size: 36px;
-            font-weight: bold;
-            color: var(--red);
-            margin-bottom: 8px;
+        textarea {
+            resize: vertical;
+            min-height: 100px;
         }
 
-        .stat-label {
-            font-size: 12px;
+        select option {
+            background: #1a0000;
+        }
+
+        .btn-save {
+            padding: 1rem 2rem;
+            background: #ff0000;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--text-gray);
         }
 
-        /* Champions */
-        .champions-grid {
+        .btn-save:hover {
+            background: #cc0000;
+            transform: translateY(-1px);
+        }
+
+        /* Achievement Grid */
+        .achievement-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .champion-card {
-            background: var(--gray);
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid rgba(255, 0, 0, 0.1);
-            transition: all 0.3s;
-        }
-
-        .champion-card:hover {
-            border-color: var(--red);
-            transform: scale(1.05);
-        }
-
-        .champion-icon {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-
-        .champion-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .champion-stats {
-            font-size: 12px;
-            color: var(--text-gray);
-        }
-
-        /* Tournament History */
-        .tournament-history {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .history-item {
-            background: var(--gray);
-            padding: 20px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid rgba(255, 0, 0, 0.1);
-            transition: all 0.3s;
-        }
-
-        .history-item:hover {
-            border-color: var(--red);
-            transform: translateX(5px);
-        }
-
-        .history-info h4 {
-            margin-bottom: 5px;
-        }
-
-        .history-meta {
-            font-size: 12px;
-            color: var(--text-gray);
-        }
-
-        .history-placement {
-            font-size: 32px;
-            font-weight: bold;
-            color: var(--red);
-        }
-
-        .placement-1 { color: var(--gold); }
-        .placement-2 { color: var(--silver); }
-        .placement-3 { color: var(--bronze); }
-
-        /* Achievements */
-        .achievements-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
         }
 
         .achievement-card {
-            background: var(--gray);
-            padding: 20px;
+            background: rgba(30, 0, 0, 0.5);
+            border: 1px solid rgba(255, 0, 0, 0.2);
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border: 1px solid rgba(255, 0, 0, 0.1);
+            padding: 1.5rem;
+            text-align: center;
             transition: all 0.3s;
         }
 
         .achievement-card:hover {
-            border-color: var(--red);
-            transform: scale(1.05);
+            border-color: #ff0000;
+            transform: translateY(-2px);
         }
 
         .achievement-icon {
-            font-size: 48px;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
         }
 
-        .achievement-info h4 {
-            margin-bottom: 5px;
+        .achievement-name {
+            font-size: 0.9rem;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
         }
 
         .achievement-desc {
-            font-size: 12px;
-            color: var(--text-gray);
+            font-size: 0.75rem;
+            color: #888;
         }
 
-        /* Team Card */
-        .team-card {
-            background: var(--gray);
-            padding: 25px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid rgba(255, 0, 0, 0.1);
+        /* Match History */
+        .match-history {
+            display: grid;
+            gap: 1rem;
         }
 
-        .team-logo {
-            font-size: 64px;
-            margin-bottom: 15px;
-        }
-
-        .team-name {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .team-stats {
+        .match-item {
             display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-            padding-top: 20px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: rgba(30, 0, 0, 0.5);
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            border-radius: 6px;
+        }
+
+        .match-result {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .result-win {
+            background: rgba(0, 255, 0, 0.2);
+            color: #66ff66;
+        }
+
+        .result-loss {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff6666;
+        }
+
+        /* Footer */
+        footer {
+            background: #000000;
+            padding: 1.5rem 2rem;
+            text-align: center;
             border-top: 1px solid rgba(255, 0, 0, 0.1);
         }
 
-        .team-stat {
-            text-align: center;
-        }
-
-        .team-stat-number {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--red);
-        }
-
-        .team-stat-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            color: var(--text-gray);
+        footer p {
+            color: #666;
+            font-size: 0.85rem;
         }
 
         @media (max-width: 1024px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .sidebar {
+                width: 200px;
             }
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .dashboard-container {
+                flex-direction: column;
             }
 
-            .profile-header-content {
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            }
+
+            .profile-header {
                 flex-direction: column;
                 text-align: center;
             }
 
-            .profile-name {
-                font-size: 32px;
+            .profile-stats {
                 justify-content: center;
             }
 
-            .profile-meta {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .stats-grid,
-            .champions-grid,
-            .achievements-grid {
+            .form-row {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo" onclick="window.location.href='index.html'">TLeagues</div>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">TLEAGUES</a>
             <ul class="nav-links">
                 <li><a href="index.html">Accueil</a></li>
-                <li><a href="tournois.html">Tournois</a></li>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="profil.html" class="btn-nav">Profil</a></li>
+                <li><a href="browse-tournaments.html">Compétitions</a></li>
+                <li><a href="teams.html">Services</a></li>
             </ul>
-        </div>
-    </nav>
+            <div class="user-menu">
+                <div class="user-avatar">PG</div>
+            </div>
+        </nav>
+    </header>
 
-    <!-- Profile Header -->
-    <section class="profile-header">
-        <div class="profile-header-content">
-            <div class="profile-avatar">P</div>
-            <div class="profile-info">
-                <h1 class="profile-name">
-                    ProGamer94
-                    <span class="verified-badge" title="Compte vérifié">✓</span>
-                </h1>
-                <div class="profile-meta">
-                    <div class="meta-item">
-                        <span>📧</span>
-                        <span>progamer@tleagues.com</span>
-                    </div>
-                    <div class="meta-item">
-                        <span>📅</span>
-                        <span>Membre depuis Janvier 2025</span>
-                    </div>
-                    <div class="meta-item">
-                        <span>🌍</span>
-                        <span>EUW</span>
-                    </div>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html">📊 Vue d'ensemble</a></li>
+                <li><a href="profile.html" class="active">👤 Mon profil</a></li>
+                <li><a href="browse-tournaments.html">🏆 Tournois</a></li>
+                <li><a href="teams.html">👥 Mon équipe</a></li>
+                <li><a href="match-detail.html">⚔️ Mes matchs</a></li>
+                <li><a href="leaderboard.html">📈 Classements</a></li>
+                <li><a href="#">⚙️ Paramètres</a></li>
+                <li><a href="login.html">🚪 Déconnexion</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar-large">
+                    PG
+                    <div class="edit-avatar-btn">📷</div>
                 </div>
-                <div class="rank-badge">🏆 DIAMOND II</div>
-                <div class="profile-actions">
-                    <button class="btn btn-primary" onclick="alert('Fonctionnalité à venir!')">Modifier le profil</button>
-                    <button class="btn btn-secondary" onclick="alert('Fonctionnalité à venir!')">Partager</button>
+                <div class="profile-info">
+                    <h1 class="profile-name">ProGamer</h1>
+                    <p class="profile-username">@progamer2024</p>
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">75%</div>
+                            <div class="profile-stat-label">Winrate</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">48</div>
+                            <div class="profile-stat-label">Matchs</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">#24</div>
+                            <div class="profile-stat-label">Rang</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">2.5k</div>
+                            <div class="profile-stat-label">Points</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Main Content -->
-    <section class="container">
-        <!-- Stats Section -->
-        <div class="section">
-            <h2 class="section-title">📊 Statistiques Globales</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">42</div>
-                    <div class="stat-label">Tournois Joués</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">18</div>
-                    <div class="stat-label">Victoires</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">62%</div>
-                    <div class="stat-label">Winrate</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">3.8</div>
-                    <div class="stat-label">KDA Moyen</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">8,750€</div>
-                    <div class="stat-label">Gains Totaux</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">1,247</div>
-                    <div class="stat-label">Points TLeagues</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">24</div>
-                    <div class="stat-label">Achievements</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">#128</div>
-                    <div class="stat-label">Classement Global</div>
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('info')">Informations</button>
+                <button class="tab" onclick="switchTab('achievements')">Succès</button>
+                <button class="tab" onclick="switchTab('history')">Historique</button>
+            </div>
+
+            <!-- Tab: Informations -->
+            <div class="tab-content active" id="tab-info">
+                <div class="section">
+                    <h2 class="section-title">Informations personnelles</h2>
+                    <form id="profileForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">Prénom</label>
+                                <input type="text" id="firstName" value="John">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Nom</label>
+                                <input type="text" id="lastName" value="Doe">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="username">Pseudo</label>
+                                <input type="text" id="username" value="ProGamer2024">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" value="progamer@example.com">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bio">Biographie</label>
+                            <textarea id="bio" placeholder="Parlez-nous de vous...">Joueur compétitif depuis 5 ans. Spécialisé dans les FPS et MOBA. Capitaine d'équipe.</textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="country">Pays</label>
+                                <select id="country">
+                                    <option>France</option>
+                                    <option>Belgique</option>
+                                    <option>Suisse</option>
+                                    <option>Canada</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="mainGame">Jeu principal</label>
+                                <select id="mainGame">
+                                    <option>League of Legends</option>
+                                    <option>Valorant</option>
+                                    <option>CS:GO</option>
+                                    <option>Dota 2</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-save">Enregistrer les modifications</button>
+                    </form>
                 </div>
             </div>
-        </div>
 
-        <div class="content-grid">
-            <!-- Left Column -->
-            <div>
-                <!-- Champions Section -->
+            <!-- Tab: Achievements -->
+            <div class="tab-content" id="tab-achievements">
                 <div class="section">
-                    <h2 class="section-title">⭐ Champions Préférés</h2>
-                    <div class="champions-grid">
-                        <div class="champion-card">
-                            <div class="champion-icon">🗡️</div>
-                            <div class="champion-name">Yasuo</div>
-                            <div class="champion-stats">68% WR • 127 parties</div>
-                        </div>
-                        <div class="champion-card">
-                            <div class="champion-icon">⚔️</div>
-                            <div class="champion-name">Zed</div>
-                            <div class="champion-stats">61% WR • 98 parties</div>
-                        </div>
-                        <div class="champion-card">
-                            <div class="champion-icon">🔥</div>
-                            <div class="champion-name">Ahri</div>
-                            <div class="champion-stats">59% WR • 84 parties</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tournament History -->
-                <div class="section">
-                    <h2 class="section-title">🏆 Historique des Tournois</h2>
-                    <div class="tournament-history">
-                        <div class="history-item">
-                            <div class="history-info">
-                                <h4>Winter Championship 2025</h4>
-                                <p class="history-meta">15 Décembre 2025 • 128 équipes</p>
-                            </div>
-                            <div class="history-placement placement-1">🥇 1er</div>
-                        </div>
-                        <div class="history-item">
-                            <div class="history-info">
-                                <h4>TLeagues Pro League S1</h4>
-                                <p class="history-meta">20 Novembre 2025 • 64 équipes</p>
-                            </div>
-                            <div class="history-placement placement-3">🥉 3e</div>
-                        </div>
-                        <div class="history-item">
-                            <div class="history-info">
-                                <h4>Friday Night League</h4>
-                                <p class="history-meta">8 Novembre 2025 • 32 équipes</p>
-                            </div>
-                            <div class="history-placement placement-2">🥈 2e</div>
-                        </div>
-                        <div class="history-item">
-                            <div class="history-info">
-                                <h4>Autumn Cup 2025</h4>
-                                <p class="history-meta">25 Octobre 2025 • 256 joueurs</p>
-                            </div>
-                            <div class="history-placement">5-8e</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Achievements -->
-                <div class="section">
-                    <h2 class="section-title">🎖️ Achievements Débloqués</h2>
-                    <div class="achievements-grid">
+                    <h2 class="section-title">Mes succès</h2>
+                    <div class="achievement-grid">
                         <div class="achievement-card">
-                            <div class="achievement-icon">👑</div>
-                            <div class="achievement-info">
-                                <h4>Champion</h4>
-                                <p class="achievement-desc">Remporter un tournoi majeur</p>
-                            </div>
+                            <div class="achievement-icon">🏆</div>
+                            <div class="achievement-name">Champion</div>
+                            <div class="achievement-desc">Gagner 10 tournois</div>
+                        </div>
+                        <div class="achievement-card">
+                            <div class="achievement-icon">⚔️</div>
+                            <div class="achievement-name">Vétéran</div>
+                            <div class="achievement-desc">100 matchs joués</div>
                         </div>
                         <div class="achievement-card">
                             <div class="achievement-icon">🔥</div>
-                            <div class="achievement-info">
-                                <h4>Hot Streak</h4>
-                                <p class="achievement-desc">5 victoires consécutives</p>
-                            </div>
+                            <div class="achievement-name">En feu</div>
+                            <div class="achievement-desc">10 victoires d'affilée</div>
+                        </div>
+                        <div class="achievement-card">
+                            <div class="achievement-icon">⭐</div>
+                            <div class="achievement-name">Top 50</div>
+                            <div class="achievement-desc">Atteindre le top 50</div>
+                        </div>
+                        <div class="achievement-card">
+                            <div class="achievement-icon">👥</div>
+                            <div class="achievement-name">Leader</div>
+                            <div class="achievement-desc">Créer une équipe</div>
                         </div>
                         <div class="achievement-card">
                             <div class="achievement-icon">💎</div>
-                            <div class="achievement-info">
-                                <h4>Diamond Club</h4>
-                                <p class="achievement-desc">Atteindre Diamond</p>
-                            </div>
-                        </div>
-                        <div class="achievement-card">
-                            <div class="achievement-icon">🎯</div>
-                            <div class="achievement-info">
-                                <h4>Marksman</h4>
-                                <p class="achievement-desc">100 kills en tournoi</p>
-                            </div>
+                            <div class="achievement-name">Élite</div>
+                            <div class="achievement-desc">Niveau 50 atteint</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Column -->
-            <div>
-                <!-- Team Card -->
+            <!-- Tab: History -->
+            <div class="tab-content" id="tab-history">
                 <div class="section">
-                    <h2 class="section-title">👥 Équipe Actuelle</h2>
-                    <div class="team-card">
-                        <div class="team-logo">🛡️</div>
-                        <div class="team-name">Phoenix Rising</div>
-                        <p style="color: var(--text-gray); margin-bottom: 15px;">Rôle: Mid Laner</p>
-                        <div class="team-stats">
-                            <div class="team-stat">
-                                <div class="team-stat-number">24</div>
-                                <div class="team-stat-label">Victoires</div>
+                    <h2 class="section-title">Historique des matchs</h2>
+                    <div class="match-history">
+                        <div class="match-item">
+                            <div>
+                                <strong>Championship Series</strong>
+                                <p style="color: #888; font-size: 0.85rem;">Il y a 2 jours</p>
                             </div>
-                            <div class="team-stat">
-                                <div class="team-stat-number">68%</div>
-                                <div class="team-stat-label">Winrate</div>
+                            <span class="match-result result-win">VICTOIRE</span>
+                        </div>
+                        <div class="match-item">
+                            <div>
+                                <strong>Spring Invitational</strong>
+                                <p style="color: #888; font-size: 0.85rem;">Il y a 5 jours</p>
                             </div>
-                            <div class="team-stat">
-                                <div class="team-stat-number">#12</div>
-                                <div class="team-stat-label">Classement</div>
+                            <span class="match-result result-win">VICTOIRE</span>
+                        </div>
+                        <div class="match-item">
+                            <div>
+                                <strong>Ranked Match</strong>
+                                <p style="color: #888; font-size: 0.85rem;">Il y a 1 semaine</p>
                             </div>
+                            <span class="match-result result-loss">DÉFAITE</span>
                         </div>
-                        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="alert('Fonctionnalité à venir!')">
-                            Voir l'équipe
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Quick Stats -->
-                <div class="section">
-                    <h2 class="section-title">⚡ Stats Rapides</h2>
-                    <div style="display: flex; flex-direction: column; gap: 15px;">
-                        <div style="display: flex; justify-content: space-between; padding: 15px; background: var(--gray); border-radius: 8px;">
-                            <span>Meilleur placement</span>
-                            <span style="color: var(--gold); font-weight: bold;">🥇 1er</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; padding: 15px; background: var(--gray); border-radius: 8px;">
-                            <span>Série actuelle</span>
-                            <span style="color: var(--red); font-weight: bold;">3 victoires</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; padding: 15px; background: var(--gray); border-radius: 8px;">
-                            <span>Dernier match</span>
-                            <span style="color: var(--text-gray);">Il y a 2 jours</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; padding: 15px; background: var(--gray); border-radius: 8px;">
-                            <span>Région préférée</span>
-                            <span style="font-weight: bold;">EUW</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Recent Activity -->
-                <div class="section">
-                    <h2 class="section-title">📰 Activité Récente</h2>
-                    <div style="display: flex; flex-direction: column; gap: 15px;">
-                        <div style="padding: 15px; background: var(--gray); border-radius: 8px; border-left: 3px solid var(--red);">
-                            <p style="font-weight: bold; margin-bottom: 5px;">Victoire en tournoi</p>
-                            <p style="font-size: 12px; color: var(--text-gray);">Il y a 2 jours</p>
-                        </div>
-                        <div style="padding: 15px; background: var(--gray); border-radius: 8px; border-left: 3px solid var(--gold);">
-                            <p style="font-weight: bold; margin-bottom: 5px;">Nouveau achievement débloqué</p>
-                            <p style="font-size: 12px; color: var(--text-gray);">Il y a 4 jours</p>
-                        </div>
-                        <div style="padding: 15px; background: var(--gray); border-radius: 8px; border-left: 3px solid var(--text-gray);">
-                            <p style="font-weight: bold; margin-bottom: 5px;">Inscription à un tournoi</p>
-                            <p style="font-size: 12px; color: var(--text-gray);">Il y a 1 semaine</p>
+                        <div class="match-item">
+                            <div>
+                                <strong>Winter Cup</strong>
+                                <p style="color: #888; font-size: 0.85rem;">Il y a 2 semaines</p>
+                            </div>
+                            <span class="match-result result-win">VICTOIRE</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </main>
+    </div>
 
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    <footer>
+        <p>&copy; 2024 TLeagues. Tous droits réservés.</p>
+    </footer>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDolPqeJUYIFTXqPzn1RHdnW9U4v3InuL4",
-            authDomain: "tleagues.firebaseapp.com",
-            projectId: "tleagues",
-            storageBucket: "tleagues.firebasestorage.app",
-            messagingSenderId: "11616635622",
-            appId: "1:11616635622:web:540a507cf7830b9b99c927"
-        };
+    <script>
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+            // Show selected tab
+            document.getElementById('tab-' + tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
 
-        // Check authentication and load user data
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const displayName = user.displayName || user.email.split('@')[0];
-                const initial = displayName.charAt(0).toUpperCase();
-                
-                // Update profile with real user data
-                document.querySelector('.profile-name').innerHTML = `
-                    ${displayName}
-                    <span class="verified-badge" title="Compte vérifié">✓</span>
-                `;
-                document.querySelector('.profile-avatar').textContent = initial;
-                document.querySelector('.profile-meta .meta-item span:nth-of-type(2)').textContent = user.email;
-            } else {
-                // Redirect to login if not authenticated
-                window.location.href = 'login.html';
-            }
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Profil mis à jour avec succès !');
         });
     </script>
 </body>
