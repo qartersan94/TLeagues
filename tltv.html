@@ -1,1 +1,701 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TLTV - Streaming TLeagues</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #ff0000;
+            padding: 1.2rem 3rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ff0000;
+            text-decoration: none;
+            letter-spacing: 4px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        nav a, nav button {
+            color: #888;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        nav a:hover, nav button:hover {
+            color: #ff0000;
+        }
+
+        nav a.active, nav button.active {
+            color: #ff0000;
+        }
+
+        .dropdown button::after {
+            content: ' ▼';
+            font-size: 0.6rem;
+            margin-left: 0.3rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2.2rem;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            border: 2px solid;
+        }
+
+        .btn-inscription {
+            background: transparent;
+            color: #ff0000;
+            border-color: #ff0000;
+        }
+
+        .btn-inscription:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .btn-connexion {
+            background: #ff0000;
+            color: #fff;
+            border-color: #ff0000;
+        }
+
+        .btn-connexion:hover {
+            background: #cc0000;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 2rem 8rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff0000 0%, #ff7b7b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #999;
+            max-width: 850px;
+            margin: 0 auto 3.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 5rem 2rem;
+            margin: 3rem 0 6rem;
+        }
+
+        .stats-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .stat-card {
+            background: rgba(10, 0, 0, 0.4);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(255, 0, 0, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ff0000;
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: #666;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* Coming Soon */
+        .coming-soon {
+            background: linear-gradient(135deg, rgba(30, 0, 0, 0.6), rgba(10, 0, 0, 0.4));
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 5rem 3rem;
+            text-align: center;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            to { left: 100%; }
+        }
+
+        .coming-soon h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .coming-soon p {
+            color: #999;
+            font-size: 1.1rem;
+            max-width: 750px;
+            margin: 0 auto 3rem;
+            line-height: 1.9;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(5, 5, 5, 0.6);
+            border: 1px solid rgba(50, 50, 50, 0.5);
+            border-radius: 12px;
+            padding: 3.5rem 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            background: rgba(15, 15, 15, 0.8);
+            border-color: rgba(255, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 5rem;
+            margin-bottom: 2.5rem;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feature-card p {
+            color: #aaa;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        /* Tournaments Preview Section */
+        .tournaments-preview {
+            background: linear-gradient(180deg, transparent, rgba(20, 0, 0, 0.3), transparent);
+            padding: 6rem 2rem;
+            margin: 5rem 0;
+        }
+
+        .tournaments-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tournament-card {
+            background: linear-gradient(135deg, rgba(40, 0, 0, 0.6), rgba(20, 0, 0, 0.4));
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            transition: all 0.3s;
+        }
+
+        .tournament-card:hover {
+            border-color: #ff0000;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(255, 0, 0, 0.3);
+        }
+
+        .tournament-badge {
+            display: inline-block;
+            background: #ff0000;
+            color: #fff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .tournament-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .tournament-date {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .tournament-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .tournament-stat {
+            text-align: center;
+        }
+
+        .tournament-stat-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #ff0000;
+            margin-bottom: 0.3rem;
+        }
+
+        .tournament-stat-label {
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tournament-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-small {
+            padding: 0.7rem 1.5rem;
+            font-size: 0.75rem;
+            flex: 1;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(30, 0, 0, 0.5), rgba(10, 0, 0, 0.3));
+            padding: 5rem 2rem;
+            text-align: center;
+            margin: 5rem 0 0;
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            color: #999;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(5, 0, 0, 0.5);
+            border-top: 2px solid #ff0000;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-section h4 {
+            color: #ff0000;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .footer-section p {
+            color: #666;
+            line-height: 1.7;
+            font-size: 0.9rem;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #666;
+            text-decoration: none;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-section a:hover {
+            color: #ff0000;
+            padding-left: 8px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255, 0, 0, 0.2);
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 968px) {
+            nav ul {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .stats-grid, .tournaments-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">TLEAGUES</a>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">ACCUEIL</a></li>
+                    <li class="dropdown"><button>COMPÉTITIONS</button></li>
+                    <li class="dropdown"><button>ÉQUIPES</button></li>
+                    <li class="dropdown"><button>DASHBOARD</button></li>
+                    <li class="dropdown"><button class="active">PLUS</button></li>
+                </ul>
+            </nav>
+
+            <div class="nav-buttons">
+                <a href="register.html" class="btn btn-inscription">INSCRIPTION</a>
+                <a href="login.html" class="btn btn-connexion">CONNEXION</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>DOMINEZ LE STREAMING</h1>
+        <p>
+            La plateforme ultime pour les tournois League of Legends. Rejoignez des milliers de 
+            joueurs compétitifs et prouvez votre valeur.
+        </p>
+        <div class="hero-buttons">
+            <a href="register.html" class="btn btn-connexion">CRÉER UN COMPTE</a>
+            <a href="tournois.html" class="btn btn-inscription">VOIR LES TOURNOIS</a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <div class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-number">0</div>
+                <div class="stat-label">STREAMS EN DIRECT</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number">0</div>
+                <div class="stat-label">VIEWERS ACTIFS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-number">0</div>
+                <div class="stat-label">VODS DISPONIBLES</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎮</div>
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">SUPPORT ACTIF</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">FONCTIONNALITÉS</h2>
+            <p class="section-subtitle">Tout ce dont vous avez besoin pour exceller</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Latence Ultra-Faible</h3>
+                <p>
+                    Technologie WebRTC pour une latence inférieure à 1 seconde. 
+                    Idéal pour les matchs compétitifs et l'interaction en temps réel.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>Chat Temps Réel</h3>
+                <p>
+                    Interagissez avec votre communauté via un chat intégré avec émotes 
+                    personnalisées et modération automatique.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Overlay Intelligent</h3>
+                <p>
+                    HUD personnalisé avec statistiques en temps réel et intégration 
+                    automatique des scores de tournois TLeagues.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎥</div>
+                <h3>VODs & Replays</h3>
+                <p>
+                    Enregistrement automatique de tous vos streams et création facile 
+                    de clips pour immortaliser vos meilleurs moments.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>Intégration Tournois</h3>
+                <p>
+                    Streamez vos matchs officiels TLeagues avec badge vérifié et 
+                    affichage automatique dans les brackets.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Monétisation</h3>
+                <p>
+                    Programme partenaire avec abonnements et donations pour vivre 
+                    de votre passion esport.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tournaments Preview -->
+    <div class="tournaments-preview">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">STREAMS À VENIR</h2>
+                <p class="section-subtitle">Préparez-vous pour les prochains événements</p>
+            </div>
+
+            <div class="coming-soon">
+                <h2>🎬 BIENTÔT DISPONIBLE</h2>
+                <p>
+                    TLTV est actuellement en développement. Nous travaillons sur une plateforme 
+                    de streaming révolutionnaire optimisée pour les tournois League of Legends. 
+                    Inscrivez-vous dès maintenant pour être notifié du lancement !
+                </p>
+                <a href="register.html" class="btn btn-connexion">ME NOTIFIER AU LANCEMENT</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h2>PRÊT À COMMENCER ?</h2>
+        <p>Rejoignez la communauté TLeagues dès aujourd'hui</p>
+        <div class="hero-buttons">
+            <a href="register.html" class="btn btn-connexion">CRÉER UN COMPTE GRATUITEMENT</a>
+            <a href="tournois.html" class="btn btn-inscription">EXPLORER LES TOURNOIS</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>TLeagues</h4>
+                <p>
+                    La plateforme de référence pour les tournois esports League of Legends. 
+                    Organisez, participez et dominez.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <a href="tournois.html">Tournois</a>
+                <a href="leagues.html">Ligues</a>
+                <a href="cups.html">Coupes</a>
+                <a href="mercato.html">Mercato</a>
+            </div>
+            <div class="footer-section">
+                <h4>Compte</h4>
+                <a href="register.html">Créer un compte</a>
+                <a href="login.html">Connexion</a>
+                <a href="dashboard.html">Dashboard</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="services.html">Services</a>
+                <a href="services.html#faq">FAQ</a>
+                <a href="services.html#contact">Contact</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 TLeagues. Tous droits réservés. Made with 🔥 for esports.
+        </div>
+    </footer>
+</body>
+</html>
