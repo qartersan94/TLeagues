@@ -6,88 +6,137 @@
     <title>Connexion - TLeagues</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #000; color: #fff; min-height: 100vh; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #000; color: #fff; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
         
-        nav { background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 0, 0, 0.1); padding: 1.2rem 5%; }
-        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        /* Navigation */
+        nav { background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 0, 0, 0.1); padding: 1.2rem 5%; position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
         .logo { font-size: 1.8rem; font-weight: 900; color: #ff0000; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { color: #666; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-links a.active { color: #ff0000; }
+        .dropdown { position: relative; }
+        .dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 0.3rem; }
+        .dropdown-toggle::after { content: '▼'; font-size: 0.7rem; transition: transform 0.3s; }
+        .dropdown:hover .dropdown-toggle::after { transform: rotate(180deg); }
+        .dropdown-menu { position: absolute; top: 100%; left: 0; background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 8px; min-width: 220px; padding: 0.5rem 0; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-menu a { padding: 0.75rem 1.5rem; font-size: 0.85rem; display: block; }
+        .dropdown-menu a:hover { background: rgba(255, 0, 0, 0.1); }
+        .nav-actions { display: flex; gap: 1rem; }
+        .btn-connexion { background: #ff0000; color: #fff; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; transition: all 0.3s; }
+        .btn-connexion:hover { background: #cc0000; transform: translateY(-2px); }
+        .btn-inscription { background: transparent !important; border: 2px solid #ff0000; }
         
-        .login-container { max-width: 450px; margin: 8rem auto; padding: 0 2rem; }
-        .login-card { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 3rem; }
+        /* Main Content */
+        main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 4rem 5%; }
+        
+        /* Login Container */
+        .login-container { max-width: 450px; width: 100%; background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 3rem; }
         .login-header { text-align: center; margin-bottom: 2.5rem; }
-        .login-header h1 { font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem; background: linear-gradient(135deg, #ff0000 0%, #fff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .login-header p { color: #999; }
+        .login-header h1 { font-size: 2.5rem; font-weight: 900; margin-bottom: 0.8rem; text-transform: uppercase; background: linear-gradient(135deg, #ff0000 0%, #fff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .login-header p { color: #666; font-size: 0.95rem; }
         
+        /* Form */
         .form-group { margin-bottom: 1.5rem; }
-        .form-label { display: block; color: #999; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem; }
-        .form-input { width: 100%; background: rgba(255, 0, 0, 0.05); border: 1px solid rgba(255, 0, 0, 0.2); color: #fff; padding: 1rem; border-radius: 6px; font-size: 1rem; transition: all 0.3s; }
-        .form-input:focus { outline: none; border-color: #ff0000; background: rgba(255, 0, 0, 0.1); }
+        label { display: block; margin-bottom: 0.6rem; color: #666; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+        input { width: 100%; padding: 1rem 1.2rem; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 6px; color: #fff; font-size: 0.95rem; transition: all 0.3s; }
+        input:focus { outline: none; border-color: #ff0000; background: rgba(0, 0, 0, 0.7); }
+        input::placeholder { color: #555; }
         
-        .form-options { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-        .checkbox-group { display: flex; align-items: center; gap: 0.5rem; }
-        .checkbox-group input { width: 16px; height: 16px; cursor: pointer; }
-        .checkbox-group label { color: #999; font-size: 0.9rem; cursor: pointer; }
-        .forgot-link { color: #ff0000; text-decoration: none; font-size: 0.9rem; }
-        .forgot-link:hover { text-decoration: underline; }
+        .forgot-password { text-align: right; margin-top: 0.5rem; }
+        .forgot-password a { color: #ff0000; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: color 0.3s; }
+        .forgot-password a:hover { color: #cc0000; }
         
-        .btn-login { width: 100%; background: #ff0000; color: #fff; padding: 1.2rem; border: none; border-radius: 6px; font-weight: 700; text-transform: uppercase; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; }
+        .btn-login { width: 100%; padding: 1.1rem; background: #ff0000; border: none; border-radius: 6px; color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; margin-top: 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
         .btn-login:hover { background: #cc0000; transform: translateY(-2px); }
         
-        .divider { text-align: center; margin: 2rem 0; color: #666; position: relative; }
-        .divider::before, .divider::after { content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: rgba(255, 0, 0, 0.2); }
+        .divider { text-align: center; margin: 2rem 0; color: #666; position: relative; font-size: 0.85rem; font-weight: 600; }
+        .divider::before, .divider::after { content: ''; position: absolute; top: 50%; width: 42%; height: 1px; background: rgba(255, 0, 0, 0.2); }
         .divider::before { left: 0; }
         .divider::after { right: 0; }
         
-        .social-login { display: grid; gap: 1rem; margin-bottom: 2rem; }
-        .btn-social { background: rgba(255, 0, 0, 0.05); border: 1px solid rgba(255, 0, 0, 0.2); color: #fff; padding: 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-align: center; text-decoration: none; }
-        .btn-social:hover { background: rgba(255, 0, 0, 0.1); border-color: #ff0000; }
+        .social-login { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+        .btn-social { flex: 1; padding: 0.9rem; background: rgba(255, 0, 0, 0.05); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 6px; color: #fff; cursor: pointer; transition: all 0.3s; font-size: 0.9rem; font-weight: 600; }
+        .btn-social:hover { border-color: #ff0000; background: rgba(255, 0, 0, 0.1); }
         
-        .form-footer { text-align: center; color: #666; }
-        .form-footer a { color: #ff0000; text-decoration: none; font-weight: 700; }
-        .form-footer a:hover { text-decoration: underline; }
+        .register-link { text-align: center; margin-top: 2rem; color: #666; font-size: 0.95rem; }
+        .register-link a { color: #ff0000; text-decoration: none; font-weight: 700; transition: color 0.3s; }
+        .register-link a:hover { color: #cc0000; }
         
-        footer { background: #0a0a0a; padding: 4rem 5% 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); margin-top: 5rem; }
-        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
-        .footer-section h3 { color: #ff0000; font-weight: 900; margin-bottom: 1.5rem; text-transform: uppercase; }
-        .footer-section a { display: block; color: #666; text-decoration: none; margin-bottom: 0.7rem; transition: color 0.3s; }
-        .footer-section a:hover { color: #ff0000; }
-        .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
-        .social-link { width: 45px; height: 45px; background: rgba(255, 0, 0, 0.1); border: 2px solid rgba(255, 0, 0, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.4rem; transition: all 0.3s; }
-        .social-link:hover { background: #ff0000; transform: translateY(-3px); }
-        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); color: #666; }
+        /* Footer */
+        footer { background: #0a0a0a; padding: 2rem 5%; text-align: center; border-top: 1px solid rgba(255, 0, 0, 0.1); }
+        .footer-bottom { color: #666; font-size: 0.85rem; }
+        
+        @media (max-width: 968px) {
+            .nav-links { display: none; }
+            .login-container { padding: 2rem; }
+        }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">TLEAGUES</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Compétitions</a>
+                    <div class="dropdown-menu">
+                        <a href="tournois.html">🏆 Tournois</a>
+                        <a href="leagues.html">🎖️ Ligues</a>
+                        <a href="cups.html">🏅 Coupes</a>
+                        <a href="bracket.html">📊 Brackets</a>
+                        <a href="match-detail.html">⚔️ Match</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Équipes</a>
+                    <div class="dropdown-menu">
+                        <a href="equipe.html">👥 Mon Équipe</a>
+                        <a href="team-manager.html">⚙️ Gestion</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Dashboard</a>
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html">📈 Dashboard</a>
+                        <a href="profil.html">👤 Profil</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Plus</a>
+                    <div class="dropdown-menu">
+                        <a href="services.html">📋 Services</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="nav-actions">
+                <a href="register.html" class="btn-connexion btn-inscription">Inscription</a>
+                <a href="login.html" class="btn-connexion">Connexion</a>
+            </div>
         </div>
     </nav>
 
-    <div class="login-container">
-        <div class="login-card">
+    <main>
+        <div class="login-container">
             <div class="login-header">
                 <h1>Connexion</h1>
-                <p>Bon retour sur TLeagues !</p>
+                <p>Connectez-vous à votre compte</p>
             </div>
 
-            <form>
+            <form id="loginForm">
                 <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-input" placeholder="votre@email.com" required>
+                    <label for="email">Email ou Pseudo</label>
+                    <input type="text" id="email" placeholder="votre@email.com" required>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Mot de passe</label>
-                    <input type="password" class="form-input" placeholder="••••••••" required>
-                </div>
-
-                <div class="form-options">
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="remember">
-                        <label for="remember">Se souvenir de moi</label>
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                    <div class="forgot-password">
+                        <a href="forgot-password.html">Mot de passe oublié ?</a>
                     </div>
-                    <a href="forgot-password.html" class="forgot-link">Mot de passe oublié ?</a>
                 </div>
 
                 <button type="submit" class="btn-login">Se connecter</button>
@@ -96,42 +145,28 @@
             <div class="divider">OU</div>
 
             <div class="social-login">
-                <a href="#" class="btn-social">🎮 Connexion avec Riot Games</a>
-                <a href="#" class="btn-social">💬 Connexion avec Discord</a>
+                <button class="btn-social">🎮 Steam</button>
+                <button class="btn-social">💬 Discord</button>
             </div>
 
-            <div class="form-footer">
-                Pas encore de compte ? <a href="register.html">S'inscrire</a>
+            <div class="register-link">
+                Pas encore de compte ? <a href="register.html">Créer un compte</a>
             </div>
         </div>
-    </div>
+    </main>
 
     <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>TLeagues</h3>
-                <div class="social-links">
-                    <a href="https://discord.gg/WjQuuPvAVA" class="social-link">💬</a>
-                    <a href="#" class="social-link">🐦</a>
-                    <a href="#" class="social-link">📺</a>
-                    <a href="#" class="social-link">▶️</a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h3>Navigation</h3>
-                <a href="tournois.html">Tournois</a>
-                <a href="leagues.html">Ligues</a>
-                <a href="cups.html">Coupes</a>
-            </div>
-            <div class="footer-section">
-                <h3>Support</h3>
-                <a href="services.html">Services</a>
-                <a href="services.html#faq">FAQ</a>
-            </div>
-        </div>
         <div class="footer-bottom">
-            © 2026 TLeagues. Tous droits réservés.
+            © 2026 TLeagues. Tous droits réservés. Made with 🔥 for esports.
         </div>
     </footer>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Connexion réussie !');
+            window.location.href = 'dashboard.html';
+        });
+    </script>
 </body>
 </html>
