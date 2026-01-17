@@ -5,682 +5,424 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Profil - TLeagues</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #000000;
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Header */
-        header {
-            background: #000000;
-            padding: 1.5rem 3rem;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
-        }
-
-        nav {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #ff0000;
-            text-decoration: none;
-            letter-spacing: 2px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #999;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 500;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-links a:hover {
-            color: #fff;
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border: 2px solid rgba(255, 0, 0, 0.3);
-        }
-
-        /* Main Layout */
-        .dashboard-container {
-            display: flex;
-            max-width: 1600px;
-            margin: 0 auto;
-            width: 100%;
-            flex: 1;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 250px;
-            background: rgba(10, 0, 0, 0.3);
-            border-right: 1px solid rgba(255, 0, 0, 0.1);
-            padding: 2rem 0;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-        }
-
-        .sidebar-menu li {
-            margin-bottom: 0.5rem;
-        }
-
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 1.5rem;
-            color: #999;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .sidebar-menu a:hover,
-        .sidebar-menu a.active {
-            background: rgba(255, 0, 0, 0.1);
-            color: #fff;
-            border-left: 3px solid #ff0000;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+        
+        /* Navigation */
+        nav { background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 0, 0, 0.1); padding: 1.2rem 5%; position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+        .logo { font-size: 1.8rem; font-weight: 900; color: #ff0000; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { color: #666; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-links a.active { color: #ff0000; }
+        .dropdown { position: relative; }
+        .dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 0.3rem; }
+        .dropdown-toggle::after { content: '▼'; font-size: 0.7rem; transition: transform 0.3s; }
+        .dropdown:hover .dropdown-toggle::after { transform: rotate(180deg); }
+        .dropdown-menu { position: absolute; top: calc(100% + 0.5rem); left: 0; background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 8px; min-width: 220px; padding: 0.5rem 0; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-menu a { padding: 0.75rem 1.5rem; font-size: 0.85rem; display: block; color: #999; text-decoration: none; transition: all 0.3s; }
+        .dropdown-menu a:hover { background: rgba(255, 0, 0, 0.1); color: #fff; }
+        .user-menu { position: relative; }
+        .user-menu-toggle { display: flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem; background: transparent; border: 2px solid #ff0000; color: #ff0000; border-radius: 6px; cursor: pointer; transition: all 0.3s; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; }
+        .user-menu-toggle:hover { background: #ff0000; color: #fff; }
+        .user-menu .dropdown-menu { right: 0; left: auto; }
+        
         /* Main Content */
-        .main-content {
-            flex: 1;
-            padding: 2rem;
-            overflow-y: auto;
-        }
-
-        /* Profile Header */
-        .profile-header {
-            background: rgba(20, 0, 0, 0.4);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .profile-avatar-large {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            font-weight: bold;
-            border: 3px solid rgba(255, 0, 0, 0.5);
-            position: relative;
-        }
-
-        .edit-avatar-btn {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 35px;
-            height: 35px;
-            background: #ff0000;
-            border-radius: 50%;
-            border: 2px solid #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .edit-avatar-btn:hover {
-            transform: scale(1.1);
-            background: #ff3333;
-        }
-
-        .profile-info {
-            flex: 1;
-        }
-
-        .profile-name {
-            font-size: 2rem;
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-
-        .profile-username {
-            color: #888;
-            margin-bottom: 1rem;
-        }
-
-        .profile-stats {
-            display: flex;
-            gap: 2rem;
-            margin-top: 1rem;
-        }
-
-        .profile-stat {
-            text-align: center;
-        }
-
-        .profile-stat-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #ff0000;
-        }
-
-        .profile-stat-label {
-            font-size: 0.85rem;
-            color: #888;
-            text-transform: uppercase;
-        }
-
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .tab {
-            padding: 1rem 1.5rem;
-            background: transparent;
-            border: none;
-            color: #888;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .tab.active {
-            color: #ff0000;
-            border-bottom-color: #ff0000;
-        }
-
-        .tab:hover {
-            color: #fff;
-        }
-
-        /* Tab Content */
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Section */
-        .section {
-            background: rgba(20, 0, 0, 0.4);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-title {
-            font-size: 1.3rem;
-            color: #fff;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-        }
-
-        /* Form */
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.6rem;
-            color: #aaa;
-            font-weight: 400;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 0.9rem 1rem;
-            background: rgba(30, 0, 0, 0.5);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 4px;
-            color: #fff;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-        }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #ff0000;
-            background: rgba(40, 0, 0, 0.6);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        select option {
-            background: #1a0000;
-        }
-
-        .btn-save {
-            padding: 1rem 2rem;
-            background: #ff0000;
-            border: none;
-            border-radius: 4px;
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-save:hover {
-            background: #cc0000;
-            transform: translateY(-1px);
-        }
-
-        /* Achievement Grid */
-        .achievement-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1rem;
-        }
-
-        .achievement-card {
-            background: rgba(30, 0, 0, 0.5);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .achievement-card:hover {
-            border-color: #ff0000;
-            transform: translateY(-2px);
-        }
-
-        .achievement-icon {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .achievement-name {
-            font-size: 0.9rem;
-            color: #fff;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-        }
-
-        .achievement-desc {
-            font-size: 0.75rem;
-            color: #888;
-        }
-
-        /* Match History */
-        .match-history {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .match-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem;
-            background: rgba(30, 0, 0, 0.5);
-            border: 1px solid rgba(255, 0, 0, 0.1);
-            border-radius: 6px;
-        }
-
-        .match-result {
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.85rem;
-        }
-
-        .result-win {
-            background: rgba(0, 255, 0, 0.2);
-            color: #66ff66;
-        }
-
-        .result-loss {
-            background: rgba(255, 0, 0, 0.2);
-            color: #ff6666;
-        }
-
+        .main-content { max-width: 1400px; margin: 0 auto; padding: 3rem 5%; }
+        
+        /* Page Header */
+        .page-header { margin-bottom: 3rem; }
+        .page-title { font-size: 2.5rem; font-weight: 900; text-transform: uppercase; color: #ff0000; margin-bottom: 0.5rem; }
+        .page-subtitle { color: #666; font-size: 1rem; }
+        
+        /* Profile Layout */
+        .profile-layout { display: grid; grid-template-columns: 350px 1fr; gap: 2rem; }
+        
+        /* Profile Sidebar */
+        .profile-sidebar { display: flex; flex-direction: column; gap: 2rem; }
+        .profile-card { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 2rem; }
+        
+        /* Photo Section */
+        .photo-section { text-align: center; }
+        .photo-container { position: relative; width: 150px; height: 150px; margin: 0 auto 1.5rem; background: rgba(255, 0, 0, 0.05); border: 2px solid rgba(255, 0, 0, 0.2); border-radius: 50%; padding: 10px; }
+        .profile-photo { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; cursor: pointer; }
+        .photo-upload-btn { position: absolute; bottom: 5px; right: 5px; width: 40px; height: 40px; background: #ff0000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; cursor: pointer; border: 3px solid #0a0a0a; transition: all 0.3s; }
+        .photo-upload-btn:hover { background: #cc0000; transform: scale(1.1); }
+        #photoInput { display: none; }
+        .photo-actions { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+        .btn { padding: 0.7rem 1.5rem; border-radius: 6px; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; cursor: pointer; transition: all 0.3s; text-align: center; border: none; }
+        .btn-primary { background: #ff0000; color: #fff; }
+        .btn-primary:hover { background: #cc0000; }
+        .btn-secondary { background: transparent; border: 2px solid rgba(255, 0, 0, 0.3); color: #999; }
+        .btn-secondary:hover { border-color: #ff0000; color: #ff0000; }
+        
+        /* Stats Card */
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .stat-item { text-align: center; padding: 1rem; background: rgba(255, 0, 0, 0.03); border: 1px solid rgba(255, 0, 0, 0.1); border-radius: 8px; }
+        .stat-value { font-size: 1.8rem; font-weight: 900; color: #ff0000; margin-bottom: 0.3rem; }
+        .stat-label { font-size: 0.75rem; color: #666; text-transform: uppercase; }
+        
+        /* Premium Badge */
+        .premium-badge { background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 140, 0, 0.1)); border: 2px solid rgba(255, 215, 0, 0.3); border-radius: 8px; padding: 1rem; text-align: center; margin-top: 1rem; }
+        .premium-badge h4 { color: #ffd700; font-size: 0.9rem; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .premium-badge p { color: #999; font-size: 0.8rem; margin-bottom: 1rem; }
+        .btn-premium { background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%); color: #000; padding: 0.7rem 1.5rem; border-radius: 6px; font-weight: 900; text-transform: uppercase; font-size: 0.8rem; cursor: pointer; border: none; transition: all 0.3s; text-decoration: none; display: inline-block; }
+        .btn-premium:hover { transform: translateY(-2px); }
+        
+        /* Main Profile Content */
+        .profile-content { display: flex; flex-direction: column; gap: 2rem; }
+        .section { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 2rem; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 0, 0, 0.1); }
+        .section-title { font-size: 1.3rem; font-weight: 900; text-transform: uppercase; color: #ff0000; }
+        
+        /* Form Styles */
+        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group.full-width { grid-column: 1 / -1; }
+        .form-label { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: #999; margin-bottom: 0.5rem; letter-spacing: 1px; }
+        .form-input { padding: 0.9rem 1.2rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 6px; color: #fff; font-size: 0.95rem; transition: all 0.3s; }
+        .form-input:focus { outline: none; border-color: #ff0000; background: rgba(255, 0, 0, 0.05); }
+        .form-input:disabled { opacity: 0.5; cursor: not-allowed; }
+        textarea.form-input { resize: vertical; min-height: 100px; font-family: inherit; }
+        .form-actions { display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem; }
+        
+        /* Security Section */
+        .security-item { padding: 1.5rem; background: rgba(255, 0, 0, 0.03); border: 1px solid rgba(255, 0, 0, 0.1); border-radius: 8px; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .security-info h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .security-info p { font-size: 0.85rem; color: #666; }
+        
+        /* Linked Accounts */
+        .account-item { padding: 1.5rem; background: rgba(255, 0, 0, 0.03); border: 1px solid rgba(255, 0, 0, 0.1); border-radius: 8px; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .account-info { display: flex; align-items: center; gap: 1rem; }
+        .account-icon { width: 50px; height: 50px; background: rgba(255, 0, 0, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .account-details h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .account-details p { font-size: 0.85rem; color: #666; }
+        .account-status { padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .status-connected { background: rgba(0, 255, 0, 0.1); color: #0f0; }
+        .status-disconnected { background: rgba(255, 0, 0, 0.1); color: #f00; }
+        
+        /* Preferences */
+        .preference-item { padding: 1.5rem; background: rgba(255, 0, 0, 0.03); border: 1px solid rgba(255, 0, 0, 0.1); border-radius: 8px; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .preference-info h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .preference-info p { font-size: 0.85rem; color: #666; }
+        .toggle-switch { position: relative; width: 60px; height: 30px; background: rgba(255, 255, 255, 0.1); border-radius: 15px; cursor: pointer; transition: all 0.3s; }
+        .toggle-switch.active { background: #ff0000; }
+        .toggle-switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; background: #fff; border-radius: 50%; transition: all 0.3s; }
+        .toggle-switch.active::after { left: 33px; }
+        
         /* Footer */
-        footer {
-            background: #000000;
-            padding: 1.5rem 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(255, 0, 0, 0.1);
-        }
-
-        footer p {
-            color: #666;
-            font-size: 0.85rem;
-        }
-
-        @media (max-width: 1024px) {
-            .sidebar {
-                width: 200px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .dashboard-container {
-                flex-direction: column;
-            }
-
-            .sidebar {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid rgba(255, 0, 0, 0.1);
-            }
-
-            .profile-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .profile-stats {
-                justify-content: center;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+        footer { background: #0a0a0a; padding: 4rem 5% 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); margin-top: 5rem; }
+        .footer-content { max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+        .footer-section h3 { color: #ff0000; font-weight: 900; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 1rem; }
+        .footer-section a { display: block; color: #666; text-decoration: none; margin-bottom: 0.7rem; transition: color 0.3s; }
+        .footer-section a:hover { color: #ff0000; }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); color: #666; }
+        
+        @media (max-width: 1200px) {
+            .profile-layout { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
             <a href="index.html" class="logo">TLEAGUES</a>
             <ul class="nav-links">
                 <li><a href="index.html">Accueil</a></li>
-                <li><a href="browse-tournaments.html">Compétitions</a></li>
-                <li><a href="teams.html">Services</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Compétitions</a>
+                    <div class="dropdown-menu">
+                        <a href="tournois.html">🏆 Tournois</a>
+                        <a href="leagues.html">🎖️ Ligues</a>
+                        <a href="cups.html">🏅 Coupes</a>
+                        <a href="bracket.html">📊 Brackets</a>
+                        <a href="match-detail.html">⚔️ Match</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Équipes</a>
+                    <div class="dropdown-menu">
+                        <a href="equipe.html">👥 Mon Équipe</a>
+                        <a href="team-manager.html">⚙️ Gestion</a>
+                        <a href="mercato.html">🔄 Mercato</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Dashboard</a>
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html">📈 Dashboard</a>
+                        <a href="dashboard-capitaine.html">👑 Capitaine</a>
+                        <a href="dashboard-joueur-solo.html">⚔️ Joueur</a>
+                        <a href="dashboard-staff.html">🎯 Staff</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle active">Plus</a>
+                    <div class="dropdown-menu">
+                        <a href="profil.html">👤 Profil</a>
+                        <a href="streaming.html">📺 Streaming</a>
+                        <a href="outils.html">🔧 Outils</a>
+                        <a href="services.html">📋 Services</a>
+                    </div>
+                </li>
             </ul>
-            <div class="user-menu">
-                <div class="user-avatar">PG</div>
-            </div>
-        </nav>
-    </header>
-
-    <div class="dashboard-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <ul class="sidebar-menu">
-                <li><a href="dashboard.html">📊 Vue d'ensemble</a></li>
-                <li><a href="profile.html" class="active">👤 Mon profil</a></li>
-                <li><a href="browse-tournaments.html">🏆 Tournois</a></li>
-                <li><a href="teams.html">👥 Mon équipe</a></li>
-                <li><a href="match-detail.html">⚔️ Mes matchs</a></li>
-                <li><a href="leaderboard.html">📈 Classements</a></li>
-                <li><a href="#">⚙️ Paramètres</a></li>
-                <li><a href="login.html">🚪 Déconnexion</a></li>
-            </ul>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Profile Header -->
-            <div class="profile-header">
-                <div class="profile-avatar-large">
-                    PG
-                    <div class="edit-avatar-btn">📷</div>
+            <div class="user-menu dropdown">
+                <div class="user-menu-toggle dropdown-toggle">
+                    <span id="navUsername">Utilisateur</span>
                 </div>
-                <div class="profile-info">
-                    <h1 class="profile-name">ProGamer</h1>
-                    <p class="profile-username">@progamer2024</p>
-                    <div class="profile-stats">
-                        <div class="profile-stat">
-                            <div class="profile-stat-value">75%</div>
-                            <div class="profile-stat-label">Winrate</div>
+                <div class="dropdown-menu">
+                    <a href="dashboard.html">📈 Dashboard</a>
+                    <a href="profil.html">👤 Mon Profil</a>
+                    <a id="navAdminLink" href="admin.html" style="display: none;">⚙️ Administration</a>
+                    <a id="navManagerLink" href="team-manager.html" style="display: none;">👑 Mes Équipes</a>
+                    <a href="#" onclick="logout()" style="color: #ff0000;">🚪 Déconnexion</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">👤 Mon Profil</h1>
+            <p class="page-subtitle">Gérez vos informations personnelles et vos préférences</p>
+        </div>
+
+        <!-- Profile Layout -->
+        <div class="profile-layout">
+            <!-- Sidebar -->
+            <div class="profile-sidebar">
+                <!-- Photo Card -->
+                <div class="profile-card photo-section">
+                    <div class="photo-container">
+                        <img id="profilePhoto" src="https://ui-avatars.com/api/?name=User&background=ff0000&color=fff&size=200" alt="" class="profile-photo" onclick="document.getElementById('photoInput').click()">
+                        <div class="photo-upload-btn" onclick="document.getElementById('photoInput').click()">📷</div>
+                    </div>
+                    <input type="file" id="photoInput" accept="image/*">
+                    <h3 id="sidebarName" style="font-size: 1.3rem; font-weight: 900; margin-bottom: 0.3rem;">John Doe</h3>
+                    <p style="color: #666; font-size: 0.85rem; margin-bottom: 1rem;">john.doe@tleagues.com</p>
+                    <div class="photo-actions">
+                        <button class="btn btn-primary" onclick="document.getElementById('photoInput').click()">📷 Changer la photo</button>
+                        <button class="btn btn-secondary" onclick="removePhoto()">🗑️ Supprimer</button>
+                    </div>
+                </div>
+
+                <!-- Stats Card -->
+                <div class="profile-card">
+                    <h3 style="font-size: 1.1rem; font-weight: 900; margin-bottom: 1.5rem; text-transform: uppercase; color: #ff0000;">📊 Statistiques</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">47</div>
+                            <div class="stat-label">Matchs</div>
                         </div>
-                        <div class="profile-stat">
-                            <div class="profile-stat-value">48</div>
-                            <div class="profile-stat-label">Matchs</div>
+                        <div class="stat-item">
+                            <div class="stat-value">29</div>
+                            <div class="stat-label">Victoires</div>
                         </div>
-                        <div class="profile-stat">
-                            <div class="profile-stat-value">#24</div>
-                            <div class="profile-stat-label">Rang</div>
+                        <div class="stat-item">
+                            <div class="stat-value">61.7%</div>
+                            <div class="stat-label">Winrate</div>
                         </div>
-                        <div class="profile-stat">
-                            <div class="profile-stat-value">2.5k</div>
-                            <div class="profile-stat-label">Points</div>
+                        <div class="stat-item">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Niveau</div>
                         </div>
+                    </div>
+                    <div class="premium-badge">
+                        <h4>⚡ PASSEZ À PREMIUM</h4>
+                        <p>Débloquez les stats avancées</p>
+                        <a href="services.html#premium" class="btn-premium">VOIR LES OFFRES</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Tabs -->
-            <div class="tabs">
-                <button class="tab active" onclick="switchTab('info')">Informations</button>
-                <button class="tab" onclick="switchTab('achievements')">Succès</button>
-                <button class="tab" onclick="switchTab('history')">Historique</button>
-            </div>
-
-            <!-- Tab: Informations -->
-            <div class="tab-content active" id="tab-info">
+            <!-- Main Content -->
+            <div class="profile-content">
+                <!-- Informations Personnelles -->
                 <div class="section">
-                    <h2 class="section-title">Informations personnelles</h2>
+                    <div class="section-header">
+                        <h2 class="section-title">📝 Informations Personnelles</h2>
+                    </div>
                     <form id="profileForm">
-                        <div class="form-row">
+                        <div class="form-grid">
                             <div class="form-group">
-                                <label for="firstName">Prénom</label>
-                                <input type="text" id="firstName" value="John">
+                                <label class="form-label">Prénom</label>
+                                <input type="text" class="form-input" id="firstName" value="John" required>
                             </div>
                             <div class="form-group">
-                                <label for="lastName">Nom</label>
-                                <input type="text" id="lastName" value="Doe">
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="username">Pseudo</label>
-                                <input type="text" id="username" value="ProGamer2024">
+                                <label class="form-label">Nom</label>
+                                <input type="text" class="form-input" id="lastName" value="Doe" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" value="progamer@example.com">
+                                <label class="form-label">Nom d'utilisateur</label>
+                                <input type="text" class="form-input" id="username" value="johndoe" required>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="bio">Biographie</label>
-                            <textarea id="bio" placeholder="Parlez-nous de vous...">Joueur compétitif depuis 5 ans. Spécialisé dans les FPS et MOBA. Capitaine d'équipe.</textarea>
-                        </div>
-
-                        <div class="form-row">
                             <div class="form-group">
-                                <label for="country">Pays</label>
-                                <select id="country">
-                                    <option>France</option>
-                                    <option>Belgique</option>
-                                    <option>Suisse</option>
-                                    <option>Canada</option>
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" id="email" value="john.doe@tleagues.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Date de naissance</label>
+                                <input type="date" class="form-input" id="birthdate" value="1995-06-15">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Pays</label>
+                                <select class="form-input" id="country">
+                                    <option value="FR">France</option>
+                                    <option value="BE">Belgique</option>
+                                    <option value="CH">Suisse</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="US">États-Unis</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="mainGame">Jeu principal</label>
-                                <select id="mainGame">
-                                    <option>League of Legends</option>
-                                    <option>Valorant</option>
-                                    <option>CS:GO</option>
-                                    <option>Dota 2</option>
-                                </select>
+                            <div class="form-group full-width">
+                                <label class="form-label">Bio</label>
+                                <textarea class="form-input" id="bio" placeholder="Parlez-nous de vous...">Joueur passionné de League of Legends depuis 5 ans. Main Mid Lane, adepte des champions assassins.</textarea>
                             </div>
                         </div>
-
-                        <button type="submit" class="btn-save">Enregistrer les modifications</button>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Annuler</button>
+                            <button type="submit" class="btn btn-primary">💾 Sauvegarder</button>
+                        </div>
                     </form>
                 </div>
-            </div>
 
-            <!-- Tab: Achievements -->
-            <div class="tab-content" id="tab-achievements">
+                <!-- Informations de Jeu -->
                 <div class="section">
-                    <h2 class="section-title">Mes succès</h2>
-                    <div class="achievement-grid">
-                        <div class="achievement-card">
-                            <div class="achievement-icon">🏆</div>
-                            <div class="achievement-name">Champion</div>
-                            <div class="achievement-desc">Gagner 10 tournois</div>
+                    <div class="section-header">
+                        <h2 class="section-title">🎮 Informations de Jeu</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Summoner Name (LOL)</label>
+                            <input type="text" class="form-input" id="summonerName" value="JohnDoeLOL" placeholder="Votre nom d'invocateur">
                         </div>
-                        <div class="achievement-card">
-                            <div class="achievement-icon">⚔️</div>
-                            <div class="achievement-name">Vétéran</div>
-                            <div class="achievement-desc">100 matchs joués</div>
+                        <div class="form-group">
+                            <label class="form-label">Serveur</label>
+                            <select class="form-input" id="server">
+                                <option value="EUW">EUW (Europe West)</option>
+                                <option value="EUNE">EUNE (Europe Nordic & East)</option>
+                                <option value="NA">NA (North America)</option>
+                                <option value="KR">KR (Korea)</option>
+                            </select>
                         </div>
-                        <div class="achievement-card">
-                            <div class="achievement-icon">🔥</div>
-                            <div class="achievement-name">En feu</div>
-                            <div class="achievement-desc">10 victoires d'affilée</div>
+                        <div class="form-group">
+                            <label class="form-label">Rôle Principal</label>
+                            <select class="form-input" id="mainRole">
+                                <option value="Top">Top</option>
+                                <option value="Jungle">Jungle</option>
+                                <option value="Mid" selected>Mid</option>
+                                <option value="ADC">ADC</option>
+                                <option value="Support">Support</option>
+                            </select>
                         </div>
-                        <div class="achievement-card">
-                            <div class="achievement-icon">⭐</div>
-                            <div class="achievement-name">Top 50</div>
-                            <div class="achievement-desc">Atteindre le top 50</div>
-                        </div>
-                        <div class="achievement-card">
-                            <div class="achievement-icon">👥</div>
-                            <div class="achievement-name">Leader</div>
-                            <div class="achievement-desc">Créer une équipe</div>
-                        </div>
-                        <div class="achievement-card">
-                            <div class="achievement-icon">💎</div>
-                            <div class="achievement-name">Élite</div>
-                            <div class="achievement-desc">Niveau 50 atteint</div>
+                        <div class="form-group">
+                            <label class="form-label">Rôle Secondaire</label>
+                            <select class="form-input" id="secondRole">
+                                <option value="Top" selected>Top</option>
+                                <option value="Jungle">Jungle</option>
+                                <option value="Mid">Mid</option>
+                                <option value="ADC">ADC</option>
+                                <option value="Support">Support</option>
+                            </select>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Tab: History -->
-            <div class="tab-content" id="tab-history">
-                <div class="section">
-                    <h2 class="section-title">Historique des matchs</h2>
-                    <div class="match-history">
-                        <div class="match-item">
-                            <div>
-                                <strong>Championship Series</strong>
-                                <p style="color: #888; font-size: 0.85rem;">Il y a 2 jours</p>
-                            </div>
-                            <span class="match-result result-win">VICTOIRE</span>
-                        </div>
-                        <div class="match-item">
-                            <div>
-                                <strong>Spring Invitational</strong>
-                                <p style="color: #888; font-size: 0.85rem;">Il y a 5 jours</p>
-                            </div>
-                            <span class="match-result result-win">VICTOIRE</span>
-                        </div>
-                        <div class="match-item">
-                            <div>
-                                <strong>Ranked Match</strong>
-                                <p style="color: #888; font-size: 0.85rem;">Il y a 1 semaine</p>
-                            </div>
-                            <span class="match-result result-loss">DÉFAITE</span>
-                        </div>
-                        <div class="match-item">
-                            <div>
-                                <strong>Winter Cup</strong>
-                                <p style="color: #888; font-size: 0.85rem;">Il y a 2 semaines</p>
-                            </div>
-                            <span class="match-result result-win">VICTOIRE</span>
-                        </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary" onclick="saveGameInfo()">💾 Sauvegarder</button>
                     </div>
                 </div>
-            </div>
-        </main>
-    </div>
 
-    <footer>
-        <p>&copy; 2024 TLeagues. Tous droits réservés.</p>
-    </footer>
+                <!-- Sécurité -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">🔐 Sécurité</h2>
+                    </div>
+                    <div class="security-item">
+                        <div class="security-info">
+                            <h4>Mot de passe</h4>
+                            <p>Dernière modification il y a 3 mois</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="changePassword()">Modifier</button>
+                    </div>
+                    <div class="security-item">
+                        <div class="security-info">
+                            <h4>Authentification à deux facteurs (2FA)</h4>
+                            <p>Protection supplémentaire de votre compte</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="enable2FA()">Activer</button>
+                    </div>
+                    <div class="security-item">
+                        <div class="security-info">
+                            <h4>Sessions actives</h4>
+                            <p>3 appareils connectés</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="manageSessions()">Gérer</button>
+                    </div>
+                </div>
 
-    <script>
-        function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.tab').forEach(btn => {
-                btn.classList.remove('active');
-            });
+                <!-- Comptes Liés -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">🔗 Comptes Liés</h2>
+                    </div>
+                    <div class="account-item">
+                        <div class="account-info">
+                            <div class="account-icon">🎮</div>
+                            <div class="account-details">
+                                <h4>Riot Games</h4>
+                                <p>JohnDoeLOL#EUW</p>
+                            </div>
+                        </div>
+                        <span class="account-status status-connected">✅ Connecté</span>
+                    </div>
+                    <div class="account-item">
+                        <div class="account-info">
+                            <div class="account-icon">💬</div>
+                            <div class="account-details">
+                                <h4>Discord</h4>
+                                <p>Connectez votre compte Discord</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="connectDiscord()">Connecter</button>
+                    </div>
+                    <div class="account-item">
+                        <div class="account-info">
+                            <div class="account-icon">📺</div>
+                            <div class="account-details">
+                                <h4>Twitch</h4>
+                                <p>Connectez votre compte Twitch</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="connectTwitch()">Connecter</button>
+                    </div>
+                </div>
 
-            // Show selected tab
-            document.getElementById('tab-' + tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        document.getElementById('profileForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Profil mis à jour avec succès !');
-        });
-    </script>
-</body>
-</html>
+                <!-- Préférences -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">⚙️ Préférences</h2>
+                    </div>
+                    <div class="preference-item">
+                        <div class="preference-info">
+                            <h4>Notifications par email</h4>
+                            <p>Recevoir des emails pour les tournois et actualités</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="togglePreference(this)"></div>
+                    </div>
+                    <div class="preference-item">
+                        <div class="preference-info">
+                            <h4>Notifications push</h4>
+                            <p>Recevoir des notifications sur votre appareil</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="togglePreference(this)"></div>
+                    </div>
+                    <div class="preference-item">
+                        <div class="preference-info">
+                            <h4>Profil public</h4>
+                            <p>Votre profil est visible par tous les utilisateurs</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="togglePreference(this)"></div>
