@@ -3,797 +3,351 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Équipe - TLeagues</title>
+    <title>Équipes - TLeagues</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --red: #ff0000;
-            --red-dark: #cc0000;
-            --red-glow: rgba(255, 0, 0, 0.3);
-            --black: #0a0a0a;
-            --black-light: #1a1a1a;
-            --gray: #2a2a2a;
-            --white: #ffffff;
-            --text-gray: #b0b0b0;
-            --green: #00ff00;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--black);
-            color: var(--white);
-            line-height: 1.6;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--red);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px var(--red-glow);
-            cursor: pointer;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--red);
-        }
-
-        .btn-nav {
-            background: var(--red);
-            color: var(--white);
-            padding: 10px 24px;
-            border-radius: 4px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 100px auto 50px;
-            padding: 0 40px;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .page-title {
-            font-size: 48px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, var(--white) 0%, var(--red) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .page-subtitle {
-            color: var(--text-gray);
-            font-size: 18px;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 40px;
-            border-bottom: 2px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .tab {
-            padding: 15px 30px;
-            background: transparent;
-            border: none;
-            color: var(--text-gray);
-            font-size: 16px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -2px;
-        }
-
-        .tab:hover {
-            color: var(--white);
-        }
-
-        .tab.active {
-            color: var(--red);
-            border-bottom-color: var(--red);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .team-header {
-            background: var(--black-light);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 40px;
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .team-logo-large {
-            width: 150px;
-            height: 150px;
-            background: var(--gray);
-            border: 3px solid var(--red);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 72px;
-            flex-shrink: 0;
-            box-shadow: 0 0 30px var(--red-glow);
-        }
-
-        .team-info {
-            flex: 1;
-        }
-
-        .team-name {
-            font-size: 42px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .team-tag {
-            color: var(--red);
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .team-stats-row {
-            display: flex;
-            gap: 40px;
-        }
-
-        .team-stat {
-            text-align: center;
-        }
-
-        .team-stat-number {
-            font-size: 32px;
-            font-weight: bold;
-            color: var(--red);
-        }
-
-        .team-stat-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            color: var(--text-gray);
-            letter-spacing: 1px;
-        }
-
-        .section {
-            background: var(--black-light);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .roster-grid {
-            display: grid;
-            gap: 20px;
-        }
-
-        .player-card {
-            background: var(--gray);
-            padding: 25px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            border: 1px solid rgba(255, 0, 0, 0.1);
-            transition: all 0.3s;
-        }
-
-        .player-card:hover {
-            border-color: var(--red);
-            transform: translateX(5px);
-        }
-
-        .player-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--red);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        .player-info {
-            flex: 1;
-        }
-
-        .player-name {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .player-role {
-            display: inline-block;
-            padding: 4px 12px;
-            background: rgba(255, 0, 0, 0.2);
-            color: var(--red);
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 1px solid var(--red);
-            margin-right: 8px;
-        }
-
-        .player-rank {
-            color: var(--text-gray);
-            font-size: 14px;
-        }
-
-        .player-stats {
-            display: flex;
-            gap: 20px;
-            font-size: 14px;
-        }
-
-        .player-stat {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .player-stat-value {
-            font-weight: bold;
-            color: var(--red);
-        }
-
-        .player-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background: var(--red);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background: var(--red-dark);
-            box-shadow: 0 5px 20px var(--red-glow);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--red);
-            border: 2px solid var(--red);
-        }
-
-        .btn-secondary:hover {
-            background: var(--red);
-            color: var(--white);
-        }
-
-        .btn-danger {
-            background: transparent;
-            color: #ff4444;
-            border: 2px solid #ff4444;
-        }
-
-        .btn-danger:hover {
-            background: #ff4444;
-            color: var(--white);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-gray);
-        }
-
-        .empty-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-        }
-
-        .empty-state h3 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: var(--white);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 15px;
-            background: var(--gray);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            color: var(--white);
-            font-size: 16px;
-            border-radius: 5px;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--red);
-            box-shadow: 0 0 20px var(--red-glow);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .match-history {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .match-card {
-            background: var(--gray);
-            padding: 20px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid rgba(255, 0, 0, 0.1);
-        }
-
-        .match-result {
-            font-size: 32px;
-            font-weight: bold;
-        }
-
-        .match-win {
-            color: var(--green);
-        }
-
-        .match-loss {
-            color: #ff4444;
-        }
-
-        .create-team-form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .team-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .team-stats-row {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .player-card {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .player-actions {
-                width: 100%;
-                flex-direction: column;
-            }
-
-            .tabs {
-                overflow-x: auto;
-            }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+        
+        /* Navigation */
+        nav { background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 0, 0, 0.1); padding: 1.2rem 5%; position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+        .logo { font-size: 1.8rem; font-weight: 900; color: #ff0000; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { color: #666; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-links a.active { color: #ff0000; }
+        .dropdown { position: relative; }
+        .dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 0.3rem; }
+        .dropdown-toggle::after { content: '▼'; font-size: 0.7rem; transition: transform 0.3s; }
+        .dropdown:hover .dropdown-toggle::after { transform: rotate(180deg); }
+        .dropdown-menu { position: absolute; top: 100%; left: 0; background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 8px; min-width: 220px; padding: 0.5rem 0; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-menu a { padding: 0.75rem 1.5rem; font-size: 0.85rem; display: block; }
+        .dropdown-menu a:hover { background: rgba(255, 0, 0, 0.1); }
+        .nav-actions { display: flex; gap: 1rem; }
+        .btn-connexion { background: #ff0000; color: #fff; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; transition: all 0.3s; }
+        .btn-connexion:hover { background: #cc0000; transform: translateY(-2px); }
+        .btn-inscription { background: transparent !important; border: 2px solid #ff0000; }
+        
+        /* Hero */
+        .hero { padding: 6rem 5% 4rem; text-align: center; background: linear-gradient(180deg, rgba(255, 0, 0, 0.05) 0%, transparent 100%); }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(135deg, #ff0000 0%, #fff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
+        .hero p { font-size: 1.2rem; color: #666; margin-bottom: 2rem; }
+        .btn-create-team { background: #ff0000; color: #fff; padding: 1rem 2.5rem; border-radius: 6px; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; transition: all 0.3s; display: inline-block; }
+        .btn-create-team:hover { background: #cc0000; transform: translateY(-3px); }
+        
+        /* Search */
+        .search-section { padding: 0 5% 3rem; }
+        .search-bar { max-width: 1400px; margin: 0 auto; }
+        .search-bar input { width: 100%; padding: 1.2rem 1.5rem; background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 8px; color: #fff; font-size: 1rem; transition: all 0.3s; }
+        .search-bar input:focus { outline: none; border-color: #ff0000; }
+        .search-bar input::placeholder { color: #666; }
+        
+        /* Teams Grid */
+        .teams-section { padding: 0 5% 6rem; }
+        .teams-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+        .team-card { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; overflow: hidden; transition: all 0.3s; cursor: pointer; }
+        .team-card:hover { border-color: #ff0000; transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3); }
+        .team-header { padding: 2rem; text-align: center; background: rgba(255, 0, 0, 0.03); border-bottom: 1px solid rgba(255, 0, 0, 0.1); }
+        .team-logo { width: 100px; height: 100px; margin: 0 auto 1.5rem; background: rgba(255, 0, 0, 0.2); border: 2px solid rgba(255, 0, 0, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        .team-name { font-size: 1.3rem; font-weight: 900; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .team-tag { color: #666; font-size: 0.9rem; }
+        .team-content { padding: 1.5rem; }
+        .team-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+        .team-stat { text-align: center; }
+        .stat-value { font-size: 1.3rem; font-weight: 900; color: #ff0000; margin-bottom: 0.3rem; }
+        .stat-label { font-size: 0.7rem; color: #666; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }
+        .team-members { display: flex; gap: 0.8rem; margin-bottom: 1.5rem; flex-wrap: wrap; justify-content: center; }
+        .member-avatar-small { width: 38px; height: 38px; background: rgba(255, 0, 0, 0.2); border: 2px solid rgba(255, 0, 0, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; }
+        .team-footer { padding-top: 1.5rem; border-top: 1px solid rgba(255, 0, 0, 0.1); display: flex; justify-content: space-between; align-items: center; }
+        .team-rank { font-size: 0.9rem; color: #666; }
+        .rank-number { color: #ff0000; font-weight: 900; }
+        .btn-view-team { padding: 0.7rem 1.2rem; background: transparent; border: 1px solid #ff0000; border-radius: 6px; color: #ff0000; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+        .btn-view-team:hover { background: rgba(255, 0, 0, 0.1); }
+        
+        /* Footer */
+        footer { background: #0a0a0a; padding: 4rem 5% 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); color: #666; }
+        
+        @media (max-width: 968px) {
+            .hero h1 { font-size: 2.5rem; }
+            .teams-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-container">
-            <div class="logo" onclick="window.location.href='index.html'">TLeagues</div>
+            <a href="index.html" class="logo">TLEAGUES</a>
             <ul class="nav-links">
                 <li><a href="index.html">Accueil</a></li>
-                <li><a href="tournois.html">Tournois</a></li>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="equipe.html" class="btn-nav">Mon Équipe</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Compétitions</a>
+                    <div class="dropdown-menu">
+                        <a href="tournois.html">🏆 Tournois</a>
+                        <a href="leagues.html">🎖️ Ligues</a>
+                        <a href="cups.html">🏅 Coupes</a>
+                        <a href="bracket.html">📊 Brackets</a>
+                        <a href="match-detail.html">⚔️ Match</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle active">Équipes</a>
+                    <div class="dropdown-menu">
+                        <a href="equipe.html">👥 Mon Équipe</a>
+                        <a href="team-manager.html">⚙️ Gestion</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Dashboard</a>
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html">📈 Dashboard</a>
+                        <a href="profil.html">👤 Profil</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Plus</a>
+                    <div class="dropdown-menu">
+                        <a href="services.html">📋 Services</a>
+                    </div>
+                </li>
             </ul>
+            <div class="nav-actions">
+                <a href="register.html" class="btn-connexion btn-inscription">Inscription</a>
+                <a href="login.html" class="btn-connexion">Connexion</a>
+            </div>
         </div>
     </nav>
 
-    <div class="container">
-        <div class="page-header">
-            <h1 class="page-title">Mon Équipe</h1>
-            <p class="page-subtitle">Gérez votre équipe et dominez la compétition</p>
-        </div>
+    <section class="hero">
+        <h1>Équipes</h1>
+        <p>Découvrez les meilleures équipes de la communauté</p>
+        <a href="team-manager.html" class="btn-create-team">+ Créer une équipe</a>
+    </section>
 
-        <div class="tabs">
-            <button class="tab active" onclick="showTab('overview')">Vue d'ensemble</button>
-            <button class="tab" onclick="showTab('roster')">Roster</button>
-            <button class="tab" onclick="showTab('matches')">Matchs</button>
-            <button class="tab" onclick="showTab('settings')">Paramètres</button>
+    <section class="search-section">
+        <div class="search-bar">
+            <input type="text" placeholder="🔍 Rechercher une équipe...">
         </div>
+    </section>
 
-        <!-- Overview Tab -->
-        <div id="overview" class="tab-content active">
-            <div class="team-header">
-                <div class="team-logo-large">🛡️</div>
-                <div class="team-info">
-                    <h2 class="team-name">Phoenix Rising</h2>
-                    <div class="team-tag">[PHX]</div>
-                    <div class="team-stats-row">
+    <section class="teams-section">
+        <div class="teams-grid">
+            <div class="team-card" onclick="window.location.href='team-manager.html'">
+                <div class="team-header">
+                    <div class="team-logo">🔥</div>
+                    <h3 class="team-name">Phoenix Squad</h3>
+                    <p class="team-tag">[PHX]</p>
+                </div>
+                <div class="team-content">
+                    <div class="team-stats">
                         <div class="team-stat">
-                            <div class="team-stat-number">24</div>
-                            <div class="team-stat-label">Victoires</div>
-                        </div>
-                        <div class="team-stat">
-                            <div class="team-stat-number">11</div>
-                            <div class="team-stat-label">Défaites</div>
+                            <div class="stat-value">75%</div>
+                            <div class="stat-label">Winrate</div>
                         </div>
                         <div class="team-stat">
-                            <div class="team-stat-number">68%</div>
-                            <div class="team-stat-label">Winrate</div>
+                            <div class="stat-value">48</div>
+                            <div class="stat-label">Matchs</div>
                         </div>
                         <div class="team-stat">
-                            <div class="team-stat-number">#12</div>
-                            <div class="team-stat-label">Classement</div>
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Membres</div>
                         </div>
+                    </div>
+                    <div class="team-members">
+                        <div class="member-avatar-small">PG</div>
+                        <div class="member-avatar-small">EP</div>
+                        <div class="member-avatar-small">NK</div>
+                        <div class="member-avatar-small">SW</div>
+                        <div class="member-avatar-small">FH</div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-rank">Rang: <span class="rank-number">#12</span></div>
+                        <a href="team-manager.html" class="btn-view-team">Voir</a>
                     </div>
                 </div>
             </div>
 
-            <div class="section">
-                <div class="section-title">
-                    📊 Statistiques de l'Équipe
+            <div class="team-card" onclick="window.location.href='team-manager.html'">
+                <div class="team-header">
+                    <div class="team-logo">⚡</div>
+                    <h3 class="team-name">Thunder Strike</h3>
+                    <p class="team-tag">[THS]</p>
                 </div>
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
-                    <div style="background: var(--gray); padding: 20px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 28px; font-weight: bold; color: var(--red);">3.2</div>
-                        <div style="font-size: 12px; color: var(--text-gray); text-transform: uppercase;">KDA Moyen</div>
-                    </div>
-                    <div style="background: var(--gray); padding: 20px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 28px; font-weight: bold; color: var(--red);">28:45</div>
-                        <div style="font-size: 12px; color: var(--text-gray); text-transform: uppercase;">Durée Moyenne</div>
-                    </div>
-                    <div style="background: var(--gray); padding: 20px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 28px; font-weight: bold; color: var(--red);">12</div>
-                        <div style="font-size: 12px; color: var(--text-gray); text-transform: uppercase;">Tournois</div>
-                    </div>
-                    <div style="background: var(--gray); padding: 20px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 28px; font-weight: bold; color: var(--red);">4,250€</div>
-                        <div style="font-size: 12px; color: var(--text-gray); text-transform: uppercase;">Gains</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">
-                    🏆 Derniers Résultats
-                </div>
-                <div class="match-history">
-                    <div class="match-card">
-                        <div>
-                            <h4>vs Shadow Wolves</h4>
-                            <p style="font-size: 12px; color: var(--text-gray);">Il y a 2 jours • Winter Cup</p>
+                <div class="team-content">
+                    <div class="team-stats">
+                        <div class="team-stat">
+                            <div class="stat-value">68%</div>
+                            <div class="stat-label">Winrate</div>
                         </div>
-                        <div class="match-result match-win">V</div>
-                    </div>
-                    <div class="match-card">
-                        <div>
-                            <h4>vs Dark Knights</h4>
-                            <p style="font-size: 12px; color: var(--text-gray);">Il y a 5 jours • Friday League</p>
+                        <div class="team-stat">
+                            <div class="stat-value">52</div>
+                            <div class="stat-label">Matchs</div>
                         </div>
-                        <div class="match-result match-win">V</div>
-                    </div>
-                    <div class="match-card">
-                        <div>
-                            <h4>vs Storm Raiders</h4>
-                            <p style="font-size: 12px; color: var(--text-gray);">Il y a 1 semaine • Pro League</p>
-                        </div>
-                        <div class="match-result match-loss">D</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Roster Tab -->
-        <div id="roster" class="tab-content">
-            <div class="section">
-                <div class="section-title">
-                    👑 Titulaires
-                    <button class="btn btn-primary" onclick="alert('Fonctionnalité à venir!')">+ Inviter un joueur</button>
-                </div>
-                <div class="roster-grid">
-                    <div class="player-card">
-                        <div class="player-avatar">P</div>
-                        <div class="player-info">
-                            <div class="player-name">ProGamer94</div>
-                            <div>
-                                <span class="player-role" style="background: rgba(255, 215, 0, 0.2); color: gold; border-color: gold;">CAPITAINE</span>
-                                <span class="player-role">MID</span>
-                            </div>
-                            <div class="player-rank">🏆 Diamond II</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="player-stat">
-                                <span class="player-stat-value">3.8</span>
-                                <span style="font-size: 11px; color: var(--text-gray);">KDA</span>
-                            </div>
-                            <div class="player-stat">
-                                <span class="player-stat-value">64%</span>
-                                <span style="font-size: 11px; color: var(--text-gray);">WR</span>
-                            </div>
+                        <div class="team-stat">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Membres</div>
                         </div>
                     </div>
-
-                    <div class="player-card">
-                        <div class="player-avatar">S</div>
-                        <div class="player-info">
-                            <div class="player-name">ShadowNinja</div>
-                            <div>
-                                <span class="player-role">TOP</span>
-                            </div>
-                            <div class="player-rank">🏆 Diamond I</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="player-stat">
-                                <span class="player-stat-value">2.9</span>
-                                <span style="font-size: 11px; color: var(--text-gray);">KDA</span>
-                            </div>
-                            <div class="player-stat">
-                                <span class="player-stat-value">58%</span>
-                                <span style="font-size: 11px; color: var(--text-gray);">WR</span>
-                            </div>
-                        </div>
-                        <div class="player-actions">
-                            <button class="btn btn-secondary" onclick="alert('Fonctionnalité à venir!')">Profil</button>
-                            <button class="btn btn-danger" onclick="alert('Fonctionnalité à venir!')">Retirer</button>
-                        </div>
+                    <div class="team-members">
+                        <div class="member-avatar-small">TG</div>
+                        <div class="member-avatar-small">SR</div>
+                        <div class="member-avatar-small">BM</div>
+                        <div class="member-avatar-small">LW</div>
+                        <div class="member-avatar-small">TS</div>
                     </div>
-
-                    <div class="player-card">
-                        <div class="player-avatar">T</div>
-                        <div class="player-info">
-                            <div class="player-name">TankMaster</div>
-                            <div>
-                                <span class="player-role">JUNGLE</span>
-                            </div>
-                            <div class="player-rank">🏆 Diamond III</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="player-stat">
-                                <span class="player-stat-value">3.2</span>
-                                <span style="font-size: 11px; color: var(--text-gray);">KDA</span>
-                            </div>
-                            <div class="player-stat">
-                                <span class="player-stat-value">62%</span>
-                                <span style="font-size: 11px; color: var(--text-gray);">WR</span>
-                            </div>
-                        </div>
-                        <div class="player-actions">
-                            <button class="btn btn-secondary" onclick="alert('Fonctionnalité à venir!')">Profil</button>
-                            <button class="btn btn-danger" onclick="alert('Fonctionnalité à venir!')">Retirer</button>
-                        </div>
-                    </div>
-
-                    <div class="player-card">
-                        <div class="player-avatar">M</div>
-                        <div class="player-info">
-                            <div class="player-name">MarksMAN</div>
-                            <div>
-                                <span class="player-role">ADC</span>
-                            </div>
-                            <div class="player-rank">🏆 Diamond II</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="player-stat">
-                                <span class="player-stat-value">4.1</span>
-                                <span style="font-size: 11px; color: var(--text-gray);">KDA</span>
-                            </div>
-                            <div class="player-stat">
-                                <span class="player-stat-value">67%</span>
-                                <span style="font-size: 11px; color: var(--text-gray);">WR</span>
-                            </div>
-                        </div>
-                        <div class="player-actions">
-                            <button class="btn btn-secondary" onclick="alert('Fonctionnalité à venir!')">Profil</button>
-                            <button class="btn btn-danger" onclick="alert('Fonctionnalité à venir!')">Retirer</button>
-                        </div>
-                    </div>
-
-                    <div class="player-card">
-                        <div class="player-avatar">H</div>
-                        <div class="player-info">
-                            <div class="player-name">HealBot</div>
-                            <div>
-                                <span class="player-role">SUPPORT</span>
-                            </div>
-                            <div class="player-rank">🏆 Diamond I</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="player-stat">
-                                <span class="player-stat-value">2.7</span>
-                                <span style="font-size: 11px; color: var(--text-gray);">KDA</span>
-                            </div>
-                            <div class="player-stat">
-                                <span class="player-stat-value">61%</span>
-                                <span style="font-size: 11px; color: var(--text-gray);">WR</span>
-                            </div>
-                        </div>
-                        <div class="player-actions">
-                            <button class="btn btn-secondary" onclick="alert('Fonctionnalité à venir!')">Profil</button>
-                            <button class="btn btn-danger" onclick="alert('Fonctionnalité à venir!')">Retirer</button>
-                        </div>
+                    <div class="team-footer">
+                        <div class="team-rank">Rang: <span class="rank-number">#8</span></div>
+                        <a href="team-manager.html" class="btn-view-team">Voir</a>
                     </div>
                 </div>
             </div>
 
-            <div class="section">
-                <div class="section-title">
-                    🔄 Remplaçants
+            <div class="team-card" onclick="window.location.href='team-manager.html'">
+                <div class="team-header">
+                    <div class="team-logo">🌊</div>
+                    <h3 class="team-name">Wave Riders</h3>
+                    <p class="team-tag">[WVR]</p>
                 </div>
-                <div class="empty-state">
-                    <div class="empty-icon">👥</div>
-                    <h3>Aucun remplaçant</h3>
-                    <p>Invitez des joueurs pour renforcer votre roster</p>
-                    <button class="btn btn-primary" style="margin-top: 20px;" onclick="alert('Fonctionnalité à venir!')">+ Inviter un remplaçant</button>
+                <div class="team-content">
+                    <div class="team-stats">
+                        <div class="team-stat">
+                            <div class="stat-value">82%</div>
+                            <div class="stat-label">Winrate</div>
+                        </div>
+                        <div class="team-stat">
+                            <div class="stat-value">45</div>
+                            <div class="stat-label">Matchs</div>
+                        </div>
+                        <div class="team-stat">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Membres</div>
+                        </div>
+                    </div>
+                    <div class="team-members">
+                        <div class="member-avatar-small">WR</div>
+                        <div class="member-avatar-small">AQ</div>
+                        <div class="member-avatar-small">ST</div>
+                        <div class="member-avatar-small">TR</div>
+                        <div class="member-avatar-small">FL</div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-rank">Rang: <span class="rank-number">#3</span></div>
+                        <a href="team-manager.html" class="btn-view-team">Voir</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Matches Tab -->
-        <div id="matches" class="tab-content">
-            <div class="section">
-                <div class="section-title">📅 Matchs à Venir</div>
-                <div class="empty-state">
-                    <div class="empty-icon">🎮</div>
-                    <h3>Aucun match programmé</h3>
-                    <p>Inscrivez votre équipe à un tournoi pour voir vos prochains matchs</p>
-                    <button class="btn btn-primary" style="margin-top: 20px;" onclick="window.location.href='tournois.html'">Voir les tournois</button>
+            <div class="team-card" onclick="window.location.href='team-manager.html'">
+                <div class="team-header">
+                    <div class="team-logo">🛡️</div>
+                    <h3 class="team-name">Iron Defense</h3>
+                    <p class="team-tag">[IRD]</p>
+                </div>
+                <div class="team-content">
+                    <div class="team-stats">
+                        <div class="team-stat">
+                            <div class="stat-value">71%</div>
+                            <div class="stat-label">Winrate</div>
+                        </div>
+                        <div class="team-stat">
+                            <div class="stat-value">38</div>
+                            <div class="stat-label">Matchs</div>
+                        </div>
+                        <div class="team-stat">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Membres</div>
+                        </div>
+                    </div>
+                    <div class="team-members">
+                        <div class="member-avatar-small">ID</div>
+                        <div class="member-avatar-small">TK</div>
+                        <div class="member-avatar-small">GR</div>
+                        <div class="member-avatar-small">SH</div>
+                        <div class="member-avatar-small">AR</div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-rank">Rang: <span class="rank-number">#15</span></div>
+                        <a href="team-manager.html" class="btn-view-team">Voir</a>
+                    </div>
                 </div>
             </div>
 
-            <div class="section">
-                <div class="section-title">📊 Historique Complet</div>
-                <div class="match-history">
-                    <div class="match-card">
-                        <div>
-                            <h4>Phoenix Rising vs Shadow Wolves</h4>
-                            <p style="font-size: 12px; color: var(--text-gray);">2 Jan 2026 • Winter Cup - Finale</p>
-                            <p style="margin-top: 8px;">Score: 3-1 • Durée: 32:18</p>
+            <div class="team-card" onclick="window.location.href='team-manager.html'">
+                <div class="team-header">
+                    <div class="team-logo">⚔️</div>
+                    <h3 class="team-name">Blade Masters</h3>
+                    <p class="team-tag">[BLM]</p>
+                </div>
+                <div class="team-content">
+                    <div class="team-stats">
+                        <div class="team-stat">
+                            <div class="stat-value">65%</div>
+                            <div class="stat-label">Winrate</div>
                         </div>
-                        <div class="match-result match-win">V</div>
+                        <div class="team-stat">
+                            <div class="stat-value">41</div>
+                            <div class="stat-label">Matchs</div>
+                        </div>
+                        <div class="team-stat">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Membres</div>
+                        </div>
                     </div>
-                    <div class="match-card">
-                        <div>
-                            <h4>Phoenix Rising vs Dark Knights</h4>
-                            <p style="font-size: 12px; color: var(--text-gray);">30 Déc 2025 • Friday League - Demi-finale</p>
-                            <p style="margin-top: 8px;">Score: 2-0 • Durée: 28:45</p>
-                        </div>
-                        <div class="match-result match-win">V</div>
+                    <div class="team-members">
+                        <div class="member-avatar-small">BM</div>
+                        <div class="member-avatar-small">SK</div>
+                        <div class="member-avatar-small">DG</div>
+                        <div class="member-avatar-small">KT</div>
+                        <div class="member-avatar-small">AS</div>
                     </div>
-                    <div class="match-card">
-                        <div>
-                            <h4>Phoenix Rising vs Storm Raiders</h4>
-                            <p style="font-size: 12px; color: var(--text-gray);">28 Déc 2025 • Pro League - Quart de finale</p>
-                            <p style="margin-top: 8px;">Score: 1-2 • Durée: 35:22</p>
+                    <div class="team-footer">
+                        <div class="team-rank">Rang: <span class="rank-number">#18</span></div>
+                        <a href="team-manager.html" class="btn-view-team">Voir</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card" onclick="window.location.href='team-manager.html'">
+                <div class="team-header">
+                    <div class="team-logo">💀</div>
+                    <h3 class="team-name">Shadow Reapers</h3>
+                    <p class="team-tag">[SHR]</p>
+                </div>
+                <div class="team-content">
+                    <div class="team-stats">
+                        <div class="team-stat">
+                            <div class="stat-value">79%</div>
+                            <div class="stat-label">Winrate</div>
                         </div>
-                        <div class="match-result match-loss">D</div>
+                        <div class="team-stat">
+                            <div class="stat-value">47</div>
+                            <div class="stat-label">Matchs</div>
+                        </div>
+                        <div class="team-stat">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Membres</div>
+                        </div>
+                    </div>
+                    <div class="team-members">
+                        <div class="member-avatar-small">DS</div>
+                        <div class="member-avatar-small">NS</div>
+                        <div class="member-avatar-small">VD</div>
+                        <div class="member-avatar-small">GH</div>
+                        <div class="member-avatar-small">SR</div>
+                    </div>
+                    <div class="team-footer">
+                        <div class="team-rank">Rang: <span class="rank-number">#5</span></div>
+                        <a href="team-manager.html" class="btn-view-team">Voir</a>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Settings Tab -->
-        <div id="settings" class="tab-content">
-            <div class="section">
-                <div class="section-title">⚙️ Paramètres de l'Équipe</div>
-                <form class="create-team-form">
-                    <div class="form-group">
-                        <label>Nom de l'équipe</label>
-                        <input type="text" value="Phoenix Rising" placeholder="Nom de votre équipe">
-                    </div>
-                    <div class="form-group">
-                        <label>Tag (3-5 caractères)</label>
-                        <input type="text" value="PHX" placeholder="Ex: PHX" maxlength="5">
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea placeholder="Parlez de votre équipe...">Équipe compétitive Diamond+ à la recherche de la gloire sur TLeagues. Nous jouons sérieusement mais dans une bonne ambiance.</textarea>
-                    </div>
+    <footer>
+        <div class="footer-bottom">
+            © 2026 TLeagues. Tous droits réservés. Made with 🔥 for esports.
+        </div>
+    </footer>
+</body>
+</html>
