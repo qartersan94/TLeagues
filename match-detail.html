@@ -5,710 +5,273 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Match - TLeagues</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #000000;
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Header */
-        header {
-            background: #000000;
-            padding: 1.5rem 3rem;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
-        }
-
-        nav {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #ff0000;
-            text-decoration: none;
-            letter-spacing: 2px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #999;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 500;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-links a:hover {
-            color: #fff;
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border: 2px solid rgba(255, 0, 0, 0.3);
-            cursor: pointer;
-        }
-
-        /* Main Layout */
-        .dashboard-container {
-            display: flex;
-            max-width: 1600px;
-            margin: 0 auto;
-            width: 100%;
-            flex: 1;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 250px;
-            background: rgba(10, 0, 0, 0.3);
-            border-right: 1px solid rgba(255, 0, 0, 0.1);
-            padding: 2rem 0;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-        }
-
-        .sidebar-menu li {
-            margin-bottom: 0.5rem;
-        }
-
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 1.5rem;
-            color: #999;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .sidebar-menu a:hover,
-        .sidebar-menu a.active {
-            background: rgba(255, 0, 0, 0.1);
-            color: #fff;
-            border-left: 3px solid #ff0000;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+        
+        /* Navigation identique à index.html */
+        nav { background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 0, 0, 0.1); padding: 1.2rem 5%; position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+        .logo { font-size: 1.8rem; font-weight: 900; color: #ff0000; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { color: #666; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-links a.active { color: #ff0000; }
+        .dropdown { position: relative; }
+        .dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 0.3rem; }
+        .dropdown-toggle::after { content: '▼'; font-size: 0.7rem; transition: transform 0.3s; }
+        .dropdown:hover .dropdown-toggle::after { transform: rotate(180deg); }
+        .dropdown-menu { position: absolute; top: 100%; left: 0; background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 8px; min-width: 220px; padding: 0.5rem 0; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-menu a { padding: 0.75rem 1.5rem; font-size: 0.85rem; display: block; }
+        .dropdown-menu a:hover { background: rgba(255, 0, 0, 0.1); }
+        .nav-actions { display: flex; gap: 1rem; }
+        .btn-connexion { background: #ff0000; color: #fff; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; transition: all 0.3s; }
+        .btn-connexion:hover { background: #cc0000; transform: translateY(-2px); }
+        .btn-inscription { background: transparent !important; border: 2px solid #ff0000; }
+        
         /* Main Content */
-        .main-content {
-            flex: 1;
-            padding: 2rem;
-            overflow-y: auto;
-        }
-
+        main { max-width: 1400px; margin: 0 auto; padding: 4rem 5%; }
+        
         /* Match Header */
-        .match-header {
-            background: rgba(20, 0, 0, 0.4);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .match-status {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: rgba(255, 0, 0, 0.2);
-            border-radius: 20px;
-            color: #ff6666;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .match-title {
-            font-size: 1.5rem;
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-
-        .match-date {
-            color: #888;
-            font-size: 0.9rem;
-        }
-
+        .match-header { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 3rem 2rem; margin-bottom: 3rem; text-align: center; }
+        .match-badge { background: #ff0000; color: #fff; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; display: inline-block; margin-bottom: 1.5rem; }
+        .match-title { font-size: 2rem; font-weight: 900; margin-bottom: 0.8rem; text-transform: uppercase; }
+        .match-date { color: #666; font-size: 0.9rem; }
+        
         /* Teams Section */
-        .teams-container {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 2rem;
-            align-items: center;
-            background: rgba(20, 0, 0, 0.4);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 3rem 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .team {
-            text-align: center;
-        }
-
-        .team-logo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 1rem;
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            border: 3px solid rgba(255, 0, 0, 0.3);
-        }
-
-        .team-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-
-        .team-score {
-            font-size: 1rem;
-            color: #888;
-        }
-
-        .vs-divider {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ff0000;
-        }
-
-        .score-display {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            font-weight: bold;
-            color: #ff0000;
-        }
-
-        .score-separator {
-            color: #666;
-        }
-
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .tab {
-            padding: 1rem 1.5rem;
-            background: transparent;
-            border: none;
-            color: #888;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .tab.active {
-            color: #ff0000;
-            border-bottom-color: #ff0000;
-        }
-
-        .tab:hover {
-            color: #fff;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Match Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-item {
-            background: rgba(20, 0, 0, 0.4);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 1.5rem;
-        }
-
-        .stat-label {
-            color: #888;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #ff0000;
-        }
-
-        /* Players Table */
-        .players-section {
-            background: rgba(20, 0, 0, 0.4);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .section-title {
-            font-size: 1.3rem;
-            color: #fff;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-        }
-
-        .players-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .players-table thead {
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .players-table th {
-            padding: 1rem;
-            text-align: left;
-            color: #888;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .players-table td {
-            padding: 1rem;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
-        }
-
-        .players-table tr:hover {
-            background: rgba(255, 0, 0, 0.05);
-        }
-
-        .player-name {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .player-avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            font-weight: bold;
-        }
-
-        /* Timeline */
-        .timeline {
-            background: rgba(20, 0, 0, 0.4);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 2rem;
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
-        }
-
-        .timeline-item:last-child {
-            border-bottom: none;
-        }
-
-        .timeline-time {
-            color: #ff0000;
-            font-weight: bold;
-            min-width: 60px;
-        }
-
-        .timeline-event {
-            flex: 1;
-        }
-
-        .timeline-event strong {
-            color: #fff;
-        }
-
-        .timeline-event span {
-            color: #888;
-        }
-
+        .teams-section { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 3rem; margin-bottom: 3rem; display: grid; grid-template-columns: 1fr auto 1fr; gap: 3rem; align-items: center; }
+        .team { text-align: center; }
+        .team-logo { width: 120px; height: 120px; margin: 0 auto 1.5rem; background: rgba(255, 0, 0, 0.1); border: 2px solid rgba(255, 0, 0, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        .team-name { font-size: 1.8rem; font-weight: 900; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .team-rank { color: #666; font-size: 0.9rem; }
+        .vs-divider { font-size: 2.5rem; font-weight: 900; color: #ff0000; }
+        .score-display { display: flex; gap: 1rem; align-items: center; justify-content: center; font-size: 3.5rem; font-weight: 900; color: #ff0000; margin-top: 1rem; }
+        .score-separator { color: #666; }
+        
+        /* Stats Section */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
+        .stat-card { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 2rem; text-align: center; transition: all 0.3s; }
+        .stat-card:hover { border-color: #ff0000; transform: translateY(-5px); }
+        .stat-label { color: #666; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.8rem; font-weight: 600; letter-spacing: 1px; }
+        .stat-value { font-size: 2.5rem; font-weight: 900; color: #ff0000; }
+        
+        /* Players Section */
+        .section-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 2rem; text-transform: uppercase; }
+        .players-section { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        .players-table { width: 100%; border-collapse: collapse; }
+        .players-table thead { border-bottom: 1px solid rgba(255, 0, 0, 0.2); }
+        .players-table th { padding: 1rem; text-align: left; color: #666; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+        .players-table td { padding: 1.2rem 1rem; border-bottom: 1px solid rgba(255, 0, 0, 0.05); }
+        .players-table tr:last-child td { border-bottom: none; }
+        .players-table tr:hover { background: rgba(255, 0, 0, 0.03); }
+        .player-cell { display: flex; align-items: center; gap: 1rem; }
+        .player-avatar { width: 45px; height: 45px; background: rgba(255, 0, 0, 0.2); border: 2px solid rgba(255, 0, 0, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; }
+        
         /* Footer */
-        footer {
-            background: #000000;
-            padding: 1.5rem 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(255, 0, 0, 0.1);
-        }
-
-        footer p {
-            color: #666;
-            font-size: 0.85rem;
-        }
-
-        @media (max-width: 1024px) {
-            .sidebar {
-                width: 200px;
-            }
-
-            .teams-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .vs-divider {
-                transform: rotate(90deg);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .dashboard-container {
-                flex-direction: column;
-            }
-
-            .sidebar {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid rgba(255, 0, 0, 0.1);
-            }
-
-            .main-content {
-                padding: 1.5rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .players-table {
-                font-size: 0.85rem;
-            }
+        footer { background: #0a0a0a; padding: 4rem 5% 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); margin-top: 4rem; }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); color: #666; }
+        
+        @media (max-width: 968px) {
+            .teams-section { grid-template-columns: 1fr; }
+            .vs-divider { transform: rotate(90deg); margin: 2rem 0; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
+    <nav>
+        <div class="nav-container">
             <a href="index.html" class="logo">TLEAGUES</a>
             <ul class="nav-links">
                 <li><a href="index.html">Accueil</a></li>
-                <li><a href="browse-tournaments.html">Compétitions</a></li>
-                <li><a href="teams.html">Services</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Compétitions</a>
+                    <div class="dropdown-menu">
+                        <a href="tournois.html">🏆 Tournois</a>
+                        <a href="leagues.html">🎖️ Ligues</a>
+                        <a href="cups.html">🏅 Coupes</a>
+                        <a href="bracket.html">📊 Brackets</a>
+                        <a href="match-detail.html">⚔️ Match</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Équipes</a>
+                    <div class="dropdown-menu">
+                        <a href="equipe.html">👥 Mon Équipe</a>
+                        <a href="team-manager.html">⚙️ Gestion</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Dashboard</a>
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html">📈 Dashboard</a>
+                        <a href="profil.html">👤 Profil</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Plus</a>
+                    <div class="dropdown-menu">
+                        <a href="services.html">📋 Services</a>
+                    </div>
+                </li>
             </ul>
-            <div class="user-menu">
-                <div class="user-avatar">PG</div>
+            <div class="nav-actions">
+                <a href="register.html" class="btn-connexion btn-inscription">Inscription</a>
+                <a href="login.html" class="btn-connexion">Connexion</a>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
-    <div class="dashboard-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <ul class="sidebar-menu">
-                <li><a href="dashboard.html">📊 Vue d'ensemble</a></li>
-                <li><a href="profile.html">👤 Mon profil</a></li>
-                <li><a href="browse-tournaments.html">🏆 Tournois</a></li>
-                <li><a href="team-manager.html">👥 Mon équipe</a></li>
-                <li><a href="match-detail.html" class="active">⚔️ Mes matchs</a></li>
-                <li><a href="leaderboard.html">📈 Classements</a></li>
-                <li><a href="#">⚙️ Paramètres</a></li>
-                <li><a href="login.html">🚪 Déconnexion</a></li>
-            </ul>
-        </aside>
+    <main>
+        <div class="match-header">
+            <span class="match-badge">🔴 EN DIRECT</span>
+            <h1 class="match-title">Championship Series S3 - Quart de finale</h1>
+            <p class="match-date">📅 Mercredi 15 Janvier 2026 • 20:00 CET</p>
+        </div>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Match Header -->
-            <div class="match-header">
-                <div class="match-status">EN DIRECT</div>
-                <h1 class="match-title">Championship Series S3 - Quart de finale</h1>
-                <p class="match-date">Mercredi 15 Janvier 2025 • 20:00 CET</p>
+        <div class="teams-section">
+            <div class="team">
+                <div class="team-logo">🔥</div>
+                <h2 class="team-name">Phoenix Squad</h2>
+                <p class="team-rank">Rang #12</p>
             </div>
 
-            <!-- Teams -->
-            <div class="teams-container">
-                <div class="team">
-                    <div class="team-logo">🔥</div>
-                    <h2 class="team-name">Phoenix Squad</h2>
-                    <p class="team-score">Rang #12</p>
-                </div>
-
-                <div>
-                    <div class="vs-divider">VS</div>
-                    <div class="score-display">
-                        <span>2</span>
-                        <span class="score-separator">:</span>
-                        <span>1</span>
-                    </div>
-                </div>
-
-                <div class="team">
-                    <div class="team-logo">⚡</div>
-                    <h2 class="team-name">Thunder Strike</h2>
-                    <p class="team-score">Rang #8</p>
+            <div>
+                <div class="vs-divider">VS</div>
+                <div class="score-display">
+                    <span>2</span>
+                    <span class="score-separator">:</span>
+                    <span>1</span>
                 </div>
             </div>
 
-            <!-- Tabs -->
-            <div class="tabs">
-                <button class="tab active" onclick="switchTab('overview')">Vue d'ensemble</button>
-                <button class="tab" onclick="switchTab('stats')">Statistiques</button>
-                <button class="tab" onclick="switchTab('timeline')">Chronologie</button>
+            <div class="team">
+                <div class="team-logo">⚡</div>
+                <h2 class="team-name">Thunder Strike</h2>
+                <p class="team-rank">Rang #8</p>
             </div>
+        </div>
 
-            <!-- Tab: Overview -->
-            <div class="tab-content active" id="tab-overview">
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-label">Durée totale</div>
-                        <div class="stat-value">1h 24m</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Kills totaux</div>
-                        <div class="stat-value">127</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Format</div>
-                        <div class="stat-value">BO5</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Spectateurs</div>
-                        <div class="stat-value">2.3K</div>
-                    </div>
-                </div>
-
-                <div class="players-section">
-                    <h2 class="section-title">Phoenix Squad</h2>
-                    <table class="players-table">
-                        <thead>
-                            <tr>
-                                <th>Joueur</th>
-                                <th>K/D/A</th>
-                                <th>Dégâts</th>
-                                <th>Gold</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="player-name">
-                                        <div class="player-avatar">P1</div>
-                                        <span>ProGamer</span>
-                                    </div>
-                                </td>
-                                <td>12/3/8</td>
-                                <td>24,500</td>
-                                <td>15.2K</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="player-name">
-                                        <div class="player-avatar">E2</div>
-                                        <span>ElitePlayer</span>
-                                    </div>
-                                </td>
-                                <td>8/5/15</td>
-                                <td>18,300</td>
-                                <td>12.8K</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="player-name">
-                                        <div class="player-avatar">N3</div>
-                                        <span>NinjaKill</span>
-                                    </div>
-                                </td>
-                                <td>15/2/6</td>
-                                <td>31,200</td>
-                                <td>16.5K</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="players-section">
-                    <h2 class="section-title">Thunder Strike</h2>
-                    <table class="players-table">
-                        <thead>
-                            <tr>
-                                <th>Joueur</th>
-                                <th>K/D/A</th>
-                                <th>Dégâts</th>
-                                <th>Gold</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="player-name">
-                                        <div class="player-avatar">T1</div>
-                                        <span>ThunderGod</span>
-                                    </div>
-                                </td>
-                                <td>10/8/12</td>
-                                <td>22,100</td>
-                                <td>13.5K</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="player-name">
-                                        <div class="player-avatar">S2</div>
-                                        <span>StormRider</span>
-                                    </div>
-                                </td>
-                                <td>6/10/18</td>
-                                <td>16,800</td>
-                                <td>11.2K</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="player-name">
-                                        <div class="player-avatar">B3</div>
-                                        <span>BoltMaster</span>
-                                    </div>
-                                </td>
-                                <td>9/7/14</td>
-                                <td>19,500</td>
-                                <td>12.9K</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Durée totale</div>
+                <div class="stat-value">1h 24m</div>
             </div>
-
-            <!-- Tab: Stats -->
-            <div class="tab-content" id="tab-stats">
-                <div class="players-section">
-                    <h2 class="section-title">Statistiques détaillées</h2>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-label">Meilleur K/D/A</div>
-                            <div class="stat-value">15/2/6</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Plus de dégâts</div>
-                            <div class="stat-value">31.2K</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Or total équipe 1</div>
-                            <div class="stat-value">44.5K</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Or total équipe 2</div>
-                            <div class="stat-value">37.6K</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="stat-card">
+                <div class="stat-label">Kills totaux</div>
+                <div class="stat-value">127</div>
             </div>
-
-            <!-- Tab: Timeline -->
-            <div class="tab-content" id="tab-timeline">
-                <div class="timeline">
-                    <h2 class="section-title">Événements du match</h2>
-                    <div class="timeline-item">
-                        <div class="timeline-time">42:15</div>
-                        <div class="timeline-event">
-                            <strong>Phoenix Squad</strong> <span>remporte la manche 3</span>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">28:33</div>
-                        <div class="timeline-event">
-                            <strong>Thunder Strike</strong> <span>remporte la manche 2</span>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">15:22</div>
-                        <div class="timeline-event">
-                            <strong>Phoenix Squad</strong> <span>remporte la manche 1</span>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">00:00</div>
-                        <div class="timeline-event">
-                            <strong>Début du match</strong>
-                        </div>
-                    </div>
-                </div>
+            <div class="stat-card">
+                <div class="stat-label">Format</div>
+                <div class="stat-value">BO5</div>
             </div>
-        </main>
-    </div>
+            <div class="stat-card">
+                <div class="stat-label">Spectateurs</div>
+                <div class="stat-value">2.3K</div>
+            </div>
+        </div>
+
+        <div class="players-section">
+            <h2 class="section-title">Phoenix Squad</h2>
+            <table class="players-table">
+                <thead>
+                    <tr>
+                        <th>Joueur</th>
+                        <th>K/D/A</th>
+                        <th>Dégâts</th>
+                        <th>Gold</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="player-cell">
+                                <div class="player-avatar">PG</div>
+                                <span>ProGamer</span>
+                            </div>
+                        </td>
+                        <td>12/3/8</td>
+                        <td>24,500</td>
+                        <td>15.2K</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="player-cell">
+                                <div class="player-avatar">EP</div>
+                                <span>ElitePlayer</span>
+                            </div>
+                        </td>
+                        <td>8/5/15</td>
+                        <td>18,300</td>
+                        <td>12.8K</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="player-cell">
+                                <div class="player-avatar">NK</div>
+                                <span>NinjaKill</span>
+                            </div>
+                        </td>
+                        <td>15/2/6</td>
+                        <td>31,200</td>
+                        <td>16.5K</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="players-section">
+            <h2 class="section-title">Thunder Strike</h2>
+            <table class="players-table">
+                <thead>
+                    <tr>
+                        <th>Joueur</th>
+                        <th>K/D/A</th>
+                        <th>Dégâts</th>
+                        <th>Gold</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="player-cell">
+                                <div class="player-avatar">TG</div>
+                                <span>ThunderGod</span>
+                            </div>
+                        </td>
+                        <td>10/8/12</td>
+                        <td>22,100</td>
+                        <td>13.5K</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="player-cell">
+                                <div class="player-avatar">SR</div>
+                                <span>StormRider</span>
+                            </div>
+                        </td>
+                        <td>6/10/18</td>
+                        <td>16,800</td>
+                        <td>11.2K</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="player-cell">
+                                <div class="player-avatar">BM</div>
+                                <span>BoltMaster</span>
+                            </div>
+                        </td>
+                        <td>9/7/14</td>
+                        <td>19,500</td>
+                        <td>12.9K</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
 
     <footer>
-        <p>&copy; 2024 TLeagues. Tous droits réservés.</p>
+        <div class="footer-bottom">
+            © 2026 TLeagues. Tous droits réservés. Made with 🔥 for esports.
+        </div>
     </footer>
-
-    <script>
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.tab').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            document.getElementById('tab-' + tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-    </script>
 </body>
 </html>
