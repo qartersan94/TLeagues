@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Streamer - TLTV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #ff0000;
+            padding: 1.2rem 3rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ff0000;
+            text-decoration: none;
+            letter-spacing: 4px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(50, 50, 50, 0.5);
+            border-radius: 8px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: #666;
+            border-radius: 50%;
+        }
+
+        .status-dot.live {
+            background: #ff0000;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .status-text {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 3rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .page-subtitle {
+            color: #888;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .action-card {
+            background: rgba(5, 5, 5, 0.6);
+            border: 1px solid rgba(50, 50, 50, 0.5);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .action-card:hover {
+            border-color: rgba(255, 0, 0, 0.5);
+            background: rgba(15, 15, 15, 0.8);
+        }
+
+        .action-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .action-desc {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Stats Grid */
+        .stats-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .time-filter {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .time-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid rgba(50, 50, 50, 0.5);
+            border-radius: 6px;
+            color: #888;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .time-btn:hover, .time-btn.active {
+            border-color: #ff0000;
+            color: #ff0000;
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: rgba(5, 5, 5, 0.6);
+            border: 1px solid rgba(50, 50, 50, 0.5);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ff0000;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-change {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .stat-change.positive {
+            color: #00ff88;
+        }
+
+        .stat-change.negative {
+            color: #ff4444;
+        }
+
+        /* Stream Config */
+        .stream-config {
+            background: rgba(5, 5, 5, 0.6);
+            border: 1px solid rgba(50, 50, 50, 0.5);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .config-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .config-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .config-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .config-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .config-label {
+            display: block;
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .config-input {
+            width: 100%;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(50, 50, 50, 0.5);
+            border-radius: 6px;
+            padding: 0.9rem 1.2rem;
+            color: #fff;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .config-input:focus {
+            outline: none;
+            border-color: #ff0000;
+        }
+
+        .config-input::placeholder {
+            color: #666;
+        }
+
+        .stream-key-box {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stream-key-value {
+            font-family: 'Courier New', monospace;
+            color: #ff0000;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .copy-btn, .reset-btn {
+            padding: 0.6rem 1.5rem;
+            background: transparent;
+            border: 1px solid #ff0000;
+            border-radius: 6px;
+            color: #ff0000;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .copy-btn:hover, .reset-btn:hover {
+            background: #ff0000;
+            color: #fff;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid;
+        }
+
+        .btn-primary {
+            background: #ff0000;
+            color: #fff;
+            border-color: #ff0000;
+        }
+
+        .btn-primary:hover {
+            background: #cc0000;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #888;
+            border-color: rgba(50, 50, 50, 0.5);
+        }
+
+        .btn-secondary:hover {
+            border-color: #888;
+            color: #fff;
+        }
+
+        /* Recent Streams */
+        .recent-streams {
+            margin-bottom: 3rem;
+        }
+
+        .streams-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .stream-item {
+            background: rgba(5, 5, 5, 0.6);
+            border: 1px solid rgba(50, 50, 50, 0.5);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 200px 1fr auto;
+            gap: 1.5rem;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .stream-item:hover {
+            border-color: rgba(255, 0, 0, 0.3);
+        }
+
+        .stream-thumbnail-small {
+            width: 200px;
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            border-radius: 8px;
+        }
+
+        .stream-item-info h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .stream-item-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stream-item-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 0.8rem;
+        }
+
+        .stream-stat {
+            font-size: 0.85rem;
+        }
+
+        .stream-stat-value {
+            font-weight: 700;
+            color: #ff0000;
+            margin-right: 0.3rem;
+        }
+
+        .stream-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.6rem 1.2rem;
+            background: transparent;
+            border: 1px solid rgba(50, 50, 50, 0.5);
+            border-radius: 6px;
+            color: #888;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .action-btn:hover {
+            border-color: #ff0000;
+            color: #ff0000;
+        }
+
+        /* Mobile */
+        @media (max-width: 1200px) {
+            .stream-item {
+                grid-template-columns: 1fr;
+            }
+
+            .stream-thumbnail-small {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="tltv.html" class="logo">TLTV</a>
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span class="status-text">Hors ligne</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h1 class="page-title">Dashboard Streamer</h1>
+        <p class="page-subtitle">Gérez votre stream et analysez vos performances</p>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <div class="action-card" onclick="alert('Démarrage du stream...')">
+                <div class="action-icon">🎥</div>
+                <div class="action-title">Démarrer le Stream</div>
+                <div class="action-desc">Lancer votre diffusion en direct</div>
+            </div>
+            <div class="action-card" onclick="alert('Upload de VOD...')">
+                <div class="action-icon">📤</div>
+                <div class="action-title">Upload VOD</div>
+                <div class="action-desc">Télécharger une vidéo</div>
+            </div>
+            <div class="action-card" onclick="alert('Gestion des clips...')">
+                <div class="action-icon">✂️</div>
+                <div class="action-title">Mes Clips</div>
+                <div class="action-desc">Gérer vos clips vidéo</div>
+            </div>
+            <div class="action-card" onclick="alert('Paramètres du stream...')">
+                <div class="action-icon">⚙️</div>
+                <div class="action-title">Paramètres</div>
+                <div class="action-desc">Configurer votre stream</div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="section-header">
+                <h2 class="section-title">Statistiques</h2>
+                <div class="time-filter">
+                    <button class="time-btn">7J</button>
+                    <button class="time-btn active">30J</button>
+                    <button class="time-btn">Tout</button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👁️</div>
+                    <div class="stat-value">12.5K</div>
+                    <div class="stat-label">Viewers Totaux</div>
+                    <div class="stat-change positive">+15.3% ce mois</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-value">45h</div>
+                    <div class="stat-label">Temps de Stream</div>
+                    <div class="stat-change positive">+8.2% ce mois</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-value">2.1K</div>
+                    <div class="stat-label">Followers</div>
+                    <div class="stat-change positive">+127 ce mois</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">💬</div>
+                    <div class="stat-value">8.3K</div>
+                    <div class="stat-label">Messages Chat</div>
+                    <div class="stat-change positive">+22.1% ce mois</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stream Configuration -->
+        <div class="stream-config">
+            <div class="config-section">
+                <h3 class="config-title">Configuration du Stream</h3>
+                
+                <div class="config-group">
+                    <label class="config-label">Clé de Stream (RTMP)</label>
+                    <div class="stream-key-box">
+                        <span class="stream-key-value">live_xxxxxxxxxx_xxxxxxxxxxxxxxxxxxxxxxxx</span>
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="copy-btn" onclick="alert('Clé copiée!')">📋 Copier</button>
+                            <button class="reset-btn" onclick="if(confirm('Régénérer la clé?')) alert('Nouvelle clé générée!')">🔄 Régénérer</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-group">
+                    <label class="config-label">URL du Serveur RTMP</label>
+                    <input type="text" class="config-input" value="rtmps://stream.tltv.gg/live" readonly>
+                </div>
+
+                <div class="config-group">
+                    <label class="config-label">Titre du Stream</label>
+                    <input type="text" class="config-input" placeholder="Ex: Ranked Challenger - Push Top 10 EUW">
+                </div>
+
+                <div class="config-group">
+                    <label class="config-label">Description</label>
+                    <textarea class="config-input" rows="4" placeholder="Décrivez votre stream..."></textarea>
+                </div>
+
+                <div class="config-group">
+                    <label class="config-label">Catégorie</label>
+                    <select class="config-input">
+                        <option>League of Legends</option>
+                        <option>Tournois TLeagues</option>
+                        <option>Coaching</option>
+                        <option>Autre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary">💾 Enregistrer</button>
+                <button class="btn btn-secondary">❌ Annuler</button>
+            </div>
+        </div>
+
+        <!-- Recent Streams -->
+        <div class="recent-streams">
+            <div class="section-header">
+                <h2 class="section-title">Streams Récents</h2>
+            </div>
+
+            <div class="streams-list">
+                <div class="stream-item">
+                    <div class="stream-thumbnail-small"></div>
+                    <div class="stream-item-info">
+                        <h4>Ranked Challenger - Push Top 10 EUW</h4>
+                        <div class="stream-item-meta">
+                            <span>📅 15 Jan 2026</span>
+                            <span>⏱️ 3h 24min</span>
+                        </div>
+                        <div class="stream-item-stats">
+                            <div class="stream-stat">
+                                <span class="stream-stat-value">1,234</span>
+                                <span>Viewers Max</span>
+                            </div>
+                            <div class="stream-stat">
+                                <span class="stream-stat-value">856</span>
+                                <span>Viewers Moy</span>
+                            </div>
+                            <div class="stream-stat">
+                                <span class="stream-stat-value">2.3K</span>
+                                <span>Messages</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stream-actions">
+                        <button class="action-btn">Voir</button>
+                        <button class="action-btn">Analytics</button>
+                    </div>
+                </div>
+
+                <div class="stream-item">
+                    <div class="stream-thumbnail-small"></div>
+                    <div class="stream-item-info">
+                        <h4>Coaching Session - Améliore ton gameplay</h4>
+                        <div class="stream-item-meta">
+                            <span>📅 12 Jan 2026</span>
+                            <span>⏱️ 2h 18min</span>
+                        </div>
+                        <div class="stream-item-stats">
+                            <div class="stream-stat">
+                                <span class="stream-stat-value">567</span>
+                                <span>Viewers Max</span>
+                            </div>
+                            <div class="stream-stat">
+                                <span class="stream-stat-value">423</span>
+                                <span>Viewers Moy</span>
+                            </div>
+                            <div class="stream-stat">
+                                <span class="stream-stat-value">1.1K</span>
+                                <span>Messages</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stream-actions">
+                        <button class="action-btn">Voir</button>
+                        <button class="action-btn">Analytics</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Time filter buttons
+        document.querySelectorAll('.time-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
