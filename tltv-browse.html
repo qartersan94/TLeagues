@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcourir - TLTV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #ff0000;
+            padding: 1.2rem 3rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ff0000;
+            text-decoration: none;
+            letter-spacing: 4px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: #888;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #ff0000;
+        }
+
+        .user-menu {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            border: 2px solid;
+        }
+
+        .btn-stream {
+            background: #ff0000;
+            color: #fff;
+            border-color: #ff0000;
+        }
+
+        .btn-stream:hover {
+            background: #cc0000;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 4rem 3rem 3rem;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(255, 0, 0, 0.05), transparent);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff0000, #ff7b7b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #888;
+        }
+
+        /* Filters */
+        .filters-section {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            border: 1px solid rgba(50, 50, 50, 0.5);
+            border-radius: 6px;
+            color: #888;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-tab:hover, .filter-tab.active {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff0000;
+            color: #ff0000;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            padding: 0.7rem 1.5rem;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(50, 50, 50, 0.5);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 0.9rem;
+            width: 300px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #ff0000;
+        }
+
+        .search-input::placeholder {
+            color: #666;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            max-width: 1600px;
+            margin: 2rem auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-around;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ff0000;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Streams Grid */
+        .streams-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 3rem 3rem 5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .live-indicator {
+            width: 12px;
+            height: 12px;
+            background: #ff0000;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.3); }
+        }
+
+        .streams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .stream-card {
+            background: rgba(5, 5, 5, 0.6);
+            border: 1px solid rgba(50, 50, 50, 0.5);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .stream-card:hover {
+            border-color: rgba(255, 0, 0, 0.5);
+            transform: translateY(-5px);
+            background: rgba(15, 15, 15, 0.8);
+        }
+
+        .stream-thumbnail {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+        }
+
+        .live-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #ff0000;
+            color: #fff;
+            padding: 0.4rem 0.9rem;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .viewer-count {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 0.4rem 0.9rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .stream-duration {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 0.4rem 0.9rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .stream-info {
+            padding: 1.5rem;
+        }
+
+        .stream-header {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .streamer-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff0000, #ff6b6b);
+            border: 2px solid #ff0000;
+            flex-shrink: 0;
+        }
+
+        .stream-details {
+            flex: 1;
+        }
+
+        .stream-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.3rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .stream-streamer {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .stream-category {
+            display: inline-block;
+            background: rgba(255, 0, 0, 0.15);
+            color: #ff0000;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .stream-tags {
+            margin-top: 0.8rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(50, 50, 50, 0.5);
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: rgba(5, 5, 5, 0.6);
+            border: 1px solid rgba(50, 50, 50, 0.5);
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .empty-state h3 {
+            font-size: 2rem;
+            color: #ff0000;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 968px) {
+            nav ul {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .streams-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="tltv.html" class="logo">TLTV</a>
+            
+            <nav>
+                <ul>
+                    <li><a href="tltv.html">ACCUEIL</a></li>
+                    <li><a href="tltv-browse.html" class="active">PARCOURIR</a></li>
+                    <li><a href="#">SUIVIS</a></li>
+                    <li><a href="#">CATÉGORIES</a></li>
+                </ul>
+            </nav>
+
+            <div class="user-menu">
+                <a href="tltv-dashboard.html" class="btn btn-stream">🎥 STREAMER</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>PARCOURIR LES STREAMS</h1>
+        <p>Découvrez les meilleurs streamers League of Legends en direct</p>
+    </section>
+
+    <!-- Filters -->
+    <div class="filters-section">
+        <div class="filter-tabs">
+            <button class="filter-tab active">Tous</button>
+            <button class="filter-tab">League of Legends</button>
+            <button class="filter-tab">Tournois</button>
+            <button class="filter-tab">Coaching</button>
+            <button class="filter-tab">Français</button>
+        </div>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Rechercher un stream...">
+        </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Streams Live</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">3.2K</div>
+            <div class="stat-label">Viewers Total</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">45</div>
+            <div class="stat-label">Streamers Actifs</div>
+        </div>
+    </div>
+
+    <!-- Streams Grid -->
+    <div class="streams-container">
+        <h2 class="section-title">
+            <span class="live-indicator"></span>
+            En Direct Maintenant
+        </h2>
+
+        <div class="streams-grid">
+            <!-- Stream Card 1 -->
+            <div class="stream-card" onclick="window.location.href='tltv-player.html'">
+                <div class="stream-thumbnail">
+                    <div class="live-badge">
+                        <span style="width: 8px; height: 8px; background: #fff; border-radius: 50%;"></span>
+                        LIVE
+                    </div>
+                    <div class="viewer-count">👁️ 1,234</div>
+                    <div class="stream-duration">2:34:12</div>
+                </div>
+                <div class="stream-info">
+                    <div class="stream-header">
+                        <div class="streamer-avatar"></div>
+                        <div class="stream-details">
+                            <div class="stream-title">Ranked Challenger - Push Top 10 EUW</div>
+                            <div class="stream-streamer">ProPlayer94</div>
+                        </div>
+                    </div>
+                    <div class="stream-category">League of Legends</div>
+                    <div class="stream-tags">
+                        <span class="tag">#Challenger</span>
+                        <span class="tag">#Français</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stream Card 2 -->
+            <div class="stream-card">
+                <div class="stream-thumbnail">
+                    <div class="live-badge">
+                        <span style="width: 8px; height: 8px; background: #fff; border-radius: 50%;"></span>
+                        LIVE
+                    </div>
+                    <div class="viewer-count">👁️ 856</div>
+                    <div class="stream-duration">1:45:30</div>
+                </div>
+                <div class="stream-info">
+                    <div class="stream-header">
+                        <div class="streamer-avatar"></div>
+                        <div class="stream-details">
+                            <div class="stream-title">Tournoi TLeagues - Demi-finale</div>
+                            <div class="stream-streamer">TLeaguesTV</div>
+                        </div>
+                    </div>
+                    <div class="stream-category">Tournois TLeagues</div>
+                    <div class="stream-tags">
+                        <span class="tag">#Compétitif</span>
+                        <span class="tag">#BO5</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stream Card 3 -->
+            <div class="stream-card">
+                <div class="stream-thumbnail">
+                    <div class="live-badge">
+                        <span style="width: 8px; height: 8px; background: #fff; border-radius: 50%;"></span>
+                        LIVE
+                    </div>
+                    <div class="viewer-count">👁️ 432</div>
+                    <div class="stream-duration">3:12:45</div>
+                </div>
+                <div class="stream-info">
+                    <div class="stream-header">
+                        <div class="streamer-avatar"></div>
+                        <div class="stream-details">
+                            <div class="stream-title">Coaching Live - Bronze → Diamant</div>
+                            <div class="stream-streamer">CoachXpert</div>
+                        </div>
+                    </div>
+                    <div class="stream-category">Coaching</div>
+                    <div class="stream-tags">
+                        <span class="tag">#Éducatif</span>
+                        <span class="tag">#Français</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stream Card 4 -->
+            <div class="stream-card">
+                <div class="stream-thumbnail">
+                    <div class="live-badge">
+                        <span style="width: 8px; height: 8px; background: #fff; border-radius: 50%;"></span>
+                        LIVE
+                    </div>
+                    <div class="viewer-count">👁️ 298</div>
+                    <div class="stream-duration">0:42:18</div>
+                </div>
+                <div class="stream-info">
+                    <div class="stream-header">
+                        <div class="streamer-avatar"></div>
+                        <div class="stream-details">
+                            <div class="stream-title">Chill ranked avec la communauté</div>
+                            <div class="stream-streamer">StreamerFR</div>
+                        </div>
+                    </div>
+                    <div class="stream-category">League of Legends</div>
+                    <div class="stream-tags">
+                        <span class="tag">#Chill</span>
+                        <span class="tag">#Interactive</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stream Card 5 -->
+            <div class="stream-card">
+                <div class="stream-thumbnail">
+                    <div class="live-badge">
+                        <span style="width: 8px; height: 8px; background: #fff; border-radius: 50%;"></span>
+                        LIVE
+                    </div>
+                    <div class="viewer-count">👁️ 189</div>
+                    <div class="stream-duration">1:15:22</div>
+                </div>
+                <div class="stream-info">
+                    <div class="stream-header">
+                        <div class="streamer-avatar"></div>
+                        <div class="stream-details">
+                            <div class="stream-title">One Trick Yasuo - Road to Master</div>
+                            <div class="stream-streamer">YasuoMain</div>
+                        </div>
+                    </div>
+                    <div class="stream-category">League of Legends</div>
+                    <div class="stream-tags">
+                        <span class="tag">#OneTrick</span>
+                        <span class="tag">#Mid</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stream Card 6 -->
+            <div class="stream-card">
+                <div class="stream-thumbnail">
+                    <div class="live-badge">
+                        <span style="width: 8px; height: 8px; background: #fff; border-radius: 50%;"></span>
+                        LIVE
+                    </div>
+                    <div class="viewer-count">👁️ 145</div>
+                    <div class="stream-duration">2:08:33</div>
+                </div>
+                <div class="stream-info">
+                    <div class="stream-header">
+                        <div class="streamer-avatar"></div>
+                        <div class="stream-details">
+                            <div class="stream-title">Analyse VOD - Améliore ton gameplay</div>
+                            <div class="stream-streamer">AnalystPro</div>
+                        </div>
+                    </div>
+                    <div class="stream-category">Coaching</div>
+                    <div class="stream-tags">
+                        <span class="tag">#Analyse</span>
+                        <span class="tag">#Tips</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
