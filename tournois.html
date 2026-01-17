@@ -5,604 +5,282 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tournois - TLeagues</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #000;
-            color: #fff;
-            line-height: 1.6;
-        }
-
-        /* Header */
-        header {
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid #ff0000;
-            padding: 1.2rem 3rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: #ff0000;
-            text-decoration: none;
-            letter-spacing: 4px;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        nav a, nav button {
-            color: #888;
-            text-decoration: none;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-        }
-
-        nav a:hover, nav button:hover, nav a.active {
-            color: #ff0000;
-        }
-
-        nav button::after {
-            content: '▼';
-            font-size: 0.6rem;
-            margin-left: 0.3rem;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.8rem 2.2rem;
-            border-radius: 6px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            border: 2px solid;
-        }
-
-        .btn-inscription {
-            background: transparent;
-            color: #ff0000;
-            border-color: #ff0000;
-        }
-
-        .btn-inscription:hover {
-            background: rgba(255, 0, 0, 0.1);
-        }
-
-        .btn-connexion {
-            background: #ff0000;
-            color: #fff;
-            border-color: #ff0000;
-        }
-
-        .btn-connexion:hover {
-            background: #cc0000;
-        }
-
-        /* Page Header */
-        .page-header {
-            padding: 4rem 3rem 3rem;
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .page-title {
-            font-size: 3rem;
-            font-weight: 900;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .page-count {
-            color: #666;
-            font-size: 1rem;
-        }
-
-        /* Tournaments Grid */
-        .tournaments-section {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 3rem 5rem;
-        }
-
-        .tournaments-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 2rem;
-        }
-
-        .tournament-card {
-            background: linear-gradient(180deg, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.9) 60%, rgba(40, 0, 0, 0.8) 60%, rgba(30, 0, 0, 0.7) 100%);
-            border: 1px solid rgba(80, 20, 0, 0.5);
-            border-radius: 16px;
-            padding: 0;
-            transition: all 0.3s;
-            overflow: hidden;
-        }
-
-        .tournament-card:hover {
-            border-color: rgba(255, 0, 0, 0.5);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(255, 0, 0, 0.2);
-        }
-
-        .card-header {
-            padding: 3rem 2.5rem 2rem;
-            text-align: center;
-            border-bottom: 1px solid rgba(80, 20, 0, 0.3);
-        }
-
-        .tournament-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .tournament-badge {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1.5rem;
-        }
-
-        .badge-green {
-            background: #00ff00;
-            color: #000;
-        }
-
-        .badge-orange {
-            background: #ff9900;
-            color: #000;
-        }
-
-        .tournament-title {
-            font-size: 1.6rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-body {
-            padding: 2rem 2.5rem;
-        }
-
-        .tournament-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .info-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-
-        .info-label {
-            font-size: 0.7rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .info-value {
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: #ff0000;
-        }
-
-        .tournament-actions {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .action-btn {
-            flex: 1;
-            padding: 0.9rem;
-            border-radius: 6px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            text-align: center;
-            border: 2px solid;
-        }
-
-        .btn-primary {
-            background: #ff0000;
-            color: #fff;
-            border-color: #ff0000;
-        }
-
-        .btn-primary:hover {
-            background: #cc0000;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #ff0000;
-            border-color: #ff0000;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 0, 0, 0.1);
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+        
+        /* Navigation */
+        nav { background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 0, 0, 0.1); padding: 1.2rem 5%; position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+        .logo { font-size: 1.8rem; font-weight: 900; color: #ff0000; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { color: #666; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-links a.active { color: #ff0000; }
+        .dropdown { position: relative; }
+        .dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 0.3rem; }
+        .dropdown-toggle::after { content: '▼'; font-size: 0.7rem; transition: transform 0.3s; }
+        .dropdown:hover .dropdown-toggle::after { transform: rotate(180deg); }
+        .dropdown-menu { position: absolute; top: 100%; left: 0; background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 8px; min-width: 220px; padding: 0.5rem 0; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-menu a { padding: 0.75rem 1.5rem; font-size: 0.85rem; display: block; }
+        .dropdown-menu a:hover { background: rgba(255, 0, 0, 0.1); }
+        .nav-actions { display: flex; gap: 1rem; }
+        .btn-connexion { background: #ff0000; color: #fff; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; transition: all 0.3s; }
+        .btn-connexion:hover { background: #cc0000; transform: translateY(-2px); }
+        .btn-inscription { background: transparent !important; border: 2px solid #ff0000; }
+        
+        /* Hero */
+        .hero { padding: 6rem 5% 4rem; text-align: center; background: linear-gradient(180deg, rgba(255, 0, 0, 0.05) 0%, transparent 100%); }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(135deg, #ff0000 0%, #fff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
+        .hero p { font-size: 1.2rem; color: #666; }
+        
+        /* Filters */
+        .filters-section { padding: 0 5% 3rem; }
+        .filters { max-width: 1400px; margin: 0 auto; background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .filter-group label { display: block; margin-bottom: 0.6rem; color: #666; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+        .filter-group select, .filter-group input { width: 100%; padding: 0.9rem 1rem; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 6px; color: #fff; font-size: 0.95rem; transition: all 0.3s; }
+        .filter-group select:focus, .filter-group input:focus { outline: none; border-color: #ff0000; }
+        select option { background: #0a0a0a; }
+        
+        /* Tournaments */
+        .tournaments-section { padding: 0 5% 6rem; }
+        .tournaments-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .tournament-card { background: #000; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; overflow: hidden; transition: all 0.3s; cursor: pointer; }
+        .tournament-card:hover { border-color: #ff0000; transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3); }
+        .tournament-header { background: linear-gradient(135deg, rgba(255, 0, 0, 0.2) 0%, rgba(255, 0, 0, 0.05) 100%); padding: 2rem; border-bottom: 1px solid rgba(255, 0, 0, 0.2); }
+        .tournament-badge { background: #ff0000; color: #fff; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; display: inline-block; margin-bottom: 1rem; }
+        .tournament-badge.upcoming { background: rgba(255, 165, 0, 0.8); }
+        .tournament-badge.completed { background: rgba(100, 100, 100, 0.8); }
+        .tournament-title { font-size: 1.5rem; font-weight: 900; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .tournament-date { color: #666; font-size: 0.9rem; }
+        .tournament-body { padding: 2rem; }
+        .tournament-info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+        .info-item { text-align: center; }
+        .info-value { font-size: 1.5rem; font-weight: 900; color: #ff0000; }
+        .info-label { font-size: 0.75rem; color: #666; text-transform: uppercase; margin-top: 0.3rem; font-weight: 600; letter-spacing: 1px; }
+        .tournament-actions { display: flex; gap: 1rem; }
+        .btn-tournament { flex: 1; padding: 0.9rem; border: none; border-radius: 6px; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; text-decoration: none; text-align: center; }
+        .btn-register { background: #ff0000; color: #fff; }
+        .btn-register:hover { background: #cc0000; transform: translateY(-2px); }
+        .btn-view { background: transparent; color: #ff0000; border: 1px solid #ff0000; }
+        .btn-view:hover { background: rgba(255, 0, 0, 0.1); }
+        
         /* Footer */
-        footer {
-            background: rgba(5, 0, 0, 0.5);
-            border-top: 2px solid #ff0000;
-            padding: 3rem 3rem 2rem;
-            margin-top: 3rem;
-        }
-
-        .footer-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 3rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h4 {
-            color: #ff0000;
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .footer-section p {
-            color: #666;
-            line-height: 1.7;
-            font-size: 0.85rem;
-        }
-
-        .footer-section a {
-            display: block;
-            color: #666;
-            text-decoration: none;
-            margin-bottom: 0.7rem;
-            transition: all 0.3s;
-            font-size: 0.85rem;
-        }
-
-        .footer-section a:hover {
-            color: #ff0000;
-            padding-left: 8px;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 0, 0, 0.2);
-            color: #666;
-            font-size: 0.8rem;
-        }
-
-        /* Mobile */
-        @media (max-width: 1200px) {
-            nav ul {
-                display: none;
-            }
-
-            .page-title {
-                font-size: 2rem;
-            }
-
-            .tournaments-grid {
-                grid-template-columns: 1fr;
-            }
+        footer { background: #0a0a0a; padding: 4rem 5% 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); color: #666; }
+        
+        @media (max-width: 968px) {
+            .hero h1 { font-size: 2.5rem; }
+            .tournaments-grid { grid-template-columns: 1fr; }
+            .filters { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="header-container">
+    <nav>
+        <div class="nav-container">
             <a href="index.html" class="logo">TLEAGUES</a>
-            
-            <nav>
-                <ul>
-                    <li><a href="index.html">ACCUEIL</a></li>
-                    <li><button class="active">COMPÉTITIONS</button></li>
-                    <li><button>ÉQUIPES</button></li>
-                    <li><button>DASHBOARD</button></li>
-                    <li><a href="tltv.html">TLTV</a></li>
-                    <li><button>PLUS</button></li>
-                </ul>
-            </nav>
-
-            <div class="nav-buttons">
-                <a href="register.html" class="btn btn-inscription">INSCRIPTION</a>
-                <a href="login.html" class="btn btn-connexion">CONNEXION</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle active">Compétitions</a>
+                    <div class="dropdown-menu">
+                        <a href="tournois.html">🏆 Tournois</a>
+                        <a href="leagues.html">🎖️ Ligues</a>
+                        <a href="cups.html">🏅 Coupes</a>
+                        <a href="bracket.html">📊 Brackets</a>
+                        <a href="match-detail.html">⚔️ Match</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Équipes</a>
+                    <div class="dropdown-menu">
+                        <a href="equipe.html">👥 Mon Équipe</a>
+                        <a href="team-manager.html">⚙️ Gestion</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Dashboard</a>
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html">📈 Dashboard</a>
+                        <a href="profil.html">👤 Profil</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Plus</a>
+                    <div class="dropdown-menu">
+                        <a href="services.html">📋 Services</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="nav-actions">
+                <a href="register.html" class="btn-connexion btn-inscription">Inscription</a>
+                <a href="login.html" class="btn-connexion">Connexion</a>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- Page Header -->
-    <div class="page-header">
-        <h1 class="page-title">TOUS LES TOURNOIS</h1>
-        <p class="page-count">12 tournois disponibles</p>
-    </div>
+    <section class="hero">
+        <h1>Tournois Disponibles</h1>
+        <p>Trouvez et rejoignez les meilleurs tournois League of Legends</p>
+    </section>
 
-    <!-- Tournaments Section -->
-    <div class="tournaments-section">
+    <section class="filters-section">
+        <div class="filters">
+            <div class="filter-group">
+                <label>Statut</label>
+                <select>
+                    <option>Tous</option>
+                    <option>Inscriptions ouvertes</option>
+                    <option>À venir</option>
+                    <option>En cours</option>
+                    <option>Terminés</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Format</label>
+                <select>
+                    <option>Tous les formats</option>
+                    <option>BO1</option>
+                    <option>BO3</option>
+                    <option>BO5</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Région</label>
+                <select>
+                    <option>Toutes</option>
+                    <option>Europe</option>
+                    <option>Amérique</option>
+                    <option>Asie</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Rechercher</label>
+                <input type="text" placeholder="Nom du tournoi...">
+            </div>
+        </div>
+    </section>
+
+    <section class="tournaments-section">
         <div class="tournaments-grid">
-            <!-- Tournament Card 1 -->
-            <div class="tournament-card">
-                <div class="card-header">
-                    <div class="tournament-icon">🏆</div>
-                    <div class="tournament-badge badge-green">INSCRIPTION OUVERTE</div>
+            <div class="tournament-card" onclick="window.location.href='bracket.html'">
+                <div class="tournament-header">
+                    <span class="tournament-badge">🔥 Inscription Ouverte</span>
                     <h3 class="tournament-title">Winter Championship 2026</h3>
+                    <p class="tournament-date">📅 15 Janvier 2026 - 18:00</p>
                 </div>
-                <div class="card-body">
+                <div class="tournament-body">
                     <div class="tournament-info">
-                        <div class="info-item">
-                            <span class="info-label">DATE</span>
-                            <span class="info-value">15 Jan 2026</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">FORMAT</span>
-                            <span class="info-value">BO3</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">ÉQUIPES</span>
-                            <span class="info-value">64/128</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">PRIZE POOL</span>
-                            <span class="info-value">50K€</span>
-                        </div>
+                        <div class="info-item"><div class="info-value">128</div><div class="info-label">Équipes</div></div>
+                        <div class="info-item"><div class="info-value">Gratuit</div><div class="info-label">Prize Pool</div></div>
+                        <div class="info-item"><div class="info-value">BO3</div><div class="info-label">Format</div></div>
                     </div>
                     <div class="tournament-actions">
-                        <a href="register.html" class="action-btn btn-primary">S'INSCRIRE</a>
-                        <a href="bracket.html" class="action-btn btn-secondary">DÉTAILS</a>
+                        <a href="register.html" class="btn-tournament btn-register">S'inscrire</a>
+                        <a href="bracket.html" class="btn-tournament btn-view">Voir Bracket</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Tournament Card 2 -->
-            <div class="tournament-card">
-                <div class="card-header">
-                    <div class="tournament-icon">⚔️</div>
-                    <div class="tournament-badge badge-orange">BIENTÔT</div>
+            <div class="tournament-card" onclick="window.location.href='bracket.html'">
+                <div class="tournament-header">
+                    <span class="tournament-badge upcoming">🎮 Bientôt</span>
                     <h3 class="tournament-title">TLeagues Pro League S1</h3>
+                    <p class="tournament-date">📅 20 Janvier 2026 - 20:00</p>
                 </div>
-                <div class="card-body">
+                <div class="tournament-body">
                     <div class="tournament-info">
-                        <div class="info-item">
-                            <span class="info-label">DATE</span>
-                            <span class="info-value">20 Jan 2026</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">FORMAT</span>
-                            <span class="info-value">BO5</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">ÉQUIPES</span>
-                            <span class="info-value">0/64</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">PRIZE POOL</span>
-                            <span class="info-value">100K€</span>
-                        </div>
+                        <div class="info-item"><div class="info-value">64</div><div class="info-label">Équipes</div></div>
+                        <div class="info-item"><div class="info-value">Gratuit</div><div class="info-label">Prize Pool</div></div>
+                        <div class="info-item"><div class="info-value">BO5</div><div class="info-label">Format</div></div>
                     </div>
                     <div class="tournament-actions">
-                        <a href="register.html" class="action-btn btn-primary">S'INSCRIRE</a>
-                        <a href="#" class="action-btn btn-secondary">DÉTAILS</a>
+                        <a href="register.html" class="btn-tournament btn-register">S'inscrire</a>
+                        <a href="bracket.html" class="btn-tournament btn-view">Plus d'infos</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Tournament Card 3 -->
-            <div class="tournament-card">
-                <div class="card-header">
-                    <div class="tournament-icon">🎮</div>
-                    <div class="tournament-badge badge-green">INSCRIPTION OUVERTE</div>
+            <div class="tournament-card" onclick="window.location.href='bracket.html'">
+                <div class="tournament-header">
+                    <span class="tournament-badge">⭐ Places Limitées</span>
                     <h3 class="tournament-title">Rookie Tournament</h3>
+                    <p class="tournament-date">📅 10 Janvier 2026 - 19:00</p>
                 </div>
-                <div class="card-body">
+                <div class="tournament-body">
                     <div class="tournament-info">
-                        <div class="info-item">
-                            <span class="info-label">DATE</span>
-                            <span class="info-value">10 Jan 2026</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">FORMAT</span>
-                            <span class="info-value">BO1</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">JOUEURS</span>
-                            <span class="info-value">128/256</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">PRIZE POOL</span>
-                            <span class="info-value">10K€</span>
-                        </div>
+                        <div class="info-item"><div class="info-value">256</div><div class="info-label">Joueurs</div></div>
+                        <div class="info-item"><div class="info-value">Gratuit</div><div class="info-label">Prize Pool</div></div>
+                        <div class="info-item"><div class="info-value">BO1</div><div class="info-label">Format</div></div>
                     </div>
                     <div class="tournament-actions">
-                        <a href="register.html" class="action-btn btn-primary">S'INSCRIRE</a>
-                        <a href="#" class="action-btn btn-secondary">DÉTAILS</a>
+                        <a href="register.html" class="btn-tournament btn-register">S'inscrire</a>
+                        <a href="bracket.html" class="btn-tournament btn-view">Plus d'infos</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Tournament Card 4 -->
-            <div class="tournament-card">
-                <div class="card-header">
-                    <div class="tournament-icon">⚡</div>
-                    <div class="tournament-badge badge-green">INSCRIPTION OUVERTE</div>
-                    <h3 class="tournament-title">Speed Cup</h3>
+            <div class="tournament-card" onclick="window.location.href='bracket.html'">
+                <div class="tournament-header">
+                    <span class="tournament-badge">🔥 Inscription Ouverte</span>
+                    <h3 class="tournament-title">Spring Invitational</h3>
+                    <p class="tournament-date">📅 25 Janvier 2026 - 19:00</p>
                 </div>
-                <div class="card-body">
+                <div class="tournament-body">
                     <div class="tournament-info">
-                        <div class="info-item">
-                            <span class="info-label">DATE</span>
-                            <span class="info-value">18 Jan 2026</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">FORMAT</span>
-                            <span class="info-value">BO1</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">JOUEURS</span>
-                            <span class="info-value">45/128</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">PRIZE POOL</span>
-                            <span class="info-value">15K€</span>
-                        </div>
+                        <div class="info-item"><div class="info-value">32</div><div class="info-label">Équipes</div></div>
+                        <div class="info-item"><div class="info-value">Gratuit</div><div class="info-label">Prize Pool</div></div>
+                        <div class="info-item"><div class="info-value">BO3</div><div class="info-label">Format</div></div>
                     </div>
                     <div class="tournament-actions">
-                        <a href="register.html" class="action-btn btn-primary">S'INSCRIRE</a>
-                        <a href="#" class="action-btn btn-secondary">DÉTAILS</a>
+                        <a href="register.html" class="btn-tournament btn-register">S'inscrire</a>
+                        <a href="bracket.html" class="btn-tournament btn-view">Voir Bracket</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Tournament Card 5 -->
-            <div class="tournament-card">
-                <div class="card-header">
-                    <div class="tournament-icon">🌟</div>
-                    <div class="tournament-badge badge-orange">BIENTÔT</div>
-                    <h3 class="tournament-title">Champions Cup</h3>
+            <div class="tournament-card" onclick="window.location.href='bracket.html'">
+                <div class="tournament-header">
+                    <span class="tournament-badge completed">✅ Terminé</span>
+                    <h3 class="tournament-title">Autumn Cup 2025</h3>
+                    <p class="tournament-date">📅 20 Décembre 2025 - 20:00</p>
                 </div>
-                <div class="card-body">
+                <div class="tournament-body">
                     <div class="tournament-info">
-                        <div class="info-item">
-                            <span class="info-label">DATE</span>
-                            <span class="info-value">1 Fév 2026</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">FORMAT</span>
-                            <span class="info-value">BO5</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">ÉQUIPES</span>
-                            <span class="info-value">0/16</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">PRIZE POOL</span>
-                            <span class="info-value">250K€</span>
-                        </div>
+                        <div class="info-item"><div class="info-value">64</div><div class="info-label">Équipes</div></div>
+                        <div class="info-item"><div class="info-value">Gratuit</div><div class="info-label">Prize Pool</div></div>
+                        <div class="info-item"><div class="info-value">BO5</div><div class="info-label">Format</div></div>
                     </div>
                     <div class="tournament-actions">
-                        <a href="#" class="action-btn btn-secondary">DÉTAILS</a>
+                        <a href="bracket.html" class="btn-tournament btn-view">Voir Résultats</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Tournament Card 6 -->
-            <div class="tournament-card">
-                <div class="card-header">
-                    <div class="tournament-icon">🔥</div>
-                    <div class="tournament-badge badge-green">INSCRIPTION OUVERTE</div>
-                    <h3 class="tournament-title">Night Clash</h3>
+            <div class="tournament-card" onclick="window.location.href='bracket.html'">
+                <div class="tournament-header">
+                    <span class="tournament-badge upcoming">🎮 Bientôt</span>
+                    <h3 class="tournament-title">Masters League</h3>
+                    <p class="tournament-date">📅 1 Février 2026 - 18:00</p>
                 </div>
-                <div class="card-body">
+                <div class="tournament-body">
                     <div class="tournament-info">
-                        <div class="info-item">
-                            <span class="info-label">DATE</span>
-                            <span class="info-value">22 Jan 2026</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">FORMAT</span>
-                            <span class="info-value">BO3</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">ÉQUIPES</span>
-                            <span class="info-value">12/32</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">PRIZE POOL</span>
-                            <span class="info-value">20K€</span>
-                        </div>
+                        <div class="info-item"><div class="info-value">16</div><div class="info-label">Équipes</div></div>
+                        <div class="info-item"><div class="info-value">Gratuit</div><div class="info-label">Prize Pool</div></div>
+                        <div class="info-item"><div class="info-value">BO5</div><div class="info-label">Format</div></div>
                     </div>
                     <div class="tournament-actions">
-                        <a href="register.html" class="action-btn btn-primary">S'INSCRIRE</a>
-                        <a href="#" class="action-btn btn-secondary">DÉTAILS</a>
+                        <a href="register.html" class="btn-tournament btn-register">S'inscrire</a>
+                        <a href="bracket.html" class="btn-tournament btn-view">Plus d'infos</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>TLEAGUES</h4>
-                <p>La plateforme de référence pour les tournois esports League of Legends.</p>
-            </div>
-            <div class="footer-section">
-                <h4>NAVIGATION</h4>
-                <a href="tournois.html">Tournois</a>
-                <a href="leagues.html">Ligues</a>
-                <a href="cups.html">Coupes</a>
-            </div>
-            <div class="footer-section">
-                <h4>COMPTE</h4>
-                <a href="register.html">Créer un compte</a>
-                <a href="login.html">Connexion</a>
-            </div>
-            <div class="footer-section">
-                <h4>SUPPORT</h4>
-                <a href="services.html">FAQ</a>
-                <a href="services.html">Contact</a>
-            </div>
-        </div>
         <div class="footer-bottom">
-            © 2026 TLeagues. Tous droits réservés.
+            © 2026 TLeagues. Tous droits réservés. Made with 🔥 for esports.
         </div>
     </footer>
 </body>
