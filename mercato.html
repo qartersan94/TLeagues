@@ -3,833 +3,509 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mercato - TLeagues</title>
+    <title>Mon Équipe - TLeagues</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #000000;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #000; color: #fff; }
+        
         /* Navigation */
-        nav {
-            background: #0a0a0a;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
-            padding: 1rem 3%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #ff0000;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #666;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #ff0000;
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .btn-back {
-            background: transparent;
-            color: #ff0000;
-            padding: 0.6rem 1.5rem;
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .btn-back:hover {
-            background: rgba(255, 0, 0, 0.1);
-            border-color: #ff0000;
-        }
-
-        /* Main Container */
-        .mercato-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 2.5rem 3%;
-        }
-
-        /* Header */
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .page-header h1 {
-            font-size: 3rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .page-header p {
-            color: #666;
-            font-size: 1rem;
-        }
-
-        .mercato-status {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.6rem 1.5rem;
-            background: rgba(0, 255, 0, 0.1);
-            border: 1px solid #00ff00;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: #00ff00;
-        }
-
-        .mercato-status.closed {
-            background: rgba(255, 0, 0, 0.1);
-            border-color: #ff0000;
-            color: #ff0000;
-        }
-
-        /* Search & Filters */
-        .search-section {
-            background: #0a0a0a;
-            border: 1px solid rgba(255, 0, 0, 0.1);
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .search-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr auto;
-            gap: 1rem;
-            align-items: end;
-        }
-
-        .search-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .search-group label {
-            color: #666;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 700;
-        }
-
-        .search-input,
-        .search-select {
-            background: #000000;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            color: #fff;
-            padding: 0.8rem;
-            border-radius: 6px;
-            font-size: 0.9rem;
-        }
-
-        .search-input:focus,
-        .search-select:focus {
-            outline: none;
-            border-color: #ff0000;
-        }
-
-        .search-select option {
-            background: #0a0a0a;
-        }
-
-        .btn-search {
-            background: #ff0000;
-            color: #fff;
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 6px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-search:hover {
-            background: #cc0000;
-            transform: translateY(-2px);
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-box {
-            background: #0a0a0a;
-            border: 1px solid rgba(255, 0, 0, 0.1);
-            border-radius: 8px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 900;
-            color: #ff0000;
-            margin-bottom: 0.3rem;
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Players Grid */
-        .players-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .player-card {
-            background: #0a0a0a;
-            border: 1px solid rgba(255, 0, 0, 0.1);
-            border-radius: 8px;
-            padding: 1.8rem;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .player-card:hover {
-            border-color: rgba(255, 0, 0, 0.4);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.15);
-        }
-
-        .player-header {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
-        }
-
-        .player-avatar {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 0, 0, 0.2);
-            border: 3px solid #ff0000;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-        }
-
-        .player-main-info h3 {
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 0.3rem;
-        }
-
-        .player-role {
-            font-size: 0.8rem;
-            color: #ff0000;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 700;
-        }
-
-        .player-rank {
-            font-size: 0.75rem;
-            color: #666;
-            margin-top: 0.2rem;
-        }
-
-        .player-status {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .player-status.available {
-            background: rgba(0, 255, 0, 0.1);
-            border: 1px solid #00ff00;
-            color: #00ff00;
-        }
-
-        .player-status.negotiation {
-            background: rgba(255, 165, 0, 0.1);
-            border: 1px solid #ffa500;
-            color: #ffa500;
-        }
-
-        .player-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-item-value {
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: #ff0000;
-        }
-
-        .stat-item-label {
-            font-size: 0.7rem;
-            color: #666;
-            text-transform: uppercase;
-            margin-top: 0.2rem;
-        }
-
-
-
-        .player-actions {
-            display: flex;
-            gap: 0.8rem;
-        }
-
-        .btn-offer,
-        .btn-details {
-            flex: 1;
-            padding: 0.8rem;
-            border: none;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-        }
-
-        .btn-offer {
-            background: #ff0000;
-            color: #fff;
-        }
-
-        .btn-offer:hover {
-            background: #cc0000;
-            transform: translateY(-2px);
-        }
-
-        .btn-details {
-            background: transparent;
-            color: #666;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .btn-details:hover {
-            background: rgba(255, 0, 0, 0.05);
-            border-color: #ff0000;
-            color: #ff0000;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: #0a0a0a;
-            border: 2px solid rgba(255, 0, 0, 0.3);
-            border-radius: 12px;
-            padding: 2.5rem;
-            max-width: 600px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
-        }
-
-        .modal-title {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-        }
-
-        .modal-subtitle {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .modal-body {
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            color: #ff0000;
-            font-weight: 700;
-            font-size: 0.75rem;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .form-input {
-            width: 100%;
-            background: #000000;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            color: #fff;
-            padding: 0.9rem;
-            border-radius: 6px;
-            font-size: 0.9rem;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #ff0000;
-        }
-
-        .form-info {
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn-modal {
-            flex: 1;
-            padding: 1rem;
-            border: none;
-            border-radius: 6px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-        }
-
-        .btn-confirm {
-            background: #ff0000;
-            color: #fff;
-        }
-
-        .btn-confirm:hover {
-            background: #cc0000;
-        }
-
-        .btn-cancel {
-            background: transparent;
-            color: #666;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .btn-cancel:hover {
-            background: rgba(255, 0, 0, 0.05);
-            border-color: #ff0000;
-            color: #ff0000;
-        }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 5rem 2rem;
-            color: #666;
-        }
-
-        .empty-state-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .empty-state-text {
-            font-size: 1.1rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .search-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-bar {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .players-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                display: none;
-            }
+        nav { background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 0, 0, 0.1); padding: 1.2rem 5%; position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+        .logo { font-size: 1.8rem; font-weight: 900; color: #ff0000; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { color: #666; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-links a.active { color: #ff0000; }
+        .dropdown { position: relative; }
+        .dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 0.3rem; }
+        .dropdown-toggle::after { content: '▼'; font-size: 0.7rem; transition: transform 0.3s; }
+        .dropdown:hover .dropdown-toggle::after { transform: rotate(180deg); }
+        .dropdown-menu { position: absolute; top: calc(100% + 0.5rem); left: 0; background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 8px; min-width: 220px; padding: 0.5rem 0; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-menu a { padding: 0.75rem 1.5rem; font-size: 0.85rem; display: block; color: #999; text-decoration: none; transition: all 0.3s; }
+        .dropdown-menu a:hover { background: rgba(255, 0, 0, 0.1); color: #fff; }
+        .user-menu-toggle { display: flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem; background: transparent; border: 2px solid #ff0000; color: #ff0000; border-radius: 6px; cursor: pointer; transition: all 0.3s; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; }
+        .user-menu-toggle:hover { background: #ff0000; color: #fff; }
+        .user-menu .dropdown-menu { right: 0; left: auto; }
+        
+        /* Team Hero Banner */
+        .team-hero { background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 100%); border-bottom: 2px solid rgba(255, 0, 0, 0.3); padding: 0; position: relative; overflow: hidden; }
+        .team-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><path d="M0 0L100 100M100 0L0 100" stroke="rgba(255,0,0,0.03)" stroke-width="1"/></svg>'); opacity: 0.1; }
+        .team-hero-content { max-width: 1400px; margin: 0 auto; padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; gap: 3rem; position: relative; z-index: 1; }
+        .team-main-info { display: flex; align-items: center; gap: 2rem; flex: 1; }
+        .team-logo-big { width: 120px; height: 120px; background: rgba(255, 0, 0, 0.1); border: 3px solid rgba(255, 0, 0, 0.5); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 4rem; cursor: pointer; transition: all 0.3s; position: relative; }
+        .team-logo-big:hover { border-color: #ff0000; transform: scale(1.05); }
+        .team-logo-big img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
+        .team-identity h1 { font-size: 3rem; font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem; color: #ff0000; }
+        .team-tag { display: inline-block; padding: 0.5rem 1.2rem; background: rgba(255, 0, 0, 0.2); border: 1px solid #ff0000; border-radius: 8px; font-size: 1rem; font-weight: 700; color: #ff0000; }
+        .team-quick-stats { display: flex; gap: 3rem; margin-top: 1.5rem; }
+        .quick-stat { text-align: center; }
+        .quick-stat-value { font-size: 2rem; font-weight: 900; color: #ff0000; }
+        .quick-stat-label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; }
+        .team-actions-hero { display: flex; gap: 1rem; flex-direction: column; }
+        .btn { padding: 0.9rem 2rem; border-radius: 8px; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; text-align: center; border: none; text-decoration: none; display: inline-block; white-space: nowrap; }
+        .btn-primary { background: #ff0000; color: #fff; }
+        .btn-primary:hover { background: #cc0000; transform: translateY(-2px); }
+        .btn-secondary { background: transparent; border: 2px solid rgba(255, 0, 0, 0.5); color: #ff0000; }
+        .btn-secondary:hover { border-color: #ff0000; background: rgba(255, 0, 0, 0.1); }
+        
+        /* Main Content */
+        .main-content { max-width: 1400px; margin: 0 auto; padding: 3rem 5%; }
+        
+        /* Tabs Navigation */
+        .tabs-nav { display: flex; gap: 1rem; margin-bottom: 3rem; border-bottom: 2px solid rgba(255, 0, 0, 0.1); }
+        .tab-btn { padding: 1rem 2rem; background: transparent; border: none; color: #666; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; border-bottom: 3px solid transparent; }
+        .tab-btn:hover { color: #ff0000; }
+        .tab-btn.active { color: #ff0000; border-bottom-color: #ff0000; }
+        
+        /* Section */
+        .section { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 0, 0, 0.1); }
+        .section-title { font-size: 1.5rem; font-weight: 900; text-transform: uppercase; color: #ff0000; }
+        
+        /* Roster Grid */
+        .roster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .player-card { background: rgba(255, 0, 0, 0.03); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 1.5rem; transition: all 0.3s; position: relative; }
+        .player-card:hover { border-color: #ff0000; transform: translateY(-5px); }
+        .player-card.captain::before { content: '👑'; position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; }
+        .player-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .player-avatar { width: 60px; height: 60px; border-radius: 50%; border: 2px solid rgba(255, 0, 0, 0.5); object-fit: cover; }
+        .player-info h3 { font-size: 1.1rem; font-weight: 900; margin-bottom: 0.3rem; color: #fff; }
+        .player-role { font-size: 0.75rem; color: #ff0000; text-transform: uppercase; font-weight: 700; }
+        .player-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1rem; }
+        .player-stat { text-align: center; padding: 0.5rem; background: rgba(0, 0, 0, 0.3); border-radius: 6px; }
+        .player-stat-value { font-size: 1rem; font-weight: 900; color: #ff0000; }
+        .player-stat-label { font-size: 0.65rem; color: #666; text-transform: uppercase; }
+        .player-actions { display: flex; gap: 0.5rem; }
+        .btn-small { padding: 0.5rem 1rem; font-size: 0.75rem; }
+        
+        /* Stats Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .stat-card { background: rgba(255, 0, 0, 0.03); border: 1px solid rgba(255, 0, 0, 0.1); border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.3s; }
+        .stat-card:hover { border-color: #ff0000; transform: translateY(-3px); }
+        .stat-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .stat-value { font-size: 2rem; font-weight: 900; color: #ff0000; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 0.8rem; color: #666; text-transform: uppercase; font-weight: 700; }
+        
+        /* Match Cards */
+        .match-list { display: flex; flex-direction: column; gap: 1rem; }
+        .match-card { background: rgba(255, 0, 0, 0.03); border: 1px solid rgba(255, 0, 0, 0.1); border-radius: 12px; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s; }
+        .match-card:hover { border-color: #ff0000; }
+        .match-card.victory { border-left: 4px solid #10b981; }
+        .match-card.defeat { border-left: 4px solid #ef4444; }
+        .match-info { display: flex; align-items: center; gap: 2rem; }
+        .match-result { font-size: 1.2rem; font-weight: 900; padding: 0.5rem 1rem; border-radius: 6px; }
+        .match-result.victory { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .match-result.defeat { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .match-details h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; color: #fff; }
+        .match-details p { font-size: 0.85rem; color: #666; }
+        .match-meta { text-align: right; }
+        .match-date { font-size: 0.75rem; color: #666; margin-bottom: 0.3rem; }
+        .match-tournament { font-size: 0.85rem; font-weight: 700; color: #ff0000; }
+        
+        /* Footer */
+        footer { background: #0a0a0a; padding: 4rem 5% 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); margin-top: 5rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; }
+        .footer-section h3 { color: #ff0000; font-weight: 900; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 1rem; }
+        .footer-section a { display: block; color: #666; text-decoration: none; margin-bottom: 0.7rem; transition: color 0.3s; }
+        .footer-section a:hover { color: #ff0000; }
+        
+        @media (max-width: 1200px) {
+            .team-hero-content { flex-direction: column; text-align: center; }
+            .team-main-info { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">TLEAGUES</div>
+            <a href="index.html" class="logo">TLEAGUES</a>
             <ul class="nav-links">
                 <li><a href="index.html">Accueil</a></li>
-                <li><a href="tournois.html">Tournois</a></li>
-                <li><a href="mercato.html" class="active">Mercato</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Compétitions</a>
+                    <div class="dropdown-menu">
+                        <a href="tournois.html">🏆 Tournois</a>
+                        <a href="leagues.html">🎖️ Ligues</a>
+                        <a href="cups.html">🏅 Coupes</a>
+                        <a href="bracket.html">📊 Brackets</a>
+                        <a href="match-detail.html">⚔️ Match</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle active">Équipes</a>
+                    <div class="dropdown-menu">
+                        <a href="equipe.html">👥 Mon Équipe</a>
+                        <a href="team-manager.html">⚙️ Gestion</a>
+                        <a href="mercato.html">🔄 Mercato</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Dashboard</a>
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html">📈 Dashboard</a>
+                        <a href="dashboard-capitaine.html">👑 Capitaine</a>
+                        <a href="dashboard-joueur-solo.html">⚔️ Joueur</a>
+                        <a href="dashboard-staff.html">🎯 Staff</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle">Plus</a>
+                    <div class="dropdown-menu">
+                        <a href="profil.html">👤 Profil</a>
+                        <a href="streaming.html">📺 Streaming</a>
+                        <a href="outils.html">🔧 Outils</a>
+                        <a href="services.html">📋 Services</a>
+                    </div>
+                </li>
             </ul>
-            <div class="user-menu">
-                <a href="dashboard-staff.html" class="btn-back">← Retour Dashboard</a>
+            <div class="user-menu dropdown">
+                <div class="user-menu-toggle dropdown-toggle">
+                    <span>Utilisateur</span>
+                </div>
+                <div class="dropdown-menu">
+                    <a href="dashboard.html">📈 Dashboard</a>
+                    <a href="profil.html">👤 Mon Profil</a>
+                    <a href="equipe.html">👥 Mon Équipe</a>
+                    <a href="#" onclick="logout()">🚪 Déconnexion</a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Main Container -->
-    <div class="mercato-container">
-        <!-- Header -->
-        <div class="page-header">
-            <h1>🔄 MERCATO</h1>
-            <p>Système de recrutement et transferts League of Legends</p>
-            <div class="mercato-status" id="mercatoStatus">
-                ✅ MERCATO OUVERT
+    <!-- Team Hero -->
+    <div class="team-hero">
+        <div class="team-hero-content">
+            <div class="team-main-info">
+                <div class="team-logo-big" onclick="document.getElementById('logoInput').click()">
+                    <span id="teamLogo">🛡️</span>
+                    <input type="file" id="logoInput" accept="image/*" style="display: none;">
+                </div>
+                <div class="team-identity">
+                    <h1>Team Phoenix</h1>
+                    <div class="team-tag">[PHX]</div>
+                    <div class="team-quick-stats">
+                        <div class="quick-stat">
+                            <div class="quick-stat-value">23</div>
+                            <div class="quick-stat-label">Victoires</div>
+                        </div>
+                        <div class="quick-stat">
+                            <div class="quick-stat-value">14</div>
+                            <div class="quick-stat-label">Défaites</div>
+                        </div>
+                        <div class="quick-stat">
+                            <div class="quick-stat-value">62%</div>
+                            <div class="quick-stat-label">Win Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="team-actions-hero">
+                <a href="team-manager.html" class="btn btn-primary">⚙️ Gérer l'équipe</a>
+                <button class="btn btn-secondary" onclick="invitePlayer()">➕ Inviter un joueur</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Tabs -->
+        <div class="tabs-nav">
+            <button class="tab-btn active">👥 Roster</button>
+            <button class="tab-btn">📊 Statistiques</button>
+            <button class="tab-btn">⚔️ Matchs</button>
+            <button class="tab-btn">📅 Calendrier</button>
+        </div>
+
+        <!-- Roster Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">👥 Roster Principal</h2>
+                <span style="color: #666; font-size: 0.9rem;">5/5 Joueurs</span>
+            </div>
+            <div class="roster-grid">
+                <div class="player-card captain">
+                    <div class="player-header">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=ff0000&color=fff" alt="" class="player-avatar">
+                        <div class="player-info">
+                            <h3>JohnDoeLOL</h3>
+                            <div class="player-role">⚡ Mid Lane</div>
+                        </div>
+                    </div>
+                    <div class="player-stats">
+                        <div class="player-stat">
+                            <div class="player-stat-value">37</div>
+                            <div class="player-stat-label">Matchs</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">3.2</div>
+                            <div class="player-stat-label">KDA</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">65%</div>
+                            <div class="player-stat-label">WR</div>
+                        </div>
+                    </div>
+                    <div class="player-actions">
+                        <button class="btn btn-secondary btn-small">👤 Profil</button>
+                        <button class="btn btn-secondary btn-small">💬 Message</button>
+                    </div>
+                </div>
+
+                <div class="player-card">
+                    <div class="player-header">
+                        <img src="https://ui-avatars.com/api/?name=Alex+Smith&background=10b981&color=fff" alt="" class="player-avatar">
+                        <div class="player-info">
+                            <h3>AlexJungle</h3>
+                            <div class="player-role">🌳 Jungle</div>
+                        </div>
+                    </div>
+                    <div class="player-stats">
+                        <div class="player-stat">
+                            <div class="player-stat-value">35</div>
+                            <div class="player-stat-label">Matchs</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">2.8</div>
+                            <div class="player-stat-label">KDA</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">60%</div>
+                            <div class="player-stat-label">WR</div>
+                        </div>
+                    </div>
+                    <div class="player-actions">
+                        <button class="btn btn-secondary btn-small">👤 Profil</button>
+                        <button class="btn btn-secondary btn-small">💬 Message</button>
+                    </div>
+                </div>
+
+                <div class="player-card">
+                    <div class="player-header">
+                        <img src="https://ui-avatars.com/api/?name=Mike+Top&background=6366f1&color=fff" alt="" class="player-avatar">
+                        <div class="player-info">
+                            <h3>MikeTopLane</h3>
+                            <div class="player-role">🎯 Top Lane</div>
+                        </div>
+                    </div>
+                    <div class="player-stats">
+                        <div class="player-stat">
+                            <div class="player-stat-value">33</div>
+                            <div class="player-stat-label">Matchs</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">2.5</div>
+                            <div class="player-stat-label">KDA</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">58%</div>
+                            <div class="player-stat-label">WR</div>
+                        </div>
+                    </div>
+                    <div class="player-actions">
+                        <button class="btn btn-secondary btn-small">👤 Profil</button>
+                        <button class="btn btn-secondary btn-small">💬 Message</button>
+                    </div>
+                </div>
+
+                <div class="player-card">
+                    <div class="player-header">
+                        <img src="https://ui-avatars.com/api/?name=Sarah+ADC&background=f59e0b&color=fff" alt="" class="player-avatar">
+                        <div class="player-info">
+                            <h3>SarahADC</h3>
+                            <div class="player-role">🏹 ADC</div>
+                        </div>
+                    </div>
+                    <div class="player-stats">
+                        <div class="player-stat">
+                            <div class="player-stat-value">36</div>
+                            <div class="player-stat-label">Matchs</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">3.8</div>
+                            <div class="player-stat-label">KDA</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">67%</div>
+                            <div class="player-stat-label">WR</div>
+                        </div>
+                    </div>
+                    <div class="player-actions">
+                        <button class="btn btn-secondary btn-small">👤 Profil</button>
+                        <button class="btn btn-secondary btn-small">💬 Message</button>
+                    </div>
+                </div>
+
+                <div class="player-card">
+                    <div class="player-header">
+                        <img src="https://ui-avatars.com/api/?name=Tom+Support&background=8b5cf6&color=fff" alt="" class="player-avatar">
+                        <div class="player-info">
+                            <h3>TomSupport</h3>
+                            <div class="player-role">🛡️ Support</div>
+                        </div>
+                    </div>
+                    <div class="player-stats">
+                        <div class="player-stat">
+                            <div class="player-stat-value">34</div>
+                            <div class="player-stat-label">Matchs</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">2.9</div>
+                            <div class="player-stat-label">KDA</div>
+                        </div>
+                        <div class="player-stat">
+                            <div class="player-stat-value">61%</div>
+                            <div class="player-stat-label">WR</div>
+                        </div>
+                    </div>
+                    <div class="player-actions">
+                        <button class="btn btn-secondary btn-small">👤 Profil</button>
+                        <button class="btn btn-secondary btn-small">💬 Message</button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Stats Bar -->
-        <div class="stats-bar">
-            <div class="stat-box">
-                <div class="stat-value" id="totalPlayers">247</div>
-                <div class="stat-label">Joueurs disponibles</div>
+        <!-- Team Stats -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">📊 Statistiques d'Équipe</h2>
             </div>
-            <div class="stat-box">
-                <div class="stat-value" id="activeOffers">12</div>
-                <div class="stat-label">Demandes envoyées</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-value">5/5</div>
-                <div class="stat-label">Roster actuel</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-value">3</div>
-                <div class="stat-label">Recrutements réussis</div>
-            </div>
-        </div>
-
-        <!-- Search & Filters -->
-        <div class="search-section">
-            <div class="search-grid">
-                <div class="search-group">
-                    <label>Rechercher</label>
-                    <input type="text" class="search-input" id="searchInput" placeholder="Nom du joueur, pseudo...">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🎮</div>
+                    <div class="stat-value">37</div>
+                    <div class="stat-label">Matchs Joués</div>
                 </div>
-                <div class="search-group">
-                    <label>Rôle</label>
-                    <select class="search-select" id="roleFilter">
-                        <option value="">Tous les rôles</option>
-                        <option value="top">🔝 Top Lane</option>
-                        <option value="jungle">🌲 Jungle</option>
-                        <option value="mid">⚡ Mid Lane</option>
-                        <option value="adc">🎯 ADC</option>
-                        <option value="support">🛡️ Support</option>
-                    </select>
+                <div class="stat-card">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-value">23</div>
+                    <div class="stat-label">Victoires</div>
                 </div>
-                <div class="search-group">
-                    <label>Rang</label>
-                    <select class="search-select" id="rankFilter">
-                        <option value="">Tous les rangs</option>
-                        <option value="challenger">Challenger</option>
-                        <option value="grandmaster">Grandmaster</option>
-                        <option value="master">Master</option>
-                        <option value="diamond">Diamant</option>
-                        <option value="platinum">Platine</option>
-                    </select>
+                <div class="stat-card">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-value">62%</div>
+                    <div class="stat-label">Taux Victoire</div>
                 </div>
-                <div class="search-group">
-                    <label>Statut</label>
-                    <select class="search-select" id="statusFilter">
-                        <option value="">Tous</option>
-                        <option value="available">Disponible</option>
-                        <option value="negotiation">En négociation</option>
-                    </select>
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Série Victoires</div>
                 </div>
-                <div class="search-group">
-                    <label>&nbsp;</label>
-                    <button class="btn-search" onclick="searchPlayers()">🔍 Rechercher</button>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-value">3.1</div>
+                    <div class="stat-label">KDA Moyen</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏅</div>
+                    <div class="stat-value">#12</div>
+                    <div class="stat-label">Classement</div>
                 </div>
             </div>
         </div>
 
-        <!-- Players Grid -->
-        <div class="players-grid" id="playersGrid">
-            <!-- Player 1 -->
-            <div class="player-card" data-role="top" data-rank="master" data-status="available">
-                <div class="player-status available">Disponible</div>
-                <div class="player-header">
-                    <div class="player-avatar">TS</div>
-                    <div class="player-main-info">
-                        <h3>TopSmasher</h3>
-                        <div class="player-role">🔝 Top Lane</div>
-                        <div class="player-rank">Master 450 LP</div>
+        <!-- Recent Matches -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">⚔️ Matchs Récents</h2>
+                <a href="tournois.html" style="color: #666; font-size: 0.9rem; text-decoration: none;">Voir tout →</a>
+            </div>
+            <div class="match-list">
+                <div class="match-card victory">
+                    <div class="match-info">
+                        <div class="match-result victory">VICTOIRE</div>
+                        <div class="match-details">
+                            <h4>Team Phoenix vs Team Dragon</h4>
+                            <p>2-1 • Best of 3</p>
+                        </div>
                     </div>
-                </div>
-                <div class="player-stats">
-                    <div class="stat-item">
-                        <div class="stat-item-value">7.8</div>
-                        <div class="stat-item-label">KDA</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-item-value">62%</div>
-                        <div class="stat-item-label">Winrate</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-item-value">234</div>
-                        <div class="stat-item-label">Games</div>
+                    <div class="match-meta">
+                        <div class="match-date">Il y a 2 heures</div>
+                        <div class="match-tournament">Winter Championship</div>
                     </div>
                 </div>
 
-                <div class="player-actions">
-                    <button class="btn-offer" onclick="makeOffer('TopSmasher', '8500')">💰 Faire offre</button>
-                    <button class="btn-details" onclick="viewDetails('TopSmasher')">👁️ Détails</button>
+                <div class="match-card victory">
+                    <div class="match-info">
+                        <div class="match-result victory">VICTOIRE</div>
+                        <div class="match-details">
+                            <h4>Team Phoenix vs Team Falcon</h4>
+                            <p>2-0 • Best of 3</p>
+                        </div>
+                    </div>
+                    <div class="match-meta">
+                        <div class="match-date">Il y a 1 jour</div>
+                        <div class="match-tournament">Pro League S1</div>
+                    </div>
+                </div>
+
+                <div class="match-card defeat">
+                    <div class="match-info">
+                        <div class="match-result defeat">DÉFAITE</div>
+                        <div class="match-details">
+                            <h4>Team Phoenix vs Team Titans</h4>
+                            <p>0-2 • Best of 3</p>
+                        </div>
+                    </div>
+                    <div class="match-meta">
+                        <div class="match-date">Il y a 3 jours</div>
+                        <div class="match-tournament">Regional Cup</div>
+                    </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- Player 2 -->
-            <div class="player-card" data-role="jungle" data-rank="grandmaster" data-status="available">
-                <div class="player-status available">Disponible</div>
-                <div class="player-header">
-                    <div class="player-avatar">JK</div>
-                    <div class="player-main-info">
-                        <h3>JungleKing</h3>
-                        <div class="player-role">🌲 Jungle</div>
-                        <div class="player-rank">Grandmaster 680 LP</div>
-                    </div>
-                </div>
-                <div class="player-stats">
-                    <div class="stat-item">
-                        <div class="stat-item-value">9.2</div>
-                        <div class="stat-item-label">KDA</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-item-value">68%</div>
-                        <div class="stat-item-label">Winrate</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-item-value">312</div>
-                        <div class="stat-item-label">Games</div>
-                    </div>
-                </div>
-                <div class="player-price">
-                    <div class="price-label">Prix estimé</div>
-                    <div class="price-value">12,000€</div>
-                </div>
-                <div class="player-actions">
-                    <button class="btn-offer" onclick="makeOffer('JungleKing', '12000')">💰 Faire offre</button>
-                    <button class="btn-details" onclick="viewDetails('JungleKing')">👁️ Détails</button>
-                </div>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>TLeagues</h3>
+                <p style="color: #666;">La plateforme de référence pour les tournois esports League of Legends.</p>
             </div>
-
-            <!-- Player 3 -->
-            <div class="player-card" data-role="mid" data-rank="challenger" data-status="negotiation">
-                <div class="player-status negotiation">En négociation</div>
-                <div class="player-header">
-                    <div class="player-avatar">ML</div>
-                    <div class="player-main-info">
-                        <h3>MidLegend</h3>
-                        <div class="player-role">⚡ Mid Lane</div>
-                        <div class="player-rank">Challenger 1200 LP</div>
-                    </div>
-                </div>
-                <div class="player-stats">
-                    <div class="stat-item">
-                        <div class="stat-item-value">11.5</div>
-                        <div class="stat-item-label">KDA</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-item-value">74%</div>
-                        <div class="stat-item-label">Winrate</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-item-value">445</div>
-                        <div class="stat-item-label">Games</div>
-                    </div>
-                </div>
-                <div class="player-price">
-                    <div class="price-label">Prix estimé</div>
-                    <div class="price-value">25,000€</div>
-                </div>
-                <div class="player-actions">
-                    <button class="btn-offer" onclick="makeOffer('MidLegend', '25000')">💰 Faire offre</button>
-                    <button class="btn-details" onclick="viewDetails('MidLegend')">👁️ Détails</button>
-                </div>
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <a href="tournois.html">Tournois</a>
+                <a href="leagues.html">Ligues</a>
+                <a href="mercato.html">Mercato</a>
             </div>
-
-            <!-- Player 4 -->
-            <div class="player-card" data-role="adc" data-rank="master" data-status="available">
-                <div class="player-status available">Disponible</div>
-                <div class="player-header">
-                    <div class="player-avatar">AP</div>
-                    <div class="player-main-info">
-                        <h3>AdcPro</h3>
-                        <div class="player-role">🎯 ADC</div>
-                        <div class="player-rank">Master 520 LP</div>
-                    </div>
-                </div>
-                <div class="player-stats">
-                    <div class="stat-item">
-                        <div class="stat-item-value">8.9</div>
-                        <div class="stat-item-label">KDA</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-item-value">65%</div>
-                        <div class="stat-item-label">Winrate</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-item-value">289</div>
-                        <div class="stat-item-label">Games</div>
-                    </div>
-                </div>
-                <div class="player-price">
-                    <div class="price-label">Prix estimé</div>
-                    <div class="price-value">9,500€</div>
-                </div>
-                <div class="player-actions">
-                    <button class="btn-offer" onclick="makeOffer('AdcPro', '9500')">💰 Faire offre</button>
-                    <button class="btn-details" onclick="viewDetails('AdcPro')">👁️ Détails</button>
-                </div>
+            <div class="footer-section">
+                <h3>Compte</h3>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="profil.html">Profil</a>
             </div>
-
-            <!-- Player 5 -->
-            <div class="player-card" data-role="support" data-rank="diamond" data-status="available">
-                <div class="player-status available">Disponible</div>
-                <div class="player-header">
-                    <div class="player-avatar">SG</div>
-                    <div class="player-main-info">
-                        <h3>SuppGod</h3>
-                        <div class="player-role">🛡️ Support</div>
-                        <div class="player-rank">Diamant I 85 LP</div>
-                    </div>
-                </div>
-                <div class="player-stats">
-                    <div class="stat-item">
-                        <div class="stat-item-value">6.5</div>
-                        <div class="stat-item-label">KDA</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-item-value">58%</div>
-                        <div class="stat-item-label">Winrate</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-item-value">198</div>
-                        <div class="stat-item-label">Games</div>
-                    </div>
-                </div>
-                <div class="player-price">
-                    <div class="price-label">Prix estimé</div>
-                    <div class="price-value">5,500€</div>
-                </div>
-                <div class="player-actions">
-                    <button class="btn-offer" onclick="makeOffer('SuppGod', '5500')">💰 Faire offre</button>
-                    <button class="btn-details" onclick="viewDetails('SuppGod')">👁️ Détails</button>
-                </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <a href="services.html">Services</a>
+                <a href="services.html#premium">Premium</a>
             </div>
+        </div>
+    </footer>
 
-            <!-- Player 6 -->
-            <div class="player-card" data-role="top" data-rank="challenger" data-status="available">
-                <div class="player-status available">Disponible</div>
-                <div class="player-header">
-                    <div class="player-avatar">TT</div>
-                    <div class="player-main-info">
-                        <h3>TopTitan</h3>
-                        <div class="player-role">🔝 Top Lane</div>
-                        <div class="player-rank">Challenger 980 LP</div>
-                    </div>
-                </div>
-                <div class="player-stats">
-                    <div class="stat-item">
-                        <div class="stat-item-value">10.3</div>
-                        <div class="stat-item-label">KDA</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-item-
+    <script>
+        document.getElementById('logoInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('teamLogo').innerHTML = `<img src="${event.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:14px;">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function invitePlayer() {
+            const playerName = prompt('Entrez le nom du joueur à inviter :');
+            if (playerName) {
+                alert(`✅ Invitation envoyée à ${playerName}`);
+            }
+        }
+
+        function logout() {
+            if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>
