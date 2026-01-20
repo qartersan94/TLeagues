@@ -8,6 +8,11 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #000; color: #fff; }
         
+        /* Bannière Gratuit */
+        .free-banner { background: linear-gradient(90deg, #1a472a 0%, #2d5a3d 50%, #1a472a 100%); padding: 0.8rem; text-align: center; border-bottom: 1px solid rgba(76, 175, 80, 0.3); }
+        .free-banner p { font-size: 0.95rem; color: #fff; }
+        .free-banner strong { color: #90EE90; font-weight: 600; }
+
         /* Navigation */
         nav { background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 0, 0, 0.1); padding: 1.2rem 5%; position: sticky; top: 0; z-index: 1000; }
         .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
@@ -19,105 +24,82 @@
         .dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 0.3rem; }
         .dropdown-toggle::after { content: '▼'; font-size: 0.7rem; transition: transform 0.3s; }
         .dropdown:hover .dropdown-toggle::after { transform: rotate(180deg); }
-        .dropdown-menu { position: absolute; top: calc(100% + 0.5rem); left: 0; background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 8px; min-width: 220px; padding: 0.5rem 0; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); }
+        .dropdown-menu { position: absolute; top: 100%; left: 0; background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 8px; min-width: 220px; padding: 0.5rem 0; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); }
         .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-        .dropdown-menu a { padding: 0.75rem 1.5rem; font-size: 0.85rem; display: block; color: #999; text-decoration: none; transition: all 0.3s; }
-        .dropdown-menu a:hover { background: rgba(255, 0, 0, 0.1); color: #fff; }
-        .user-menu-toggle { display: flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem; background: transparent; border: 2px solid #ff0000; color: #ff0000; border-radius: 6px; cursor: pointer; transition: all 0.3s; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; }
-        .user-menu-toggle:hover { background: #ff0000; color: #fff; }
-        .user-menu .dropdown-menu { right: 0; left: auto; }
-        
-        /* Page Header */
-        .page-header { background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 100%); padding: 4rem 5% 3rem; border-bottom: 2px solid rgba(255, 0, 0, 0.3); }
-        .page-header-content { max-width: 1400px; margin: 0 auto; }
-        .page-title { font-size: 3rem; font-weight: 900; text-transform: uppercase; color: #ff0000; margin-bottom: 0.5rem; }
-        .page-subtitle { font-size: 1.1rem; color: #666; }
-        
+        .dropdown-menu a { padding: 0.75rem 1.5rem; font-size: 0.85rem; display: block; }
+        .dropdown-menu a:hover { background: rgba(255, 0, 0, 0.1); }
+
+        /* Hero */
+        .hero { padding: 6rem 5% 4rem; text-align: center; background: linear-gradient(180deg, rgba(255, 0, 0, 0.1) 0%, transparent 100%); }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(135deg, #ff0000 0%, #fff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
+        .hero p { font-size: 1.2rem; color: #999; max-width: 700px; margin: 0 auto; }
+
+        /* Premium Notice */
+        .premium-notice { background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%); border: 2px solid rgba(255, 215, 0, 0.3); border-radius: 12px; padding: 2rem; margin: 3rem 5%; text-align: center; }
+        .premium-notice h2 { color: #FFD700; font-size: 2rem; margin-bottom: 1rem; }
+        .premium-notice p { color: #999; font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .premium-badge { display: inline-block; padding: 0.5rem 1.5rem; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; border-radius: 20px; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; }
+
         /* Main Content */
         .main-content { max-width: 1400px; margin: 0 auto; padding: 3rem 5%; }
-        
-        /* Filters Bar */
-        .filters-bar { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 2rem; margin-bottom: 3rem; }
+
+        /* Filters */
+        .filters { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 2rem; margin-bottom: 3rem; }
         .filters-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-        .filter-group { }
-        .filter-label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 0.5rem; display: block; }
-        .filter-input, .filter-select { width: 100%; padding: 0.8rem 1rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 6px; color: #fff; font-size: 0.9rem; transition: all 0.3s; }
-        .filter-input:focus, .filter-select:focus { outline: none; border-color: #ff0000; background: rgba(255, 0, 0, 0.05); }
-        .filter-select option { background: #0a0a0a; color: #fff; }
-        .filters-actions { display: flex; gap: 1rem; margin-top: 1.5rem; }
-        .btn { padding: 0.8rem 2rem; border-radius: 8px; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; text-align: center; border: none; white-space: nowrap; }
-        .btn-primary { background: #ff0000; color: #fff; }
-        .btn-primary:hover { background: #cc0000; transform: translateY(-2px); }
-        .btn-secondary { background: transparent; border: 2px solid rgba(255, 0, 0, 0.5); color: #ff0000; }
-        .btn-secondary:hover { border-color: #ff0000; background: rgba(255, 0, 0, 0.1); }
-        
-        /* Tabs */
-        .tabs-nav { display: flex; gap: 1rem; margin-bottom: 3rem; border-bottom: 2px solid rgba(255, 0, 0, 0.1); }
-        .tab-btn { padding: 1rem 2rem; background: transparent; border: none; color: #666; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; border-bottom: 3px solid transparent; }
-        .tab-btn:hover { color: #ff0000; }
-        .tab-btn.active { color: #ff0000; border-bottom-color: #ff0000; }
-        
+        .filter-group label { display: block; color: #999; font-size: 0.85rem; margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 600; }
+        .filter-group select, .filter-group input { width: 100%; padding: 0.8rem; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 6px; color: #fff; font-size: 0.9rem; }
+        .filter-group select:focus, .filter-group input:focus { outline: none; border-color: #ff0000; }
+
         /* Players Grid */
-        .players-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
-        .player-card { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 1.5rem; transition: all 0.3s; position: relative; }
-        .player-card:hover { border-color: #ff0000; transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2); }
-        .player-card.featured { border-color: #ffd700; background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(255, 0, 0, 0.05)); }
-        .player-card.featured::before { content: '⭐ FEATURED'; position: absolute; top: 1rem; right: 1rem; background: linear-gradient(135deg, #ffd700, #ff8c00); color: #000; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 900; }
-        .player-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-        .player-avatar { width: 70px; height: 70px; border-radius: 50%; border: 3px solid rgba(255, 0, 0, 0.5); object-fit: cover; }
-        .player-info h3 { font-size: 1.2rem; font-weight: 900; margin-bottom: 0.3rem; color: #fff; }
-        .player-role { font-size: 0.8rem; color: #ff0000; text-transform: uppercase; font-weight: 700; margin-bottom: 0.3rem; }
-        .player-status { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.2rem 0.6rem; background: rgba(16, 185, 129, 0.2); color: #10b981; border-radius: 12px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-        .player-status.busy { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-        .player-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; margin-bottom: 1.5rem; padding: 1rem; background: rgba(255, 0, 0, 0.03); border-radius: 8px; }
-        .player-stat { text-align: center; }
-        .player-stat-value { font-size: 1.1rem; font-weight: 900; color: #ff0000; margin-bottom: 0.2rem; }
-        .player-stat-label { font-size: 0.65rem; color: #666; text-transform: uppercase; }
-        .player-description { color: #999; font-size: 0.85rem; line-height: 1.5; margin-bottom: 1.5rem; }
-        .player-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
-        .player-tag { padding: 0.3rem 0.8rem; background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 12px; font-size: 0.7rem; color: #ff0000; font-weight: 700; text-transform: uppercase; }
+        .players-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .player-mercato-card { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 1.5rem; transition: all 0.3s; position: relative; }
+        .player-mercato-card:hover { border-color: #ff0000; transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3); }
+        .player-mercato-card.premium { border-color: rgba(255, 215, 0, 0.3); }
+        .player-mercato-card.premium::before { content: '⭐ PREMIUM'; position: absolute; top: 1rem; right: 1rem; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 900; }
+        .player-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 0, 0, 0.1); }
+        .player-avatar { width: 60px; height: 60px; border-radius: 50%; border: 2px solid rgba(255, 0, 0, 0.5); background: linear-gradient(135deg, #ff0000, #cc0000); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; }
+        .player-info h3 { font-size: 1.2rem; font-weight: 900; color: #fff; margin-bottom: 0.3rem; }
+        .player-role { color: #ff0000; font-size: 0.85rem; text-transform: uppercase; font-weight: 700; }
+        .player-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1rem; }
+        .player-stat { text-align: center; padding: 0.5rem; background: rgba(255, 0, 0, 0.05); border-radius: 6px; }
+        .player-stat-value { font-size: 1rem; font-weight: 900; color: #ff0000; }
+        .player-stat-label { font-size: 0.7rem; color: #666; text-transform: uppercase; }
+        .player-details { font-size: 0.85rem; color: #999; margin-bottom: 1rem; line-height: 1.6; }
         .player-actions { display: flex; gap: 0.5rem; }
-        .btn-small { padding: 0.6rem 1.2rem; font-size: 0.75rem; flex: 1; }
-        
-        /* Teams Grid */
-        .teams-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
-        .team-card { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 2rem; transition: all 0.3s; }
-        .team-card:hover { border-color: #ff0000; transform: translateY(-5px); }
-        .team-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255, 0, 0, 0.1); }
-        .team-logo { width: 80px; height: 80px; background: rgba(255, 0, 0, 0.1); border: 2px solid rgba(255, 0, 0, 0.3); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
-        .team-info h3 { font-size: 1.3rem; font-weight: 900; margin-bottom: 0.5rem; color: #fff; }
-        .team-tag { display: inline-block; padding: 0.3rem 0.8rem; background: rgba(255, 0, 0, 0.2); border: 1px solid #ff0000; border-radius: 6px; font-size: 0.75rem; font-weight: 700; color: #ff0000; }
-        .team-needs { margin-bottom: 1.5rem; }
-        .team-needs-title { font-size: 0.8rem; color: #666; text-transform: uppercase; font-weight: 700; margin-bottom: 0.8rem; }
-        .team-needs-list { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .need-tag { padding: 0.4rem 1rem; background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 12px; font-size: 0.75rem; color: #ff0000; font-weight: 700; }
-        .team-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
-        .team-stat { text-align: center; padding: 0.8rem; background: rgba(255, 0, 0, 0.03); border-radius: 8px; }
-        .team-stat-value { font-size: 1.2rem; font-weight: 900; color: #ff0000; margin-bottom: 0.3rem; }
-        .team-stat-label { font-size: 0.7rem; color: #666; text-transform: uppercase; }
-        .team-actions { display: flex; gap: 0.5rem; }
-        
+        .btn-contact { flex: 1; padding: 0.8rem; background: #ff0000; color: #fff; border: none; border-radius: 6px; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; }
+        .btn-contact:hover { background: #cc0000; }
+        .btn-profile { flex: 1; padding: 0.8rem; background: transparent; color: #ff0000; border: 1px solid #ff0000; border-radius: 6px; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; }
+        .btn-profile:hover { background: rgba(255, 0, 0, 0.1); }
+
         /* Empty State */
-        .empty-state { text-align: center; padding: 5rem 2rem; }
-        .empty-icon { font-size: 5rem; margin-bottom: 2rem; opacity: 0.3; }
-        .empty-title { font-size: 2rem; font-weight: 900; color: #ff0000; margin-bottom: 1rem; text-transform: uppercase; }
-        .empty-text { color: #666; font-size: 1.1rem; margin-bottom: 2rem; }
-        
+        .empty-state { text-align: center; padding: 4rem 2rem; color: #666; }
+        .empty-state-icon { font-size: 5rem; margin-bottom: 1.5rem; opacity: 0.3; }
+        .empty-state h3 { font-size: 1.5rem; margin-bottom: 1rem; color: #999; }
+        .empty-state p { margin-bottom: 2rem; }
+        .btn-primary { padding: 1rem 2.5rem; background: #ff0000; color: #fff; border-radius: 6px; font-weight: 700; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.3s; border: none; cursor: pointer; }
+        .btn-primary:hover { background: #cc0000; transform: translateY(-2px); }
+
         /* Footer */
         footer { background: #0a0a0a; padding: 4rem 5% 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); margin-top: 5rem; }
         .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; }
         .footer-section h3 { color: #ff0000; font-weight: 900; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 1rem; }
         .footer-section a { display: block; color: #666; text-decoration: none; margin-bottom: 0.7rem; transition: color 0.3s; }
         .footer-section a:hover { color: #ff0000; }
-        
-        @media (max-width: 1200px) {
-            .filters-grid { grid-template-columns: 1fr; }
-            .players-grid { grid-template-columns: 1fr; }
-            .teams-grid { grid-template-columns: 1fr; }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); color: #666; margin-top: 2rem; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
+    <!-- Bannière Gratuit -->
+    <div class="free-banner">
+        <p>🎮 Accès <strong>GRATUIT</strong> - Profitez de TLeagues sans abonnement !</p>
+    </div>
+
+    <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">TLEAGUES</a>
@@ -150,6 +132,7 @@
                         <a href="dashboard-staff.html">🎯 Staff</a>
                     </div>
                 </li>
+                <li><a href="tltv.html">TLTV</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle">Plus</a>
                     <div class="dropdown-menu">
@@ -160,41 +143,39 @@
                     </div>
                 </li>
             </ul>
-            <div class="user-menu dropdown">
-                <div class="user-menu-toggle dropdown-toggle">
-                    <span>Utilisateur</span>
-                </div>
-                <div class="dropdown-menu">
-                    <a href="dashboard.html">📈 Dashboard</a>
-                    <a href="profil.html">👤 Mon Profil</a>
-                    <a href="equipe.html">👥 Mon Équipe</a>
-                    <a href="#" onclick="logout()">🚪 Déconnexion</a>
-                </div>
-            </div>
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <div class="page-header">
-        <div class="page-header-content">
-            <h1 class="page-title">🔄 MERCATO</h1>
-            <p class="page-subtitle">Trouvez les meilleurs talents ou une équipe qui recrute</p>
-        </div>
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Mercato</h1>
+        <p>Trouvez les meilleurs joueurs pour votre équipe</p>
+    </section>
+
+    <!-- Premium Notice -->
+    <div class="premium-notice">
+        <h2>🆓 Version Gratuite & Premium</h2>
+        <p><strong style="color: #4CAF50;">GRATUIT :</strong> Recherche basique par rôle, contact direct avec les joueurs</p>
+        <p style="margin-bottom: 1.5rem;"><strong style="color: #FFD700;">PREMIUM :</strong> Recherche avancée, filtres détaillés, système d'offres privées, alertes personnalisées, historique complet des joueurs</p>
+        <a href="services.html" style="text-decoration: none;">
+            <span class="premium-badge">Débloquer le Mercato Premium</span>
+        </a>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
-        <!-- Filters -->
-        <div class="filters-bar">
+        <!-- Filtres -->
+        <div class="filters">
+            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 0, 0, 0.1);">
+                <span style="color: #4CAF50; font-weight: 700; margin-right: 1rem;">🆓 GRATUIT</span>
+                <span style="color: #666;">|</span>
+                <span style="color: #FFD700; font-weight: 700; margin-left: 1rem;">PREMIUM (statistiques avancées, alertes, offres)</span>
+            </div>
             <div class="filters-grid">
                 <div class="filter-group">
-                    <label class="filter-label">🔍 Recherche</label>
-                    <input type="text" class="filter-input" placeholder="Nom de joueur ou équipe...">
-                </div>
-                <div class="filter-group">
-                    <label class="filter-label">🎯 Rôle</label>
-                    <select class="filter-select">
-                        <option value="">Tous les rôles</option>
+                    <label>Rôle <span style="color: #4CAF50; font-size: 0.7rem;">(GRATUIT)</span></label>
+                    <select id="filterRole">
+                        <option value="all">Tous les rôles</option>
                         <option value="top">Top Lane</option>
                         <option value="jungle">Jungle</option>
                         <option value="mid">Mid Lane</option>
@@ -203,493 +184,41 @@
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label class="filter-label">📊 Niveau</label>
-                    <select class="filter-select">
-                        <option value="">Tous niveaux</option>
-                        <option value="bronze">Bronze - Silver</option>
-                        <option value="gold">Gold - Platinum</option>
-                        <option value="diamond">Diamond</option>
-                        <option value="master">Master+</option>
+                    <label>Niveau <span style="color: #FFD700; font-size: 0.7rem;">🔒 (PREMIUM)</span></label>
+                    <select id="filterLevel" disabled style="opacity: 0.5; cursor: not-allowed;">
+                        <option value="all">Tous niveaux</option>
+                        <option value="beginner">Débutant</option>
+                        <option value="intermediate">Intermédiaire</option>
+                        <option value="advanced">Avancé</option>
+                        <option value="pro">Professionnel</option>
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label class="filter-label">🌍 Région</label>
-                    <select class="filter-select">
-                        <option value="">Toutes régions</option>
-                        <option value="euw">EUW</option>
-                        <option value="eune">EUNE</option>
-                        <option value="na">NA</option>
-                        <option value="kr">KR</option>
+                    <label>Disponibilité <span style="color: #FFD700; font-size: 0.7rem;">🔒 (PREMIUM)</span></label>
+                    <select id="filterAvailability" disabled style="opacity: 0.5; cursor: not-allowed;">
+                        <option value="all">Tous</option>
+                        <option value="available">Disponible</option>
+                        <option value="lft">Cherche équipe (LFT)</option>
                     </select>
                 </div>
-            </div>
-            <div class="filters-actions">
-                <button class="btn btn-primary">🔍 Rechercher</button>
-                <button class="btn btn-secondary">🔄 Réinitialiser</button>
-            </div>
-        </div>
-
-        <!-- Tabs -->
-        <div class="tabs-nav">
-            <button class="tab-btn active" onclick="showTab('players')">👤 Joueurs Libres</button>
-            <button class="tab-btn" onclick="showTab('teams')">👥 Équipes qui Recrutent</button>
-        </div>
-
-        <!-- Players Tab -->
-        <div id="playersTab">
-            <div class="players-grid">
-                <!-- Featured Player -->
-                <div class="player-card featured">
-                    <div class="player-header">
-                        <img src="https://ui-avatars.com/api/?name=Pro+Player&background=ffd700&color=000" alt="" class="player-avatar">
-                        <div class="player-info">
-                            <h3>ProPlayer2K</h3>
-                            <div class="player-role">⚡ Mid Lane</div>
-                            <div class="player-status">🟢 Disponible</div>
-                        </div>
-                    </div>
-                    <div class="player-stats">
-                        <div class="player-stat">
-                            <div class="player-stat-value">156</div>
-                            <div class="player-stat-label">Matchs</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">4.2</div>
-                            <div class="player-stat-label">KDA</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">68%</div>
-                            <div class="player-stat-label">WR</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">💎</div>
-                            <div class="player-stat-label">Diamond</div>
-                        </div>
-                    </div>
-                    <p class="player-description">Joueur expérimenté cherchant équipe compétitive pour tournois. Disponible 5 soirs/semaine. Forte synergie avec jungler.</p>
-                    <div class="player-tags">
-                        <span class="player-tag">Expérimenté</span>
-                        <span class="player-tag">Team Player</span>
-                        <span class="player-tag">Disponible</span>
-                    </div>
-                    <div class="player-actions">
-                        <button class="btn btn-primary btn-small">💬 Contacter</button>
-                        <button class="btn btn-secondary btn-small">👤 Profil</button>
-                    </div>
-                </div>
-
-                <!-- Regular Players -->
-                <div class="player-card">
-                    <div class="player-header">
-                        <img src="https://ui-avatars.com/api/?name=Alex+Jungle&background=10b981&color=fff" alt="" class="player-avatar">
-                        <div class="player-info">
-                            <h3>AlexJungle2K</h3>
-                            <div class="player-role">🌳 Jungle</div>
-                            <div class="player-status">🟢 Disponible</div>
-                        </div>
-                    </div>
-                    <div class="player-stats">
-                        <div class="player-stat">
-                            <div class="player-stat-value">98</div>
-                            <div class="player-stat-label">Matchs</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">3.8</div>
-                            <div class="player-stat-label">KDA</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">62%</div>
-                            <div class="player-stat-label">WR</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">🏆</div>
-                            <div class="player-stat-label">Platinum</div>
-                        </div>
-                    </div>
-                    <p class="player-description">Jungler agressif, spécialisé carry. Cherche équipe semi-pro pour progresser.</p>
-                    <div class="player-tags">
-                        <span class="player-tag">Agressif</span>
-                        <span class="player-tag">Carry</span>
-                    </div>
-                    <div class="player-actions">
-                        <button class="btn btn-primary btn-small">💬 Contacter</button>
-                        <button class="btn btn-secondary btn-small">👤 Profil</button>
-                    </div>
-                </div>
-
-                <div class="player-card">
-                    <div class="player-header">
-                        <img src="https://ui-avatars.com/api/?name=Top+Main&background=6366f1&color=fff" alt="" class="player-avatar">
-                        <div class="player-info">
-                            <h3>TopMainGG</h3>
-                            <div class="player-role">🎯 Top Lane</div>
-                            <div class="player-status busy">🔴 En négociation</div>
-                        </div>
-                    </div>
-                    <div class="player-stats">
-                        <div class="player-stat">
-                            <div class="player-stat-value">124</div>
-                            <div class="player-stat-label">Matchs</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">3.5</div>
-                            <div class="player-stat-label">KDA</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">59%</div>
-                            <div class="player-stat-label">WR</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">🏆</div>
-                            <div class="player-stat-label">Gold</div>
-                        </div>
-                    </div>
-                    <p class="player-description">Tank/Bruiser player, très bon teamfight. Recherche équipe sérieuse.</p>
-                    <div class="player-tags">
-                        <span class="player-tag">Tank</span>
-                        <span class="player-tag">Teamfight</span>
-                    </div>
-                    <div class="player-actions">
-                        <button class="btn btn-primary btn-small" disabled style="opacity: 0.5; cursor: not-allowed;">💬 Contacter</button>
-                        <button class="btn btn-secondary btn-small">👤 Profil</button>
-                    </div>
-                </div>
-
-                <div class="player-card">
-                    <div class="player-header">
-                        <img src="https://ui-avatars.com/api/?name=ADC+Pro&background=f59e0b&color=fff" alt="" class="player-avatar">
-                        <div class="player-info">
-                            <h3>ADCProPlayer</h3>
-                            <div class="player-role">🏹 ADC</div>
-                            <div class="player-status">🟢 Disponible</div>
-                        </div>
-                    </div>
-                    <div class="player-stats">
-                        <div class="player-stat">
-                            <div class="player-stat-value">187</div>
-                            <div class="player-stat-label">Matchs</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">4.5</div>
-                            <div class="player-stat-label">KDA</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">71%</div>
-                            <div class="player-stat-label">WR</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">💎</div>
-                            <div class="player-stat-label">Diamond</div>
-                        </div>
-                    </div>
-                    <p class="player-description">ADC hypercarry, excellent positioning. Expérience tournois nationaux.</p>
-                    <div class="player-tags">
-                        <span class="player-tag">Hypercarry</span>
-                        <span class="player-tag">Expérimenté</span>
-                        <span class="player-tag">Tournois</span>
-                    </div>
-                    <div class="player-actions">
-                        <button class="btn btn-primary btn-small">💬 Contacter</button>
-                        <button class="btn btn-secondary btn-small">👤 Profil</button>
-                    </div>
-                </div>
-
-                <div class="player-card">
-                    <div class="player-header">
-                        <img src="https://ui-avatars.com/api/?name=Support+Main&background=8b5cf6&color=fff" alt="" class="player-avatar">
-                        <div class="player-info">
-                            <h3>SupportMain</h3>
-                            <div class="player-role">🛡️ Support</div>
-                            <div class="player-status">🟢 Disponible</div>
-                        </div>
-                    </div>
-                    <div class="player-stats">
-                        <div class="player-stat">
-                            <div class="player-stat-value">142</div>
-                            <div class="player-stat-label">Matchs</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">3.2</div>
-                            <div class="player-stat-label">KDA</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">64%</div>
-                            <div class="player-stat-label">WR</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">🏆</div>
-                            <div class="player-stat-label">Platinum</div>
-                        </div>
-                    </div>
-                    <p class="player-description">Support engage/peel. Excellente vision control et shotcalling. Vocal actif.</p>
-                    <div class="player-tags">
-                        <span class="player-tag">Engage</span>
-                        <span class="player-tag">Shotcaller</span>
-                        <span class="player-tag">Vocal</span>
-                    </div>
-                    <div class="player-actions">
-                        <button class="btn btn-primary btn-small">💬 Contacter</button>
-                        <button class="btn btn-secondary btn-small">👤 Profil</button>
-                    </div>
-                </div>
-
-                <div class="player-card">
-                    <div class="player-header">
-                        <img src="https://ui-avatars.com/api/?name=Mid+Carry&background=ff0000&color=fff" alt="" class="player-avatar">
-                        <div class="player-info">
-                            <h3>MidCarryGG</h3>
-                            <div class="player-role">⚡ Mid Lane</div>
-                            <div class="player-status">🟢 Disponible</div>
-                        </div>
-                    </div>
-                    <div class="player-stats">
-                        <div class="player-stat">
-                            <div class="player-stat-value">76</div>
-                            <div class="player-stat-label">Matchs</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">3.9</div>
-                            <div class="player-stat-label">KDA</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">58%</div>
-                            <div class="player-stat-label">WR</div>
-                        </div>
-                        <div class="player-stat">
-                            <div class="player-stat-value">🥇</div>
-                            <div class="player-stat-label">Gold</div>
-                        </div>
-                    </div>
-                    <p class="player-description">Jeune talent en progression rapide. Cherche équipe pour apprendre et monter en niveau.</p>
-                    <div class="player-tags">
-                        <span class="player-tag">Rookie</span>
-                        <span class="player-tag">Motivé</span>
-                    </div>
-                    <div class="player-actions">
-                        <button class="btn btn-primary btn-small">💬 Contacter</button>
-                        <button class="btn btn-secondary btn-small">👤 Profil</button>
-                    </div>
+                <div class="filter-group">
+                    <label>Recherche <span style="color: #4CAF50; font-size: 0.7rem;">(GRATUIT)</span></label>
+                    <input type="text" id="searchPlayer" placeholder="Nom du joueur...">
                 </div>
             </div>
         </div>
 
-        <!-- Teams Tab -->
-        <div id="teamsTab" style="display: none;">
-            <div class="teams-grid">
-                <div class="team-card">
-                    <div class="team-header">
-                        <div class="team-logo">🔥</div>
-                        <div class="team-info">
-                            <h3>Team Phoenix Elite</h3>
-                            <div class="team-tag">[PHX]</div>
-                        </div>
-                    </div>
-                    <div class="team-needs">
-                        <div class="team-needs-title">🎯 Postes recherchés</div>
-                        <div class="team-needs-list">
-                            <span class="need-tag">🌳 Jungle</span>
-                            <span class="need-tag">🏹 ADC</span>
-                        </div>
-                    </div>
-                    <div class="team-stats">
-                        <div class="team-stat">
-                            <div class="team-stat-value">28</div>
-                            <div class="team-stat-label">Victoires</div>
-                        </div>
-                        <div class="team-stat">
-                            <div class="team-stat-value">15</div>
-                            <div class="team-stat-label">Défaites</div>
-                        </div>
-                        <div class="team-stat">
-                            <div class="team-stat-value">65%</div>
-                            <div class="team-stat-label">Winrate</div>
-                        </div>
-                    </div>
-                    <p class="player-description">Équipe semi-pro cherchant 2 joueurs niveau Diamond+ pour compléter roster. Entraînements 4 soirs/semaine. Objectif: Ligues régionales.</p>
-                    <div class="team-actions">
-                        <button class="btn btn-primary btn-small">📩 Postuler</button>
-                        <button class="btn btn-secondary btn-small">👥 Voir l'équipe</button>
-                    </div>
-                </div>
+        <!-- Grille des joueurs -->
+        <div class="players-grid" id="playersGrid">
+            <!-- Les joueurs apparaîtront ici -->
+        </div>
 
-                <div class="team-card">
-                    <div class="team-header">
-                        <div class="team-logo">⚡</div>
-                        <div class="team-info">
-                            <h3>Storm Raiders</h3>
-                            <div class="team-tag">[STM]</div>
-                        </div>
-                    </div>
-                    <div class="team-needs">
-                        <div class="team-needs-title">🎯 Postes recherchés</div>
-                        <div class="team-needs-list">
-                            <span class="need-tag">⚡ Mid</span>
-                        </div>
-                    </div>
-                    <div class="team-stats">
-                        <div class="team-stat">
-                            <div class="team-stat-value">42</div>
-                            <div class="team-stat-label">Victoires</div>
-                        </div>
-                        <div class="team-stat">
-                            <div class="team-stat-value">18</div>
-                            <div class="team-stat-label">Défaites</div>
-                        </div>
-                        <div class="team-stat">
-                            <div class="team-stat-value">70%</div>
-                            <div class="team-stat-label">Winrate</div>
-                        </div>
-                    </div>
-                    <p class="player-description">Équipe compétitive Top 50. Recherche Mid Laner Master+ pour remplacer départ. Tournois hebdomadaires, bootcamp mensuel.</p>
-                    <div class="team-actions">
-                        <button class="btn btn-primary btn-small">📩 Postuler</button>
-                        <button class="btn btn-secondary btn-small">👥 Voir l'équipe</button>
-                    </div>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-header">
-                        <div class="team-logo">🛡️</div>
-                        <div class="team-info">
-                            <h3>Defenders United</h3>
-                            <div class="team-tag">[DFU]</div>
-                        </div>
-                    </div>
-                    <div class="team-needs">
-                        <div class="team-needs-title">🎯 Postes recherchés</div>
-                        <div class="team-needs-list">
-                            <span class="need-tag">🎯 Top</span>
-                            <span class="need-tag">🛡️ Support</span>
-                        </div>
-                    </div>
-                    <div class="team-stats">
-                        <div class="team-stat">
-                            <div class="team-stat-value">19</div>
-                            <div class="team-stat-label">Victoires</div>
-                        </div>
-                        <div class="team-stat">
-                            <div class="team-stat-value">12</div>
-                            <div class="team-stat-label">Défaites</div>
-                        </div>
-                        <div class="team-stat">
-                            <div class="team-stat-value">61%</div>
-                            <div class="team-stat-label">Winrate</div>
-                        </div>
-                    </div>
-                    <p class="player-description">Équipe récente en pleine progression. Ambiance chill, objectif Gold→Platinum. 3 entraînements/semaine, weekend tournois.</p>
-                    <div class="team-actions">
-                        <button class="btn btn-primary btn-small">📩 Postuler</button>
-                        <button class="btn btn-secondary btn-small">👥 Voir l'équipe</button>
-                    </div>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-header">
-                        <div class="team-logo">🐉</div>
-                        <div class="team-info">
-                            <h3>Dragon Slayers</h3>
-                            <div class="team-tag">[DRG]</div>
-                        </div>
-                    </div>
-                    <div class="team-needs">
-                        <div class="team-needs-title">🎯 Postes recherchés</div>
-                        <div class="team-needs-list">
-                            <span class="need-tag">🌳 Jungle</span>
-                            <span class="need-tag">⚡ Mid</span>
-                            <span class="need-tag">🏹 ADC</span>
-                        </div>
-                    </div>
-                    <div class="team-stats">
-                        <div class="team-stat">
-                            <div class="team-stat-value">8</div>
-                            <div class="team-stat-label">Victoires</div>
-                        </div>
-                        <div class="team-stat">
-                            <div class="team-stat-value">5</div>
-                            <div class="team-stat-label">Défaites</div>
-                        </div>
-                        <div class="team-stat">
-                            <div class="team-stat-value">62%</div>
-                            <div class="team-stat-label">Winrate</div>
-                        </div>
-                    </div>
-                    <p class="player-description">Nouvelle équipe cherche à constituer roster complet. Niveau Silver-Gold. Débutants acceptés, bonne ambiance garantie!</p>
-                    <div class="team-actions">
-                        <button class="btn btn-primary btn-small">📩 Postuler</button>
-                        <button class="btn btn-secondary btn-small">👥 Voir l'équipe</button>
-                    </div>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-header">
-                        <div class="team-logo">👑</div>
-                        <div class="team-info">
-                            <h3>Royal Gaming</h3>
-                            <div class="team-tag">[RYL]</div>
-                        </div>
-                    </div>
-                    <div class="team-needs">
-                        <div class="team-needs-title">🎯 Postes recherchés</div>
-                        <div class="team-needs-list">
-                            <span class="need-tag">🎯 Top</span>
-                        </div>
-                    </div>
-                    <div class="team-stats">
-                        <div class="team-stat">
-                            <div class="team-stat-value">35</div>
-                            <div class="team-stat-label">Victoires</div>
-                        </div>
-                        <div class="team-stat">
-                            <div class="team-stat-value">22</div>
-                            <div class="team-stat-label">Défaites</div>
-                        </div>
-                        <div class="team-stat">
-                            <div class="team-stat-value">61%</div>
-                            <div class="team-stat-label">Winrate</div>
-                        </div>
-                    </div>
-                    <p class="player-description">Équipe établie depuis 2 ans. Top Laner parti en étude. Recherche remplacement niveau Platinum minimum. Coach disponible.</p>
-                    <div class="team-actions">
-                        <button class="btn btn-primary btn-small">📩 Postuler</button>
-                        <button class="btn btn-secondary btn-small">👥 Voir l'équipe</button>
-                    </div>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-header">
-                        <div class="team-logo">💎</div>
-                        <div class="team-info">
-                            <h3>Elite Esports</h3>
-                            <div class="team-tag">[ELT]</div>
-                        </div>
-                    </div>
-                    <div class="team-needs">
-                        <div class="team-needs-title">🎯 Postes recherchés</div>
-                        <div class="team-needs-list">
-                            <span class="need-tag">🛡️ Support</span>
-                        </div>
-                    </div>
-                    <div class="team-stats">
-                        <div class="team-stat">
-                            <div class="team-stat-value">51</div>
-                            <div class="team-stat-label">Victoires</div>
-                        </div>
-                        <div class="team-stat">
-                            <div class="team-stat-value">19</div>
-                            <div class="team-stat-label">Défaites</div>
-                        </div>
-                        <div class="team-stat">
-                            <div class="team-stat-value">73%</div>
-                            <div class="team-stat-label">Winrate</div>
-                        </div>
-                    </div>
-                    <p class="player-description">TOP 20 équipe. Support shotcaller requis, Diamond 1+ obligatoire. Tournois nationaux et internationaux. Contrat + rémunération.</p>
-                    <div class="team-actions">
-                        <button class="btn btn-primary btn-small">📩 Postuler</button>
-                        <button class="btn btn-secondary btn-small">👥 Voir l'équipe</button>
-                    </div>
-                </div>
-            </div>
+        <!-- État vide -->
+        <div class="empty-state" id="emptyState">
+            <div class="empty-state-icon">🔄</div>
+            <h3>Aucun joueur disponible</h3>
+            <p>Le mercato sera bientôt rempli de joueurs talentueux cherchant une équipe !</p>
+            <button class="btn-primary" onclick="alert('Fonctionnalité bientôt disponible')">Ajouter mon profil au mercato</button>
         </div>
     </div>
 
@@ -704,45 +233,115 @@
                 <h3>Navigation</h3>
                 <a href="tournois.html">Tournois</a>
                 <a href="leagues.html">Ligues</a>
+                <a href="cups.html">Coupes</a>
                 <a href="mercato.html">Mercato</a>
+                <a href="tltv.html">TLTV</a>
             </div>
             <div class="footer-section">
                 <h3>Compte</h3>
+                <a href="register.html">Créer un compte</a>
+                <a href="login.html">Connexion</a>
                 <a href="dashboard.html">Dashboard</a>
-                <a href="profil.html">Profil</a>
             </div>
             <div class="footer-section">
                 <h3>Support</h3>
                 <a href="services.html">Services</a>
-                <a href="services.html#premium">Premium</a>
+                <a href="services.html#faq">FAQ</a>
+                <a href="services.html#contact">Contact</a>
             </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 TLeagues. Tous droits réservés. Made with 🔥 for esports.
         </div>
     </footer>
 
     <script>
-        function showTab(tab) {
-            // Hide all tabs
-            document.getElementById('playersTab').style.display = 'none';
-            document.getElementById('teamsTab').style.display = 'none';
-            
-            // Remove active class from all buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            
-            // Show selected tab
-            if (tab === 'players') {
-                document.getElementById('playersTab').style.display = 'block';
-                document.querySelector('.tab-btn:first-child').classList.add('active');
+        // Données des joueurs (VIDE par défaut)
+        let players = [];
+
+        function displayPlayers() {
+            const grid = document.getElementById('playersGrid');
+            const empty = document.getElementById('emptyState');
+
+            if (players.length === 0) {
+                grid.style.display = 'none';
+                empty.style.display = 'block';
             } else {
-                document.getElementById('teamsTab').style.display = 'block';
-                document.querySelector('.tab-btn:last-child').classList.add('active');
+                grid.style.display = 'grid';
+                empty.style.display = 'none';
+
+                grid.innerHTML = players.map(player => `
+                    <div class="player-mercato-card ${player.premium ? 'premium' : ''}">
+                        <div class="player-header">
+                            <div class="player-avatar">${player.avatar}</div>
+                            <div class="player-info">
+                                <h3>${player.name}</h3>
+                                <div class="player-role">${player.role}</div>
+                            </div>
+                        </div>
+                        <div class="player-stats">
+                            <div class="player-stat">
+                                <div class="player-stat-value">${player.games}</div>
+                                <div class="player-stat-label">Games</div>
+                            </div>
+                            <div class="player-stat">
+                                <div class="player-stat-value">${player.kda}</div>
+                                <div class="player-stat-label">KDA</div>
+                            </div>
+                            <div class="player-stat">
+                                <div class="player-stat-value">${player.winrate}</div>
+                                <div class="player-stat-label">WR</div>
+                            </div>
+                        </div>
+                        <div class="player-details">
+                            ${player.description}
+                        </div>
+                        <div class="player-actions">
+                            <button class="btn-contact" onclick="contactPlayer('${player.name}')">Contacter</button>
+                            <button class="btn-profile" onclick="viewProfile('${player.name}')">Profil</button>
+                        </div>
+                    </div>
+                `).join('');
             }
         }
 
-        function logout() {
-            if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
-                window.location.href = 'index.html';
-            }
+        function contactPlayer(name) {
+            alert(`Fonctionnalité de messagerie bientôt disponible pour contacter ${name}`);
         }
+
+        function viewProfile(name) {
+            alert(`Profil de ${name} - Bientôt disponible`);
+        }
+
+        // Afficher au chargement
+        displayPlayers();
+
+        // EXEMPLE DE DONNÉES (Décommentez pour tester)
+        /*
+        players = [
+            {
+                premium: true,
+                avatar: 'PG',
+                name: 'ProGamer123',
+                role: '⚡ Mid Lane',
+                games: '543',
+                kda: '3.8',
+                winrate: '67%',
+                description: 'Joueur expérimenté cherche équipe compétitive. Disponible tous les soirs et week-ends.'
+            },
+            {
+                premium: false,
+                avatar: 'NK',
+                name: 'NinjaKill',
+                role: '🌳 Jungle',
+                games: '412',
+                kda: '2.9',
+                winrate: '58%',
+                description: 'Jungle main, bon shotcaller. LFT pour tournois.'
+            }
+        ];
+        displayPlayers();
+        */
     </script>
 </body>
 </html>
