@@ -6,8 +6,13 @@
     <title>TLTV - TLeagues</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #000; color: #fff; }
         
+        /* Bannière Gratuit */
+        .free-banner { background: linear-gradient(90deg, #1a472a 0%, #2d5a3d 50%, #1a472a 100%); padding: 0.8rem; text-align: center; border-bottom: 1px solid rgba(76, 175, 80, 0.3); }
+        .free-banner p { font-size: 0.95rem; color: #fff; }
+        .free-banner strong { color: #90EE90; font-weight: 600; }
+
         /* Navigation */
         nav { background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 0, 0, 0.1); padding: 1.2rem 5%; position: sticky; top: 0; z-index: 1000; }
         .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
@@ -27,51 +32,75 @@
         .btn-connexion { background: #ff0000; color: #fff; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; transition: all 0.3s; }
         .btn-connexion:hover { background: #cc0000; transform: translateY(-2px); }
         .btn-inscription { background: transparent !important; border: 2px solid #ff0000; }
-        
+
         /* Hero */
-        .hero { padding: 6rem 5% 4rem; text-align: center; background: linear-gradient(180deg, rgba(255, 0, 0, 0.05) 0%, transparent 100%); }
+        .hero { padding: 6rem 5% 4rem; text-align: center; background: linear-gradient(180deg, rgba(255, 0, 0, 0.1) 0%, transparent 100%); }
         .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(135deg, #ff0000 0%, #fff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
-        .hero p { font-size: 1.2rem; color: #666; }
-        
-        /* Live Section */
-        .live-section { padding: 4rem 5%; background: #0a0a0a; }
-        .section-header { text-align: center; margin-bottom: 3rem; }
-        .section-title { font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        .section-subtitle { color: #666; font-size: 1rem; }
-        
-        /* Featured Stream */
-        .featured-stream { max-width: 1400px; margin: 0 auto 4rem; background: #000; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; overflow: hidden; }
-        .stream-player { aspect-ratio: 16/9; background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.05)); display: flex; align-items: center; justify-content: center; font-size: 4rem; position: relative; }
-        .live-badge { position: absolute; top: 1.5rem; left: 1.5rem; background: #ff0000; color: #fff; padding: 0.5rem 1.5rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; }
-        .live-dot { width: 10px; height: 10px; background: #fff; border-radius: 50%; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-        .stream-info { padding: 2rem; }
-        .stream-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 0.8rem; text-transform: uppercase; }
-        .stream-meta { display: flex; gap: 2rem; color: #666; font-size: 0.9rem; }
-        
-        /* Streams Grid */
-        .streams-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
-        .stream-card { background: #000; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; overflow: hidden; transition: all 0.3s; cursor: pointer; }
+        .hero p { font-size: 1.2rem; color: #999; max-width: 700px; margin: 0 auto; }
+
+        /* Coming Soon Banner */
+        .coming-soon-banner { background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%); border: 2px solid rgba(255, 215, 0, 0.3); border-radius: 12px; padding: 2rem; margin: 3rem 5%; text-align: center; }
+        .coming-soon-banner h2 { color: #FFD700; font-size: 2rem; margin-bottom: 1rem; text-transform: uppercase; }
+        .coming-soon-banner p { color: #999; font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .features-preview { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 2rem auto 0; }
+        .feature-preview { background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 8px; padding: 1.5rem; text-align: left; }
+        .feature-preview-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .feature-preview-title { color: #FFD700; font-weight: 700; margin-bottom: 0.5rem; }
+        .feature-preview-desc { color: #999; font-size: 0.9rem; }
+
+        /* Main Content */
+        .main-content { max-width: 1400px; margin: 0 auto; padding: 3rem 5%; }
+        .section-title { font-size: 2rem; font-weight: 900; margin-bottom: 2rem; color: #ff0000; text-transform: uppercase; }
+
+        /* Live Streams Grid */
+        .streams-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+        .stream-card { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; overflow: hidden; transition: all 0.3s; cursor: pointer; }
         .stream-card:hover { border-color: #ff0000; transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3); }
-        .stream-thumbnail { aspect-ratio: 16/9; background: linear-gradient(135deg, rgba(255, 0, 0, 0.15), rgba(255, 0, 0, 0.05)); display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; }
-        .viewer-count { position: absolute; bottom: 1rem; left: 1rem; background: rgba(0, 0, 0, 0.8); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
-        .stream-content { padding: 1.5rem; }
-        .streamer-info { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-        .streamer-avatar { width: 45px; height: 45px; background: rgba(255, 0, 0, 0.2); border: 2px solid rgba(255, 0, 0, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
-        .streamer-name { font-weight: 700; font-size: 1.1rem; }
-        .stream-game { color: #666; font-size: 0.85rem; }
-        
+        .stream-card.featured { border: 2px solid #ff0000; }
+        .stream-thumbnail { position: relative; width: 100%; padding-top: 56.25%; background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); overflow: hidden; }
+        .stream-thumbnail img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .stream-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%); display: flex; align-items: center; justify-content: center; }
+        .stream-placeholder { font-size: 4rem; }
+        .live-badge { position: absolute; top: 1rem; left: 1rem; background: #ff0000; color: #fff; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; }
+        .live-badge::before { content: ''; width: 8px; height: 8px; background: #fff; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .offline-badge { background: #666; }
+        .offline-badge::before { animation: none; background: #999; }
+        .viewers-count { position: absolute; top: 1rem; right: 1rem; background: rgba(0, 0, 0, 0.8); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        .stream-info { padding: 1.5rem; }
+        .streamer-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .streamer-avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #ff0000, #cc0000); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; border: 2px solid rgba(255, 0, 0, 0.5); }
+        .streamer-name { font-size: 1.1rem; font-weight: 700; }
+        .stream-game { font-size: 0.85rem; color: #666; }
+        .stream-title { font-size: 0.95rem; color: #ccc; margin-bottom: 0.5rem; }
+        .stream-category { display: inline-block; padding: 0.3rem 0.8rem; background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 20px; font-size: 0.75rem; color: #ff0000; margin-top: 0.5rem; }
+
+        /* Empty State */
+        .empty-state { text-align: center; padding: 4rem 2rem; color: #666; }
+        .empty-state-icon { font-size: 5rem; margin-bottom: 1.5rem; opacity: 0.3; }
+        .empty-state h3 { font-size: 1.5rem; margin-bottom: 1rem; color: #999; }
+
         /* Footer */
-        footer { background: #0a0a0a; padding: 4rem 5% 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); margin-top: 6rem; }
-        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); color: #666; }
-        
-        @media (max-width: 968px) {
+        footer { background: #0a0a0a; padding: 4rem 5% 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); margin-top: 5rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; }
+        .footer-section h3 { color: #ff0000; font-weight: 900; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 1rem; }
+        .footer-section a { display: block; color: #666; text-decoration: none; margin-bottom: 0.7rem; transition: color 0.3s; }
+        .footer-section a:hover { color: #ff0000; }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); color: #666; margin-top: 2rem; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
             .hero h1 { font-size: 2.5rem; }
-            .streams-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+    <!-- Bannière Gratuit -->
+    <div class="free-banner">
+        <p>🎮 Accès <strong>GRATUIT</strong> - Profitez de TLeagues sans abonnement !</p>
+    </div>
+
+    <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">TLEAGUES</a>
@@ -92,19 +121,25 @@
                     <div class="dropdown-menu">
                         <a href="equipe.html">👥 Mon Équipe</a>
                         <a href="team-manager.html">⚙️ Gestion</a>
+                        <a href="mercato.html">🔄 Mercato</a>
                     </div>
                 </li>
-                <li><a href="tltv.html" class="active">TLTV</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle">Dashboard</a>
                     <div class="dropdown-menu">
                         <a href="dashboard.html">📈 Dashboard</a>
-                        <a href="profil.html">👤 Profil</a>
+                        <a href="dashboard-capitaine.html">👑 Capitaine</a>
+                        <a href="dashboard-joueur-solo.html">⚔️ Joueur</a>
+                        <a href="dashboard-staff.html">🎯 Staff</a>
                     </div>
                 </li>
+                <li><a href="tltv.html" class="active">TLTV</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle">Plus</a>
                     <div class="dropdown-menu">
+                        <a href="profil.html">👤 Profil</a>
+                        <a href="streaming.html">📺 Streaming</a>
+                        <a href="outils.html">🔧 Outils</a>
                         <a href="services.html">📋 Services</a>
                     </div>
                 </li>
@@ -116,156 +151,176 @@
         </div>
     </nav>
 
+    <!-- Hero -->
     <section class="hero">
         <h1>TLTV</h1>
         <p>Regardez les meilleurs streams et matchs en direct</p>
     </section>
 
-    <section class="live-section">
-        <div class="section-header">
-            <h2 class="section-title">🔴 En Direct Maintenant</h2>
-            <p class="section-subtitle">Les meilleurs matchs du moment</p>
-        </div>
-
-        <div class="featured-stream">
-            <div class="stream-player">
-                <div class="live-badge">
-                    <div class="live-dot"></div>
-                    EN DIRECT
-                </div>
-                📺
+    <!-- Coming Soon Banner -->
+    <div class="coming-soon-banner">
+        <h2>⏳ Bientôt Disponible - Version Complète en Développement</h2>
+        <p>La plateforme de streaming complète arrive prochainement avec toutes ces fonctionnalités :</p>
+        <div class="features-preview">
+            <div class="feature-preview">
+                <div class="feature-preview-icon">🎬</div>
+                <div class="feature-preview-title">Streaming HD/4K</div>
+                <div class="feature-preview-desc">Qualité maximale pour tous les matchs</div>
             </div>
-            <div class="stream-info">
-                <h3 class="stream-title">Championship Series S3 - Finale</h3>
-                <div class="stream-meta">
-                    <span>👥 12,543 spectateurs</span>
-                    <span>🏆 Championship Series</span>
-                    <span>⚔️ Phoenix Squad vs Thunder Strike</span>
-                </div>
+            <div class="feature-preview">
+                <div class="feature-preview-icon">📺</div>
+                <div class="feature-preview-title">Multi-Vue</div>
+                <div class="feature-preview-desc">Suivez plusieurs matchs simultanément</div>
             </div>
-        </div>
-
-        <div class="streams-grid">
-            <div class="stream-card">
-                <div class="stream-thumbnail">
-                    <div class="live-badge">
-                        <div class="live-dot"></div>
-                        LIVE
-                    </div>
-                    <div class="viewer-count">👁️ 3,241</div>
-                    🎮
-                </div>
-                <div class="stream-content">
-                    <div class="streamer-info">
-                        <div class="streamer-avatar">PG</div>
-                        <div>
-                            <div class="streamer-name">ProGamer</div>
-                            <div class="stream-game">League of Legends</div>
-                        </div>
-                    </div>
-                    <p style="color: #999;">Ranked Solo/Duo - Climb to Challenger</p>
-                </div>
+            <div class="feature-preview">
+                <div class="feature-preview-icon">💬</div>
+                <div class="feature-preview-title">Chat Interactif</div>
+                <div class="feature-preview-desc">Commentez en direct avec la communauté</div>
             </div>
-
-            <div class="stream-card">
-                <div class="stream-thumbnail">
-                    <div class="live-badge">
-                        <div class="live-dot"></div>
-                        LIVE
-                    </div>
-                    <div class="viewer-count">👁️ 1,892</div>
-                    🎮
-                </div>
-                <div class="stream-content">
-                    <div class="streamer-info">
-                        <div class="streamer-avatar">NK</div>
-                        <div>
-                            <div class="streamer-name">NinjaKill</div>
-                            <div class="stream-game">League of Legends</div>
-                        </div>
-                    </div>
-                    <p style="color: #999;">Coaching session - Top Lane Masterclass</p>
-                </div>
-            </div>
-
-            <div class="stream-card">
-                <div class="stream-thumbnail">
-                    <div class="live-badge">
-                        <div class="live-dot"></div>
-                        LIVE
-                    </div>
-                    <div class="viewer-count">👁️ 4,567</div>
-                    🎮
-                </div>
-                <div class="stream-content">
-                    <div class="streamer-info">
-                        <div class="streamer-avatar">EP</div>
-                        <div>
-                            <div class="streamer-name">ElitePlayer</div>
-                            <div class="stream-game">League of Legends</div>
-                        </div>
-                    </div>
-                    <p style="color: #999;">Tournament Practice - Team Scrims</p>
-                </div>
-            </div>
-
-            <div class="stream-card">
-                <div class="stream-thumbnail">
-                    <div class="viewer-count">👁️ 892</div>
-                    🎮
-                </div>
-                <div class="stream-content">
-                    <div class="streamer-info">
-                        <div class="streamer-avatar">SW</div>
-                        <div>
-                            <div class="streamer-name">ShadowWalker</div>
-                            <div class="stream-game">League of Legends</div>
-                        </div>
-                    </div>
-                    <p style="color: #999;">OFFLINE - Voir les replays</p>
-                </div>
-            </div>
-
-            <div class="stream-card">
-                <div class="stream-thumbnail">
-                    <div class="viewer-count">👁️ 1,234</div>
-                    🎮
-                </div>
-                <div class="stream-content">
-                    <div class="streamer-info">
-                        <div class="streamer-avatar">FH</div>
-                        <div>
-                            <div class="streamer-name">FireHawk</div>
-                            <div class="stream-game">League of Legends</div>
-                        </div>
-                    </div>
-                    <p style="color: #999;">OFFLINE - Voir les replays</p>
-                </div>
-            </div>
-
-            <div class="stream-card">
-                <div class="stream-thumbnail">
-                    <div class="viewer-count">👁️ 2,103</div>
-                    🎮
-                </div>
-                <div class="stream-content">
-                    <div class="streamer-info">
-                        <div class="streamer-avatar">TG</div>
-                        <div>
-                            <div class="streamer-name">ThunderGod</div>
-                            <div class="stream-game">League of Legends</div>
-                        </div>
-                    </div>
-                    <p style="color: #999;">OFFLINE - Voir les replays</p>
-                </div>
+            <div class="feature-preview">
+                <div class="feature-preview-icon">🔔</div>
+                <div class="feature-preview-title">Notifications</div>
+                <div class="feature-preview-desc">Alertes pour vos équipes favorites</div>
             </div>
         </div>
-    </section>
+    </div>
 
+    <!-- Main Content -->
+    <div class="main-content">
+        <h2 class="section-title">🔴 Aperçu des Streams (Démo)</h2>
+        
+        <div class="streams-grid" id="streamsGrid">
+            <!-- Les streams apparaîtront ici -->
+        </div>
+
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-state-icon">📺</div>
+            <h3>Aucun stream en direct</h3>
+            <p>Les streams apparaîtront ici dès qu'ils seront disponibles</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>TLeagues</h3>
+                <p style="color: #666;">La plateforme de référence pour les tournois esports League of Legends.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <a href="tournois.html">Tournois</a>
+                <a href="leagues.html">Ligues</a>
+                <a href="cups.html">Coupes</a>
+                <a href="mercato.html">Mercato</a>
+                <a href="tltv.html">TLTV</a>
+            </div>
+            <div class="footer-section">
+                <h3>Compte</h3>
+                <a href="register.html">Créer un compte</a>
+                <a href="login.html">Connexion</a>
+                <a href="dashboard.html">Dashboard</a>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <a href="services.html">Services</a>
+                <a href="services.html#faq">FAQ</a>
+                <a href="services.html#contact">Contact</a>
+            </div>
+        </div>
         <div class="footer-bottom">
             © 2026 TLeagues. Tous droits réservés. Made with 🔥 for esports.
         </div>
     </footer>
+
+    <script>
+        // Données des streams (VIDE par défaut, démo uniquement)
+        let streams = [];
+
+        function displayStreams() {
+            const grid = document.getElementById('streamsGrid');
+            const empty = document.getElementById('emptyState');
+
+            if (streams.length === 0) {
+                grid.style.display = 'none';
+                empty.style.display = 'block';
+            } else {
+                grid.style.display = 'grid';
+                empty.style.display = 'none';
+
+                grid.innerHTML = streams.map(stream => `
+                    <div class="stream-card ${stream.featured ? 'featured' : ''}">
+                        <div class="stream-thumbnail">
+                            <div class="stream-overlay">
+                                <div class="stream-placeholder">${stream.placeholder}</div>
+                            </div>
+                            <div class="${stream.live ? 'live-badge' : 'live-badge offline-badge'}">
+                                ${stream.live ? 'EN DIRECT' : 'OFFLINE'}
+                            </div>
+                            ${stream.live ? `<div class="viewers-count">👁️ ${stream.viewers}</div>` : ''}
+                        </div>
+                        <div class="stream-info">
+                            <div class="streamer-header">
+                                <div class="streamer-avatar">${stream.avatar}</div>
+                                <div>
+                                    <div class="streamer-name">${stream.name}</div>
+                                    <div class="stream-game">${stream.game}</div>
+                                </div>
+                            </div>
+                            <div class="stream-title">${stream.title}</div>
+                            ${stream.category ? `<span class="stream-category">${stream.category}</span>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Afficher au chargement
+        displayStreams();
+
+        // EXEMPLE DE DONNÉES (Décommentez pour voir la démo)
+        /*
+        streams = [
+            {
+                featured: true,
+                live: true,
+                placeholder: '📺',
+                avatar: 'PG',
+                name: 'ProGamer',
+                game: 'League of Legends',
+                title: 'Championship Series - Finale',
+                viewers: '12,543',
+                category: '🏆 Tournament'
+            },
+            {
+                live: true,
+                placeholder: '🎮',
+                avatar: 'NK',
+                name: 'NinjaKill',
+                game: 'League of Legends',
+                title: 'Ranked Solo/Duo - Climb to Challenger',
+                viewers: '3,241'
+            },
+            {
+                live: true,
+                placeholder: '🎮',
+                avatar: 'EP',
+                name: 'ElitePlayer',
+                game: 'League of Legends',
+                title: 'Coaching session - Top Lane Masterclass',
+                viewers: '1,892'
+            },
+            {
+                live: false,
+                placeholder: '🎮',
+                avatar: 'SW',
+                name: 'ShadowWalker',
+                game: 'League of Legends',
+                title: 'OFFLINE - Voir les replays'
+            }
+        ];
+        displayStreams();
+        */
+    </script>
 </body>
 </html>
