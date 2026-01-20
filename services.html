@@ -3,292 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - TLeagues</title>
+    <title>Services & Abonnements - TLeagues</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #000;
-            color: #fff;
-        }
-        nav {
-            background: rgba(0, 0, 0, 0.98);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
-            padding: 1.2rem 5%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
-        }
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #ff0000;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-        }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            align-items: center;
-        }
-        .nav-links a {
-            color: #666;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            text-transform: uppercase;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #000; color: #fff; }
+        
+        /* Bannière Gratuit */
+        .free-banner { background: linear-gradient(90deg, #1a472a 0%, #2d5a3d 50%, #1a472a 100%); padding: 0.8rem; text-align: center; border-bottom: 1px solid rgba(76, 175, 80, 0.3); }
+        .free-banner p { font-size: 0.95rem; color: #fff; }
+        .free-banner strong { color: #90EE90; font-weight: 600; }
+
+        /* Navigation */
+        nav { background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 0, 0, 0.1); padding: 1.2rem 5%; position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+        .logo { font-size: 1.8rem; font-weight: 900; color: #ff0000; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { color: #666; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
         .nav-links a:hover, .nav-links a.active { color: #ff0000; }
         .dropdown { position: relative; }
-        .dropdown-toggle {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-        .dropdown-toggle::after {
-            content: '▼';
-            font-size: 0.7rem;
-            transition: transform 0.3s;
-        }
+        .dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 0.3rem; }
+        .dropdown-toggle::after { content: '▼'; font-size: 0.7rem; transition: transform 0.3s; }
         .dropdown:hover .dropdown-toggle::after { transform: rotate(180deg); }
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 8px;
-            min-width: 220px;
-            padding: 0.5rem 0;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s;
-        }
-        .dropdown:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        .dropdown-menu a {
-            padding: 0.75rem 1.5rem;
-            font-size: 0.85rem;
-            display: block;
-        }
+        .dropdown-menu { position: absolute; top: 100%; left: 0; background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 8px; min-width: 220px; padding: 0.5rem 0; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-menu a { padding: 0.75rem 1.5rem; font-size: 0.85rem; display: block; }
         .dropdown-menu a:hover { background: rgba(255, 0, 0, 0.1); }
-        .nav-actions { display: flex; gap: 1rem; }
-        .btn-connexion {
-            background: #ff0000;
-            color: #fff;
-            padding: 0.75rem 2rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-        }
-        .btn-connexion:hover {
-            background: #cc0000;
-            transform: translateY(-2px);
-        }
-        .btn-inscription {
-            background: transparent !important;
-            border: 2px solid #ff0000;
-        }
-        .hero {
-            padding: 8rem 5% 4rem;
-            text-align: center;
-            background: linear-gradient(180deg, rgba(255, 0, 0, 0.05) 0%, transparent 100%);
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ff0000 0%, #fff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: #999;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .services-section {
-            padding: 5rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-bottom: 5rem;
-        }
-        .service-card {
-            background: #0a0a0a;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 12px;
-            padding: 3rem 2rem;
-            text-align: center;
-            transition: all 0.3s;
-        }
-        .service-card:hover {
-            border-color: #ff0000;
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(255, 0, 0, 0.2);
-        }
-        .service-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-        }
-        .service-title {
-            font-size: 1.5rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-        }
-        .service-description {
-            color: #999;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-        .service-features {
-            text-align: left;
-            margin-bottom: 1.5rem;
-        }
-        .service-features li {
-            color: #666;
-            margin-bottom: 0.5rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-        .service-features li::before {
-            content: '✓';
-            color: #ff0000;
-            position: absolute;
-            left: 0;
-            font-weight: 900;
-        }
-        .faq-section {
-            background: #0a0a0a;
-            padding: 5rem 5%;
-            margin-top: 3rem;
-        }
-        .faq-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            text-align: center;
-            margin-bottom: 3rem;
-            text-transform: uppercase;
-        }
-        .faq-item {
-            background: rgba(255, 0, 0, 0.03);
-            border: 1px solid rgba(255, 0, 0, 0.1);
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-        .faq-question {
-            padding: 1.5rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .faq-question:hover { background: rgba(255, 0, 0, 0.05); }
-        .faq-answer {
-            padding: 0 1.5rem 1.5rem;
-            color: #999;
-            line-height: 1.6;
-        }
-        footer {
-            background: #0a0a0a;
-            padding: 4rem 5% 2rem;
-            border-top: 1px solid rgba(255, 0, 0, 0.1);
-            margin-top: 5rem;
-        }
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-        .footer-section h3 {
-            color: #ff0000;
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-        }
-        .footer-section p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-        .footer-section a {
-            display: block;
-            color: #666;
-            text-decoration: none;
-            margin-bottom: 0.7rem;
-            transition: color 0.3s;
-        }
+
+        /* Hero */
+        .hero { padding: 6rem 5% 4rem; text-align: center; background: linear-gradient(180deg, rgba(255, 0, 0, 0.1) 0%, transparent 100%); }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(135deg, #ff0000 0%, #fff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
+        .hero p { font-size: 1.2rem; color: #999; max-width: 700px; margin: 0 auto; }
+
+        /* Main Content */
+        .main-content { max-width: 1400px; margin: 0 auto; padding: 3rem 5%; }
+
+        /* Pricing Section */
+        .pricing-section { padding: 4rem 0; }
+        .section-title { font-size: 2.5rem; font-weight: 900; text-align: center; margin-bottom: 3rem; color: #ff0000; text-transform: uppercase; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+        .pricing-card { background: #0a0a0a; border: 2px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 2rem 1.5rem; text-align: center; transition: all 0.3s; position: relative; }
+        .pricing-card:hover { border-color: #ff0000; transform: translateY(-5px); box-shadow: 0 15px 40px rgba(255, 0, 0, 0.3); }
+        .pricing-card.free { border-color: rgba(76, 175, 80, 0.3); }
+        .pricing-card.free:hover { border-color: #4CAF50; box-shadow: 0 15px 40px rgba(76, 175, 80, 0.3); }
+        .pricing-card.premium { border-color: rgba(255, 215, 0, 0.5); background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, transparent 100%); }
+        .pricing-card.premium:hover { border-color: #FFD700; box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4); }
+        .pricing-card.recommended::before { content: '⭐ RECOMMANDÉ'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #ff0000; color: #fff; padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.7rem; font-weight: 900; }
+        .pricing-name { font-size: 1.5rem; font-weight: 900; margin-bottom: 0.8rem; text-transform: uppercase; }
+        .pricing-price { font-size: 3rem; font-weight: 900; color: #ff0000; margin-bottom: 0.3rem; }
+        .pricing-price.free-price { color: #4CAF50; }
+        .pricing-price.premium-price { background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .pricing-period { color: #666; font-size: 0.85rem; margin-bottom: 1.5rem; }
+        .pricing-features { list-style: none; margin-bottom: 1.5rem; text-align: left; }
+        .pricing-features li { padding: 0.6rem 0; border-bottom: 1px solid rgba(255, 0, 0, 0.1); display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; }
+        .pricing-features li::before { content: '✓'; color: #4CAF50; font-weight: 900; font-size: 1rem; flex-shrink: 0; }
+        .pricing-features li.premium-feature::before { color: #FFD700; }
+        .pricing-features li.locked { opacity: 0.5; }
+        .pricing-features li.locked::before { content: '🔒'; font-size: 0.8rem; }
+        .btn-pricing { width: 100%; padding: 1rem; border-radius: 8px; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; transition: all 0.3s; text-decoration: none; display: block; cursor: pointer; border: none; }
+        .btn-pricing.free-btn { background: transparent; border: 2px solid #4CAF50; color: #4CAF50; }
+        .btn-pricing.free-btn:hover { background: #4CAF50; color: #000; }
+        .btn-pricing.premium-btn { background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; border: none; }
+        .btn-pricing.premium-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5); }
+
+        /* Comparison Table */
+        .comparison-section { padding: 5rem 0; background: #0a0a0a; margin-top: 5rem; }
+        .comparison-table { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: rgba(255, 0, 0, 0.1); padding: 1rem; text-align: center; color: #ff0000; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; border-bottom: 2px solid rgba(255, 0, 0, 0.3); }
+        td { padding: 1rem; border-bottom: 1px solid rgba(255, 0, 0, 0.1); text-align: center; }
+        td:first-child { text-align: left; font-weight: 600; }
+        tr:hover { background: rgba(255, 0, 0, 0.05); }
+        .check { color: #4CAF50; font-size: 1.2rem; }
+        .cross { color: #666; font-size: 1.2rem; }
+        .premium-check { color: #FFD700; font-size: 1.2rem; }
+
+        /* FAQ Section */
+        .faq-section { padding: 5rem 0; }
+        .faq-item { background: #0a0a0a; border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; cursor: pointer; transition: all 0.3s; }
+        .faq-item:hover { border-color: #ff0000; }
+        .faq-question { font-size: 1.1rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+        .faq-answer { margin-top: 1rem; color: #999; line-height: 1.6; display: none; }
+        .faq-item.active .faq-answer { display: block; }
+        .faq-icon { transition: transform 0.3s; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); }
+
+        /* Footer */
+        footer { background: #0a0a0a; padding: 4rem 5% 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); margin-top: 5rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; }
+        .footer-section h3 { color: #ff0000; font-weight: 900; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 1rem; }
+        .footer-section a { display: block; color: #666; text-decoration: none; margin-bottom: 0.7rem; transition: color 0.3s; }
         .footer-section a:hover { color: #ff0000; }
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        .social-link {
-            width: 45px;
-            height: 45px;
-            background: rgba(255, 0, 0, 0.1);
-            border: 2px solid rgba(255, 0, 0, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.4rem;
-            transition: all 0.3s;
-        }
-        .social-link:hover {
-            background: #ff0000;
-            transform: translateY(-3px);
-        }
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 0, 0, 0.1);
-            color: #666;
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 0, 0, 0.1); color: #666; margin-top: 2rem; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
+    <!-- Bannière Gratuit -->
+    <div class="free-banner">
+        <p>🎮 Accès <strong>GRATUIT</strong> - Profitez de TLeagues sans abonnement !</p>
+    </div>
+
+    <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">TLEAGUES</div>
+            <a href="index.html" class="logo">TLEAGUES</a>
             <ul class="nav-links">
                 <li><a href="index.html">Accueil</a></li>
                 <li class="dropdown">
@@ -318,158 +140,279 @@
                         <a href="dashboard-staff.html">🎯 Staff</a>
                     </div>
                 </li>
+                <li><a href="tltv.html">TLTV</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle active">Plus</a>
                     <div class="dropdown-menu">
                         <a href="profil.html">👤 Profil</a>
                         <a href="streaming.html">📺 Streaming</a>
                         <a href="outils.html">🔧 Outils</a>
-                        <a href="services.html" class="active">📋 Services</a>
+                        <a href="services.html">📋 Services</a>
                     </div>
                 </li>
             </ul>
-            <div class="nav-actions">
-                <a href="register.html" class="btn-connexion btn-inscription">Inscription</a>
-                <a href="login.html" class="btn-connexion">Connexion</a>
-            </div>
         </div>
     </nav>
 
+    <!-- Hero -->
     <section class="hero">
-        <h1>Nos Services</h1>
-        <p>Découvrez notre plateforme complète dédiée aux compétitions League of Legends</p>
+        <h1>Services & Abonnements</h1>
+        <p>Choisissez l'offre qui correspond à vos besoins</p>
     </section>
 
-    <section class="services-section">
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🎮</div>
-                <h3 class="service-title">Organisation de Tournois</h3>
-                <p class="service-description">Créez et gérez vos tournois avec des outils professionnels.</p>
-                <ul class="service-features">
-                    <li>Brackets automatiques</li>
-                    <li>Gestion des inscriptions</li>
-                    <li>Check-in automatique</li>
-                    <li>Règles personnalisables</li>
-                </ul>
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Pricing Section -->
+        <section class="pricing-section">
+            <h2 class="section-title">💳 Nos Abonnements</h2>
+            <div class="pricing-grid">
+                <!-- FREE PLAN -->
+                <div class="pricing-card free">
+                    <h3 class="pricing-name" style="color: #4CAF50;">Free</h3>
+                    <div class="pricing-price free-price">0€</div>
+                    <div class="pricing-period">Gratuit à vie</div>
+                    <ul class="pricing-features">
+                        <li>Tournois gratuits</li>
+                        <li>Créer 1 équipe</li>
+                        <li>Stats de base</li>
+                        <li>Chat équipe</li>
+                        <li>Calendrier matchs</li>
+                        <li class="locked">Tournois premium</li>
+                        <li class="locked">Analytics avancées</li>
+                        <li class="locked">Streaming pro</li>
+                    </ul>
+                    <a href="register.html" class="btn-pricing free-btn">Créer un compte</a>
+                </div>
+
+                <!-- STARTER PLAN -->
+                <div class="pricing-card">
+                    <h3 class="pricing-name">Starter</h3>
+                    <div class="pricing-price">4.99€</div>
+                    <div class="pricing-period">par mois</div>
+                    <ul class="pricing-features">
+                        <li>Tout du plan Free</li>
+                        <li class="premium-feature">Tournois semi-pro</li>
+                        <li class="premium-feature">Stats détaillées</li>
+                        <li class="premium-feature">Créer 3 équipes</li>
+                        <li class="premium-feature">Mercato de base</li>
+                        <li class="premium-feature">TLTV Standard</li>
+                        <li class="locked">Streaming pro</li>
+                        <li class="locked">Analytics IA</li>
+                    </ul>
+                    <button class="btn-pricing premium-btn" onclick="alert('Fonctionnalité bientôt disponible')">Choisir Starter</button>
+                </div>
+
+                <!-- PRO PLAN (RECOMMENDED) -->
+                <div class="pricing-card premium recommended">
+                    <h3 class="pricing-name" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Pro</h3>
+                    <div class="pricing-price premium-price">9.99€</div>
+                    <div class="pricing-period">par mois</div>
+                    <ul class="pricing-features">
+                        <li>Tout du plan Starter</li>
+                        <li class="premium-feature">Tournois premium</li>
+                        <li class="premium-feature">Analytics complètes</li>
+                        <li class="premium-feature">Équipes illimitées</li>
+                        <li class="premium-feature">Mercato avancé</li>
+                        <li class="premium-feature">TLTV Pro</li>
+                        <li class="premium-feature">Streaming pro</li>
+                        <li class="premium-feature">Replay system</li>
+                    </ul>
+                    <button class="btn-pricing premium-btn" onclick="alert('Fonctionnalité bientôt disponible')">Choisir Pro</button>
+                </div>
+
+                <!-- ELITE PLAN -->
+                <div class="pricing-card premium">
+                    <h3 class="pricing-name" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Elite</h3>
+                    <div class="pricing-price premium-price">19.99€</div>
+                    <div class="pricing-period">par mois</div>
+                    <ul class="pricing-features">
+                        <li>Tout du plan Pro</li>
+                        <li class="premium-feature">Tournois VIP exclusifs</li>
+                        <li class="premium-feature">Analytics IA avancées</li>
+                        <li class="premium-feature">Coaching personnel</li>
+                        <li class="premium-feature">Support dédié 24/7</li>
+                        <li class="premium-feature">Multi-streaming 4K</li>
+                        <li class="premium-feature">VOD illimités</li>
+                        <li class="premium-feature">Badge Elite exclusif</li>
+                        <li class="premium-feature">Mercato VIP</li>
+                        <li class="premium-feature">TLTV Elite Access</li>
+                        <li class="premium-feature">Priorité inscriptions</li>
+                        <li class="premium-feature">Événements exclusifs</li>
+                    </ul>
+                    <button class="btn-pricing premium-btn" onclick="alert('Fonctionnalité bientôt disponible')">Choisir Elite</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Table -->
+        <section class="comparison-section">
+            <h2 class="section-title">📊 Tableau Comparatif</h2>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fonctionnalités</th>
+                            <th>Free</th>
+                            <th>Starter</th>
+                            <th>Pro</th>
+                            <th>Elite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tournois gratuits</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Nombre d'équipes</td>
+                            <td>1</td>
+                            <td>3</td>
+                            <td>Illimité</td>
+                            <td>Illimité</td>
+                        </tr>
+                        <tr>
+                            <td>Tournois premium</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="premium-check">✓</span></td>
+                            <td><span class="premium-check">✓</span></td>
+                            <td><span class="premium-check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Analytics avancées</td>
+                            <td><span class="cross">✗</span></td>
+                            <td>Basique</td>
+                            <td><span class="premium-check">✓</span></td>
+                            <td>IA Avancé</td>
+                        </tr>
+                        <tr>
+                            <td>TLTV</td>
+                            <td><span class="cross">✗</span></td>
+                            <td>Standard</td>
+                            <td>Pro</td>
+                            <td>Elite</td>
+                        </tr>
+                        <tr>
+                            <td>Streaming</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td>HD</td>
+                            <td>4K Multi-vue</td>
+                        </tr>
+                        <tr>
+                            <td>Support</td>
+                            <td>Email</td>
+                            <td>Prioritaire</td>
+                            <td>Prioritaire</td>
+                            <td>Dédié 24/7</td>
+                        </tr>
+                        <tr>
+                            <td>Coaching</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="premium-check">✓</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section" id="faq">
+            <h2 class="section-title">❓ Questions Fréquentes</h2>
+            
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    Puis-je changer d'abonnement à tout moment ?
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Oui, vous pouvez upgrader ou downgrader votre abonnement à tout moment. Les changements prennent effet immédiatement et le montant est ajusté au prorata.
+                </div>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon">🏆</div>
-                <h3 class="service-title">Ligues Compétitives</h3>
-                <p class="service-description">Participez à nos ligues avec système de classement et récompenses.</p>
-                <ul class="service-features">
-                    <li>6 divisions (Bronze à Master)</li>
-                    <li>Classement en temps réel</li>
-                    <li>Prize pools garantis</li>
-                    <li>Statistiques détaillées</li>
-                </ul>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    Comment annuler mon abonnement ?
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Vous pouvez annuler votre abonnement depuis votre tableau de bord à tout moment. Vous conserverez l'accès jusqu'à la fin de la période payée.
+                </div>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon">💰</div>
-                <h3 class="service-title">Prize Pools Garantis</h3>
-                <p class="service-description">Des récompenses conséquentes pour tous nos tournois.</p>
-                <ul class="service-features">
-                    <li>Prize pools jusqu'à 100K€</li>
-                    <li>Paiements rapides et sécurisés</li>
-                    <li>Partenaires de confiance</li>
-                    <li>Système de cashout</li>
-                </ul>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    Quels moyens de paiement acceptez-vous ?
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Nous acceptons les cartes bancaires (Visa, Mastercard), PayPal, et les virements SEPA. Tous les paiements sont sécurisés.
+                </div>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon">📊</div>
-                <h3 class="service-title">Statistiques & Analyse</h3>
-                <p class="service-description">Suivez vos performances avec des outils d'analyse avancés.</p>
-                <ul class="service-features">
-                    <li>Historique complet</li>
-                    <li>Graphiques de progression</li>
-                    <li>Comparaison avec les pros</li>
-                    <li>Export des données</li>
-                </ul>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    Y a-t-il une période d'essai ?
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Oui ! Nous offrons 7 jours d'essai gratuit sur tous les plans payants. Aucune carte bancaire requise pour commencer.
+                </div>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon">📺</div>
-                <h3 class="service-title">Streaming Intégré</h3>
-                <p class="service-description">Diffusez vos matchs avec notre overlay professionnel.</p>
-                <ul class="service-features">
-                    <li>HUD personnalisé TLeagues</li>
-                    <li>Intégration Twitch/YouTube</li>
-                    <li>Chat en direct</li>
-                    <li>Replay automatique</li>
-                </ul>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    Que se passe-t-il si je retourne au plan gratuit ?
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Vos données sont conservées. Vous perdrez simplement l'accès aux fonctionnalités premium jusqu'à ce que vous souscriviez à nouveau.
+                </div>
             </div>
+        </section>
+    </div>
 
-            <div class="service-card">
-                <div class="service-icon">🛡️</div>
-                <h3 class="service-title">Anti-Triche</h3>
-                <p class="service-description">Environnement sécurisé pour un jeu équitable.</p>
-                <ul class="service-features">
-                    <li>Détection automatique</li>
-                    <li>Équipe de modération 24/7</li>
-                    <li>Système de signalement</li>
-                    <li>Sanctions immédiates</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section class="faq-section" id="faq">
-        <div class="faq-container">
-            <h2 class="section-title">FAQ</h2>
-            <div class="faq-item">
-                <div class="faq-question">Comment m'inscrire à un tournoi ? ▼</div>
-                <div class="faq-answer">Créez un compte, allez sur la page Tournois, sélectionnez le tournoi et cliquez sur "S'inscrire".</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Les tournois sont-ils gratuits ? ▼</div>
-                <div class="faq-answer">La plupart sont gratuits. Certains tournois premium avec de gros prize pools peuvent avoir des frais d'entrée.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Comment recevoir mes gains ? ▼</div>
-                <div class="faq-answer">Les gains sont versés via PayPal ou virement bancaire sous 7 jours après la fin du tournoi.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Puis-je créer mon propre tournoi ? ▼</div>
-                <div class="faq-answer">Oui ! Utilisez notre outil d'organisation pour créer et gérer vos propres tournois.</div>
-            </div>
-        </div>
-    </section>
-
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-section">
                 <h3>TLeagues</h3>
-                <p>La plateforme de référence pour les tournois esports League of Legends.</p>
-                <div class="social-links">
-                    <a href="https://discord.gg/WjQuuPvAVA" class="social-link">💬</a>
-                    <a href="#" class="social-link">🐦</a>
-                    <a href="#" class="social-link">📺</a>
-                    <a href="#" class="social-link">▶️</a>
-                </div>
+                <p style="color: #666;">La plateforme de référence pour les tournois esports League of Legends.</p>
             </div>
             <div class="footer-section">
                 <h3>Navigation</h3>
                 <a href="tournois.html">Tournois</a>
                 <a href="leagues.html">Ligues</a>
                 <a href="cups.html">Coupes</a>
+                <a href="mercato.html">Mercato</a>
+                <a href="tltv.html">TLTV</a>
             </div>
             <div class="footer-section">
                 <h3>Compte</h3>
                 <a href="register.html">Créer un compte</a>
                 <a href="login.html">Connexion</a>
+                <a href="dashboard.html">Dashboard</a>
             </div>
             <div class="footer-section">
                 <h3>Support</h3>
+                <a href="services.html">Services</a>
                 <a href="#faq">FAQ</a>
                 <a href="#contact">Contact</a>
             </div>
         </div>
         <div class="footer-bottom">
-            © 2026 TLeagues. Tous droits réservés.
+            © 2026 TLeagues. Tous droits réservés. Made with 🔥 for esports.
         </div>
     </footer>
+
+    <script>
+        function toggleFAQ(element) {
+            element.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
